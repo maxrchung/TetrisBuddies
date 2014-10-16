@@ -12,7 +12,7 @@ public:
 	void draw();
 
 	Button registerButton;
-	//Button homeButton(Screen* toScreen);
+	//Button homeButton;
 };
 
 #endif//LOGINSCREEN_HPP

@@ -9,8 +9,8 @@ public:
 	ScreenManager();
 	~ScreenManager();
 
-	void switchScreen(Screen* screen);
-	Screen* currentScreen;
+	static void switchScreen(Screen* toScreen);
+	static Screen* currentScreen;
 };
 
 #endif//SCREENMANAGER_HPP

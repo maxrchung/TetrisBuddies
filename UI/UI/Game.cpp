@@ -1,9 +1,9 @@
 #include "Game.hpp"
-#include "Graphics.hpp"
+#include "GraphicsManager.hpp"
 
 Game::Game()
 {
-	Graphics::window.create(sf::VideoMode::getFullscreenModes()[0], "Block Buddies", sf::Style::Fullscreen);
+	GraphicsManager::window.create(sf::VideoMode::getFullscreenModes()[0], "Block Buddies", sf::Style::Fullscreen);
 }
 
 Game::~Game()
@@ -24,15 +24,18 @@ void Game::run()
 void Game::update()
 {
 	sf::Event event;
-	while (Graphics::window.pollEvent(event))
+	while (GraphicsManager::window.pollEvent(event))
 	{
 		if (event.type == sf::Event::Closed)
-			Graphics::window.close();
+			GraphicsManager::window.close();
 	}
 }
 
 void Game::draw()
 {
-	Graphics::window.clear();
-	Graphics::window.display();
+	GraphicsManager::window.clear();
+
+	ScreenManager::currentScreen->draw();
+
+	GraphicsManager::window.display();
 }

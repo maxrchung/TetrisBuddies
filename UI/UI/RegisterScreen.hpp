@@ -9,9 +9,10 @@ class RegisterScreen : public Screen
 public:
 	RegisterScreen();
 	~RegisterScreen();
+	void draw();
 
-	Button LoginScreen;
-	Button HomeScreen;
+	//Button LoginScreen;
+	//Button HomeScreen;
 };
 
 #endif//REGISTERSCREEN_HPP

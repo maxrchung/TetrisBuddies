@@ -9,3 +9,8 @@ RegisterScreen::~RegisterScreen()
 {
 
 }
+
+void RegisterScreen::draw()
+{
+
+}

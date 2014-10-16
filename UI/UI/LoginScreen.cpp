@@ -2,16 +2,15 @@
 #include "RegisterScreen.hpp"
 
 LoginScreen::LoginScreen()
+	:registerButton(Button(new RegisterScreen))
 {
-	registerButton = Button(new RegisterScreen);
 }
 
 LoginScreen::~LoginScreen()
 {
-
 }
 
 void LoginScreen::draw()
 {
-
+	registerButton.draw();
 }
