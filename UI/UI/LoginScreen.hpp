@@ -1,0 +1,18 @@
+#ifndef LOGINSCREEN_HPP
+#define LOGINSCREEN_HPP
+
+#include "Screen.hpp"
+#include "Button.hpp"
+
+class LoginScreen: public Screen
+{
+public:
+	LoginScreen();
+	~LoginScreen();
+	void draw();
+
+	Button registerButton;
+	//Button homeButton(Screen* toScreen);
+};
+
+#endif//LOGINSCREEN_HPP
