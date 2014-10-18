@@ -9,6 +9,7 @@ class RegisterScreen : public Screen
 public:
 	RegisterScreen();
 	~RegisterScreen();
+	void update();
 	void draw();
 
 	//Button LoginScreen;

@@ -10,6 +10,11 @@ RegisterScreen::~RegisterScreen()
 
 }
 
+void RegisterScreen::update()
+{
+
+}
+
 void RegisterScreen::draw()
 {
 

@@ -1,18 +1,9 @@
 #include "ScreenManager.hpp"
 #include "LoginScreen.hpp"
 
-Screen* ScreenManager::currentScreen = new LoginScreen;
+Screen& ScreenManager::currentScreen = LoginScreen();
 
-ScreenManager::ScreenManager()
-{
-}
-
-ScreenManager::~ScreenManager() 
-{
-	delete currentScreen;
-}
-
-void ScreenManager::switchScreen(Screen* toScreen)
+void ScreenManager::switchScreen(Screen& toScreen)
 {
 	currentScreen = toScreen;
 }

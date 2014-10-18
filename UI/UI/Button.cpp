@@ -3,13 +3,12 @@
 #include "SFML/Window.hpp"
 #include "ScreenManager.hpp"
 
-Button::Button()
-{
-
-}
-
-Button::Button(Screen* toScreen)
-	:toScreen(toScreen)
+Button::Button(Screen& toScreen,
+			   sf::RectangleShape boundingRect,
+			   sf::Text label)
+	:toScreen(toScreen),
+	 boundingRect(boundingRect),
+	 label(label)
 {
 
 }
@@ -19,18 +18,20 @@ Button::~Button()
 
 }
 
-void Button::draw()
+void Button::update()
 {
-	sf::CircleShape shape(100.f);
-	GraphicsManager::window.draw(shape);
-
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
-		sf::Vector2i localPosition = sf::Mouse::getPosition(GraphicsManager::window);
-		if (localPosition.x > 0 && localPosition.x < 100 &&
-			localPosition.y > 0 && localPosition.y < 100)
-		{
+		sf::Vector2i mousePosition = sf::Mouse::getPosition(GraphicsManager::window);
+
+		if (boundingRect.getGlobalBounds().contains((float) mousePosition.x,
+													(float) mousePosition.y))
 			ScreenManager::switchScreen(toScreen);
-		}
 	}
+}
+
+void Button::draw()
+{
+	GraphicsManager::window.draw(boundingRect);
+	GraphicsManager::window.draw(label);
 }

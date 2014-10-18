@@ -1,24 +1,33 @@
 #include "Game.hpp"
 #include "GraphicsManager.hpp"
+#include <stdlib.h>
+#include <time.h>
+#include "LoginScreen.hpp"
+#include <iostream>
 
 Game::Game()
 {
-	GraphicsManager::window.create(sf::VideoMode::getFullscreenModes()[0], "Block Buddies", sf::Style::Fullscreen);
+	srand(time(NULL));
+	GraphicsManager::backgroundColor =	sf::Color(rand() % 64 + 64*4, rand() % 64 + 64*4, rand() % 64 + 64*4);
+	GraphicsManager::buttonColor =		sf::Color(rand() % 64 + 64*3, rand() % 64 + 64*3, rand() % 64 + 64*3);
+	GraphicsManager::sectionColor =		sf::Color(rand() % 64 + 64*2, rand() % 64 + 64*2, rand() % 64 + 64*2);
+	GraphicsManager::labelColor =		sf::Color(rand() % 64 + 64*1, rand() % 64 + 64*1, rand() % 64 + 64*1);
+
+	GraphicsManager::window.setFramerateLimit(GraphicsManager::framerate);
+	GraphicsManager::labelFont.loadFromFile("Roboto-Thin.ttf");
+	GraphicsManager::background.setFillColor(GraphicsManager::backgroundColor);
+
+	ScreenManager::currentScreen = LoginScreen();
 }
 
 Game::~Game()
 {
-
 }
 
 void Game::run()
 {
-	if (fpsClock.getElapsedTime().asMilliseconds() > 1000.0f / 60.0f) // Limits to 60FPS
-	{
-		update();
-		draw();
-		fpsClock.restart();
-	}
+	update();
+	draw();
 }
 
 void Game::update()
@@ -29,13 +38,17 @@ void Game::update()
 		if (event.type == sf::Event::Closed)
 			GraphicsManager::window.close();
 	}
+
+	ScreenManager::currentScreen.update();
 }
 
 void Game::draw()
 {
 	GraphicsManager::window.clear();
 
-	ScreenManager::currentScreen->draw();
+	GraphicsManager::window.draw(GraphicsManager::background);
+
+	ScreenManager::currentScreen.draw();
 
 	GraphicsManager::window.display();
 }

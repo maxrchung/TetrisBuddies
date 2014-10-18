@@ -4,8 +4,7 @@
 class Screen
 {
 public:
-	Screen();
-	~Screen();
+	virtual void update() = 0;
 	virtual void draw() = 0;
 };
 

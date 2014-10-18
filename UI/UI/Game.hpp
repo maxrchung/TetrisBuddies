@@ -14,7 +14,6 @@ public:
 	void draw();
 
 	ScreenManager screenManager;
-	sf::Clock fpsClock;
 	bool isRunning = true;
 };
 
