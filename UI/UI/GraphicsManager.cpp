@@ -6,7 +6,7 @@ sf::RenderWindow GraphicsManager::window(sf::VideoMode::getFullscreenModes()[0],
 										 sf::Style::Fullscreen);
 sf::RectangleShape GraphicsManager::background(sf::Vector2f(GraphicsManager::window.getSize()));
 sf::Font GraphicsManager::labelFont;
-int GraphicsManager::labelSize = 20;
+int GraphicsManager::labelSize = 30;
 int GraphicsManager::framerate = 60;
 sf::Color GraphicsManager::backgroundColor;
 sf::Color GraphicsManager::buttonColor;
@@ -24,7 +24,7 @@ sf::Vector2f GraphicsManager::getCenter(const sf::Text& text)
 sf::Vector2f GraphicsManager::getCenter(const sf::RectangleShape& rectangle)
 {
 	sf::Vector2f center = rectangle.getPosition();
-	center += (rectangle.getSize() / 2.0f);
+	center += rectangle.getSize() / 2.0f;
 	return center;
 }
 

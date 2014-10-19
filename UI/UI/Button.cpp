@@ -3,7 +3,7 @@
 #include "SFML/Window.hpp"
 #include "ScreenManager.hpp"
 
-Button::Button(Screen& toScreen,
+Button::Button(Screen* toScreen,
 			   sf::RectangleShape boundingRect,
 			   sf::Text label)
 	:toScreen(toScreen),

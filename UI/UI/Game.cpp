@@ -3,21 +3,20 @@
 #include <stdlib.h>
 #include <time.h>
 #include "LoginScreen.hpp"
-#include <iostream>
 
 Game::Game()
 {
 	srand(time(NULL));
-	GraphicsManager::backgroundColor =	sf::Color(rand() % 64 + 64*4, rand() % 64 + 64*4, rand() % 64 + 64*4);
-	GraphicsManager::buttonColor =		sf::Color(rand() % 64 + 64*3, rand() % 64 + 64*3, rand() % 64 + 64*3);
+	GraphicsManager::backgroundColor =	sf::Color(rand() % 64 + 64*3, rand() % 64 + 64*3, rand() % 64 + 64*3);
 	GraphicsManager::sectionColor =		sf::Color(rand() % 64 + 64*2, rand() % 64 + 64*2, rand() % 64 + 64*2);
-	GraphicsManager::labelColor =		sf::Color(rand() % 64 + 64*1, rand() % 64 + 64*1, rand() % 64 + 64*1);
+	GraphicsManager::buttonColor =		sf::Color(rand() % 64 + 64*1, rand() % 64 + 64*1, rand() % 64 + 64*1);
+	GraphicsManager::labelColor =		sf::Color(255, 255, 255);
 
 	GraphicsManager::window.setFramerateLimit(GraphicsManager::framerate);
 	GraphicsManager::labelFont.loadFromFile("Roboto-Thin.ttf");
 	GraphicsManager::background.setFillColor(GraphicsManager::backgroundColor);
 
-	ScreenManager::currentScreen = LoginScreen();
+	ScreenManager::switchScreen(new LoginScreen());
 }
 
 Game::~Game()
@@ -39,7 +38,7 @@ void Game::update()
 			GraphicsManager::window.close();
 	}
 
-	ScreenManager::currentScreen.update();
+	ScreenManager::currentScreen->update();
 }
 
 void Game::draw()
@@ -48,7 +47,7 @@ void Game::draw()
 
 	GraphicsManager::window.draw(GraphicsManager::background);
 
-	ScreenManager::currentScreen.draw();
+	ScreenManager::currentScreen->draw();
 
 	GraphicsManager::window.display();
 }

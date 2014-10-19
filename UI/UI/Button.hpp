@@ -7,14 +7,14 @@
 class Button 
 {
 public:
-	Button(Screen& toScreen,
+	Button(Screen* toScreen,
 		   sf::RectangleShape boundingRect,
 		   sf::Text label);
 	~Button();
 	void update();
 	void draw();
 
-	Screen& toScreen;
+	Screen* toScreen;
 	sf::RectangleShape boundingRect;
 	sf::Text label;
 };
