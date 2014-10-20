@@ -8,7 +8,6 @@ class LoginScreen: public Screen
 {
 public:
 	LoginScreen();
-	~LoginScreen();
 	void update();
 	void draw();
 

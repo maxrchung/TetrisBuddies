@@ -10,12 +10,9 @@ Button::Button(Screen* toScreen,
 	 boundingRect(boundingRect),
 	 label(label)
 {
-
-}
-
-Button::~Button()
-{
-
+	// Buttons should universally have the same color
+	this->boundingRect.setFillColor(GraphicsManager::buttonColor);
+	this->label.setColor(GraphicsManager::labelColor);
 }
 
 void Button::update()
@@ -23,7 +20,6 @@ void Button::update()
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
 		sf::Vector2i mousePosition = sf::Mouse::getPosition(GraphicsManager::window);
-
 		if (boundingRect.getGlobalBounds().contains((float) mousePosition.x,
 													(float) mousePosition.y))
 			ScreenManager::switchScreen(toScreen);

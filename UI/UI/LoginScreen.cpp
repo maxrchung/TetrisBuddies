@@ -5,18 +5,12 @@
 LoginScreen::LoginScreen()
 	:registerButton(Button(new RegisterScreen(),
 						   sf::RectangleShape(sf::Vector2f(200.0f, 100.0f)),
-						   sf::Text(sf::String("Register"), 
+						   sf::Text(sf::String("Register"),
 								    GraphicsManager::labelFont,
 								    GraphicsManager::labelSize)))
 {
 	GraphicsManager::setCenter(registerButton.boundingRect, sf::Vector2f(GraphicsManager::window.getSize())/2.0f);
-	registerButton.boundingRect.setFillColor(GraphicsManager::buttonColor);
 	GraphicsManager::setCenter(registerButton.label, GraphicsManager::getCenter(registerButton.boundingRect));
-	registerButton.label.setColor(GraphicsManager::labelColor);
-}
-
-LoginScreen::~LoginScreen()
-{
 }
 
 void LoginScreen::update()
@@ -26,5 +20,9 @@ void LoginScreen::update()
 
 void LoginScreen::draw()
 {
+	sf::RectangleShape r(sf::Vector2f(800, 600));
+	GraphicsManager::setCenter(r, sf::Vector2f(GraphicsManager::window.getSize())/2.0f);
+	r.setFillColor(GraphicsManager::sectionColor);
+	GraphicsManager::window.draw(r);
 	registerButton.draw();
 }

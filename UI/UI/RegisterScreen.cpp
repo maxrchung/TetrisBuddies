@@ -5,11 +5,6 @@ RegisterScreen::RegisterScreen()
 
 }
 
-RegisterScreen::~RegisterScreen()
-{
-
-}
-
 void RegisterScreen::update()
 {
 

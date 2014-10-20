@@ -10,7 +10,6 @@ public:
 	Button(Screen* toScreen,
 		   sf::RectangleShape boundingRect,
 		   sf::Text label);
-	~Button();
 	void update();
 	void draw();
 

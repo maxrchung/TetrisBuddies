@@ -2,18 +2,15 @@
 #define GAME_HPP
 
 #include "SFML/Graphics.hpp"
-#include "ScreenManager.hpp"
 
 class Game
 {
 public:
 	Game();
-	~Game();
 	void run();
 	void update();
 	void draw();
 
-	ScreenManager screenManager;
 	bool isRunning = true;
 };
 

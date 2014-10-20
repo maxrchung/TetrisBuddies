@@ -6,6 +6,7 @@
 class GraphicsManager
 {
 public:
+	static void init();
 	static sf::Vector2f getCenter(const sf::Text& text);
 	static sf::Vector2f getCenter(const sf::RectangleShape& rectangle);
 	static void setCenter(sf::Text& text, const sf::Vector2f position);

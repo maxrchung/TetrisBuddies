@@ -6,6 +6,7 @@
 class ScreenManager
 {
 public:
+	static void init();
 	static void switchScreen(Screen* toScreen);
 	static Screen* currentScreen;
 };
