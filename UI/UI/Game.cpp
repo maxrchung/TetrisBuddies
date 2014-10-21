@@ -9,7 +9,7 @@ Game::Game()
 	ScreenManager::init();
 }
 
-void Game::run()
+void Game::run() 
 {
 	update();
 	draw();

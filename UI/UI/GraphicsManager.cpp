@@ -6,9 +6,10 @@
 sf::RenderWindow GraphicsManager::window(sf::VideoMode::getFullscreenModes()[0], 
 										 "Block Buddies", 
 										 sf::Style::Fullscreen);
-sf::RectangleShape GraphicsManager::background(sf::Vector2f(GraphicsManager::window.getSize()));
+float GraphicsManager::scale = (GraphicsManager::window.getSize().y) / 800.0f;
+sf::RectangleShape GraphicsManager::background(sf::Vector2f(window.getSize()));
 sf::Font GraphicsManager::labelFont;
-int GraphicsManager::labelSize = 30;
+int GraphicsManager::labelSize = 25 * scale;
 int GraphicsManager::framerate = 60;
 sf::Color GraphicsManager::backgroundColor;
 sf::Color GraphicsManager::buttonColor;
@@ -32,13 +33,16 @@ void GraphicsManager::init()
 	labelFont.loadFromFile("Roboto-Thin.ttf");
 }
 
-// getCenter() and setCenter() are utility functions to make placement of objects 
-// easier. They are not inherently provided by SFML
+// getCenter() is a utility function for setting the origin of an object
 sf::Vector2f GraphicsManager::getCenter(const sf::Text& text)
 {
+	// The y offset needs to be lifted a bit because of (what I think are) line
+	// spacing issues
 	sf::Vector2f center = text.getPosition();
 	center += sf::Vector2f(text.getGlobalBounds().width / 2.0f,
-						   text.getGlobalBounds().height / 2.0f);
+						   text.getGlobalBounds().height / 2.0f
+						   + labelFont.getLineSpacing(labelSize)
+						   - labelSize); 
 	return center;
 }
 
@@ -47,20 +51,4 @@ sf::Vector2f GraphicsManager::getCenter(const sf::RectangleShape& rectangle)
 	sf::Vector2f center = rectangle.getPosition();
 	center += rectangle.getSize() / 2.0f;
 	return center;
-}
-
-void GraphicsManager::setCenter(sf::Text& text, const sf::Vector2f position)
-{
-	// The y offset needs to be lifted a bit because of (what I think are) line
-	// spacing issues
-	text.setPosition(position.x - text.getGlobalBounds().width / 2.0f,
-					 position.y - text.getGlobalBounds().height / 2.0f 
-						- labelFont.getLineSpacing(labelSize)
-						+ labelSize); 
-}
-
-void GraphicsManager::setCenter(sf::RectangleShape& rectangle, const sf::Vector2f position)
-{
-	rectangle.setPosition(position.x - rectangle.getSize().x / 2.0f,
-						  position.y - rectangle.getSize().y / 2.0f);
 }
