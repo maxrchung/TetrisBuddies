@@ -6,7 +6,7 @@
 sf::RenderWindow GraphicsManager::window(sf::VideoMode::getFullscreenModes()[0], 
 										 "Block Buddies", 
 										 sf::Style::Fullscreen);
-float GraphicsManager::scale = (GraphicsManager::window.getSize().y) / 800.0f;
+float GraphicsManager::scale = GraphicsManager::window.getSize().y / 800.0f;
 sf::RectangleShape GraphicsManager::background(sf::Vector2f(window.getSize()));
 sf::Font GraphicsManager::labelFont;
 int GraphicsManager::labelSize = 25 * scale;
