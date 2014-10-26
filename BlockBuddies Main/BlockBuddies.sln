@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test", "Test\Test.vcxproj", "{1CCF9B3C-DA6C-4977-B980-E4091C8F1F66}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BlockBuddies", "BlockBuddies\BlockBuddies.vcxproj", "{F14A11ED-47D0-456F-A7B6-EF3BA7657776}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1CCF9B3C-DA6C-4977-B980-E4091C8F1F66}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1CCF9B3C-DA6C-4977-B980-E4091C8F1F66}.Release|Win32.ActiveCfg = Release|Win32
+		{F14A11ED-47D0-456F-A7B6-EF3BA7657776}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F14A11ED-47D0-456F-A7B6-EF3BA7657776}.Debug|Win32.Build.0 = Debug|Win32
+		{F14A11ED-47D0-456F-A7B6-EF3BA7657776}.Release|Win32.ActiveCfg = Release|Win32
+		{F14A11ED-47D0-456F-A7B6-EF3BA7657776}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
