@@ -3,16 +3,15 @@
 #include "GraphicsManager.hpp"
 
 LoginScreen::LoginScreen()
+	// Note that the posX and posY parameters correspond to moving the button
+	// a certain distance away relative to the center of the screen
 	:registerButton(Button(new RegisterScreen(),
-						   sf::RectangleShape(sf::Vector2f(150.0f, 75.0f)),
-						   sf::Text(sf::String("Register"),
-								    GraphicsManager::getInstance()->labelFont,
-								    GraphicsManager::getInstance()->labelSize)))
+						   0.0f,
+						   200.0f,
+						   150.0f,
+						   75.0f,
+						   "Register"))
 {
-	// Since placement of buttons and sections is different across menus, 
-	// the position setting is done within the Screens
-	registerButton.boundingRect.move(0, 200 * GraphicsManager::getInstance()->scale);
-	registerButton.label.setPosition(registerButton.boundingRect.getPosition());
 }
 
 void LoginScreen::update()

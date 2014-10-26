@@ -4,11 +4,16 @@
 #include "ScreenManager.hpp"
 
 Button::Button(Screen* toScreen,
-			   sf::RectangleShape boundingRect,
-			   sf::Text label)
+			   float posX,
+			   float posY,
+			   float width,
+			   float height,
+			   char* label)
 	:toScreen(toScreen),
-	 boundingRect(boundingRect),
-	 label(label)
+	 boundingRect(sf::RectangleShape(sf::Vector2f(width, height))),
+	 label(sf::Text(label,
+					GraphicsManager::getInstance()->labelFont,
+					GraphicsManager::getInstance()->labelSize))
 {
 	// All buttons share the same color, set within the GraphicsManager
 	this->boundingRect.setFillColor(GraphicsManager::getInstance()->buttonColor);
@@ -25,6 +30,12 @@ Button::Button(Screen* toScreen,
 	// Sets the text Position to be the center
 	this->label.setOrigin(GraphicsManager::getInstance()->getCenter(this->label));
 	this->boundingRect.setPosition(sf::Vector2f(GraphicsManager::getInstance()->window.getSize())/2.0f);
+
+	// Moves the button a certain distance based on the scale
+	this->boundingRect.move(posX * GraphicsManager::getInstance()->scale, posY * GraphicsManager::getInstance()->scale);
+
+	// Positions the text to be in the center of the button
+	this->label.setPosition(this->boundingRect.getPosition());
 }
 
 void Button::update()

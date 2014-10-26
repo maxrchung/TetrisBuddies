@@ -8,8 +8,11 @@ class Button
 {
 public:
 	Button(Screen* toScreen,
-		   sf::RectangleShape boundingRect,
-		   sf::Text label);
+		   float x,
+		   float y,
+		   float width,
+		   float height,
+		   char* label);
 	void update();
 	void draw();
 
