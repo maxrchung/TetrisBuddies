@@ -2,10 +2,14 @@
 #include "GraphicsManager.hpp"
 #include "ScreenManager.hpp"
 #include "LoginScreen.hpp"
+#include "UIManager.hpp"
 
 Game::Game()
 {
 	// Initialize the singletons
+	// Note that UIManager must be init() first it'll reset all the 
+	// UIElements to zero at the start
+	UIManager::getInstance()->init();
 	GraphicsManager::getInstance()->init();
 	ScreenManager::getInstance()->init();
 }
@@ -18,8 +22,9 @@ void Game::run()
 
 void Game::update()
 {
-	// Gives control over to the currentScreen to update its tasks
-	ScreenManager::getInstance()->currentScreen->update();
+	// The UIManager handles all the textboxes, buttons, and text inputs
+	// on the screen
+	UIManager::getInstance()->update();
 }
 
 void Game::draw()
@@ -30,7 +35,9 @@ void Game::draw()
 	// Background always the same, so drawn here, followed by allowing the
 	// currentScreen to take control and draw as it likes
 	GraphicsManager::getInstance()->window.draw(GraphicsManager::getInstance()->background);
-	ScreenManager::getInstance()->currentScreen->draw();
+
+	// Display all the UIElements
+	UIManager::getInstance()->draw();
 
 	// Draw everything that we've since prepped onto the window
 	GraphicsManager::getInstance()->window.display();

@@ -5,8 +5,10 @@
 
 class GameScreen: public Screen
 {
+public:
 	GameScreen();
-	~GameScreen();
+	void update();
+	void draw();
 };
 
 #endif//GAMESCREEN_HPP

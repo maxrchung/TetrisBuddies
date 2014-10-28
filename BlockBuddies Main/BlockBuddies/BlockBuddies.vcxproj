@@ -15,20 +15,31 @@
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="GameScreen.hpp" />
     <ClInclude Include="GraphicsManager.hpp" />
+    <ClInclude Include="HomeScreen.hpp" />
+    <ClInclude Include="GameTypeScreen.hpp" />
     <ClInclude Include="LoginScreen.hpp" />
+    <ClInclude Include="ProfileScreen.hpp" />
     <ClInclude Include="RegisterScreen.hpp" />
     <ClInclude Include="Screen.hpp" />
     <ClInclude Include="ScreenManager.hpp" />
+    <ClInclude Include="UIElement.hpp" />
+    <ClInclude Include="UIManager.hpp" />
     <ClInclude Include="User.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameScreen.cpp" />
+    <ClCompile Include="GameTypeScreen.cpp" />
     <ClCompile Include="GraphicsManager.cpp" />
+    <ClCompile Include="HomeScreen.cpp" />
     <ClCompile Include="LoginScreen.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="ProfileScreen.cpp" />
     <ClCompile Include="RegisterScreen.cpp" />
     <ClCompile Include="ScreenManager.cpp" />
+    <ClCompile Include="UIElement.cpp" />
+    <ClCompile Include="UIManager.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F14A11ED-47D0-456F-A7B6-EF3BA7657776}</ProjectGuid>

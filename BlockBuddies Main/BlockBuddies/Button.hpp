@@ -2,21 +2,23 @@
 #define BUTTON_HPP
 
 #include "Screen.hpp"
+#include "ScreenManager.hpp"
 #include "SFML/Graphics.hpp"
+#include "UIElement.hpp"
 
-class Button 
+class Button : public UIElement
 {
 public:
-	Button(Screen* toScreen,
+	Button(Screens toScreen,
+	       char* label,	
 		   float x,
 		   float y,
 		   float width,
-		   float height,
-		   char* label);
+		   float height);
 	void update();
 	void draw();
 
-	Screen* toScreen;
+	Screens toScreen;
 	sf::RectangleShape boundingRect;
 	sf::Text label;
 };

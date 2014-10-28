@@ -65,7 +65,7 @@ sf::Vector2f GraphicsManager::getCenter(const sf::Text& text)
 	center += sf::Vector2f(text.getGlobalBounds().width / 2.0f,
 						   text.getGlobalBounds().height / 2.0f
 						   + labelFont.getLineSpacing(labelSize)
-						   - labelSize); 
+						   - labelSize);
 	return center;
 }
 

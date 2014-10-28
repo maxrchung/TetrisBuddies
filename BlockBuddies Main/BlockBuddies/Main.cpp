@@ -5,7 +5,7 @@ int main()
 	Game game;
 
 	while (game.isRunning)
-		// Lets Game basically handle everything
+		// Lets Game handle everything
 		game.run();
 
 	return 0;

@@ -2,13 +2,14 @@
 #include "GraphicsManager.hpp"
 #include "SFML/Window.hpp"
 #include "ScreenManager.hpp"
+#include "UIManager.hpp"
 
-Button::Button(Screen* toScreen,
+Button::Button(Screens toScreen,
+	           char* label,
 			   float posX,
 			   float posY,
 			   float width,
-			   float height,
-			   char* label)
+			   float height)
 	:toScreen(toScreen),
 	 boundingRect(sf::RectangleShape(sf::Vector2f(width, height))),
 	 label(sf::Text(label,
@@ -41,12 +42,17 @@ Button::Button(Screen* toScreen,
 void Button::update()
 {
 	// Checks for mouse click onto the button
+	// Will need to be modified in the future because as of now it detects mouse presses
+	// too quickly. May have to use some event polling, or think of some way to implement
+	// a InputManager singleton
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
 		sf::Vector2i mousePosition = sf::Mouse::getPosition(GraphicsManager::getInstance()->window);
 		if (boundingRect.getGlobalBounds().contains((float) mousePosition.x,
 													(float) mousePosition.y))
-			ScreenManager::getInstance()->switchScreen(toScreen);
+	        ScreenManager::getInstance()->switchScreen(toScreen);
+	
+		// Somewhere in here we'll need to hang and verify the database with the server		
 	}
 }
 

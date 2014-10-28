@@ -8,11 +8,6 @@ class RegisterScreen : public Screen
 {
 public:
 	RegisterScreen();
-	void update();
-	void draw();
-
-	//Button LoginScreen;
-	//Button HomeScreen;
 };
 
 #endif//REGISTERSCREEN_HPP
