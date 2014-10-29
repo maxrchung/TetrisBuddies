@@ -2,20 +2,26 @@
 #define SERVER_MANAGER_H
 
 #pragma comment(lib, "sfml-network.lib")
+
 #include <iostream>
+
 #include <SFML/Network.hpp>
-class clientManager
+
+class serverManager
 {
-	static bool startListen(int portNumber);
+public:
 
-	static bool connectClient();
+	serverManager();
 
-	static std::string sendMessage(char *temp);
+	bool startListen(int portNumber);
 
-	static void recieveMessagey();
+	bool connectClient();
 
-	static void sendPlayer(std::string name, int playerID, int rank);
+	void sendPlayer(std::string name, int playerID, int rank);
 
-	static void terminateConnection();
-}
+	void terminateConnection();
+
+
+};
+
 #endif
