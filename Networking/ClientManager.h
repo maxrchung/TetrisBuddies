@@ -9,15 +9,15 @@ class clientManager
 {
 public:
 
-	static bool initConnection(sf::IpAddress IP, int portNumber);
+	clientManager();
 
-	static std::string sendMessage(std::string toSend);
+	bool initConnection(sf::IpAddress IP, int portNumber);
 
-	static void recieveMessage();
+	void createUser();
 
-	static void createUser();
+	void run();
 
-}
+};
 
 
 #endif
