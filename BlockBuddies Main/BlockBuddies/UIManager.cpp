@@ -34,7 +34,7 @@ void UIManager::clear()
 
 void UIManager::update()
 {
-	// Because when we switch screens we may do some crazy shenanigans
+	// Because when we switch screens we may do some funny crazy shenanigans
 	// deleting parts of a vector while iterating through the middle of 
 	// said vector, we have to use this indexing format to avoid iterator 
 	// incrementation errors

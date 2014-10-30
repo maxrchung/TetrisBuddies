@@ -17,6 +17,7 @@
     <ClInclude Include="GraphicsManager.hpp" />
     <ClInclude Include="HomeScreen.hpp" />
     <ClInclude Include="GameTypeScreen.hpp" />
+    <ClInclude Include="InputManager.hpp" />
     <ClInclude Include="LoginScreen.hpp" />
     <ClInclude Include="ProfileScreen.hpp" />
     <ClInclude Include="RegisterScreen.hpp" />
@@ -33,6 +34,7 @@
     <ClCompile Include="GameTypeScreen.cpp" />
     <ClCompile Include="GraphicsManager.cpp" />
     <ClCompile Include="HomeScreen.cpp" />
+    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="LoginScreen.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ProfileScreen.cpp" />

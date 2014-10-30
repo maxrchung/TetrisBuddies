@@ -3,6 +3,9 @@
 #include "ScreenManager.hpp"
 #include "LoginScreen.hpp"
 #include "UIManager.hpp"
+#include "InputManager.hpp"
+
+bool Game::isRunning = true;
 
 Game::Game()
 {
@@ -12,6 +15,7 @@ Game::Game()
 	UIManager::getInstance()->init();
 	GraphicsManager::getInstance()->init();
 	ScreenManager::getInstance()->init();
+	InputManager::getInstance()->init();
 }
 
 void Game::run() 
@@ -22,6 +26,8 @@ void Game::run()
 
 void Game::update()
 {
+	InputManager::getInstance()->update();
+
 	// The UIManager handles all the textboxes, buttons, and text inputs
 	// on the screen
 	UIManager::getInstance()->update();

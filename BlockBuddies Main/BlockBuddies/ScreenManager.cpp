@@ -6,7 +6,7 @@
 #include "GameTypeScreen.hpp"
 #include "GameScreen.hpp"
 #include "UIManager.hpp"
-#include <iostream>
+#include "InputManager.hpp"
 
 ScreenManager* ScreenManager::instance;
 
@@ -25,6 +25,10 @@ void ScreenManager::init()
 
 void ScreenManager::switchScreen(const Screens toScreen)
 {	
+	// Turn this false so that it doesn't get improperly read for future
+	// switchScreen calculations
+	InputManager::getInstance()->mouseReleased = false;
+
 	// Making sure to delete for memory leak issues
 	delete currentScreen;
 
@@ -32,18 +36,14 @@ void ScreenManager::switchScreen(const Screens toScreen)
 	// can be put on
 	UIManager::getInstance()->clear();
 
+	// Changes the screen based on the given enum
 	switch (toScreen)
 	{
 	case LOGIN:
 		currentScreen = new LoginScreen();
-
-		// Inserting these std::cout statements here so you can see how fast it shifts
-		// between the LoginScreen and RegisterScreen
-		std::cout << "switched to LoginScreen" << std::endl;
 		break;
 	case REGISTER:
 		currentScreen = new RegisterScreen();
-		std::cout << "switched to RegisterScreen" << std::endl;
 		break;
 	case HOME:
 		currentScreen = new HomeScreen();

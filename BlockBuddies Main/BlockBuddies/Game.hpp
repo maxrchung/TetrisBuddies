@@ -11,7 +11,7 @@ public:
 	void update();
 	void draw();
 
-	bool isRunning = true;
+	static bool isRunning;
 };
 
 #endif//GAME_HPP
