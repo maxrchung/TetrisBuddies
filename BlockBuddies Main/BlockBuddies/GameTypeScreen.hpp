@@ -8,6 +8,9 @@ class GameTypeScreen : public Screen
 {
 public:
 	GameTypeScreen();
+	void update();
+
+	std::vector<Button*> buttons;
 };
 
 #endif//GAMETYPESCREEN_HPP

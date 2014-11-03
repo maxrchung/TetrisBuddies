@@ -1,6 +1,8 @@
 #ifndef INPUTMANAGER_HPP
 #define INPUTMANAGER_HPP
 
+#include "SFML/Graphics.hpp"
+
 class InputManager
 {
 public:
@@ -8,6 +10,8 @@ public:
 	void init();
 	void update();
 	bool mouseReleased;
+	sf::String input;
+	bool backspace;
 	
 private:
 	InputManager(){};

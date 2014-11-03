@@ -17,43 +17,53 @@ Button::Button(Screens toScreen,
 					GraphicsManager::getInstance()->labelFont,
 					GraphicsManager::getInstance()->labelSize))
 {
-	// All buttons share the same color, set within the GraphicsManager
-	this->boundingRect.setFillColor(GraphicsManager::getInstance()->buttonColor);
-	this->label.setColor(GraphicsManager::getInstance()->labelColor);
+	// Sets the color, origin, position, and scale of the boundingRect
+	// The position is first set to the center of the screen and then placed a set
+	// scaled distance away
+	boundingRect.setFillColor(GraphicsManager::getInstance()->buttonColor);
+	boundingRect.setOrigin(GraphicsManager::getInstance()->getCenter(boundingRect));
+	boundingRect.setScale(GraphicsManager::getInstance()->scale, GraphicsManager::getInstance()->scale);
+	boundingRect.setPosition(sf::Vector2f(GraphicsManager::getInstance()->window.getSize())/2.0f);
+	boundingRect.move(posX * GraphicsManager::getInstance()->scale, posY * GraphicsManager::getInstance()->scale);
 
-	// All buttons are drawn from the center, which this setOrigin() sets
-	// Funnily enough, and you can test this to verify it, I'm pretty sure that
-	// the order of setOrigin()/setScale()/setPosition() does not matter
-	this->boundingRect.setOrigin(GraphicsManager::getInstance()->getCenter(this->boundingRect));
-
-	// Scales the button size according to the value GraphicsManager sets
-	this->boundingRect.setScale(GraphicsManager::getInstance()->scale, GraphicsManager::getInstance()->scale);
-
-	// Sets the text Position to be the center
+	// Sets the color, origin, and position of the text label
+	// The position is set to the center of the boundingRect
+	// We use this-> because of naming issues, it may be a good idea to change the parameter
+	// name to resolve this issue; I can foresee this being an issue possibly in the future,
+	//	but because I want to stick to convention, after some thought, I chose not to
+	this->label.setColor(GraphicsManager::getInstance()->typeColor);
 	this->label.setOrigin(GraphicsManager::getInstance()->getCenter(this->label));
-	this->boundingRect.setPosition(sf::Vector2f(GraphicsManager::getInstance()->window.getSize())/2.0f);
-
-	// Moves the button a certain distance based on the scale
-	this->boundingRect.move(posX * GraphicsManager::getInstance()->scale, posY * GraphicsManager::getInstance()->scale);
-
-	// Positions the text to be in the center of the button
-	this->label.setPosition(this->boundingRect.getPosition());
+	this->label.setPosition(boundingRect.getPosition());
 }
 
 void Button::update()
 {
+	sf::Vector2i mousePosition = sf::Mouse::getPosition(GraphicsManager::getInstance()->window);
+
+	if (boundingRect.getGlobalBounds().contains((float) mousePosition.x,
+                                                (float) mousePosition.y))
+	{
+		boundingRect.setFillColor(GraphicsManager::getInstance()->backgroundColor);
+		label.setColor(GraphicsManager::getInstance()->selectColor);
+	}
+
+	else
+	{
+		boundingRect.setFillColor(GraphicsManager::getInstance()->buttonColor);
+		label.setColor(GraphicsManager::getInstance()->typeColor);
+	}
+
 	// Checks for mouse click onto the button
 	// Will need to be modified in the future because as of now it detects mouse presses
 	// too quickly. May have to use some event polling, or think of some way to implement
 	// a InputManager singleton
+	// This also needs to be at the end of update() because if we switchScreen too early,
+	// we may have already deleted variables trying to call functions
 	if (InputManager::getInstance()->mouseReleased)
 	{
-		sf::Vector2i mousePosition = sf::Mouse::getPosition(GraphicsManager::getInstance()->window);
 		if (boundingRect.getGlobalBounds().contains((float) mousePosition.x,
-													(float) mousePosition.y))
-	        ScreenManager::getInstance()->switchScreen(toScreen);
-	
-		// Somewhere in here we'll need to hang and verify the database with the server
+													(float) mousePosition.y))		
+		    isActivated = true;
 	}
 }
 

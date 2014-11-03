@@ -11,17 +11,23 @@ public:
 
 	sf::Vector2f getCenter(const sf::Text& text);
 	sf::Vector2f getCenter(const sf::RectangleShape& rectangle);
+	sf::Vector2f getLeftCenter(const sf::Text& text);
+	sf::Vector2f getLeftCenter(const sf::RectangleShape& rectangle);
 
 	sf::RenderWindow window;
 	float scale;
 	sf::RectangleShape background;
+	int titleSize;
 	sf::Font labelFont;
-	int framerate;
 	int labelSize;
+	sf::Font messageFont;
+	int messageSize;
+	int framerate;
+	sf::Color selectColor;
 	sf::Color backgroundColor;
-	sf::Color buttonColor;
 	sf::Color sectionColor;
-	sf::Color labelColor;
+	sf::Color buttonColor;
+	sf::Color typeColor;
 private:
 	GraphicsManager(){};
 	GraphicsManager(GraphicsManager const&){};

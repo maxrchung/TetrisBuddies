@@ -11,8 +11,8 @@ class Button : public UIElement
 public:
 	Button(Screens toScreen,
 	       char* label,	
-		   float x,
-		   float y,
+		   float posX,
+		   float posY,
 		   float width,
 		   float height);
 	void update();
@@ -21,6 +21,7 @@ public:
 	Screens toScreen;
 	sf::RectangleShape boundingRect;
 	sf::Text label;
+	bool isActivated = false;
 };
 
 #endif BUTTON_HPP

@@ -31,6 +31,8 @@ void Game::update()
 	// The UIManager handles all the textboxes, buttons, and text inputs
 	// on the screen
 	UIManager::getInstance()->update();
+
+	ScreenManager::getInstance()->currentScreen->update();
 }
 
 void Game::draw()

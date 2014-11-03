@@ -4,6 +4,9 @@
 #include "UIElement.hpp"
 #include <vector>
 
+// Denotes how text should be aligned
+enum Alignment {LEFT, CENTER};
+
 class UIManager
 {
 public:
