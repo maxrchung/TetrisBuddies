@@ -68,12 +68,14 @@ void TextInput::update()
 	// If this textbox is currently selected
 	if (isSelected)
 	{
-		if (InputManager::getInstance()->backspace &&
-			!input.getString().isEmpty())
-		{			
-			sf::String deleted(input.getString());
-			deleted.erase(deleted.getSize()-1);
-			input.setString(deleted);			
+		if (InputManager::getInstance()->backspace)
+		{
+			if(!input.getString().isEmpty())
+			{
+				sf::String deleted(input.getString());
+				deleted.erase(deleted.getSize() - 1);
+				input.setString(deleted);
+			}
 		}
 		else if (!InputManager::getInstance()->input.isEmpty())
 			input.setString(input.getString() + InputManager::getInstance()->input);
@@ -94,5 +96,19 @@ void TextInput::update()
 void TextInput::draw()
 {
 	GraphicsManager::getInstance()->window.draw(boundingRect);
-	GraphicsManager::getInstance()->window.draw(input);
+	if (isProtected)
+	{
+		sf::String asterisks("");
+		for (int i = 0; i < input.getString().getSize(); i++)
+			asterisks += "*";
+		sf::Text protectedInput(asterisks,
+			                    *input.getFont(),
+								input.getCharacterSize());
+		protectedInput.setColor(input.getColor());
+		protectedInput.setOrigin(GraphicsManager::getInstance()->getLeftCenter(protectedInput));
+		protectedInput.setPosition(input.getPosition());
+		GraphicsManager::getInstance()->window.draw(protectedInput);
+	}
+	else 
+		GraphicsManager::getInstance()->window.draw(input);
 }
