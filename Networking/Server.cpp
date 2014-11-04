@@ -1,10 +1,5 @@
 #include "serverManager.h"
 
-//These will need to be a private variable.
-//Grant access to messageHandler so that messages can be sent that way
-sf::TcpListener listener;
-sf::TcpSocket server;
-
 
 serverManager::serverManager()
 {
@@ -47,9 +42,24 @@ void serverManager::sendPlayer(std::string name, int playerID, int rank)
 	server.send(packet);
 }
 
+bool serverManager::loginUser(std::string username, std::string password)
+{
+	if (DatabaseManager::getInstance().loginUser(username, password))
+	{
+		usersConnected.push_front(&DatabaseManager::getInstance().getUserInfo(username));
+		return true;
+	}
+	else return false;
+
+}
+
+void serverManager::registerUser(std::string username, std::string password)
+{
+	DatabaseManager::getInstance().registerUser(username, password);
+}
+
+
 void serverManager::terminateConnection()
 {
 	server.disconnect();
 }
-
-
