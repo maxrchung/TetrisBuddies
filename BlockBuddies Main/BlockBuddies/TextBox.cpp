@@ -4,7 +4,7 @@
 TextBox::TextBox(char* message,
                  float posX,
 				 float posY,
-				 Alignment alignment,
+				 Alignments alignment,
 				 bool isTitle)
     :message(sf::Text(message,
                       GraphicsManager::getInstance()->messageFont,
@@ -18,11 +18,17 @@ TextBox::TextBox(char* message,
 	if (isTitle)
 		this->message.setCharacterSize(GraphicsManager::getInstance()->titleSize);
 
+	// Sets the message color of the TextBox
 	this->message.setColor(GraphicsManager::getInstance()->typeColor);
-	if (alignment == Alignment::LEFT)
+
+	// Determines whether it is drawn based by the TextBox's left-center or by the center
+	if (alignment == Alignments::LEFT)
 		this->message.setOrigin(GraphicsManager::getInstance()->getLeftCenter(this->message));
-	else if (alignment == Alignment::CENTER)
+	else if (alignment == Alignments::CENTER)
 		this->message.setOrigin(GraphicsManager::getInstance()->getCenter(this->message));
+
+	// Sets the message position, by first going to the center of the screen and then moving 
+	// a scaled distance away
 	this->message.setPosition(sf::Vector2f(GraphicsManager::getInstance()->window.getSize()) / 2.0f);
 	this->message.move(posX * GraphicsManager::getInstance()->scale,
 		               posY * GraphicsManager::getInstance()->scale);

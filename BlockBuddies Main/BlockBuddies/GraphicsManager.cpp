@@ -56,6 +56,8 @@ void GraphicsManager::init()
 	sectionColor =		sf::Color(c.r + 85*1, c.g + 85*1, c.b + 85*1);
 	buttonColor =		sf::Color(c.r + 85*0, c.g + 85*0, c.b + 85*0);
 
+	// Select and Type color currently pull values from the above
+	// They represent respectively the darkest and lightest colors
 	selectColor =       buttonColor;
 	typeColor =         backgroundColor;
 
@@ -74,7 +76,7 @@ sf::Vector2f GraphicsManager::getCenter(const sf::Text& text)
 	// Finding the center of a sf::Text object can be kind of tricky because
 	// different letters give different heights, thus throwing off calculations.
 	// I found the below solution on a stackoverflow post that seems to resolve
-	// the issue. It uses getLocalBounds()'s top and left (which may not necessarily
+	// the issue. It uses getGlobalBounds()'s top and left (which may not necessarily
 	// be 0,0) for placement
 	sf::FloatRect textRect = text.getGlobalBounds();
 	return sf::Vector2f(textRect.left + textRect.width/2.0f,
@@ -89,6 +91,8 @@ sf::Vector2f GraphicsManager::getCenter(const sf::RectangleShape& rectangle)
                         rect.top + rect.height/2.0f);		
 }
 
+// Basically does the same thing as getCenter except only applies any
+// change in the y-direction
 sf::Vector2f GraphicsManager::getLeftCenter(const sf::Text& text)
 {
 	sf::FloatRect textRect = text.getGlobalBounds();

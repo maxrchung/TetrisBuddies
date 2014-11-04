@@ -34,6 +34,7 @@ void ScreenManager::switchScreen(const Screens toScreen)
 
 	// Clears the UIElements list so that the next Screen's elements
 	// can be put on
+	// UIManager will deal with memory leaks
 	UIManager::getInstance()->clear();
 
 	// Changes the screen based on the given enum

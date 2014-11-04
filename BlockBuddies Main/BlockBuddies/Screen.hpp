@@ -1,6 +1,7 @@
 #ifndef SCREEN_HPP
 #define SCREEN_HPP
 
+// Parent Screen that all other Screens inherit off of
 class Screen
 {
 public:

@@ -4,6 +4,7 @@
 #include "Screen.hpp"
 #include "Button.hpp"
 
+// Screen that displays the available gametypes to play
 class GameTypeScreen : public Screen
 {
 public:

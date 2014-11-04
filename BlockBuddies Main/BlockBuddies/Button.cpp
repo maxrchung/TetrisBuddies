@@ -30,7 +30,7 @@ Button::Button(Screens toScreen,
 	// The position is set to the center of the boundingRect
 	// We use this-> because of naming issues, it may be a good idea to change the parameter
 	// name to resolve this issue; I can foresee this being an issue possibly in the future,
-	//	but because I want to stick to convention, after some thought, I chose not to
+	// but because I want to stick to convention, after some thought, I decided not to change it
 	this->label.setColor(GraphicsManager::getInstance()->typeColor);
 	this->label.setOrigin(GraphicsManager::getInstance()->getCenter(this->label));
 	this->label.setPosition(boundingRect.getPosition());
@@ -38,8 +38,12 @@ Button::Button(Screens toScreen,
 
 void Button::update()
 {
+	// We initialize this outside so we don't make new 
+	// variables for it further down
 	sf::Vector2i mousePosition = sf::Mouse::getPosition(GraphicsManager::getInstance()->window);
 
+	// Checks if the mouse is hovering over the button,
+	// if so then change to the selected color
 	if (boundingRect.getGlobalBounds().contains((float) mousePosition.x,
                                                 (float) mousePosition.y))
 	{
@@ -47,6 +51,7 @@ void Button::update()
 		label.setColor(GraphicsManager::getInstance()->selectColor);
 	}
 
+	// Else return the color to its original state
 	else
 	{
 		boundingRect.setFillColor(GraphicsManager::getInstance()->buttonColor);
@@ -54,15 +59,14 @@ void Button::update()
 	}
 
 	// Checks for mouse click onto the button
-	// Will need to be modified in the future because as of now it detects mouse presses
-	// too quickly. May have to use some event polling, or think of some way to implement
-	// a InputManager singleton
-	// This also needs to be at the end of update() because if we switchScreen too early,
-	// we may have already deleted variables trying to call functions
+	// This needs to be at the end of update() because if we switchScreen too early,
+	// we may end up referencing variables that are already deleted
 	if (InputManager::getInstance()->mouseReleased)
 	{
+		// If inside the bounds, then activate the button
+		// The Screen will verify that a button is updated and switchscreens
 		if (boundingRect.getGlobalBounds().contains((float) mousePosition.x,
-													(float) mousePosition.y))		
+													(float) mousePosition.y))
 		    isActivated = true;
 	}
 }

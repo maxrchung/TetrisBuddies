@@ -3,6 +3,7 @@
 
 #include "SFML/Graphics.hpp"
 
+// The overarching class in charge of basically everything
 class Game
 {
 public:

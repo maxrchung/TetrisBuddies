@@ -7,6 +7,8 @@ Section::Section(float posX,
 				 float height)
     :boundingRect(sf::RectangleShape(sf::Vector2f(width, height)))
 {
+	// Sets the color, origin, scale, and position of the section
+	// These are always centered so there are no Alignments to take care of
 	boundingRect.setFillColor(GraphicsManager::getInstance()->sectionColor);
 	boundingRect.setOrigin(GraphicsManager::getInstance()->getCenter(boundingRect));
 	boundingRect.setScale(GraphicsManager::getInstance()->scale,

@@ -8,6 +8,7 @@
 #include "TextInput.hpp"
 #include "Section.hpp"
 
+// Register an account on this screen
 class RegisterScreen : public Screen
 {
 public:
@@ -20,7 +21,10 @@ public:
 	TextBox* status2;
 	TextBox* usernameTag;
 	TextBox* passwordTag;
+
+	// We have two password inputs for verification	
 	TextBox* password2Tag;
+
 	TextInput* username;
 	TextInput* password;
 	TextInput* password2;

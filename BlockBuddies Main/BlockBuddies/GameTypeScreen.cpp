@@ -10,18 +10,21 @@ GameTypeScreen::GameTypeScreen()
 						  -200.0f,
 						  150.0f,
 						  75.0f),
+
 			   new Button(Screens::PROFILE,
 		                  "Profile",
 						  0.0f,
 						  -200.0f,
 						  150.0f,
 						  75.0f),
+
 			   new Button(Screens::GAMETYPE,
 	                      "Play",
 						  175.0f,
 						  -200.0f,
 						  150.0f,
 						  75.0f),
+
 	           new Button(Screens::GAME,
                           "Start Game",	 
 						  0.0f,

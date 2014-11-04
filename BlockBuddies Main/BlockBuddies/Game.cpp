@@ -10,8 +10,8 @@ bool Game::isRunning = true;
 Game::Game()
 {
 	// Initialize the singletons
-	// Note that UIManager must be init() first it'll reset all the 
-	// UIElements to zero at the start
+	// Note that UIManager must call init() first or it'll reset all the 
+	// UIElements to zero
 	UIManager::getInstance()->init();
 	GraphicsManager::getInstance()->init();
 	ScreenManager::getInstance()->init();
@@ -20,18 +20,23 @@ Game::Game()
 
 void Game::run() 
 {
+	// I like having everything neatly separated into update() and draw()
 	update();
 	draw();
 }
 
 void Game::update()
 {
+	// Resets inputs and checks for new ones
 	InputManager::getInstance()->update();
 
 	// The UIManager handles all the textboxes, buttons, and text inputs
 	// on the screen
 	UIManager::getInstance()->update();
 
+	// After inputs and UIElements and updated, we update the screen
+	// This will involve bigger picture actions such as sending
+	// network messages if we need to
 	ScreenManager::getInstance()->currentScreen->update();
 }
 

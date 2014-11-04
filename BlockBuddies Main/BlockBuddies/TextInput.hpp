@@ -5,6 +5,9 @@
 #include "UIElement.hpp"
 #include "UIManager.hpp"
 
+// A UIElement that takes in input from the user
+// The user must click on the box in order to select it
+// for taking in input
 class TextInput: public UIElement
 {
 public:
@@ -12,13 +15,16 @@ public:
 		      float posY,
 			  float width,
 			  float height,
-			  Alignment alignment = Alignment::CENTER,
+
+			  // Denotes how the TextInput is drawn, whether from
+			  // the default center or by the left-center coordinate
+			  Alignments alignment = Alignments::CENTER,
 			  bool isProtected = false);
 	void update();
 	void draw();
 	
 	sf::RectangleShape boundingRect;
-	Alignment alignment;
+	Alignments alignment;
 	bool isProtected;
 
 	// Boolean check for whether or not the textbox is clicked on

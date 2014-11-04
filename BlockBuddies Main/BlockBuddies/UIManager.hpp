@@ -4,9 +4,15 @@
 #include "UIElement.hpp"
 #include <vector>
 
-// Denotes how text should be aligned
-enum Alignment {LEFT, CENTER};
+// Denotes how text should be aligned, by default most
+// parameters should indicate CENTER, but there are cases
+// where LEFT (to be more precise, Left-Center), are
+// convenient
+enum Alignments {LEFT, CENTER};
 
+// The UIManager basically handles the update() and draw()
+// of each UIElement. It holds a vector of the elements and
+// runs through them each frame
 class UIManager
 {
 public:
