@@ -9,13 +9,28 @@ class clientManager
 {
 public:
 
-	clientManager();
+	//call using clientManager::getInstance().functionname() to use.
+	static clientManager& getInstance()
+	{
+		static clientManager server;
+		return server;
+	}
 
 	bool initConnection(sf::IpAddress IP, int portNumber);
 
 	void createUser();
 
 	void run();
+
+private:
+
+	clientManager() {}                                  // Private constructor
+	~clientManager() {}
+	clientManager(const clientManager&);                 // Prevent copy-construction
+	clientManager& operator=(const clientManager&);
+
+	sf::TcpSocket socket;
+
 
 };
 
