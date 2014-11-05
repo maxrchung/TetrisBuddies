@@ -13,5 +13,5 @@ void GameScreen::update()
 
 void GameScreen::draw()
 {
-
+	// GraphicsManager::getInstance()->window.draw(RectangleShape)
 }

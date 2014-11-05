@@ -16,6 +16,7 @@ Game::Game()
 	GraphicsManager::getInstance()->init();
 	ScreenManager::getInstance()->init();
 	InputManager::getInstance()->init();
+	//NetworkManager::getInstance()->init()
 }
 
 void Game::run() 

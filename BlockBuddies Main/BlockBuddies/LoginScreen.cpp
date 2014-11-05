@@ -66,6 +66,10 @@ void LoginScreen::update()
 	for(auto i : buttons)
 		if (i->isActivated)
 		{
+		    // NetworkManager::sendpacket(...)
+		    // listen for message
+		    // if messageTrue
+		    // else status.message.setString("Oh, your login was bad");
 			ScreenManager::getInstance()->switchScreen(i->toScreen);
 			break;
 		}

@@ -9,7 +9,7 @@
 #include "Section.hpp"
 
 // Screen to login with account
-class LoginScreen: public Screen
+class LoginScreen : public Screen
 {
 public:
 	LoginScreen();
