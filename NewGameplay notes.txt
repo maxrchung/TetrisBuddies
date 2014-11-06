@@ -1,6 +1,7 @@
 Going to pass messages between UI client and "server" by having two queues in the UI.  Maybe ToServer and ToClient.
 
 Client commands to server:
+Initial game commands (difficulty, any configuration stuff,  etc)
 Request swap: (row, col) (row, col)
 Request new row
 Request pause
@@ -9,11 +10,12 @@ Request pause
 
 
 Server commands to client:
-Populate board: list of pieces, row by row (it's an array of ints)
+Populate board: list of blocks, row by row (it's an array of ints)
+Start game
 Pieces swapped: new value at row1, col1; new value at row2,col2  (this is also how gravity is sent)
 Game Over
 Pause
-Send the temp bottom row (so it can be shown scrolling)
+Send the temp bottom row (so it can be shown while scrolling)
 Activate bottom row (sent to client after the bottom row has been inserted into the server's game grid)
 Clear pieces: list of pieces (row, col)
 Updated score: (new total score)
