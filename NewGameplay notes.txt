@@ -4,20 +4,79 @@ Client commands to server:
 Initial game commands (difficulty, any configuration stuff,  etc)
 Request swap: (row, col) (row, col)
 Request new row
-Request pause
 
+Commands and examples:
+1: start game
+1$
+(command = 1)
+
+2: request swap (piece1row, piece1col, piece2row, piece2col)
+1$4$5$4$6$
+(command = 2, piece 1 row and col = 4 5, piece 2 row and col = 4 6)
+
+3: request new row
+3$
+(command = 3)
 
 
 
 Server commands to client:
-Populate board: list of blocks, row by row (it's an array of ints)
 Start game
-Pieces swapped: new value at row1, col1; new value at row2,col2  (this is also how gravity is sent)
-Game Over
-Pause
+Populate board: list of blocks, row by row (it's an array of ints)
+Pieces swapped: new value at row1, col1; new value at row2,col2 
+Piece fell (gravity)
+Clear pieces: list of pieces (row, col)
 Send the temp bottom row (so it can be shown while scrolling)
 Activate bottom row (sent to client after the bottom row has been inserted into the server's game grid)
-Clear pieces: list of pieces (row, col)
 Updated score: (new total score)
+Speed increase
+Game Over
 
-Later: garbage, p2's game grid/score
+Later: garbage (we're just doing garbage as "insert new row"), p2's game grid/score
+
+
+Commands and examples:
+
+1: Start game (boardWidth, boardHeight, numColors, initialSpeed)
+1$6$12$5$1$
+(command = 1, width = 6, height = 12, number of colors = 5, initial speed = 1)
+
+2: Populate Board
+2$8$113422$323314$...$
+(command = 2, rows being sent = 8, first row colors are 1 1 3 4 2 2, second row colors are 3 2 3 3 1 4, etc)
+                         (number of elements in each row = boardWidth sent in StartGame command)
+
+3: swap piece (piece1row, piece1col, piece2row, piece2col)
+3$2$4$3$4$
+(command = 3, piece1 row number = 2, piece1 column number = 4, piece2 row number = 3, piece2 column number = 4)
+
+4: move piece (oldrow, oldcol, newrow) 
+4$5$3$1
+(command = 4, old row num = 5, old col num = 3, new row num = 1)
+
+5: clear pieces (number of pieces to clear, piecerow, piececol) [repeated for every single piece to clear; min = 3, max = 12?)
+5$6$4$1$4$2$4$3$3$3$2$3$
+(command = 5, pieces to clear = 6, clear pieces 4 1, 4 2, 4 3, 3 3, 2 3)
+
+6: send temp row (each individual int is a color)
+6$312421$
+(command = 6, block colors are 3 1 2 4 2 1)
+(number of elements to expect = boardWidth)
+
+7: activate temp row
+7$
+(command = 7)
+
+8: new score
+8$5200$
+(command = 8; new total score = 5200)
+
+9: increase speed to certain value
+9$76$
+(command = 9, new speed value = 76)
+
+
+10: game over
+10$
+(command = 10)
+
