@@ -1,4 +1,6 @@
 #include "GameScreen.hpp"
+#include "SFML/Graphics.hpp"
+#include "GraphicsManager.hpp"
 
 // To be filled in at the gameplay people's discretion
 GameScreen::GameScreen()

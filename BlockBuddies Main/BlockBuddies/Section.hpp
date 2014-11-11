@@ -18,6 +18,7 @@ public:
 	void update();
 	void draw();
 
+private:
 	sf::RectangleShape boundingRect;
 };
 

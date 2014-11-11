@@ -16,6 +16,7 @@ public:
 	void update();
 	void draw();
 
+private:
 	Section* section;
 	TextBox* title;
 	TextBox* status;

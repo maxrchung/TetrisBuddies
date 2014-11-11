@@ -3,6 +3,13 @@
 
 #include "SFML/Graphics.hpp"
 
+// Indicates whether to find a local or global bound
+enum Bounds 
+{
+	LOCAL,
+	GLOBAL
+};
+
 // Holds the window used for drawing everything
 // Has a few utility functions to finding points easier
 // Holds a bunch of variables for scaling, font sizes,
@@ -15,10 +22,17 @@ public:
 	void init();
 
 	// Utility/overloaded functions for some efficiency
-	sf::Vector2f getCenter(const sf::Text& text);
-	sf::Vector2f getCenter(const sf::RectangleShape& rectangle);
-	sf::Vector2f getLeftCenter(const sf::Text& text);
-	sf::Vector2f getLeftCenter(const sf::RectangleShape& rectangle);
+	// The Bounds parameter indicates whether to find a local bound or a global bound
+	// Situations using either or may vary. When manipulating the origin of objects,
+	// for example, I needed to always use getLocalBound(), but when finding position,
+	// getGlobalBound() is more used
+	// The default parameter is as noted, local
+	sf::Vector2f getCenter(const sf::Text& text, Bounds = Bounds::LOCAL);
+	sf::Vector2f getCenter(const sf::RectangleShape& rectangle, Bounds = Bounds::LOCAL);
+	sf::Vector2f getLeftCenter(const sf::Text& text, Bounds = Bounds::LOCAL);
+	sf::Vector2f getLeftCenter(const sf::RectangleShape& rectangle, Bounds = Bounds::LOCAL);
+	sf::Vector2f getRightCenter(const sf::Text& text, Bounds = Bounds::LOCAL);
+	sf::Vector2f getRightCenter(const sf::RectangleShape& rectangle, Bounds = Bounds::LOCAL);
 
 	// What everything is drawn to
 	sf::RenderWindow window;
@@ -54,6 +68,7 @@ public:
 	sf::Color sectionColor;
 	sf::Color buttonColor;
 	sf::Color typeColor;
+
 private:
 	// Singleton overhead stuff to take care of
 	GraphicsManager(){};

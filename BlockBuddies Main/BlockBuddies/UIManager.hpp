@@ -23,9 +23,10 @@ public:
 	void update();
 	void draw();
 
+private:
 	// Pointers because of polymorphism
 	std::vector<UIElement*> UIElements;
-private:	
+
 	UIManager(){};
 	UIManager(UIManager const&){};
 	UIManager& operator=(UIManager const&){};

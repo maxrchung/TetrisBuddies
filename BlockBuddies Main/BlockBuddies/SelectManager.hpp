@@ -16,6 +16,7 @@ public:
 
 	// Vector of Selectable pointers that we'll be manipulating
 	std::vector<Selectable*> selectables;
+
 private:	
 	SelectManager(){};
 	SelectManager(SelectManager const&){};

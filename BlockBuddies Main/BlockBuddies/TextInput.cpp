@@ -46,8 +46,6 @@ TextInput::TextInput(float posX,
 		input.setOrigin(GraphicsManager::getInstance()->getLeftCenter(input));
 	else if(alignment == Alignments::CENTER)
 		input.setOrigin(GraphicsManager::getInstance()->getCenter(input));
-	// At the end, we reset the string
-	input.setString("");
 
 	// If Alignment is left, then we can just put the input where the boundingRect is
 	if (alignment == Alignments::LEFT)
@@ -60,6 +58,12 @@ TextInput::TextInput(float posX,
 	// We move a small distance away so that the letters aren't drawn directly 
 	// on the boundingRect border
 	input.move(5.0f * GraphicsManager::getInstance()->scale, 0.0f);
+
+	// Sets the inputCursor in position
+	inputCursor.boundingRect.setPosition(GraphicsManager::getInstance()->getLeftCenter(input, Bounds::GLOBAL));
+
+	// At the end, we reset the string
+	input.setString("");
 }
 
 void TextInput::update()
@@ -116,13 +120,33 @@ void TextInput::update()
 		// Set the colors if it is selected
 		boundingRect.setFillColor(GraphicsManager::getInstance()->backgroundColor);
 		input.setColor(GraphicsManager::getInstance()->selectColor);
+
+		// If the cursor timer is greater than some constant
+		if(inputCursor.blinkTimer.getElapsedTime().asMilliseconds() > 500)
+		{
+			// Check if it is currently displayed, if it is, set it to false, otherwise set it to true
+			inputCursor.isDisplayed ? inputCursor.isDisplayed = false : inputCursor.isDisplayed = true;
+
+			// Restart the timer
+			inputCursor.blinkTimer.restart();
+		}
+
+		// Set the position to the center right of the input text
+		// We make sure that we only affect the x movement so that the cursor won't jump improperly
+		// The 1.0f is a small buffer zone so that the cursor doesn't touch the last letter
+		inputCursor.boundingRect.setPosition(GraphicsManager::getInstance()->getRightCenter(input, Bounds::GLOBAL).x
+			                                     + 1.0f * GraphicsManager::getInstance()->scale,
+			                                 inputCursor.boundingRect.getPosition().y);
 	}
 
 	// Else set the colors if it is not selected
-	else
+	else // if isSelected == false
 	{
 		boundingRect.setFillColor(GraphicsManager::getInstance()->buttonColor);
 		input.setColor(GraphicsManager::getInstance()->typeColor);
+
+		// If the box is not selected, do not display the cursor
+		inputCursor.isDisplayed = false;
 	}
 
 	// If the mouse is hovering over the TextInput, then it is selected
@@ -136,6 +160,7 @@ void TextInput::update()
 
 void TextInput::draw()
 {
+	// Draw the background boundingRect
 	GraphicsManager::getInstance()->window.draw(boundingRect);
 
 	// If the TextInput is password protected, then create a new
@@ -159,4 +184,30 @@ void TextInput::draw()
 
 	else 
 		GraphicsManager::getInstance()->window.draw(input);
+
+	inputCursor.draw();
+}
+
+TextInput::InputCursor::InputCursor()
+     // Rectangle indicator for the cursor
+    :boundingRect(sf::RectangleShape(sf::Vector2f(2.0f,
+	                                              20.0f)))
+{
+	// We set some values for the boundingRect
+	InputCursor::boundingRect.setFillColor(GraphicsManager::getInstance()->buttonColor);
+	InputCursor::boundingRect.setScale(GraphicsManager::getInstance()->scale,
+		                               GraphicsManager::getInstance()->scale);
+	InputCursor::boundingRect.setOrigin(GraphicsManager::getInstance()->getLeftCenter(InputCursor::boundingRect));
+}
+
+void TextInput::InputCursor::update()
+{
+	// Nothing in here since the outside TextInput update() function
+	// will handle updating the InputCursor's location and blinking
+}
+
+void TextInput::InputCursor::draw()
+{
+	if (InputCursor::isDisplayed)
+		GraphicsManager::getInstance()->window.draw(InputCursor::boundingRect);
 }

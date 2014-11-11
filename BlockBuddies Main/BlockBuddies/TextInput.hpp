@@ -24,11 +24,28 @@ public:
 	void update();
 	void draw();
 	
+private:
 	sf::RectangleShape boundingRect;
 	Alignments alignment;
 	bool isProtected;
 
 	sf::Text input;
+
+	// Private class for handling the cursor within TextInput
+	class InputCursor {
+	public:
+		InputCursor();
+		void update();
+		void draw();
+
+		sf::Clock blinkTimer;
+
+		// Whether or not it is currently displayed or not
+		bool isDisplayed = true;
+
+		// We leave this public so that we can access it within TextInput
+		sf::RectangleShape boundingRect;
+	} inputCursor;
 };
 
 #endif//TEXTINPUT_HPP

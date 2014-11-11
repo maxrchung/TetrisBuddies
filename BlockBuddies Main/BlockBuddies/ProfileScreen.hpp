@@ -14,6 +14,7 @@ public:
 	void update();
 	void draw();
 
+private:
 	std::vector<Button*> buttons;
 };
 

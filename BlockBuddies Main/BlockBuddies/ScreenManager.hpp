@@ -20,6 +20,7 @@ public:
 	void init();
 	void switchScreen(const Screens toScreen);
 	Screen* currentScreen;
+
 private:
 	ScreenManager(){};
 	ScreenManager(ScreenManager const&){};

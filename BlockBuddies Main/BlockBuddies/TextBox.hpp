@@ -24,6 +24,7 @@ public:
 	void update();
 	void draw();
 
+private:
 	sf::Text message;
 };
 

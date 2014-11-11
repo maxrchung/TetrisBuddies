@@ -74,39 +74,91 @@ void GraphicsManager::init()
 // getCenter() is a utility function for getting the origin of an object
 // Usually this will be combined with a setOrigin() call to set the Position to
 // the center of an object
-sf::Vector2f GraphicsManager::getCenter(const sf::Text& text)
+sf::Vector2f GraphicsManager::getCenter(const sf::Text& text, Bounds bounds)
 {
+	sf::FloatRect textRect;
+
 	// Finding the center of a sf::Text object can be kind of tricky because
 	// different letters give different heights, thus throwing off calculations.
 	// I found the below solution on a stackoverflow post that seems to resolve
-	// the issue. It uses getGlobalBounds()'s top and left (which may not necessarily
+	// the issue. It uses getLocal/getGlobalBounds()'s top and left (which may not necessarily
 	// be 0,0) for placement
-	sf::FloatRect textRect = text.getLocalBounds();
+	if (bounds == Bounds::LOCAL)
+		textRect = text.getLocalBounds();
+	else if (bounds == Bounds::GLOBAL)
+		textRect = text.getGlobalBounds();
+
 	return sf::Vector2f(textRect.left + textRect.width/2.0f,
 		                textRect.top + textRect.height/2.0f);
 }
 
-// Overloaded getCenter() function for sf::RectangleShape
-sf::Vector2f GraphicsManager::getCenter(const sf::RectangleShape& rectangle)
-{
-	sf::FloatRect rect = rectangle.getLocalBounds();
-	return sf::Vector2f(rect.left + rect.width/2.0f,
-                        rect.top + rect.height/2.0f);		
-}
-
 // Basically does the same thing as getCenter except only applies any
 // change in the y-direction
-sf::Vector2f GraphicsManager::getLeftCenter(const sf::Text& text)
+sf::Vector2f GraphicsManager::getLeftCenter(const sf::Text& text, Bounds bounds)
 {
-	sf::FloatRect textRect = text.getLocalBounds();
+	sf::FloatRect textRect;
+
+	if (bounds == Bounds::LOCAL)
+		textRect = text.getLocalBounds();
+	else if (bounds == Bounds::GLOBAL)
+		textRect = text.getGlobalBounds();
+
 	return sf::Vector2f(textRect.left,
 		                textRect.top + textRect.height / 2.0f);
 }
 
-// Returns the left-center point of a rectangle
-sf::Vector2f GraphicsManager::getLeftCenter(const sf::RectangleShape& rectangle)
+// Finds the right center point of a Text object
+sf::Vector2f GraphicsManager::getRightCenter(const sf::Text& text, Bounds bounds)
 {
-	sf::FloatRect rect = rectangle.getLocalBounds();
+	sf::FloatRect textRect;
+
+	if (bounds == Bounds::LOCAL)
+		textRect = text.getLocalBounds();
+	else if (bounds == Bounds::GLOBAL)
+		textRect = text.getGlobalBounds();
+
+	return sf::Vector2f(textRect.left + textRect.width,
+		                textRect.top + textRect.height / 2.0f);
+}
+
+// Overloaded getCenter() function for sf::RectangleShape
+sf::Vector2f GraphicsManager::getCenter(const sf::RectangleShape& rectangle, Bounds bounds)
+{
+	sf::FloatRect rect;
+
+	if (bounds == Bounds::LOCAL)
+		rect = rectangle.getLocalBounds();
+	else if (bounds == Bounds::GLOBAL)
+		rect = rectangle.getGlobalBounds();
+
+	return sf::Vector2f(rect.left + rect.width/2.0f,
+                        rect.top + rect.height/2.0f);		
+}
+
+// Returns the left-center point of a rectangle
+sf::Vector2f GraphicsManager::getLeftCenter(const sf::RectangleShape& rectangle, Bounds bounds)
+{
+	sf::FloatRect rect;
+
+	if (bounds == Bounds::LOCAL)
+		rect = rectangle.getLocalBounds();
+	else if (bounds == Bounds::GLOBAL)
+		rect = rectangle.getGlobalBounds();
+
 	return sf::Vector2f(rect.left,
+                        rect.top + rect.height/2.0f);		
+}
+
+// Finds the right center point of a rectangle
+sf::Vector2f GraphicsManager::getRightCenter(const sf::RectangleShape& rectangle, Bounds bounds)
+{
+	sf::FloatRect rect;
+
+	if (bounds == Bounds::LOCAL)
+		rect = rectangle.getLocalBounds();
+	else if (bounds == Bounds::GLOBAL)
+		rect = rectangle.getGlobalBounds();
+
+	return sf::Vector2f(rect.left + rect.width,
                         rect.top + rect.height/2.0f);		
 }

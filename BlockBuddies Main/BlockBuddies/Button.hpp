@@ -29,15 +29,21 @@ public:
 	void update();
 	void draw();
 
+	// I thought about leaving these two private and then having
+	// const getter functions access these. But I prefer the ease in
+	// just accessing these with a little bit shorter code and
+	// not having to write additional code for both getter/setter checks.
+	// May be loose holes later on when we access these everywhere and
+	// potentially accidentally manipulate them
 	Screens toScreen;
+	// Boolean check on whether a button has been clicked on
+	bool isActivated = false;
 
+private:
 	// Displayed rect of the button
 	sf::RectangleShape boundingRect;
 
 	sf::Text label;
-
-	// Boolean check on whether a button has been clicked on
-	bool isActivated = false;
 };
 
 #endif BUTTON_HPP

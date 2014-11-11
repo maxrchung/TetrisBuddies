@@ -26,6 +26,7 @@ public:
 
 	void draw();
 
+private:
 	// All the various parts we create
 	Section* section;
 	TextBox* title;
