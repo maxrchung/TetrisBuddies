@@ -16,6 +16,11 @@ GameGrid::GameGrid(){
 		}
 	}	
 	
+	//clear the parsedMessage
+	for (int i = 0; i < parsedMessage.size(); i++){
+		parsedMessage[i] = "";
+	}
+
 	numColors = 5; // Tetris Attack has 4 colors on easy, 5 colors on med/hard, and 6 in multi
 	pauseCountdown = 0;
 	pauseGame = false;	
@@ -24,7 +29,7 @@ GameGrid::GameGrid(){
 }
 
 void GameGrid::MainGameLoop(){
-//loop it at 60 fps
+//loop it at 60 fps. want each cycle to take no more than 16ms. So at the top of the loop get the time, do whatever actions are required, and at the bottom of the loop sleep for the remainder of the 16ms.
 
 
 	//check for messages
@@ -46,6 +51,27 @@ void GameGrid::MainGameLoop(){
 
 }
 
+void GameGrid::GetMessage(){
+	
+	//1: request game start
+	//2: request swap(piece1row, piece1col, piece2row, piece2col)
+	//3 : request new row
+
+	//clear parsedMessage:
+	for (int i = 0; i < parsedMessage.size(); i++){
+		parsedMessage[i] = "";
+	}
+
+	//take the string that's at the head of the queue, parse it, and put the pieces in parsedMessage
+	
+
+
+	//in a loop, find from the beginning of the string to the token
+	//place that in parsedMessage[i]
+	//the string we're parsing then ebcomes the reaminder of the unparsed string
+
+
+}
 
 std::array<int, 6> GameGrid::CreateTempRow(){
 
