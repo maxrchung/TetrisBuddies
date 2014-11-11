@@ -17,10 +17,13 @@ GraphicsManager* GraphicsManager::getInstance()
 // does that job
 void GraphicsManager::init()
 {
-	// Sets window to fullscreen
+	// Sets windowndow to fullscreen
 	window.create(sf::VideoMode::getFullscreenModes()[0], 
 				  "Block Buddies", 
 				  sf::Style::Fullscreen);
+
+	// In case we run into choppy display issues
+	window.setVerticalSyncEnabled(true);
 
 	// Sets a scale factor based on the height to an arbitrary number
 	// I just chose 800.0f since that's the height of my default laptop
@@ -78,7 +81,7 @@ sf::Vector2f GraphicsManager::getCenter(const sf::Text& text)
 	// I found the below solution on a stackoverflow post that seems to resolve
 	// the issue. It uses getGlobalBounds()'s top and left (which may not necessarily
 	// be 0,0) for placement
-	sf::FloatRect textRect = text.getGlobalBounds();
+	sf::FloatRect textRect = text.getLocalBounds();
 	return sf::Vector2f(textRect.left + textRect.width/2.0f,
 		                textRect.top + textRect.height/2.0f);
 }
@@ -86,7 +89,7 @@ sf::Vector2f GraphicsManager::getCenter(const sf::Text& text)
 // Overloaded getCenter() function for sf::RectangleShape
 sf::Vector2f GraphicsManager::getCenter(const sf::RectangleShape& rectangle)
 {
-	sf::FloatRect rect = rectangle.getGlobalBounds();
+	sf::FloatRect rect = rectangle.getLocalBounds();
 	return sf::Vector2f(rect.left + rect.width/2.0f,
                         rect.top + rect.height/2.0f);		
 }
@@ -95,7 +98,7 @@ sf::Vector2f GraphicsManager::getCenter(const sf::RectangleShape& rectangle)
 // change in the y-direction
 sf::Vector2f GraphicsManager::getLeftCenter(const sf::Text& text)
 {
-	sf::FloatRect textRect = text.getGlobalBounds();
+	sf::FloatRect textRect = text.getLocalBounds();
 	return sf::Vector2f(textRect.left,
 		                textRect.top + textRect.height / 2.0f);
 }
@@ -103,7 +106,7 @@ sf::Vector2f GraphicsManager::getLeftCenter(const sf::Text& text)
 // Returns the left-center point of a rectangle
 sf::Vector2f GraphicsManager::getLeftCenter(const sf::RectangleShape& rectangle)
 {
-	sf::FloatRect rect = rectangle.getGlobalBounds();
+	sf::FloatRect rect = rectangle.getLocalBounds();
 	return sf::Vector2f(rect.left,
                         rect.top + rect.height/2.0f);		
 }

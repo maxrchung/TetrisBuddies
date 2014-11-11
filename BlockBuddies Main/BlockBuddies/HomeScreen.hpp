@@ -11,6 +11,7 @@ class HomeScreen: public Screen
 public:
 	HomeScreen();
 	void update();
+	void draw();
 
 	std::vector<Button*> buttons;
 };

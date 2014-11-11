@@ -1,6 +1,5 @@
-#include "HomeScreen.hpp"
 #include "ProfileScreen.hpp"
-#include "GameTypeScreen.hpp"
+#include "InputManager.hpp"
 
 ProfileScreen::ProfileScreen()
 	:buttons({ new Button(Screens::HOME,
@@ -29,9 +28,15 @@ ProfileScreen::ProfileScreen()
 void ProfileScreen::update()
 {
 	for(auto i : buttons)
-		if (i->isActivated)
+		if (i->isActivated ||
+			(InputManager::getInstance()->enter && i->isSelected))
 		{
 			ScreenManager::getInstance()->switchScreen(i->toScreen);
 			break;
 		}
+}
+
+void ProfileScreen::draw()
+{
+
 }

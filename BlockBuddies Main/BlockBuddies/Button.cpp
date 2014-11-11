@@ -45,7 +45,8 @@ void Button::update()
 	// Checks if the mouse is hovering over the button,
 	// if so then change to the selected color
 	if (boundingRect.getGlobalBounds().contains((float) mousePosition.x,
-                                                (float) mousePosition.y))
+                                                (float) mousePosition.y) ||
+		isSelected)
 	{
 		boundingRect.setFillColor(GraphicsManager::getInstance()->backgroundColor);
 		label.setColor(GraphicsManager::getInstance()->selectColor);

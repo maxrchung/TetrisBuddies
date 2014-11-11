@@ -14,6 +14,7 @@ class RegisterScreen : public Screen
 public:
 	RegisterScreen();
 	void update();
+	void draw();
 
 	Section* section;
 	TextBox* title;

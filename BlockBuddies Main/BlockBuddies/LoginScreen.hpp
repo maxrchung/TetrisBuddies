@@ -7,6 +7,7 @@
 #include "TextBox.hpp"
 #include "TextInput.hpp"
 #include "Section.hpp"
+#include "Selectable.hpp"
 
 // Screen to login with account
 class LoginScreen : public Screen
@@ -22,6 +23,8 @@ public:
 	// a button, that's probably better left handled in the
 	// Button's update() and draw()
 	void update();
+
+	void draw();
 
 	// All the various parts we create
 	Section* section;

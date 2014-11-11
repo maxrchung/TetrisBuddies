@@ -16,6 +16,8 @@ void InputManager::init()
 {
 	mouseReleased = false;
 	backspace = false;
+	enter = false;
+	tab = false;
 	input = sf::String();
 }
 
@@ -25,6 +27,8 @@ void InputManager::update()
 	// Resets all booleans and inputs before starting future checks
 	mouseReleased = false;
 	backspace = false;
+	enter = false;
+	tab = false;
 
 	// Input is an sf::String, so we clear it before the events check
 	input.clear();
@@ -47,13 +51,20 @@ void InputManager::update()
 		case sf::Event::KeyPressed:
 			if(event.key.code == sf::Keyboard::BackSpace)
 				backspace = true;
+			else if(event.key.code == sf::Keyboard::Return)
+				enter = true;
+			else if(event.key.code == sf::Keyboard::Tab)			
+				tab = true;
 			break;
 
 		// Reads in any entered key, see Events Explained in SFML 2.1
 		// for more details. Basically, anything you enter is read into
 		// the input variable
 		case sf::Event::TextEntered:
-			input = event.text.unicode;
+			// We start at unicode 31 so we avoid inputting things like
+			// backspace and tab into input
+			if (event.text.unicode > 31)
+				input = event.text.unicode;
 			break;
 
 		// Checks for mouse up

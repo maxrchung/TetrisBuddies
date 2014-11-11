@@ -12,6 +12,7 @@ class ProfileScreen: public Screen
 public:
 	ProfileScreen();
 	void update();
+	void draw();
 
 	std::vector<Button*> buttons;
 };

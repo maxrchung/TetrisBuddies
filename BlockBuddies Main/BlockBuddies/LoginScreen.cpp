@@ -1,5 +1,6 @@
 #include "LoginScreen.hpp"
 #include "ScreenManager.hpp"
+#include "InputManager.hpp"
 
 LoginScreen::LoginScreen()
 	:section(new Section(0.0f,
@@ -53,7 +54,7 @@ LoginScreen::LoginScreen()
 						  50.0f),
 
 			   new Button(Screens::REGISTER,
-		                  "Register",
+			              "Register",
 						  0.0f,
 						  200.0f,
 						  150.0f,
@@ -64,7 +65,8 @@ LoginScreen::LoginScreen()
 void LoginScreen::update()
 {
 	for(auto i : buttons)
-		if (i->isActivated)
+		if (i->isActivated ||
+			(InputManager::getInstance()->enter && i->isSelected))
 		{
 		    // NetworkManager::sendpacket(...)
 		    // listen for message
@@ -73,4 +75,9 @@ void LoginScreen::update()
 			ScreenManager::getInstance()->switchScreen(i->toScreen);
 			break;
 		}
+}
+
+void LoginScreen::draw()
+{
+
 }

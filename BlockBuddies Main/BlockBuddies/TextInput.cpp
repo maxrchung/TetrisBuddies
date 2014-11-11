@@ -2,6 +2,8 @@
 #include "InputManager.hpp"
 #include "GraphicsManager.hpp"
 
+#include <iostream>
+
 TextInput::TextInput(float posX,
 	                 float posY,
 					 float width,
@@ -17,7 +19,6 @@ TextInput::TextInput(float posX,
     :boundingRect(sf::RectangleShape(sf::Vector2f(width, height))),
 	 alignment(alignment),
 	 isProtected(isProtected),
-	 isSelected(false),
 	 input(sf::Text("",
 	                GraphicsManager::getInstance()->messageFont,
 					GraphicsManager::getInstance()->messageSize))
@@ -39,7 +40,12 @@ TextInput::TextInput(float posX,
 	// I believe. This is here so that we don't have to recalculate the origin each time
 	// a character is added into input and see shifting around
 	input.setString("Wq");
-	input.setOrigin(GraphicsManager::getInstance()->getLeftCenter(input));
+	// Depending on the alignment, we either set the origin to the leftCenter
+	// or the center of the input
+	if (alignment == Alignments::LEFT)
+		input.setOrigin(GraphicsManager::getInstance()->getLeftCenter(input));
+	else if(alignment == Alignments::CENTER)
+		input.setOrigin(GraphicsManager::getInstance()->getCenter(input));
 	// At the end, we reset the string
 	input.setString("");
 
@@ -48,8 +54,8 @@ TextInput::TextInput(float posX,
 		input.setPosition(boundingRect.getPosition());
 	// Otherwise, we'll need to recalculate to find the left-center point of the boundingRect
 	// The input as of now always comes reads in from the left of the box
-	if (alignment == Alignments::CENTER)
-		input.setPosition(GraphicsManager::getInstance()->getLeftCenter(boundingRect));
+	else if (alignment == Alignments::CENTER)
+		input.setPosition(GraphicsManager::getInstance()->getCenter(boundingRect));
 
 	// We move a small distance away so that the letters aren't drawn directly 
 	// on the boundingRect border
@@ -57,29 +63,21 @@ TextInput::TextInput(float posX,
 }
 
 void TextInput::update()
-{
+{	
 	// We declare the variable here because multiple parts below reference it
 	sf::Vector2i mousePosition = sf::Mouse::getPosition(GraphicsManager::getInstance()->window);
 
 	// Mouse clicks are checked to see whether or not if the TextInput is currently selected
 	if(InputManager::getInstance()->mouseReleased)
 	{
-		// If it is, then set the colors and set the boolean
+		// If it is, the button is selected
 		if (boundingRect.getGlobalBounds().contains((float)mousePosition.x,
 			                                        (float)mousePosition.y))
-		{			
 			isSelected = true;
-			boundingRect.setFillColor(GraphicsManager::getInstance()->backgroundColor);
-			input.setColor(GraphicsManager::getInstance()->selectColor);
-		}
 
-		// Otherwise, deselect the TextInput and set the colors back to its original color
+		// Otherwise, deselect the TextInput
 		else
-		{
 			isSelected = false;
-			boundingRect.setFillColor(GraphicsManager::getInstance()->buttonColor);
-			input.setColor(GraphicsManager::getInstance()->typeColor);
-		}
 	}
 
 	// If this textbox is currently selected
@@ -100,22 +98,39 @@ void TextInput::update()
 
 		// Add in the input text from the InputManager
 		else if (!InputManager::getInstance()->input.isEmpty())
+		{
 			input.setString(input.getString() + InputManager::getInstance()->input);
-	}
 
-	// If the mouse is hovering over the TextInput, then change the color
-	else if (boundingRect.getGlobalBounds().contains((float)mousePosition.x,
-		                                             (float)mousePosition.y))
-	{
+			// If we are aligning it by the center, then we have to readjust the origin
+			// and position so that it redraws from the center of the textbox each time
+			// Left alignment is always set from the leftmost area, so we don't have to
+			// worry about that
+			if (alignment == Alignments::CENTER)
+			{
+				input.setOrigin(GraphicsManager::getInstance()->getCenter(input).x,
+					            input.getOrigin().y);
+				input.setPosition(boundingRect.getPosition());
+			}
+		}
+
+		// Set the colors if it is selected
 		boundingRect.setFillColor(GraphicsManager::getInstance()->backgroundColor);
 		input.setColor(GraphicsManager::getInstance()->selectColor);
 	}
 
-	// Else just reset the colors back to normal
+	// Else set the colors if it is not selected
 	else
 	{
 		boundingRect.setFillColor(GraphicsManager::getInstance()->buttonColor);
 		input.setColor(GraphicsManager::getInstance()->typeColor);
+	}
+
+	// If the mouse is hovering over the TextInput, then it is selected
+	if (boundingRect.getGlobalBounds().contains((float)mousePosition.x,
+		                                        (float)mousePosition.y))
+	{
+		boundingRect.setFillColor(GraphicsManager::getInstance()->backgroundColor);
+		input.setColor(GraphicsManager::getInstance()->selectColor);
 	}
 }
 

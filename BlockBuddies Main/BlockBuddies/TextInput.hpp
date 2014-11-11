@@ -4,11 +4,12 @@
 #include "SFML/Graphics.hpp"
 #include "UIElement.hpp"
 #include "UIManager.hpp"
+#include "Selectable.hpp"
 
 // A UIElement that takes in input from the user
 // The user must click on the box in order to select it
 // for taking in input
-class TextInput: public UIElement
+class TextInput: public UIElement, public Selectable
 {
 public:
 	TextInput(float posX,
@@ -27,9 +28,6 @@ public:
 	Alignments alignment;
 	bool isProtected;
 
-	// Boolean check for whether or not the textbox is clicked on
-	// and thus selected
-	bool isSelected;
 	sf::Text input;
 };
 

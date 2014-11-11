@@ -19,7 +19,10 @@ public:
 	// Takes in any pressed down key
 	sf::String input;
 
+	// Checks for key down
 	bool backspace;
+	bool enter;
+	bool tab;
 	
 private:
 	InputManager(){};

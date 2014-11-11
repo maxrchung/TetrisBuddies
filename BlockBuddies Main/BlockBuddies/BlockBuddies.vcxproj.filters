@@ -69,6 +69,12 @@
     <ClInclude Include="Section.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Selectable.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp">
@@ -120,6 +126,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Section.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Selectable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

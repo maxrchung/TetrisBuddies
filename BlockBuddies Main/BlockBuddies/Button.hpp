@@ -5,9 +5,10 @@
 #include "ScreenManager.hpp"
 #include "SFML/Graphics.hpp"
 #include "UIElement.hpp"
+#include "Selectable.hpp"
 
 // Is a UIElement, added into UIElements vector in UIManager
-class Button : public UIElement
+class Button : public UIElement, public Selectable
 {
 public:
 	       // Tells what screen to go to

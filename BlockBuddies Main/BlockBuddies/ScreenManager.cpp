@@ -7,6 +7,7 @@
 #include "GameScreen.hpp"
 #include "UIManager.hpp"
 #include "InputManager.hpp"
+#include "SelectManager.hpp"
 
 ScreenManager* ScreenManager::instance;
 
@@ -32,6 +33,10 @@ void ScreenManager::switchScreen(const Screens toScreen)
 	// Making sure to delete for memory leak issues
 	delete currentScreen;
 
+	// Clear the select manager so it doesn't have any elements when we
+	// switch to the next screen
+	SelectManager::getInstance()->clear();
+	
 	// Clears the UIElements list so that the next Screen's elements
 	// can be put on
 	// UIManager will deal with memory leaks

@@ -10,6 +10,7 @@ class GameTypeScreen : public Screen
 public:
 	GameTypeScreen();
 	void update();
+	void draw();
 
 	std::vector<Button*> buttons;
 };

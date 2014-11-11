@@ -1,10 +1,10 @@
 #include "RegisterScreen.hpp"
-#include "HomeScreen.hpp"
 #include "Section.hpp"
 #include "UIManager.hpp"
 #include "TextBox.hpp"
 #include "TextInput.hpp"
 #include "GraphicsManager.hpp"
+#include "InputManager.hpp"
 
 RegisterScreen::RegisterScreen()
 	:section(new Section(0.0f,
@@ -18,23 +18,9 @@ RegisterScreen::RegisterScreen()
 					   Alignments::CENTER,
 					   true)),
 
-     status(new TextBox("Enter username once and password",
+     status(new TextBox("Enter username once and password\ntwice to register an account",
 	                    0.0f,
 						-135.0f)),
-
-     status2(new TextBox("twice to register an account",
-
-	                     // This is just some kind of dumb/obnoxious code I wanted to
-						 // test out. What it does is basically aligns the status2 message
-						 // with the status above with left alignment.
-						 // As you can see, it is rather painful. I'll be looking into
-						 // text wrapping options in the near future as that'll be definitely
-						 // needed for display/chat later on
-                         (GraphicsManager::getInstance()->getLeftCenter(status->message).x - 
-						     (GraphicsManager::getInstance()->window.getSize().x / 2.0f)) /
-							 GraphicsManager::getInstance()->scale,
-						 -115.0f,
-						 Alignments::LEFT)),
 
      usernameTag(new TextBox("Username: ",
 	                         -140.0f,
@@ -90,9 +76,15 @@ RegisterScreen::RegisterScreen()
 void RegisterScreen::update()
 {
 	for(auto i : buttons)
-		if (i->isActivated)
+		if (i->isActivated ||
+		    (InputManager::getInstance()->enter && i->isSelected))
 		{
 			ScreenManager::getInstance()->switchScreen(i->toScreen);
 			break;
 		}
+}
+
+void RegisterScreen::draw()
+{
+
 }

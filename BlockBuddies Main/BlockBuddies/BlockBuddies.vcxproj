@@ -24,6 +24,8 @@
     <ClInclude Include="Screen.hpp" />
     <ClInclude Include="ScreenManager.hpp" />
     <ClInclude Include="Section.hpp" />
+    <ClInclude Include="Selectable.hpp" />
+    <ClInclude Include="SelectManager.hpp" />
     <ClInclude Include="TextBox.hpp" />
     <ClInclude Include="TextInput.hpp" />
     <ClInclude Include="UIElement.hpp" />
@@ -44,6 +46,8 @@
     <ClCompile Include="RegisterScreen.cpp" />
     <ClCompile Include="ScreenManager.cpp" />
     <ClCompile Include="Section.cpp" />
+    <ClCompile Include="Selectable.cpp" />
+    <ClCompile Include="SelectManager.cpp" />
     <ClCompile Include="TextBox.cpp" />
     <ClCompile Include="TextInput.cpp" />
     <ClCompile Include="UIElement.cpp" />
