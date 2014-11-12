@@ -31,6 +31,9 @@ private:
 
 	sf::Text input;
 
+	// Used to display the asterisks
+	sf::Text protectedInput;
+
 	// Private class for handling the cursor within TextInput
 	class InputCursor {
 	public:
@@ -41,7 +44,7 @@ private:
 		sf::Clock blinkTimer;
 
 		// Whether or not it is currently displayed or not
-		bool isDisplayed = true;
+		bool isDisplayed = true;		
 
 		// We leave this public so that we can access it within TextInput
 		sf::RectangleShape boundingRect;

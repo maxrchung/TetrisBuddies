@@ -53,17 +53,32 @@ TextInput::TextInput(float posX,
 	// Otherwise, we'll need to recalculate to find the left-center point of the boundingRect
 	// The input as of now always comes reads in from the left of the box
 	else if (alignment == Alignments::CENTER)
-		input.setPosition(GraphicsManager::getInstance()->getCenter(boundingRect));
+		input.setPosition(GraphicsManager::getInstance()->getCenter(boundingRect, Bounds::GLOBAL));
 
 	// We move a small distance away so that the letters aren't drawn directly 
 	// on the boundingRect border
 	input.move(5.0f * GraphicsManager::getInstance()->scale, 0.0f);
 
 	// Sets the inputCursor in position
-	inputCursor.boundingRect.setPosition(GraphicsManager::getInstance()->getLeftCenter(input, Bounds::GLOBAL));
+	inputCursor.boundingRect.setPosition(GraphicsManager::getInstance()->getRightCenter(input));
 
 	// At the end, we reset the string
 	input.setString("");
+
+	// If it is protected, setup the protected asterisks input
+	if (isProtected)
+	{
+		protectedInput = sf::Text("*",
+			                      *input.getFont(),
+								  input.getCharacterSize());
+		protectedInput.setColor(input.getColor());
+		if (alignment = Alignments::LEFT)
+			protectedInput.setOrigin(GraphicsManager::getInstance()->getLeftCenter(protectedInput));
+		else if(alignment = Alignments::CENTER)
+			protectedInput.setOrigin(GraphicsManager::getInstance()->getCenter(protectedInput));
+		protectedInput.setPosition(input.getPosition());
+		protectedInput.setString("");
+	}
 }
 
 void TextInput::update()
@@ -103,7 +118,33 @@ void TextInput::update()
 		// Add in the input text from the InputManager
 		else if (!InputManager::getInstance()->input.isEmpty())
 		{
-			input.setString(input.getString() + InputManager::getInstance()->input);
+			// checkLength is a copy of input that is used to limit the
+			// String length of input
+			sf::Text checkLength;
+			// We set it according to whether or not we have protected input
+			if(isProtected)
+			{
+				checkLength = protectedInput;
+
+				// We make sure we are measuring by asterisks rather than the actual input itself
+				checkLength.setString(checkLength.getString() + "*");
+
+				if (GraphicsManager::getInstance()->getRightCenter(checkLength).x <=
+					    boundingRect.getSize().x - 5.0f * 2 * GraphicsManager::getInstance()->scale)
+					// If the asterisks fit, then set the input accordingly
+					input.setString(input.getString() + InputManager::getInstance()->input);
+			}
+			// Otherwise we check input by seeing if the new input will fit
+			else
+			{
+				checkLength = input;
+				checkLength.setString(input.getString() + InputManager::getInstance()->input);
+
+				if (GraphicsManager::getInstance()->getRightCenter(checkLength).x <=
+					    boundingRect.getSize().x - 5.0f * 2 * GraphicsManager::getInstance()->scale)
+				   // If it is, set it to the old checkLength we saved earlier
+				   input = checkLength;
+			}
 
 			// If we are aligning it by the center, then we have to readjust the origin
 			// and position so that it redraws from the center of the textbox each time
@@ -121,6 +162,27 @@ void TextInput::update()
 		boundingRect.setFillColor(GraphicsManager::getInstance()->backgroundColor);
 		input.setColor(GraphicsManager::getInstance()->selectColor);
 
+		if (isProtected)
+		{
+			// If it's protected, then we make sure that we loop through all the characters
+			// and save them as asterisks to protectedInput
+			sf::String asterisks("");
+			for (int i = 0; i < input.getString().getSize(); i++)
+				asterisks += "*";
+			protectedInput.setString(asterisks);
+
+			// This sets the input cursor onto protected input
+			inputCursor.boundingRect.setPosition(GraphicsManager::getInstance()->getRightCenter(protectedInput, Bounds::GLOBAL).x +
+				                                     1.0f * GraphicsManager::getInstance()->scale,
+												 input.getPosition().y);
+		}
+
+		else // if !isProtected
+			// Else we set the cursor onto the input
+			inputCursor.boundingRect.setPosition(GraphicsManager::getInstance()->getRightCenter(input, Bounds::GLOBAL).x +
+				                                     1.0f * GraphicsManager::getInstance()->scale,
+												 input.getPosition().y);
+
 		// If the cursor timer is greater than some constant
 		if(inputCursor.blinkTimer.getElapsedTime().asMilliseconds() > 500)
 		{
@@ -130,17 +192,10 @@ void TextInput::update()
 			// Restart the timer
 			inputCursor.blinkTimer.restart();
 		}
-
-		// Set the position to the center right of the input text
-		// We make sure that we only affect the x movement so that the cursor won't jump improperly
-		// The 1.0f is a small buffer zone so that the cursor doesn't touch the last letter
-		inputCursor.boundingRect.setPosition(GraphicsManager::getInstance()->getRightCenter(input, Bounds::GLOBAL).x
-			                                     + 1.0f * GraphicsManager::getInstance()->scale,
-			                                 inputCursor.boundingRect.getPosition().y);
 	}
 
 	// Else set the colors if it is not selected
-	else // if isSelected == false
+	else // if !isSelected
 	{
 		boundingRect.setFillColor(GraphicsManager::getInstance()->buttonColor);
 		input.setColor(GraphicsManager::getInstance()->typeColor);
@@ -156,6 +211,19 @@ void TextInput::update()
 		boundingRect.setFillColor(GraphicsManager::getInstance()->backgroundColor);
 		input.setColor(GraphicsManager::getInstance()->selectColor);
 	}
+
+	// Regardless, if the password is protected, we update its color, origin, and position
+	// each loop
+	if (isProtected)
+	{
+		protectedInput.setColor(input.getColor());
+		protectedInput.setPosition(input.getPosition());
+		// Also set the origin so that it can draw from the middle if necessary
+		if (alignment = Alignments::LEFT)
+			protectedInput.setOrigin(GraphicsManager::getInstance()->getLeftCenter(protectedInput));
+		else if(alignment = Alignments::CENTER)
+			protectedInput.setOrigin(GraphicsManager::getInstance()->getCenter(protectedInput));
+	}
 }
 
 void TextInput::draw()
@@ -163,24 +231,10 @@ void TextInput::draw()
 	// Draw the background boundingRect
 	GraphicsManager::getInstance()->window.draw(boundingRect);
 
-	// If the TextInput is password protected, then create a new
-	// asterisks Text to draw. Ideally, for efficiency, we may want
-	// to move this into update() and make variables outside in the
-	// class, but this small chunk of code nicely constrains everything
-	// to this single area
+	// If the TextInput is password protected, then draw the asterisks
+	// version of the input. Otherwise, draw the input normally
 	if (isProtected)
-	{
-		sf::String asterisks("");
-		for (int i = 0; i < input.getString().getSize(); i++)
-			asterisks += "*";
-		sf::Text protectedInput(asterisks,
-			                    *input.getFont(),
-								input.getCharacterSize());
-		protectedInput.setColor(input.getColor());
-		protectedInput.setOrigin(GraphicsManager::getInstance()->getLeftCenter(protectedInput));
-		protectedInput.setPosition(input.getPosition());
 		GraphicsManager::getInstance()->window.draw(protectedInput);
-	}
 
 	else 
 		GraphicsManager::getInstance()->window.draw(input);
@@ -188,6 +242,7 @@ void TextInput::draw()
 	inputCursor.draw();
 }
 
+// Private InputCursor class for TextInput
 TextInput::InputCursor::InputCursor()
      // Rectangle indicator for the cursor
     :boundingRect(sf::RectangleShape(sf::Vector2f(2.0f,
