@@ -75,6 +75,12 @@
     <ClInclude Include="SelectManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BlockHandler.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CursorHandler.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp">
@@ -132,6 +138,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Selectable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BlockHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CursorHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
