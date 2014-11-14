@@ -23,6 +23,7 @@ public:
 			  bool isProtected = false);
 	void update();
 	void draw();
+	sf::Text getText();
 	
 private:
 	sf::RectangleShape boundingRect;
