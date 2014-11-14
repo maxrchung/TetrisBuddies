@@ -40,6 +40,7 @@ void Button::update()
 {
 	// We initialize this outside so we don't make new 
 	// variables for it further down
+	isActivated = false;
 	sf::Vector2i mousePosition = sf::Mouse::getPosition(GraphicsManager::getInstance()->window);
 
 	// Checks if the mouse is hovering over the button,
@@ -76,4 +77,9 @@ void Button::draw()
 {
 	GraphicsManager::getInstance()->window.draw(boundingRect);
 	GraphicsManager::getInstance()->window.draw(label);
+}
+
+sf::Text Button::getLabel()
+{
+	return label;
 }

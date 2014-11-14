@@ -259,6 +259,7 @@ void TextInput::InputCursor::update()
 {
 	// Nothing in here since the outside TextInput update() function
 	// will handle updating the InputCursor's location and blinking
+	
 }
 
 void TextInput::InputCursor::draw()

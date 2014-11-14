@@ -67,23 +67,34 @@ void LoginScreen::update()
 {
 	//Bug if you fail to log in and enter a correct log in the second time.
 	//Can't log in if it's not in the DB at least
-	for(auto i : buttons)
-		if (i->isActivated ||
-			(InputManager::getInstance()->enter && i->isSelected))
+	for (auto i : buttons)
+	{
+		if (i->getLabel().getString() == "Enter")
 		{
-		std::string temp = "";
-			if (DatabaseManager::getInstance().loginUser(username->getText().getString(),password->getText().getString()))
+
+			if (i->isActivated ||
+				(InputManager::getInstance()->enter && i->isSelected))
 			{
-				status->setString("Logging in");
-				ScreenManager::getInstance()->switchScreen(i->toScreen);
+				if (DatabaseManager::getInstance().loginUser(username->getText().getString(), password->getText().getString()))
+				{
+					ScreenManager::getInstance()->switchScreen(i->toScreen);
+				}
+				else status->setString("Wrong username or password.");
+
+				break;
 			}
-			else
-			{
-				status->setString("Wrong username or password.");
-			}
+
+		}
+		else if (i->getLabel().getString() == "Register")
+		{
+
+			if (i->isActivated ||
+				(InputManager::getInstance()->enter && i->isSelected))
+			ScreenManager::getInstance()->switchScreen(i->toScreen);
 			break;
 		}
-		
+
+	}
 	
 }
 

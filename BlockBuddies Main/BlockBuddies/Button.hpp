@@ -28,7 +28,8 @@ public:
 		   float height);
 	void update();
 	void draw();
-
+	sf::Text getLabel();
+	
 	// I thought about leaving these two private and then having
 	// const getter functions access these. But I prefer the ease in
 	// just accessing these with a little bit shorter code and
