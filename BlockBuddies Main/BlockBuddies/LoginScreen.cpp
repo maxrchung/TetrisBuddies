@@ -94,7 +94,7 @@ void LoginScreen::update()
 			break;
 		}
 
-		i->isActivated = false;
+		
 
 	}
 	
