@@ -80,7 +80,7 @@ void RegisterScreen::update()
 		if (i->isActivated ||
 		    (InputManager::getInstance()->enter && i->isSelected))
 		{
-		if (i->getLabel().getString() == "Enter")
+		if (i->label.getString() == "Enter")
 		{
 			//This might be optimized
 			if (password->getText().getString() == password2->getText().getString())
@@ -96,7 +96,7 @@ void RegisterScreen::update()
 
 
 		}
-		else if (i->getLabel().getString() == "Cancel")
+		else if (i->label.getString() == "Cancel")
 		{
 			ScreenManager::getInstance()->switchScreen(i->toScreen);
 		}

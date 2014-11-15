@@ -69,7 +69,7 @@ void LoginScreen::update()
 	//Can't log in if it's not in the DB at least
 	for (auto i : buttons)
 	{
-		if (i->getLabel().getString() == "Enter")
+		if (i->label.getString() == "Enter")
 		{
 
 			if (i->isActivated ||
@@ -85,7 +85,7 @@ void LoginScreen::update()
 			}
 
 		}
-		else if (i->getLabel().getString() == "Register")
+		else if (i->label.getString() == "Register")
 		{
 
 			if (i->isActivated ||
@@ -93,6 +93,8 @@ void LoginScreen::update()
 			ScreenManager::getInstance()->switchScreen(i->toScreen);
 			break;
 		}
+
+		i->isActivated = false;
 
 	}
 	
