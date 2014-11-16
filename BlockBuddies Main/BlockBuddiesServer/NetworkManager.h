@@ -24,8 +24,10 @@ public:
 
 	void run();
 	void checkForConnections();
+	bool checkLogin(std::string user, std::string pass);
+	bool registerUser(std::string user, std::string pass);
 	void makeNewPlayer();
-	void parseMessage();
+	bool parseMessage(sf::Packet parse);
 
 
 

@@ -1,5 +1,5 @@
 #include "NetworkManager.h"
-
+#include "DatabaseManager.h"
 
 void NetworkManager::run()
 {
@@ -7,11 +7,36 @@ void NetworkManager::run()
 	
 
 }
-
-void parseMessage()
+bool checkLogin(std::string user, std::string pass)
 {
-	
+	return DatabaseManager::getInstance().loginUser(user, pass);
 }
+
+bool registerUser(std::string user, std::string pass)
+{
+	return DatabaseManager::getInstance().registerUser(user, pass);
+}
+
+bool parseMessage(sf::Packet parse)
+{
+	int i;
+	std::string user;
+	std::string pass;
+	parse >> i >> user >> pass;
+	//Checks to see if the int is 0 || 1
+	//This can be expanded to multiple message types and then call the correct function later on. 
+	//A suggestion but for now this works for our simple set up.
+	switch (i) {
+	case 0:
+		return checkLogin(user, pass);
+	case 1:
+		return registerUser(user, pass);
+	default:
+		return false;
+	}
+}
+
+
 
 void NetworkManager::checkForConnections()
 {
@@ -50,13 +75,52 @@ void NetworkManager::checkForConnections()
 					{
 						//This will have to be replaced with some way of parsing the message
 						sf::Packet packet;
-						std::size_t received;
-						char data[100];
-
-						if (client.receive(data, 100, received) == sf::Socket::Done)
+						
+						if (client.receive(packet) == sf::Socket::Done)
 						{
-							//Prints what you sent
-							std::cout << data << "\n";
+							int i;
+							std::string user;
+							std::string pass;
+							packet >> i >> user >> pass;
+							//Checks to see if the int is 0 || 1
+							//This can be expanded to multiple message types and then call the correct function later on. 
+							//A suggestion but for now this works for our simple set up.
+							
+							if (i == 0)
+							{
+								if (DatabaseManager::getInstance().loginUser(user, pass))
+								{
+									int i = 0;
+									sf::Packet answer;
+									answer << i;
+									client.send(answer);
+								}
+								else
+								{
+									int i = 1;
+									sf::Packet answer;
+									answer << i;
+									client.send(answer);
+								}
+							}
+							else if (i == 1)
+							{
+
+								if (DatabaseManager::getInstance().registerUser(user, pass))
+								{
+									int i = 1;
+									sf::Packet answer;
+									answer << i;
+									client.send(answer);
+								}
+								else
+								{
+									int i = 1;
+									sf::Packet answer;
+									answer << i;
+									client.send(answer);
+								}
+							}
 							
 						}
 					}

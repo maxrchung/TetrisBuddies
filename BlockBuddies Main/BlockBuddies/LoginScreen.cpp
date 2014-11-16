@@ -2,7 +2,7 @@
 #include "ScreenManager.hpp"
 #include "InputManager.hpp"
 #include "DatabaseManager.h"
-
+#include "ClientManager.h"
 LoginScreen::LoginScreen()
 	:section(new Section(0.0f,
 	                     0.0f,
@@ -32,7 +32,7 @@ LoginScreen::LoginScreen()
 							 250.0f,
 							 Alignments::LEFT)),
 
- 	 status(new TextBox("Enter username and password to login",
+ 	 status(new TextBox((clientManager::getInstance().initConnection(sf::IpAddress::getLocalAddress(),5000)) ? "Enter username and passowrd ": "Could not connect",
 	                    0.0f,
 						-125.0f,
 						300.0f)),
@@ -80,7 +80,7 @@ void LoginScreen::update()
 			if (i->isActivated ||
 				(InputManager::getInstance()->enter && i->isSelected))
 			{
-				if (DatabaseManager::getInstance().loginUser(username->getText().getString(), password->getText().getString()))
+				if (clientManager::getInstance().loginUser(username->getText().getString(), password->getText().getString()))
 				{
 					ScreenManager::getInstance()->switchScreen(i->toScreen);
 				}
