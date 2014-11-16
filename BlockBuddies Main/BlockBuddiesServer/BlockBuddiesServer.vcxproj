@@ -72,20 +72,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="DatabaseManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="MatchMakingHandler.h" />
     <ClInclude Include="Message.h" />
-    <ClInclude Include="Messager.h" />
+    <ClInclude Include="Messenger.h" />
     <ClInclude Include="NetworkManager.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="sqlite3.h" />
+    <ClInclude Include="UserInfo.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DatabaseManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="MatchMakingHandler.cpp" />
     <ClCompile Include="Message.cpp" />
-    <ClCompile Include="Messager.cpp" />
+    <ClCompile Include="Messenger.cpp" />
     <ClCompile Include="networkManager.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="sqlite3.c" />
+    <ClCompile Include="UserInfo.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="game.db" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
