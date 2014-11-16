@@ -94,3 +94,8 @@ void TextBox::draw()
 {
 	GraphicsManager::getInstance()->window.draw(message);
 }
+
+void TextBox::setString(std::string newMessage)
+{
+	message.setString(newMessage);
+}

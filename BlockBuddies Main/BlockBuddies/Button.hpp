@@ -30,7 +30,7 @@ public:
 		   Alignments drawAlignment = Alignments::CENTER);
 	void update();
 	void draw();
-
+	
 	// I thought about leaving these two private and then having
 	// const getter functions access these. But I prefer the ease in
 	// just accessing these with a little bit shorter code and
@@ -40,12 +40,11 @@ public:
 	Screens toScreen;
 	// Boolean check on whether a button has been clicked on
 	bool isActivated = false;
+	sf::Text label;
 
 private:
 	// Displayed rect of the button
 	sf::RectangleShape boundingRect;
-
-	sf::Text label;
 };
 
 #endif BUTTON_HPP

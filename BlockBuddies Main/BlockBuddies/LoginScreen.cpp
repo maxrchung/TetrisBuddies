@@ -1,6 +1,7 @@
 #include "LoginScreen.hpp"
 #include "ScreenManager.hpp"
 #include "InputManager.hpp"
+#include "DatabaseManager.h"
 
 LoginScreen::LoginScreen()
 	:section(new Section(0.0f,
@@ -69,17 +70,39 @@ LoginScreen::LoginScreen()
 
 void LoginScreen::update()
 {
-	for(auto i : buttons)
-		if (i->isActivated ||
-			(InputManager::getInstance()->enter && i->isSelected))
+	//Bug if you fail to log in and enter a correct log in the second time.
+	//Can't log in if it's not in the DB at least
+	for (auto i : buttons)
+	{
+		if (i->label.getString() == "Enter")
 		{
-		    // NetworkManager::sendpacket(...)
-		    // listen for message
-		    // if messageTrue
-		    // else status.message.setString("Oh, your login was bad");
+
+			if (i->isActivated ||
+				(InputManager::getInstance()->enter && i->isSelected))
+			{
+				if (DatabaseManager::getInstance().loginUser(username->getText().getString(), password->getText().getString()))
+				{
+					ScreenManager::getInstance()->switchScreen(i->toScreen);
+				}
+				else status->setString("Wrong username or password.");
+
+				break;
+			}
+
+		}
+		else if (i->label.getString() == "Register")
+		{
+
+			if (i->isActivated ||
+				(InputManager::getInstance()->enter && i->isSelected))
 			ScreenManager::getInstance()->switchScreen(i->toScreen);
 			break;
 		}
+
+		
+
+	}
+	
 }
 
 void LoginScreen::draw()

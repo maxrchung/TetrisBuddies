@@ -24,6 +24,7 @@ public:
 			bool isTitle = false);
 	void update();
 	void draw();
+	void setString(std::string newMessage);
 
 private:
 	void textWrap();

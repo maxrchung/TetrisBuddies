@@ -44,6 +44,7 @@ void Button::update()
 {
 	// We initialize this outside so we don't make new 
 	// variables for it further down
+
 	sf::Vector2i mousePosition = sf::Mouse::getPosition(GraphicsManager::getInstance()->window);
 
 	// Checks if the mouse is hovering over the button,
@@ -60,7 +61,8 @@ void Button::update()
 	else
 	{
 		boundingRect.setFillColor(GraphicsManager::getInstance()->buttonColor);
-		label.setColor(GraphicsManager::getInstance()->typeColor);
+		label.setColor(GraphicsManager::getInstance()->typeColor); 
+			isActivated = false;
 	}
 
 	// Checks for mouse click onto the button
@@ -81,3 +83,4 @@ void Button::draw()
 	GraphicsManager::getInstance()->window.draw(boundingRect);
 	GraphicsManager::getInstance()->window.draw(label);
 }
+

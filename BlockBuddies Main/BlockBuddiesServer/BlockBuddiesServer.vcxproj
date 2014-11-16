@@ -44,9 +44,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\SFML-2.1-static\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>SFML_STATIC;GLEW_STATIC;WIN32;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\SFML-2.1-static\lib;$(ProjectDir)..\..\SFML-2.1-static\extlibs\libs-msvc\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Debug\sfml-main-d.lib;Debug\sfml-graphics-s-d.lib;jpeg.lib;freetype.lib;glew.lib;Debug\sfml-window-s-d.lib;gdi32.lib;opengl32.lib;Debug\sfml-audio-s-d.lib;sndfile.lib;openal32.lib;Debug\sfml-network-s-d.lib;ws2_32.lib;Debug\sfml-system-s-d.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -56,14 +60,41 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>SFML_STATIC;GLEW_STATIC;WIN32;SFML_STATIC;GLEW_STATIC;WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\SFML-2.1-static\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\SFML-2.1-static\lib;$(ProjectDir)..\..\SFML-2.1-static\extlibs\libs-msvc\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Release\sfml-main.lib;Release\sfml-graphics-s.lib;jpeg.lib;freetype.lib;glew.lib;Release\sfml-window-s.lib;gdi32.lib;opengl32.lib;Release\sfml-audio-s.lib;sndfile.lib;openal32.lib;Release\sfml-network-s.lib;ws2_32.lib;Release\sfml-system-s.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="DatabaseManager.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="MatchMakingHandler.h" />
+    <ClInclude Include="Message.h" />
+    <ClInclude Include="Messenger.h" />
+    <ClInclude Include="NetworkManager.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="sqlite3.h" />
+    <ClInclude Include="UserInfo.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DatabaseManager.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="MatchMakingHandler.cpp" />
+    <ClCompile Include="Message.cpp" />
+    <ClCompile Include="Messenger.cpp" />
+    <ClCompile Include="networkManager.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="sqlite3.c" />
+    <ClCompile Include="UserInfo.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="game.db" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
