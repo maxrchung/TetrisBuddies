@@ -11,13 +11,15 @@ TextInput::TextInput(float posX,
 
 					 // Alignment is either left or center, determines whether position
 					 // refers to the left-center position of the object or the center
-					 Alignments alignment,
+					 Alignments drawAlignment,
+					 Alignments textAlignment,
 
 					 // isProtected denotes whether or not asterisks, e.g.
 					 // ********, will be displayed in the place of text
 					 bool isProtected)
     :boundingRect(sf::RectangleShape(sf::Vector2f(width, height))),
-	 alignment(alignment),
+	 drawAlignment(drawAlignment),
+	 textAlignment(textAlignment),
 	 isProtected(isProtected),
 	 input(sf::Text("",
 	                GraphicsManager::getInstance()->messageFont,
@@ -25,9 +27,9 @@ TextInput::TextInput(float posX,
 {
 	// Sets the color, origin, scale, and position of the boundingRect
 	boundingRect.setFillColor(GraphicsManager::getInstance()->buttonColor);
-	if (alignment == Alignments::LEFT)
+	if (drawAlignment == Alignments::LEFT)
 		boundingRect.setOrigin(GraphicsManager::getInstance()->getLeftCenter(this->boundingRect));
-	else if(alignment == Alignments::CENTER)
+	else if(drawAlignment == Alignments::CENTER)
 		boundingRect.setOrigin(GraphicsManager::getInstance()->getCenter(this->boundingRect));
 	boundingRect.setScale(GraphicsManager::getInstance()->scale, GraphicsManager::getInstance()->scale);
 	boundingRect.setPosition(sf::Vector2f(GraphicsManager::getInstance()->window.getSize()) / 2.0f);
@@ -42,22 +44,23 @@ TextInput::TextInput(float posX,
 	input.setString("Wq");
 	// Depending on the alignment, we either set the origin to the leftCenter
 	// or the center of the input
-	if (alignment == Alignments::LEFT)
+	if (textAlignment == Alignments::LEFT)
 		input.setOrigin(GraphicsManager::getInstance()->getLeftCenter(input));
-	else if(alignment == Alignments::CENTER)
+	else if(textAlignment == Alignments::CENTER)
 		input.setOrigin(GraphicsManager::getInstance()->getCenter(input));
 
 	// If Alignment is left, then we can just put the input where the boundingRect is
-	if (alignment == Alignments::LEFT)
+	if (textAlignment == Alignments::LEFT)
+	{
 		input.setPosition(boundingRect.getPosition());
+		// We move a small distance away so that the letters aren't drawn directly
+		// on the boundingRect border
+		input.move(5.0f * GraphicsManager::getInstance()->scale, 0.0f);
+	}
 	// Otherwise, we'll need to recalculate to find the left-center point of the boundingRect
 	// The input as of now always comes reads in from the left of the box
-	else if (alignment == Alignments::CENTER)
+	else if (textAlignment == Alignments::CENTER)
 		input.setPosition(GraphicsManager::getInstance()->getCenter(boundingRect, Bounds::GLOBAL));
-
-	// We move a small distance away so that the letters aren't drawn directly 
-	// on the boundingRect border
-	input.move(5.0f * GraphicsManager::getInstance()->scale, 0.0f);
 
 	// Sets the inputCursor in position
 	inputCursor.boundingRect.setPosition(GraphicsManager::getInstance()->getRightCenter(input));
@@ -72,9 +75,9 @@ TextInput::TextInput(float posX,
 			                      *input.getFont(),
 								  input.getCharacterSize());
 		protectedInput.setColor(input.getColor());
-		if (alignment = Alignments::LEFT)
+		if (textAlignment == Alignments::LEFT)
 			protectedInput.setOrigin(GraphicsManager::getInstance()->getLeftCenter(protectedInput));
-		else if(alignment = Alignments::CENTER)
+		else if(textAlignment == Alignments::CENTER)
 			protectedInput.setOrigin(GraphicsManager::getInstance()->getCenter(protectedInput));
 		protectedInput.setPosition(input.getPosition());
 		protectedInput.setString("");
@@ -150,7 +153,7 @@ void TextInput::update()
 			// and position so that it redraws from the center of the textbox each time
 			// Left alignment is always set from the leftmost area, so we don't have to
 			// worry about that
-			if (alignment == Alignments::CENTER)
+			if (textAlignment == Alignments::CENTER)
 			{
 				input.setOrigin(GraphicsManager::getInstance()->getCenter(input).x,
 					            input.getOrigin().y);
@@ -219,9 +222,9 @@ void TextInput::update()
 		protectedInput.setColor(input.getColor());
 		protectedInput.setPosition(input.getPosition());
 		// Also set the origin so that it can draw from the middle if necessary
-		if (alignment = Alignments::LEFT)
+		if (textAlignment == Alignments::LEFT)
 			protectedInput.setOrigin(GraphicsManager::getInstance()->getLeftCenter(protectedInput));
-		else if(alignment = Alignments::CENTER)
+		else if(textAlignment == Alignments::CENTER)
 			protectedInput.setOrigin(GraphicsManager::getInstance()->getCenter(protectedInput));
 	}
 }

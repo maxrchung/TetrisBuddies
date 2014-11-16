@@ -1,6 +1,8 @@
 #include "GraphicsManager.hpp"
 #include <stdlib.h>
 #include <time.h>
+#include "InputManager.hpp"
+#include "Game.hpp"
 
 GraphicsManager* GraphicsManager::instance = NULL;
 
@@ -69,6 +71,20 @@ void GraphicsManager::init()
 	// just put it in here so that it so it's reachable by everything
 	background = sf::RectangleShape(sf::Vector2f(window.getSize()));
 	background.setFillColor(GraphicsManager::backgroundColor);
+
+	// Buttons for minimize and close
+	close = sf::RectangleShape(sf::Vector2f(30.0f, 30.0f));
+	close.setFillColor(buttonColor);
+	close.setOrigin(getCenter(close));
+	close.setPosition(window.getSize().x - 20.0f,
+		              20.0f);
+
+	closeX = sf::Text("X",
+		              labelFont,
+					  labelSize);
+	closeX.setColor(typeColor);
+	closeX.setOrigin(getCenter(closeX));
+	closeX.setPosition(close.getPosition());
 }
 
 // getCenter() is a utility function for getting the origin of an object
@@ -161,4 +177,46 @@ sf::Vector2f GraphicsManager::getRightCenter(const sf::RectangleShape& rectangle
 
 	return sf::Vector2f(rect.left + rect.width,
                         rect.top + rect.height/2.0f);		
+}
+
+void GraphicsManager::update()
+{
+	// Keeps track of mouse
+	sf::Vector2i mousePosition = sf::Mouse::getPosition(GraphicsManager::getInstance()->window);
+
+	// Checks if the mouse is hovering over close
+	// if so then change to the selected color
+	if (close.getGlobalBounds().contains((float) mousePosition.x,
+                                                (float) mousePosition.y))
+	{
+		close.setFillColor(sectionColor);
+		closeX.setColor(selectColor);
+	}
+	// Else return the color to its original state
+	else
+	{
+		close.setFillColor(buttonColor);
+		closeX.setColor(typeColor);
+	}
+	
+	// Checks for mouse click onto the button
+	if (InputManager::getInstance()->mouseReleased)
+	{
+		// If inside the bounds, then close
+		if (close.getGlobalBounds().contains((float) mousePosition.x,
+			                                 (float)mousePosition.y))
+		    Game::isRunning = false;
+													
+	}
+}
+
+void GraphicsManager::draw()
+{
+	// Background always the same, so drawn here
+	window.draw(background);
+
+	// Likewise for the close buttons
+	window.draw(close);
+	window.draw(closeX);
+
 }

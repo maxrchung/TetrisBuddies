@@ -8,39 +8,45 @@
 
 RegisterScreen::RegisterScreen()
 	:section(new Section(0.0f,
-		     0.0f,
-			 400.0f,
-			 600.0f)),
+		                 0.0f,
+						 400.0f,
+						 600.0f)),
 
 	 title(new TextBox("REGISTER",
                        0.0f,
 					   -200.0f,
+					   300.0f,
 					   Alignments::CENTER,
 					   true)),
 
-     status(new TextBox("Enter username once and password\ntwice to register an account",
+     status(new TextBox("Enter username once and password twice to register an account",
 	                    0.0f,
-						-135.0f)),
+						-135.0f,
+						300.0f)),
 
      usernameTag(new TextBox("Username: ",
 	                         -140.0f,
 							 -50.0f,
+							 300.0f,
 							 Alignments::LEFT)),
 
 	 passwordTag(new TextBox("Password: ",
 	                         -140.0f,
 							 0.0f,
+							 250.0f,
 							 Alignments::LEFT)),
 
      password2Tag(new TextBox("Password: ",
 	                          -140.0f,
 							  50.0f,
+							  250.0f,
 							  Alignments::LEFT)),
 
 	 username(new TextInput(-60.0f,
 	                        -50.0f,
 							200.0f,
 							30.0f,
+							Alignments::LEFT,
 							Alignments::LEFT)),
 
      password(new TextInput(-60.0f,
@@ -48,12 +54,14 @@ RegisterScreen::RegisterScreen()
 							200.0f,
 							30.0f,
 							Alignments::LEFT,
+							Alignments::LEFT,
 							true)),
 
 	 password2(new TextInput(-60.0f,
 		                     50.0f,
 							 200.0f,
 							 30.0f,
+							 Alignments::LEFT,
 							 Alignments::LEFT,
 							 true)),
 

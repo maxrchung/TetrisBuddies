@@ -36,6 +36,9 @@ void Game::update()
 	// Resets inputs and checks for new ones
 	InputManager::getInstance()->update();
 
+	// Manages corner buttons and background
+	GraphicsManager::getInstance()->update();
+
 	// Manages tabbing between Selectable elements
 	SelectManager::getInstance()->update();
 
@@ -54,9 +57,7 @@ void Game::draw()
 	// Clears what's on the window from the last draw
 	GraphicsManager::getInstance()->window.clear();
 
-	// Background always the same, so drawn here, followed by allowing the
-	// currentScreen to take control and draw as it likes
-	GraphicsManager::getInstance()->window.draw(GraphicsManager::getInstance()->background);
+	GraphicsManager::getInstance()->draw();
 
 	// Display all the UIElements
 	UIManager::getInstance()->draw();

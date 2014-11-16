@@ -19,14 +19,16 @@ public:
 
 			  // Denotes how the TextInput is drawn, whether from
 			  // the default center or by the left-center coordinate
-			  Alignments alignment = Alignments::CENTER,
+			  Alignments drawAlignment = Alignments::CENTER,
+			  Alignments textAlignment = Alignments::CENTER,
 			  bool isProtected = false);
 	void update();
 	void draw();
 	
 private:
 	sf::RectangleShape boundingRect;
-	Alignments alignment;
+	Alignments drawAlignment;
+	Alignments textAlignment;
 	bool isProtected;
 
 	sf::Text input;

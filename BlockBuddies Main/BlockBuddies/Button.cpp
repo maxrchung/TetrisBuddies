@@ -10,7 +10,8 @@ Button::Button(Screens toScreen,
 			   float posX,
 			   float posY,
 			   float width,
-			   float height)
+			   float height,
+			   Alignments drawAlignment)
 	:toScreen(toScreen),
 	 boundingRect(sf::RectangleShape(sf::Vector2f(width, height))),
 	 label(sf::Text(label,
@@ -21,7 +22,10 @@ Button::Button(Screens toScreen,
 	// The position is first set to the center of the screen and then placed a set
 	// scaled distance away
 	boundingRect.setFillColor(GraphicsManager::getInstance()->buttonColor);
-	boundingRect.setOrigin(GraphicsManager::getInstance()->getCenter(boundingRect));
+	if (drawAlignment == Alignments::LEFT)
+		boundingRect.setOrigin(GraphicsManager::getInstance()->getLeftCenter(boundingRect));
+	else if (drawAlignment == Alignments::CENTER)
+		boundingRect.setOrigin(GraphicsManager::getInstance()->getCenter(boundingRect));
 	boundingRect.setScale(GraphicsManager::getInstance()->scale, GraphicsManager::getInstance()->scale);
 	boundingRect.setPosition(sf::Vector2f(GraphicsManager::getInstance()->window.getSize())/2.0f);
 	boundingRect.move(posX * GraphicsManager::getInstance()->scale, posY * GraphicsManager::getInstance()->scale);

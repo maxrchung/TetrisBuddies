@@ -11,6 +11,7 @@ LoginScreen::LoginScreen()
      title(new TextBox("LOGIN",
 	                   0.0f,
 					   -200.0f,
+					   300.0f,
 					   Alignments::CENTER,
 
 					   // Parameter tells the constructor that it is a title
@@ -19,7 +20,7 @@ LoginScreen::LoginScreen()
      usernameTag(new TextBox("Username: ",
 		                     -140.0f,
 							 -25.0f,
-
+							 250.0f,
 							 // We want left alignment so that we can easily line up
 							 // Username: tags with the Password: tag below it
 							 Alignments::LEFT)),
@@ -27,22 +28,26 @@ LoginScreen::LoginScreen()
      passwordTag(new TextBox("Password: ",
 	                         -140.0f,
 							 25.0f,
+							 250.0f,
 							 Alignments::LEFT)),
 
  	 status(new TextBox("Enter username and password to login",
 	                    0.0f,
-						-125.0f)),
+						-125.0f,
+						300.0f)),
 
      username(new TextInput(-60.0f,
 		                    -25.0f,
 							200.0f,
 							30.0f,
+							Alignments::LEFT,
 							Alignments::LEFT)),
 
      password(new TextInput(-60.0f,
 		                    25.0f,
 							200.0f,
 							30.0f,
+							Alignments::LEFT,
 							Alignments::LEFT,
 							true)),
 
