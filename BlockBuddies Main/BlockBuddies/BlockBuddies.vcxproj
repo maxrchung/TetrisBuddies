@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClInclude Include="BlockHandler.hpp" />
     <ClInclude Include="Button.hpp" />
+    <ClInclude Include="ClientManager.h" />
     <ClInclude Include="CursorHandler.hpp" />
     <ClInclude Include="DatabaseManager.h" />
     <ClInclude Include="Game.hpp" />
@@ -40,6 +41,7 @@
   <ItemGroup>
     <ClCompile Include="BlockHandler.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Client.cpp" />
     <ClCompile Include="CursorHandler.cpp" />
     <ClCompile Include="DatabaseManager.cpp" />
     <ClCompile Include="Game.cpp" />

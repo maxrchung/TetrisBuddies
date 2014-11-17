@@ -45,7 +45,7 @@
     <None Include="game.db" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{C556437D-5F38-47F7-823E-04005D524BF6}</ProjectGuid>
+    <ProjectGuid>{BCEC204E-3F63-4CFD-AE08-E5D1EA65F285}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>BlockBuddies</RootNamespace>
   </PropertyGroup>
