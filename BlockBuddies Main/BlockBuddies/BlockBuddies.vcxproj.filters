@@ -167,7 +167,7 @@
     <ClCompile Include="UserInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Client.cpp">
+    <ClCompile Include="ClientManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

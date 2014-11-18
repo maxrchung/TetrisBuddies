@@ -1,6 +1,7 @@
 #include "NetworkManager.h"
 #include "DatabaseManager.h"
-
+#include "Player.h"
+std::list<Player> NetworkManager::connectPlayers;
 void NetworkManager::run()
 {
 	//gamelogic will go here
@@ -94,6 +95,8 @@ void NetworkManager::checkForConnections()
 									sf::Packet answer;
 									answer << i;
 									client.send(answer);
+									Player newPlayer =  Player(*it, DatabaseManager::getInstance().getUserInfo(user));
+									connectPlayers.push_back(newPlayer);
 								}
 								else
 								{
@@ -112,6 +115,8 @@ void NetworkManager::checkForConnections()
 									sf::Packet answer;
 									answer << i;
 									client.send(answer);
+									Player newPlayer =  Player(*it, DatabaseManager::getInstance().getUserInfo(user));
+									connectPlayers.push_back(newPlayer);
 								}
 								else
 								{

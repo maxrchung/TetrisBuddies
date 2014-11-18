@@ -6,7 +6,7 @@
 #include <SFML/Network.hpp>
 #include <iostream>
 #include <list>
-
+#include "Player.h"
 //The following code will create a thread for checking connections
 //This will also work if you have any class and you replace everything with your input.
 
@@ -16,7 +16,7 @@
 
 class NetworkManager
 {
-
+	
 public:
 	
 	NetworkManager() {}
@@ -28,14 +28,13 @@ public:
 	bool registerUser(std::string user, std::string pass);
 	void makeNewPlayer();
 	bool parseMessage(sf::Packet parse);
-
+	static std::list<Player> connectPlayers;
 
 
 private:
 	
 	NetworkManager(const NetworkManager&);                 
 	NetworkManager& operator=(const NetworkManager&);
-
 	sf::SocketSelector connections;
 	std::list<sf::TcpSocket*> clients;
 	sf::TcpListener listener;

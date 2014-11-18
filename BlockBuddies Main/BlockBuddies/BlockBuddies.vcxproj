@@ -41,7 +41,7 @@
   <ItemGroup>
     <ClCompile Include="BlockHandler.cpp" />
     <ClCompile Include="Button.cpp" />
-    <ClCompile Include="Client.cpp" />
+    <ClCompile Include="ClientManager.cpp" />
     <ClCompile Include="CursorHandler.cpp" />
     <ClCompile Include="DatabaseManager.cpp" />
     <ClCompile Include="Game.cpp" />
