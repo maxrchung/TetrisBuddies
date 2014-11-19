@@ -96,7 +96,7 @@ void RegisterScreen::update()
 			{
 				if (!username->getText().getString().isEmpty() && password->getText().getString() == password2->getText().getString() && !DatabaseManager::getInstance().loginUser(username->getText().getString(), password->getText().getString()))
 				{
-					clientManager::getInstance().registerUser(username->getText().getString(), password->getText().getString());
+					//clientManager::getInstance().registerUser(username->getText().getString(), password->getText().getString());
 					ScreenManager::getInstance()->switchScreen(i->toScreen);
 					break;
 				}

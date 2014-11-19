@@ -16,87 +16,96 @@ GameScreen::GameScreen()
 
 void GameScreen::update()
 {
-	//keyboard movement for cursor
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	if (!bh->GameOver())
 	{
-		if (pressed == false)
+		//keyboard movement for cursor
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 		{
-			ch->Left(sf::Keyboard::Key::Left);
-			pressed = true; // Cannot hold right to move
-		}
+			if (pressed == false)
+			{
+				ch->Left(sf::Keyboard::Key::Left);
+				pressed = true; // Cannot hold right to move
+			}
 
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-	{
-		if (pressed == false)
-		{
-			ch->Right(sf::Keyboard::Key::Right);
-			pressed = true; // Cannot hold right to move
 		}
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-	{
-		if (pressed == false)
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		{
-			ch->Up(sf::Keyboard::Key::Up);
-			pressed = true; // Cannot hold right to move
+			if (pressed == false)
+			{
+				ch->Right(sf::Keyboard::Key::Right);
+				pressed = true; // Cannot hold right to move
+			}
 		}
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-	{
-		if (pressed == false)
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{
-			ch->Down(sf::Keyboard::Key::Down);
-			pressed = true; // Cannot hold right to move
+			if (pressed == false)
+			{
+				ch->Up(sf::Keyboard::Key::Up);
+				pressed = true; // Cannot hold right to move
+			}
 		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		{
+			if (pressed == false)
+			{
+				ch->Down(sf::Keyboard::Key::Down);
+				pressed = true; // Cannot hold right to move
+			}
+		}
+		else
+			pressed = false;
+
+		//keypress for block switching
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) //swaps the main block with the left block
+		{
+			if (pressed2 == false)
+			{
+				bh->swapBlocksHorizL(ch->getMainCursor().getPosition().x, ch->getMainCursor().getPosition().y);
+				pressed2 = true;
+			}
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) //swaps the main block with the right block
+		{
+			if (pressed2 == false)
+			{
+				bh->swapBlocksHorizR(ch->getMainCursor().getPosition().x, ch->getMainCursor().getPosition().y);
+				pressed2 = true;
+			}
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) //swaps the main block with the top block
+		{
+			if (pressed2 == false)
+			{
+				bh->swapBlocksVertT(ch->getMainCursor().getPosition().x, ch->getMainCursor().getPosition().y);
+				pressed2 = true;
+
+			}
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) //swaps the main block with the bottom block
+		{
+			if (pressed2 == false)
+			{
+				bh->swapBlocksVertB(ch->getMainCursor().getPosition().x, ch->getMainCursor().getPosition().y);
+				pressed2 = true;
+			}
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) //swaps the main block with the bottom block
+		{
+			if (pressed2 == false)
+			{
+				bh->raiseBlocks();
+				pressed2 = true;
+			}
+		}
+		else
+			pressed2 = false; //cannot hold swap button to keep swapping
 	}
 	else
-		pressed = false;
-
-	//keypress for block switching
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) //swaps the main block with the left block
 	{
-		if (pressed2 == false)
-		{
-			bh->swapBlocksHorizL(ch->getMainCursor().getPosition().x, ch->getMainCursor().getPosition().y);
-			pressed2 = true;
-		}
+		delete bh;
+		delete ch;
+		ScreenManager::getInstance()->switchScreen(RESULT);
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) //swaps the main block with the right block
-	{
-		if (pressed2 == false)
-		{
-			bh->swapBlocksHorizR(ch->getMainCursor().getPosition().x, ch->getMainCursor().getPosition().y);
-			pressed2 = true;
-		}
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) //swaps the main block with the top block
-	{
-		if (pressed2 == false)
-		{
-			bh->swapBlocksVertT(ch->getMainCursor().getPosition().x, ch->getMainCursor().getPosition().y);
-			pressed2 = true;
-
-		}
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) //swaps the main block with the bottom block
-	{
-		if (pressed2 == false)
-		{
-			bh->swapBlocksVertB(ch->getMainCursor().getPosition().x, ch->getMainCursor().getPosition().y);
-			pressed2 = true;
-		}
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) //swaps the main block with the bottom block
-	{
-		if (pressed2 == false)
-		{
-			bh->raiseBlocks();
-			pressed2 = true;
-		}
-	}
-	else
-		pressed2 = false; //cannot hold swap button to keep swapping
 }
 
 void GameScreen::draw()

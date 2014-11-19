@@ -2,14 +2,8 @@
 
 //takes in window width and window height
 BlockHandler::BlockHandler(int ww, int wh)
+	:windowHeight(wh), windowWidth(ww), gridPosx(0), gridPosy(0), gameOver(false), clearBlocks(false), coloredBlock(false)
 {
-	//srand(time(NULL)); //random every run
-	windowHeight = wh;
-	windowWidth = ww;
-	clearBlocks = false;
-	coloredBlock = false;
-	gridPosx = 0;
-	gridPosy = 0;
 	int color = 0;
 
 	//creates blocks and puts them in 2D array
@@ -72,7 +66,7 @@ void BlockHandler::swapBlocksVertT(int x, int y)
 	int mainblocky = (y - (windowHeight / 2 - SCREENHEIGHT / 2)) / 25;
 	int topblockx = mainblockx;
 	int topblocky = mainblocky--;
-
+	 
 	//Dont swap at top or if the block above is transparent.
 	if (mainblocky >= 0 && blocks[mainblocky][mainblockx].getFillColor() != sf::Color::Transparent)
 	{
@@ -110,7 +104,7 @@ void BlockHandler::swapBlocksHorizL(int x, int y)
 	int mainblocky = (y - (windowHeight / 2 - SCREENHEIGHT / 2)) / 25;
 	int leftblockx = mainblockx--;
 	int leftblocky = mainblocky;
-	
+
 	//Dont swap on left edge
 	if (mainblockx >= 0)
 	{
@@ -155,8 +149,16 @@ void BlockHandler::checkBlocks(int x, int y)
 	{
 		while (!columns.empty() && !rows.empty())
 		{
-			blocks[columns.back()][rows.back()].setFillColor(sf::Color::Transparent);
-			columns.pop_back(); rows.pop_back();
+			//if the game somehow gets a value larger than the gamescreen size, throw it away.
+			if (columns.front() >= SCREENHEIGHT / 25 || rows.front() >= SCREENWIDTH /25)
+			{
+				columns.pop(); rows.pop();
+			}
+			else
+			{
+				blocks[columns.front()][rows.front()].setFillColor(sf::Color::Transparent);
+				columns.pop(); rows.pop();
+			}
 		}
 		clearBlocks = false;
 		dropBlocks();
@@ -165,69 +167,70 @@ void BlockHandler::checkBlocks(int x, int y)
 
 void BlockHandler::check(int x, int y)
 {
-	//checks 1 right and 1 left of it
-	if (blocks[y][x].getFillColor() == blocks[y][x + 1].getFillColor() && blocks[y][x].getFillColor() == blocks[y][x - 1].getFillColor())
+	//checks 1 right and 1 left of it, the first line are constraints to prevent line wrap clearing
+	if (x > 0 && x < SCREENWIDTH/25 - 1 &&
+		blocks[y][x].getFillColor() == blocks[y][x + 1].getFillColor() && blocks[y][x].getFillColor() == blocks[y][x - 1].getFillColor())
 	{
-		columns.push_back(y); columns.push_back(y); columns.push_back(y);
-		rows.push_back(x); rows.push_back(x + 1); rows.push_back(x - 1);
+		columns.push(y); columns.push(y); columns.push(y);
+		rows.push(x); rows.push(x + 1); rows.push(x - 1);
 		clearBlocks = true;
 		//check the 2nd right and 2nd left
-		if (blocks[y][x].getFillColor() == blocks[y][x + 2].getFillColor())
+		if (x < SCREENWIDTH / 25 - 2 && blocks[y][x].getFillColor() == blocks[y][x + 2].getFillColor())
 		{
-			columns.push_back(y);
-			rows.push_back(x + 2);
+			columns.push(y);
+			rows.push(x + 2);
 		}
-		if (blocks[y][x].getFillColor() == blocks[y][x - 2].getFillColor())
+		if (x > 1 && blocks[y][x].getFillColor() == blocks[y][x - 2].getFillColor())
 		{
-			columns.push_back(y);
-			rows.push_back(x - 2);
+			columns.push(y);
+			rows.push(x - 2);
 		}
 	}
 	//check the right side for match 3
-	else if (blocks[y][x].getFillColor() == blocks[y][x + 1].getFillColor() && blocks[y][x].getFillColor() == blocks[y][x + 2].getFillColor())
+	else if (x < SCREENWIDTH / 25 - 2 && blocks[y][x].getFillColor() == blocks[y][x + 1].getFillColor() && blocks[y][x].getFillColor() == blocks[y][x + 2].getFillColor())
 	{
-		columns.push_back(y); columns.push_back(y); columns.push_back(y);
-		rows.push_back(x); rows.push_back(x + 1); rows.push_back(x + 2);
+		columns.push(y); columns.push(y); columns.push(y);
+		rows.push(x); rows.push(x + 1); rows.push(x + 2);
 		clearBlocks = true;
 	}
 	//check left side for match 3
-	else if (blocks[y][x].getFillColor() == blocks[y][x - 1].getFillColor() && blocks[y][x].getFillColor() == blocks[y][x - 2].getFillColor())
+	else if (x > 1 && blocks[y][x].getFillColor() == blocks[y][x - 1].getFillColor() && blocks[y][x].getFillColor() == blocks[y][x - 2].getFillColor())
 	{
-		columns.push_back(y); columns.push_back(y); columns.push_back(y);
-		rows.push_back(x); rows.push_back(x - 1); rows.push_back(x - 2);
+		columns.push(y); columns.push(y); columns.push(y);
+		rows.push(x); rows.push(x - 1); rows.push(x - 2);
 		clearBlocks = true;
 	}
 
 	//checks 1 block above and 1 block below
 	if (blocks[y][x].getFillColor() == blocks[y + 1][x].getFillColor() && blocks[y][x].getFillColor() == blocks[y - 1][x].getFillColor())
 	{
-		columns.push_back(y); columns.push_back(y + 1); columns.push_back(y - 1);
-		rows.push_back(x); rows.push_back(x); rows.push_back(x);
+		columns.push(y); columns.push(y + 1); columns.push(y - 1);
+		rows.push(x); rows.push(x); rows.push(x);
 		clearBlocks = true;
 		//check the 2nd above and 2nd below
 		if (blocks[y][x].getFillColor() == blocks[y + 2][x].getFillColor())
 		{
-			columns.push_back(y + 2);
-			rows.push_back(x);
+			columns.push(y + 2);
+			rows.push(x);
 		}
 		if (blocks[y][x].getFillColor() == blocks[y - 2][x].getFillColor())
 		{
-			columns.push_back(y - 2);
-			rows.push_back(x);
+			columns.push(y - 2);
+			rows.push(x);
 		}
 	}
 	//check the top for match 3
 	else if (blocks[y][x].getFillColor() == blocks[y + 1][x].getFillColor() && blocks[y][x].getFillColor() == blocks[y + 2][x].getFillColor())
 	{
-		columns.push_back(y); columns.push_back(y + 1); columns.push_back(y + 2);
-		rows.push_back(x); rows.push_back(x); rows.push_back(x);
+		columns.push(y); columns.push(y + 1); columns.push(y + 2);
+		rows.push(x); rows.push(x); rows.push(x);
 		clearBlocks = true;
 	}
 	//check bottom for match 3
 	else if (blocks[y][x].getFillColor() == blocks[y - 1][x].getFillColor() && blocks[y][x].getFillColor() == blocks[y - 2][x].getFillColor())
 	{
-		columns.push_back(y); columns.push_back(y - 1); columns.push_back(y - 2);
-		rows.push_back(x); rows.push_back(x); rows.push_back(x);
+		columns.push(y); columns.push(y - 1); columns.push(y - 2);
+		rows.push(x); rows.push(x); rows.push(x);
 		clearBlocks = true;
 	}
 }
@@ -327,4 +330,15 @@ void BlockHandler::raiseBlocks()
 			break;
 		}
 	}
+}
+
+bool BlockHandler::GameOver()
+{
+	for (int i = 0; i < SCREENWIDTH / 25; i++)
+	{
+		if (blocks[0][i].getFillColor() != sf::Color::Transparent)
+			gameOver = true;
+	}
+
+	return gameOver;
 }

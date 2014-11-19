@@ -3,7 +3,7 @@
 
 
 #include "SFML/Graphics.hpp"
-#include <list>
+#include <queue>
 #include <ctime>
 
 class BlockHandler
@@ -20,19 +20,21 @@ public:
 	void dropBlocks();
 	void findHighestBlock();
 	bool isThereColoredBlock(int, int);
+	bool GameOver();
 	const int SCREENWIDTH = 400;
 	const int SCREENHEIGHT = 500;
 
 private:
 	sf::RectangleShape blocks[20][16];
-	std::list <int> rows;
-	std::list <int> columns;
+	std::queue <int> rows;
+	std::queue <int> columns;
 	int windowWidth, windowHeight;
 	int highestBlock;
 	int gridPosx;
 	int gridPosy;
 	bool clearBlocks;
 	bool coloredBlock;
+	bool gameOver;
 	void check(int x, int y);
 };
 

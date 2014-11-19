@@ -25,6 +25,7 @@
     <ClInclude Include="LoginScreen.hpp" />
     <ClInclude Include="ProfileScreen.hpp" />
     <ClInclude Include="RegisterScreen.hpp" />
+    <ClInclude Include="ResultScreen.hpp" />
     <ClInclude Include="Screen.hpp" />
     <ClInclude Include="ScreenManager.hpp" />
     <ClInclude Include="Section.hpp" />
@@ -54,6 +55,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ProfileScreen.cpp" />
     <ClCompile Include="RegisterScreen.cpp" />
+    <ClCompile Include="ResultScreen.cpp" />
     <ClCompile Include="ScreenManager.cpp" />
     <ClCompile Include="Section.cpp" />
     <ClCompile Include="Selectable.cpp" />

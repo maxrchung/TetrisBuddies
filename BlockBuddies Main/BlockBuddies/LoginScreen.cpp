@@ -32,10 +32,10 @@ LoginScreen::LoginScreen()
 							 250.0f,
 							 Alignments::LEFT)),
 
- 	 status(new TextBox((clientManager::getInstance().initConnection(sf::IpAddress::getLocalAddress(),5000)) ? "Enter username and passowrd ": "Could not connect",
-	                    0.0f,
-						-125.0f,
-						300.0f)),
+ 	// status(new TextBox((clientManager::getInstance().initConnection(sf::IpAddress::getLocalAddress(),5000)) ? "Enter username and passowrd ": "Could not connect",
+	//                    0.0f,
+	//					-125.0f,
+	//					300.0f)),
 
      username(new TextInput(-60.0f,
 		                    -25.0f,
