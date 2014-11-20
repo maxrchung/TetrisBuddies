@@ -1,7 +1,6 @@
 #include "InputManager.hpp"
 #include "GraphicsManager.hpp"
 #include "Game.hpp"
-
 InputManager* InputManager::instance;
 
 InputManager* InputManager::getInstance()

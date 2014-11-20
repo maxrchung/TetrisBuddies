@@ -30,6 +30,7 @@
     <ClInclude Include="Section.hpp" />
     <ClInclude Include="Selectable.hpp" />
     <ClInclude Include="SelectManager.hpp" />
+    <ClInclude Include="SoundManager.h" />
     <ClInclude Include="sqlite3.h" />
     <ClInclude Include="TextBox.hpp" />
     <ClInclude Include="TextInput.hpp" />
@@ -58,6 +59,7 @@
     <ClCompile Include="Section.cpp" />
     <ClCompile Include="Selectable.cpp" />
     <ClCompile Include="SelectManager.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="sqlite3.c" />
     <ClCompile Include="TextBox.cpp" />
     <ClCompile Include="TextInput.cpp" />

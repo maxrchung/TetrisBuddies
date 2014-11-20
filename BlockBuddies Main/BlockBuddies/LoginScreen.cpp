@@ -3,6 +3,7 @@
 #include "InputManager.hpp"
 #include "DatabaseManager.h"
 #include "ClientManager.h"
+#include "SoundManager.h"
 LoginScreen::LoginScreen()
 	:section(new Section(0.0f,
 	                     0.0f,
@@ -66,6 +67,8 @@ LoginScreen::LoginScreen()
 						  150.0f,
 						  50.0f) })
 {
+	//set the sound with a soundbuffer from the soundmanager
+	sound.setBuffer(*SoundManager::getInstance().getSound("scream"));
 }
 
 void LoginScreen::update()
@@ -82,10 +85,18 @@ void LoginScreen::update()
 			{
 				if (clientManager::getInstance().loginUser(username->getText().getString(), password->getText().getString()))
 				{
+					//play sound then switch screens
+					sound.play();
 					ScreenManager::getInstance()->switchScreen(i->toScreen);
 				}
-				else status->setString("Wrong username or password.");
+				else{
+					//play sounds then change strings
+					if (sound.getStatus() != sound.Playing)
+					sound.play();
 
+					status->setString("Wrong username or password.");
+					
+				}
 				break;
 			}
 
@@ -95,7 +106,11 @@ void LoginScreen::update()
 
 			if (i->isActivated ||
 				(InputManager::getInstance()->enter && i->isSelected))
-			ScreenManager::getInstance()->switchScreen(i->toScreen);
+			{
+				//play sound then switch screen
+				sound.play();
+				ScreenManager::getInstance()->switchScreen(i->toScreen);
+			}
 			break;
 		}
 

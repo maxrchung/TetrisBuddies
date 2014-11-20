@@ -73,8 +73,9 @@ void clientManager::messageWait()
 		sf::Packet packet;
 		if (socket.receive(packet) != sf::Socket::Done)
 		{
+			
 			std::string recieved;
-			packet >> recieved;
+			if(packet >> recieved)
 
 			std::cout << "Received: " << recieved << std::endl;
 

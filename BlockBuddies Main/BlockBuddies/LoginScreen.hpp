@@ -8,6 +8,7 @@
 #include "TextInput.hpp"
 #include "Section.hpp"
 #include "Selectable.hpp"
+#include <SFML\Audio.hpp>
 
 // Screen to login with account
 class LoginScreen : public Screen
@@ -39,6 +40,8 @@ private:
 	TextInput* username;
 	TextInput* password;
 	std::vector<Button*> buttons;
+	//added a sound object to login screen
+	sf::Sound sound;
 };
 
 #endif//LOGINSCREEN_HPP
