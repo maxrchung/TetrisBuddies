@@ -8,7 +8,7 @@
 // to the RegisterScreen. The reason why I chose to use an enum over char*
 // was because I can do a pretty nicely formatted switch-case for the 
 // switchScreen function. It should also be a little more efficient
-enum Screens {LOGIN, REGISTER, HOME, PROFILE, GAMETYPE, GAME};
+enum Screens {LOGIN, REGISTER, HOME, PROFILE, GAMETYPE, GAME, RESULT};
 
 // ScreenManager takes care of switching screens and holds
 // a currentScreen variable

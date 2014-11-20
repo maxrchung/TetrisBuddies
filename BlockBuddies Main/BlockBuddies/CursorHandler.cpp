@@ -42,7 +42,7 @@ CursorHandler::CursorHandler(int sw, int sh, int ww, int wh)
 
 void CursorHandler::Left(sf::Keyboard::Key L)
 {
-	if (mainSquare.getPosition().x > xBoundary)
+	if (mainSquare.getPosition().x != xBoundary)
 	{
 		mainSquare.setPosition(mainSquare.getPosition().x - 25, mainSquare.getPosition().y);
 		leftSquare.setPosition(leftSquare.getPosition().x - 25, leftSquare.getPosition().y);
@@ -54,7 +54,7 @@ void CursorHandler::Left(sf::Keyboard::Key L)
 
 void CursorHandler::Right(sf::Keyboard::Key R)
 {
-	if (mainSquare.getPosition().x < xBoundary+screenWidth)
+	if (mainSquare.getPosition().x != xBoundary+screenWidth)
 	{
 		mainSquare.setPosition(mainSquare.getPosition().x + 25, mainSquare.getPosition().y);
 		leftSquare.setPosition(leftSquare.getPosition().x + 25, leftSquare.getPosition().y);
@@ -66,7 +66,7 @@ void CursorHandler::Right(sf::Keyboard::Key R)
 
 void CursorHandler::Up(sf::Keyboard::Key U)
 {
-	if (mainSquare.getPosition().y > yBoundary)
+	if (mainSquare.getPosition().y != yBoundary)
 	{
 		mainSquare.setPosition(mainSquare.getPosition().x, mainSquare.getPosition().y - 25);
 		leftSquare.setPosition(leftSquare.getPosition().x, leftSquare.getPosition().y - 25);
@@ -78,7 +78,7 @@ void CursorHandler::Up(sf::Keyboard::Key U)
 
 void CursorHandler::Down(sf::Keyboard::Key D)
 {
-	if (mainSquare.getPosition().y < yBoundary+screenHeight)
+	if (mainSquare.getPosition().y != yBoundary+screenHeight)
 	{
 		mainSquare.setPosition(mainSquare.getPosition().x, mainSquare.getPosition().y + 25);
 		leftSquare.setPosition(leftSquare.getPosition().x, leftSquare.getPosition().y + 25);

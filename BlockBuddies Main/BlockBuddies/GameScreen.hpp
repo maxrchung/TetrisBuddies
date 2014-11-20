@@ -3,6 +3,7 @@
 
 #include "Screen.hpp"
 #include "GraphicsManager.hpp"
+#include "ScreenManager.hpp"
 #include "BlockHandler.hpp"
 #include "CursorHandler.hpp"
 // This is the Screen for the actual game itself

@@ -5,6 +5,7 @@
 #include "ProfileScreen.hpp"
 #include "GameTypeScreen.hpp"
 #include "GameScreen.hpp"
+#include "ResultScreen.hpp"
 #include "UIManager.hpp"
 #include "InputManager.hpp"
 #include "SelectManager.hpp"
@@ -62,6 +63,9 @@ void ScreenManager::switchScreen(const Screens toScreen)
 		break;
 	case GAME:
 		currentScreen = new GameScreen();
+		break;
+	case RESULT:
+		currentScreen = new ResultScreen();
 		break;
 	default:
 		break;
