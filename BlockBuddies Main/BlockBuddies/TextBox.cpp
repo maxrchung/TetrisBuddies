@@ -31,10 +31,16 @@ TextBox::TextBox(char* message,
 	else if (textAlignment == Alignments::CENTER)
 		this->message.setOrigin(GraphicsManager::getInstance()->getCenter(this->message));
 
+	// Save this alignment for if we need to reset the position
+	this->textAlignment = textAlignment;
+
 	// Sets the message position, by first going to the center of the screen and then moving 
 	// a scaled distance away
 	this->message.setPosition(sf::Vector2f(GraphicsManager::getInstance()->window.getSize())/2.0f);
     this->message.move(posX * GraphicsManager::getInstance()->scale, posY * GraphicsManager::getInstance()->scale);
+
+	// If we need to reset the position, we need to remember where to go
+	targetPosition = sf::Vector2f(posX, posY);
 }
 
 // Snippet of code for dealing with text wraps
@@ -79,6 +85,16 @@ void TextBox::textWrap()
 				}
 			}
 		}
+
+		// Because this check indicates that the TextBox has been altered,
+		// we also reset its position accordingly
+		if (textAlignment == Alignments::LEFT)
+			this->message.setOrigin(GraphicsManager::getInstance()->getLeftCenter(this->message));
+		else if (textAlignment == Alignments::CENTER)
+			this->message.setOrigin(GraphicsManager::getInstance()->getCenter(this->message));
+		message.setPosition(sf::Vector2f(GraphicsManager::getInstance()->window.getSize()) / 2.0f);
+		message.move(targetPosition.x, targetPosition.y);
+
 	}
 }
 

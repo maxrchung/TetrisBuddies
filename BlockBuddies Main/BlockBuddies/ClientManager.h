@@ -32,8 +32,6 @@ private:
 	clientManager& operator=(const clientManager&);
 
 	sf::TcpSocket socket;
-
-
 };
 
 

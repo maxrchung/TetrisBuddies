@@ -1,7 +1,6 @@
 #include "LoginScreen.hpp"
 #include "ScreenManager.hpp"
 #include "InputManager.hpp"
-#include "DatabaseManager.h"
 #include "ClientManager.h"
 #include "SoundManager.h"
 LoginScreen::LoginScreen()
@@ -33,10 +32,10 @@ LoginScreen::LoginScreen()
 							 250.0f,
 							 Alignments::LEFT)),
 
- 	// status(new TextBox((clientManager::getInstance().initConnection(sf::IpAddress::getLocalAddress(),5000)) ? "Enter username and passowrd ": "Could not connect",
-	//                    0.0f,
-	//					-125.0f,
-	//					300.0f)),
+	 status(new TextBox((clientManager::getInstance().initConnection(sf::IpAddress::getLocalAddress(), 5000)) ? "Enter username and password " : "Could not connect",
+	                    0.0f,
+						-125.0f,
+						300.0f)),
 
      username(new TextInput(-60.0f,
 		                    -25.0f,
@@ -79,7 +78,6 @@ void LoginScreen::update()
 	{
 		if (i->label.getString() == "Enter")
 		{
-
 			if (i->isActivated ||
 				(InputManager::getInstance()->enter && i->isSelected))
 			{
@@ -92,10 +90,9 @@ void LoginScreen::update()
 				else{
 					//play sounds then change strings
 					if (sound.getStatus() != sound.Playing)
-					sound.play();
+						sound.play();
 
-					status->setString("Wrong username or password.");
-					
+					status->setString("Wrong username or password");
 				}
 				break;
 			}
@@ -103,7 +100,6 @@ void LoginScreen::update()
 		}
 		else if (i->label.getString() == "Register")
 		{
-
 			if (i->isActivated ||
 				(InputManager::getInstance()->enter && i->isSelected))
 			{
@@ -113,11 +109,7 @@ void LoginScreen::update()
 			}
 			break;
 		}
-
-		
-
 	}
-	
 }
 
 void LoginScreen::draw()

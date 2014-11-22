@@ -1,5 +1,4 @@
 #include "ClientManager.h"
-#include "DatabaseManager.h"
 
 //Connects to the server socket
 //Currently connects on the local machine only
@@ -7,7 +6,7 @@
 bool clientManager::initConnection(sf::IpAddress IP, int portNumber)
 {
 	//Tries to connect
-	sf::Socket::Status status = socket.connect(sf::IpAddress::getLocalAddress(), portNumber);
+	sf::Socket::Status status = socket.connect(IP, portNumber);
 	//Checks if it was able to connect
 	if (status != sf::Socket::Done)
 		return false;
@@ -73,13 +72,10 @@ void clientManager::messageWait()
 		sf::Packet packet;
 		if (socket.receive(packet) != sf::Socket::Done)
 		{
-			
 			std::string recieved;
 			if(packet >> recieved)
 
 			std::cout << "Received: " << recieved << std::endl;
-
 		}
-
 	}
 }

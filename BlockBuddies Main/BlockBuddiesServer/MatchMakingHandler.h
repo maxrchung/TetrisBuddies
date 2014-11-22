@@ -1,11 +1,11 @@
 #pragma once
+
 #include "Player.h"
 #include <queue>
-#include "Messenger.h"
 #include "Message.h"
-#include <map>
 #include "Game.h"
 #include <list>
+
 class MatchMakingHandler
 {
 public:
@@ -18,4 +18,3 @@ public:
 	void makeGame(Player p1, Player p2);
 
 };
-

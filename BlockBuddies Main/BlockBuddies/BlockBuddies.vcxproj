@@ -15,7 +15,6 @@
     <ClInclude Include="Button.hpp" />
     <ClInclude Include="ClientManager.h" />
     <ClInclude Include="CursorHandler.hpp" />
-    <ClInclude Include="DatabaseManager.h" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="GameScreen.hpp" />
     <ClInclude Include="GraphicsManager.hpp" />
@@ -45,7 +44,6 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ClientManager.cpp" />
     <ClCompile Include="CursorHandler.cpp" />
-    <ClCompile Include="DatabaseManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameScreen.cpp" />
     <ClCompile Include="GameTypeScreen.cpp" />
@@ -68,9 +66,6 @@
     <ClCompile Include="UIElement.cpp" />
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="UserInfo.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="game.db" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F14A11ED-47D0-456F-A7B6-EF3BA7657776}</ProjectGuid>

@@ -111,7 +111,7 @@ void NetworkManager::checkForConnections()
 
 								if (DatabaseManager::getInstance().registerUser(user, pass))
 								{
-									int i = 1;
+									int i = 0;
 									sf::Packet answer;
 									answer << i;
 									client.send(answer);

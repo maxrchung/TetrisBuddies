@@ -30,6 +30,13 @@ private:
 	void textWrap();
 	sf::Text message;
 	float boundingWidth;
+
+	// Determines how the text is aligned
+	Alignments textAlignment;
+
+	// Target position is used in case we need to reposition the text
+	// e.g. when a status is altered
+	sf::Vector2f targetPosition;
 };
 
 #endif TEXTBOX_HPP
