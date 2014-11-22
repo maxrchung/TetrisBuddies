@@ -93,7 +93,8 @@ void TextBox::textWrap()
 		else if (textAlignment == Alignments::CENTER)
 			this->message.setOrigin(GraphicsManager::getInstance()->getCenter(this->message));
 		message.setPosition(sf::Vector2f(GraphicsManager::getInstance()->window.getSize()) / 2.0f);
-		message.move(targetPosition.x, targetPosition.y);
+		message.move(targetPosition.x * GraphicsManager::getInstance()->scale, 
+			         targetPosition.y * GraphicsManager::getInstance()->scale);
 
 	}
 }

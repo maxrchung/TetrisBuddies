@@ -72,6 +72,8 @@ LoginScreen::LoginScreen()
 
 void LoginScreen::update()
 {
+	
+
 	//Bug if you fail to log in and enter a correct log in the second time.
 	//Can't log in if it's not in the DB at least
 	for (auto i : buttons)
