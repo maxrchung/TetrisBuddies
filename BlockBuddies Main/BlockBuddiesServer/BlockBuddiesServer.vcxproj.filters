@@ -33,9 +33,6 @@
     <ClCompile Include="Messenger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="networkManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -43,6 +40,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UserInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

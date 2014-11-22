@@ -4,14 +4,14 @@
 #include <iostream>
 #include <SFML/Network.hpp>
 
-class clientManager
+class ClientManager
 {
 public:
 
-	//call using clientManager::getInstance().functionname() to use.
-	static clientManager& getInstance()
+	//call using ClientManager::getInstance().functionname() to use.
+	static ClientManager& getInstance()
 	{
-		static clientManager server;
+		static ClientManager server;
 		return server;
 	}
 
@@ -26,10 +26,10 @@ public:
 
 private:
 
-	clientManager() {}                                  // Private constructor
-	~clientManager() {}
-	clientManager(const clientManager&);                 // Prevent copy-construction
-	clientManager& operator=(const clientManager&);
+	ClientManager() {}                                  // Private constructor
+	~ClientManager() {}
+	ClientManager(const ClientManager&);                 // Prevent copy-construction
+	ClientManager& operator=(const ClientManager&);
 
 	sf::TcpSocket socket;
 };

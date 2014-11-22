@@ -3,8 +3,8 @@
 int main()
 {
 	/*
-	clientManager::getInstance();
-	sf::Thread thread(&clientManager::messageWait, &clientManager::getInstance());
+	ClientManager::getInstance();
+	sf::Thread thread(&ClientManager::messageWait, &ClientManager::getInstance());
 	thread.launch();
 	*/
 	Game game;

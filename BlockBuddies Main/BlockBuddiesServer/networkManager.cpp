@@ -5,8 +5,6 @@ std::list<Player> NetworkManager::connectPlayers;
 void NetworkManager::run()
 {
 	//gamelogic will go here
-	
-
 }
 bool checkLogin(std::string user, std::string pass)
 {
@@ -36,8 +34,6 @@ bool parseMessage(sf::Packet parse)
 		return false;
 	}
 }
-
-
 
 void NetworkManager::checkForConnections()
 {

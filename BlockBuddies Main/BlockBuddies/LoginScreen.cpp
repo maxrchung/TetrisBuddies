@@ -32,7 +32,7 @@ LoginScreen::LoginScreen()
 							 250.0f,
 							 Alignments::LEFT)),
 
-	 status(new TextBox((clientManager::getInstance().initConnection(sf::IpAddress::getLocalAddress(), 5000)) ? "Enter username and password " : "Could not connect",
+	 status(new TextBox((ClientManager::getInstance().initConnection(sf::IpAddress::getLocalAddress(), 5000)) ? "Enter username and password " : "Could not connect",
 	                    0.0f,
 						-125.0f,
 						300.0f)),
@@ -81,7 +81,7 @@ void LoginScreen::update()
 			if (i->isActivated ||
 				(InputManager::getInstance()->enter && i->isSelected))
 			{
-				if (clientManager::getInstance().loginUser(username->getText().getString(), password->getText().getString()))
+				if (ClientManager::getInstance().loginUser(username->getText().getString(), password->getText().getString()))
 				{
 					//play sound then switch screens
 					sound.play();

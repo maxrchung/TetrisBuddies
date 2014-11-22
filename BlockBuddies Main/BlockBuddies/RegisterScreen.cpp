@@ -93,7 +93,7 @@ void RegisterScreen::update()
 				//This might be optimized
 				if (password->getText().getString() == password2->getText().getString())
 				{
-					if (clientManager::getInstance().registerUser(username->getText().getString(),
+					if (ClientManager::getInstance().registerUser(username->getText().getString(),
 					             	                              password->getText().getString()))
 						ScreenManager::getInstance()->switchScreen(i->toScreen);
 					else

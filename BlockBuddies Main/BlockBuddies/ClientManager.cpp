@@ -3,7 +3,7 @@
 //Connects to the server socket
 //Currently connects on the local machine only
 
-bool clientManager::initConnection(sf::IpAddress IP, int portNumber)
+bool ClientManager::initConnection(sf::IpAddress IP, int portNumber)
 {
 	//Tries to connect
 	sf::Socket::Status status = socket.connect(IP, portNumber);
@@ -14,7 +14,7 @@ bool clientManager::initConnection(sf::IpAddress IP, int portNumber)
 		return true;
 }
 
-bool clientManager::loginUser(std::string username , std::string password)
+bool ClientManager::loginUser(std::string username , std::string password)
 {
 	//Sends the log in
 	sf::Packet login;
@@ -35,7 +35,7 @@ bool clientManager::loginUser(std::string username , std::string password)
 	
 }
 
-bool clientManager::registerUser(std::string username, std::string password)
+bool ClientManager::registerUser(std::string username, std::string password)
 {
 	sf::Packet toAdd;
 	int i = 1;
@@ -56,7 +56,7 @@ bool clientManager::registerUser(std::string username, std::string password)
 }
 
 //Needs to be updated to work with UserInfo.h
-void clientManager::createUser()
+void ClientManager::createUser()
 {
 	sf::Packet playerInfo;
 	socket.receive(playerInfo);
@@ -65,7 +65,7 @@ void clientManager::createUser()
 
 }
 
-void clientManager::messageWait()
+void ClientManager::messageWait()
 {	
 	while (true)
 	{
