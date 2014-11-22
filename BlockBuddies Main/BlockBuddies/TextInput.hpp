@@ -24,15 +24,14 @@ public:
 			  bool isProtected = false);
 	void update();
 	void draw();
-	sf::Text getText();
+
+	sf::Text input;
 	
 private:
 	sf::RectangleShape boundingRect;
 	Alignments drawAlignment;
 	Alignments textAlignment;
 	bool isProtected;
-
-	sf::Text input;
 
 	// Used to display the asterisks
 	sf::Text protectedInput;

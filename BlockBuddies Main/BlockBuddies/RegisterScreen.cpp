@@ -91,16 +91,16 @@ void RegisterScreen::update()
 			if (i->label.getString() == "Enter")
 			{
 				//This might be optimized
-				if (password->getText().getString() == password2->getText().getString())
+				if (password->input.getString() == password2->input.getString())
 				{
-					if (ClientManager::getInstance().registerUser(username->getText().getString(),
-					             	                              password->getText().getString()))
+					if (ClientManager::getInstance().registerUser(username->input.getString(),
+					             	                              password->input.getString()))
 						ScreenManager::getInstance()->switchScreen(i->toScreen);
 					else
-						status->setString("Username taken");
+						status->message.setString("Username taken");
 				}
 				else 
-					status->setString("Passwords do not match");
+					status->message.setString("Passwords do not match");
 			}
 			else if (i->label.getString() == "Cancel")
 			{

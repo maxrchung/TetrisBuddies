@@ -24,11 +24,10 @@ public:
 			bool isTitle = false);
 	void update();
 	void draw();
-	void setString(std::string newMessage);
+	sf::Text message;
 
 private:
 	void textWrap();
-	sf::Text message;
 	float boundingWidth;
 
 	// Determines how the text is aligned

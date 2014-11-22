@@ -81,7 +81,8 @@ void LoginScreen::update()
 			if (i->isActivated ||
 				(InputManager::getInstance()->enter && i->isSelected))
 			{
-				if (ClientManager::getInstance().loginUser(username->getText().getString(), password->getText().getString()))
+				if (ClientManager::getInstance().loginUser(username->input.getString(), 
+					                                       password->input.getString()))
 				{
 					//play sound then switch screens
 					sound.play();
@@ -92,7 +93,7 @@ void LoginScreen::update()
 					if (sound.getStatus() != sound.Playing)
 						sound.play();
 
-					status->setString("Wrong username or password");
+					status->message.setString("Wrong username or password");
 				}
 				break;
 			}
