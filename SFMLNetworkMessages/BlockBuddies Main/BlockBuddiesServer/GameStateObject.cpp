@@ -33,6 +33,7 @@ void GameStateObject::Print(){
 	}
 }
 
+//CreatePacket hasn't been successfully verified yet
 sf::Packet GameStateObject::CreatePacket(){
 	sf::Packet gameStatePacket;
 

@@ -26,7 +26,8 @@ private:
 	//sf::Uint8 boardHeight;
 
 	//right now, numColors is 5
-	//sf::Uint8 numColors;
+	//will be set by the game logic
+	sf::Uint8 numColors;
 	
 	//how long the rows should stop advancing for (after combos get cleared)	
 	int pauseCountdown;

@@ -20,15 +20,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ClientMessages.cpp" />
+    <ClCompile Include="GameClient.cpp" />
+    <ClCompile Include="GameLogic.cpp" />
     <ClCompile Include="GameStateObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ServerMessages.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="game.db" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="ClientMessages.hpp" />
+    <ClInclude Include="GameLogic.hpp" />
     <ClInclude Include="GameStateObject.hpp" />
     <ClInclude Include="ServerMessages.hpp" />
   </ItemGroup>
@@ -36,6 +36,7 @@
     <ProjectGuid>{BCEC204E-3F63-4CFD-AE08-E5D1EA65F285}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>BlockBuddies</RootNamespace>
+    <ProjectName>BBServerGameLogic</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
