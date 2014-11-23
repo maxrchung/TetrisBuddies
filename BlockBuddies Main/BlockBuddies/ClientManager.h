@@ -7,7 +7,6 @@
 class ClientManager
 {
 public:
-
 	//call using ClientManager::getInstance().functionname() to use.
 	static ClientManager& getInstance()
 	{
@@ -21,6 +20,8 @@ public:
 	void messageWait();
 	bool loginUser(std::string username, std::string password);
 	bool registerUser(std::string username, std::string password);
+
+	bool isConnected = false; // Denotes whether or not you are connected
 
 	void run();
 

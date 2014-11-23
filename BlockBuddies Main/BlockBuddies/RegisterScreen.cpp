@@ -84,6 +84,22 @@ RegisterScreen::RegisterScreen()
 
 void RegisterScreen::update()
 {
+	// If no buttons are currently selected and the player presses
+	// enter, then the enter button is automatically activated
+	if(InputManager::getInstance()->enter)
+	{
+		bool selected = false;
+		for(auto i : buttons)
+			if (i->isSelected)
+			{
+				selected = true;
+				break;
+			}
+
+		if (!selected)
+			buttons[0]->isActivated = true;
+	}
+
 	for(auto i : buttons)
 		if (i->isActivated ||
 		    (InputManager::getInstance()->enter && i->isSelected))

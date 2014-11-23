@@ -62,7 +62,7 @@ void Button::update()
 	{
 		boundingRect.setFillColor(GraphicsManager::getInstance()->buttonColor);
 		label.setColor(GraphicsManager::getInstance()->typeColor); 
-			isActivated = false;
+		isActivated = false;
 	}
 
 	// Checks for mouse click onto the button

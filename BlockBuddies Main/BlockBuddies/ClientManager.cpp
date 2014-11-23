@@ -9,9 +9,15 @@ bool ClientManager::initConnection(sf::IpAddress IP, int portNumber)
 	sf::Socket::Status status = socket.connect(IP, portNumber);
 	//Checks if it was able to connect
 	if (status != sf::Socket::Done)
+	{
+		isConnected = false;
 		return false;
+	}
 	else 
-		return true;
+	{
+		isConnected = true;
+		return true;		
+	}
 }
 
 bool ClientManager::loginUser(std::string username , std::string password)

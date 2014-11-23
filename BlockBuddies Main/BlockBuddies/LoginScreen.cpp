@@ -32,7 +32,7 @@ LoginScreen::LoginScreen()
 							 250.0f,
 							 Alignments::LEFT)),
 
-	 status(new TextBox((ClientManager::getInstance().initConnection(sf::IpAddress::getLocalAddress(), 5000)) ? "Enter username and password " : "Could not connect",
+	 status(new TextBox("Enter username and password ",
 	                    0.0f,
 						-125.0f,
 						300.0f)),
@@ -72,7 +72,21 @@ LoginScreen::LoginScreen()
 
 void LoginScreen::update()
 {
-	
+	// If no buttons are currently selected and the player presses
+	// enter, then the enter button is automatically activated
+	if(InputManager::getInstance()->enter)
+	{
+		bool selected = false;
+		for(auto i : buttons)
+			if (i->isSelected)
+			{
+				selected = true;
+				break;
+			}
+
+		if (!selected)
+			buttons[0]->isActivated = true;
+	}
 
 	//Bug if you fail to log in and enter a correct log in the second time.
 	//Can't log in if it's not in the DB at least
@@ -83,6 +97,15 @@ void LoginScreen::update()
 			if (i->isActivated ||
 				(InputManager::getInstance()->enter && i->isSelected))
 			{
+				if (!ClientManager::getInstance().isConnected)
+				{
+					if (!ClientManager::getInstance().initConnection(sf::IpAddress::getLocalAddress(), 5000))
+					{
+						status->message.setString("Connection failed");
+						break;
+					}
+				}
+
 				if (ClientManager::getInstance().loginUser(username->input.getString(), 
 					                                       password->input.getString()))
 				{
@@ -99,13 +122,21 @@ void LoginScreen::update()
 				}
 				break;
 			}
-
 		}
 		else if (i->label.getString() == "Register")
 		{
 			if (i->isActivated ||
 				(InputManager::getInstance()->enter && i->isSelected))
 			{
+				if (!ClientManager::getInstance().isConnected)
+				{
+					if (!ClientManager::getInstance().initConnection(sf::IpAddress::getLocalAddress(), 5000))
+					{
+						status->message.setString("Connection failed");
+						break;
+					}
+				}
+
 				//play sound then switch screen
 				sound.play();
 				ScreenManager::getInstance()->switchScreen(i->toScreen);
