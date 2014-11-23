@@ -3,10 +3,7 @@
 
 GameStateObject::GameStateObject(){
 	
-	playerScore = 500;
-	boardSpeed = 200;
-	pauseCountdown = 0;
-	insertionCountdown = 0; //this will be set by the game logic later
+	score = 0;
 	
 	//clear the gameBoard
 	for (int rowNum = 0; rowNum < 12; rowNum++){
@@ -16,10 +13,6 @@ GameStateObject::GameStateObject(){
 	}
 }
 
-//uint 8 - score
-//uint 8 - speed
-//uint 8[][] - board squares
-
 void GameStateObject::Print(){
 	//output rows, top to bottom
 	for (int rowNum = 11; rowNum > -1; rowNum--){
@@ -27,17 +20,21 @@ void GameStateObject::Print(){
 		std::cout << "Row " << rowNum << ":| ";
 		//output columns left to right
 		for (int colNum = 0; colNum < 6; colNum++){
-			std::cout <<gameBoard[rowNum][colNum] << " ";
+			std::cout << gameBoard[rowNum][colNum] << " ";
 		}
 		std::cout << "|";
 	}
+	std::cout << std::endl;
 }
 
 //CreatePacket hasn't been successfully verified yet
 sf::Packet GameStateObject::CreatePacket(){
 	sf::Packet gameStatePacket;
 
-	gameStatePacket << playerScore << boardSpeed;
+	gameStatePacket << score;
+
+	//it's supposed to put the contents of the entire board into a single packet
+	//bottom to top, left to right
 
 	//row numbers
 	for (int rowNum = 0; rowNum < 12; rowNum++) {

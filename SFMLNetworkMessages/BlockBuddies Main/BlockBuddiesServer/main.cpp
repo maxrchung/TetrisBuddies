@@ -1,3 +1,31 @@
+/*
+
+To do:
+
+make a new main function that tests out all the game logic stuff so far
+(might have to temporarily make all the functions public to test them individually)
+
+
+implement gravity
+get clearing detection working, make sure it updates the scores and the timers correctly
+get chaining working 
+(maybe make it a loop-
+	after a piece is moved
+		if the "clear list" isn't empty
+			remove the pieces from the board that are on the list
+			perform gravity, add any pieces that moved by falling onto a list
+			check for pieces to clear, add them to the clear list if appropriate
+			repeat until clear list is empty
+)
+
+test that the game works in the loop as it should
+
+*/
+
+
+
+
+
 #include <SFML/Network.hpp>
 #include <iostream>
 #include <string>
@@ -5,8 +33,18 @@
 #include "GameStateObject.hpp"
 #include "ServerMessages.hpp"
 
+
+
+int main(){
+
+}
+
+/*
 int main()
 {
+
+	sf::Clock clock;
+
 	sf::TcpListener listener;
 	sf::TcpSocket serverSocket;
 	sf::TcpSocket clientSocket;
@@ -54,14 +92,15 @@ int main()
 
 
 
-
+	/*
 	//here, testing that the game board is created properly:
+	//(gameBoard is back to being private, so this won't work any more)
 	for (int rowNum = 0; rowNum < 12; rowNum++){
-		for (int colNum = 0; colNum < 6; colNum++){
-			gso.gameBoard[rowNum][colNum] = rowNum + colNum;
-		}
+	for (int colNum = 0; colNum < 6; colNum++){
+	gso.gameBoard[rowNum][colNum] = rowNum + colNum;
 	}
-
+	}
+	*/
 	//gso.Print();
 
 
@@ -95,5 +134,17 @@ int main()
 	clientSocket.receive(receivedData);
 	cm.ProcessMessage(receivedData);
 
+
+
+	int i = 0;
+	while (i < 30){
+	sf::Time sleepTime = sf::milliseconds(16) - clock.restart();
+	sf::sleep(sleepTime);
+	std::cout << "Slept for " << sleepTime.asMilliseconds() << std::endl;
+	i++;
+	}
+
 	std::cin.get();
 }
+
+*/
