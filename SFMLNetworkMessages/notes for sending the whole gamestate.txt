@@ -1,0 +1,7 @@
+Server messages to client:
+
+
+1: Current game state (score, speed, board squares) [speed will be implemented later]
+2: temp Row [to be done later, when we have the animation ready on the client side]
+3: Game started
+4: Game Over

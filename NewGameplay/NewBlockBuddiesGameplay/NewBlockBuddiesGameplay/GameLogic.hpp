@@ -30,7 +30,7 @@ private:
 	//this array keeps track of all the blocks in the grid
 	int gameBoard[12][6]; //these are the default values in Tetris Attack. Rows = 12. Columns = 6.
 							//I'd rather have it set in the constructor.  I'll worry about that later.
-							//set as [1] = row num, [2] = col num 
+							//set as [12] = row num, [6] = col num 
 	
 	//this is an array of strings where the server puts all the client messages in to read them
 	std::array<std::string, 5> parsedMessage;
@@ -64,7 +64,7 @@ private:
 	//takes the temp row that has been created and inserts it into the bottom row of the game grid, shifting everything else up. 6 = boardWidth
 	int InsertRow(std::array<int, 6> tempRow);
 
-	//looks at the message queue, takes the first emssage, and puts in in parsedMessage
+	//looks at the message queue, takes the first message, and puts it in parsedMessage
 	void GetMessage();
 
 	//these are the functions to swap blocks in the gameBoard array
