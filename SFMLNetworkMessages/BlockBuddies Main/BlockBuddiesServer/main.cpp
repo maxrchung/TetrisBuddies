@@ -32,11 +32,57 @@ test that the game works in the loop as it should
 #include "ClientMessages.hpp"
 #include "GameStateObject.hpp"
 #include "ServerMessages.hpp"
+#include "GameLogic.hpp"
 
+std::array<int, 6> CreateRow(int c1, int c2, int c3, int c4, int c5, int c6){
+	std::array<int, 6> ret;
+	ret[0] = c1;
+	ret[1] = c2;
+	ret[2] = c3;
+	ret[3] = c4;
+	ret[4] = c5;
+	ret[5] = c6;
+	return ret;
+}
 
 
 int main(){
+	GameLogic gl;
+	//gl.gso.Print();
 
+	sf::Clock clock;
+
+	gl.InsertRowAt(2, CreateRow(1, 1, 1, 1, 1, 1));
+	//gl.gso.Print();
+	
+
+	gl.InsertRowAt(5, CreateRow(2, 2, 2, 2, 2, 2));
+	gl.InsertRowAt(8, CreateRow(0, 3, 0, 3, 0, 0));
+	
+	//gl.gso.Print();
+
+	gl.InsertBottomRow();
+	gl.InsertBottomRow();
+
+
+	//gl.ApplyGravity();
+	
+	gl.InsertRowAt(11, CreateRow(4, 4, 4, 4, 4, 4));
+	//gl.gso.Print();
+
+
+	gl.ApplyGravity();
+	//gl.gso.Print();
+
+	//gl.InitialBoardPopulation();
+	//gl.gso.Print();
+
+	sf::Time sleepTime = clock.restart();
+	sf::sleep(sleepTime);
+	std::cout << "Slept for " << sleepTime.asMilliseconds() << std::endl;
+
+
+	std::cin.get();
 }
 
 /*
@@ -105,7 +151,7 @@ int main()
 
 
 
-
+/*
 
 
 	//here, testing that all the server messages are sent

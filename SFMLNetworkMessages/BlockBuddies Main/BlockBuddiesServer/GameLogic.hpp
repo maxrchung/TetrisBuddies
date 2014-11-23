@@ -21,15 +21,18 @@ public:
 
 
 
-private:
+//private:
 
 	//holds the array that keeps track of the board, as well as the player's score
 	GameStateObject gso;
 
+	//used to keep the game loop running
+	bool isGameOver;
 
 	//the number of colors that will be used in the game.
 	//TA values: easy = 4, normal/hard = 5, multiplayer = 6 (gray blocks that make garbage)
 	int numColors;
+	
 	
 
 	//used for keeping time for the game loop
@@ -47,7 +50,7 @@ private:
 	//std::array<std::string, 5> parsedMessage;
 							
 
-	std::array<int, 6> tempRow;
+	int tempRow[6];
 
 
 
@@ -69,8 +72,6 @@ private:
 	//this is to populate the temp row
 	bool PopulateTempRow();
 
-	//takes the temp row that has been created and inserts it into the bottom row of the game grid, shifting everything else up. 6 = boardWidth
-	int InsertRow(std::array<int, 6> tempRow);
 
 	//looks at the message queue, takes the first message, and puts it in parsedMessage
 	//void GetMessage();
@@ -78,10 +79,15 @@ private:
 	//this is the functions to swap blocks in the gameBoard array
 	bool SwapPieces(int row1Num, int col1Num, int row2Num, int col2Num);
 
+	//checks the whole board for any pieces that need to be moved down
+	bool ApplyGravity();
+
 	//returns a list of pieces that will be cleared as a result of matching to the square passed in
 	//CheckForMatches(int rowNum, int colNum);
 
-
+	//inserts a row that's passed to it at the row you specify
+	//only used for debugging
+	bool InsertRowAt(int insertOnRowNum, std::array<int, 6> rowToInsert);
 
 	//need a function to create the message, and put it in a queue
 	//also need a function to read the message from the client and act (beginning of loop)

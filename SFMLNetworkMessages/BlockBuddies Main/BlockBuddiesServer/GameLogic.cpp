@@ -8,11 +8,15 @@ GameLogic::GameLogic(){
 	
 	// Tetris Attack has 4 colors on easy, 5 colors on med/hard, and 6 in multi (grey blocks that become garbage)
 	numColors = 5; 
+
+	PopulateTempRow();
 }
 
 
 
 void GameLogic::InitialBoardPopulation(){
+
+	isGameOver = false;
 
 	//also set the difficulty and whatnot here
 	//right now this is already set in the sonstructor, but it's here so we can change it if necessary
@@ -20,22 +24,22 @@ void GameLogic::InitialBoardPopulation(){
 
 	//randomly fill most of the board with blocks.
 
-	//boardHeight - 5 so there are at least 5 guaranteed empty rows
-	//for (int i = 0; i < boardHeight - 5; i++) {
-	//	for (int j = 0; j < boardWidth; j++) {
+	//set at 8 so there are at least 5 empty rows
 	for (int rowNum = 0; rowNum < 8; rowNum++) {
 		for (int colNum = 0; colNum < 6; colNum++) {
 
 			//gameBoard[i][j] = (rand() % numColors) + 1;
-			gso.gameBoard[rowNum][colNum] = (rand() % 5) + 1;
+			gso.gameBoard[rowNum][colNum] = (rand() % numColors) + 1;
 		}
 	}
 
 	/*
 	//check for anything that got matched and cleared. 
 	//replace them with new numbers
-	//repeat until they're all full
+	//repeat until the clear list is empty
 	*/
+
+	gso.score = 0;
 
 	PopulateTempRow();
 }
@@ -46,6 +50,8 @@ bool GameLogic::PopulateTempRow(){
 	//6 = boardWidth
 	for (int i = 0; i < 6; i++){
 		tempRow[i] = (rand() % numColors) + 1;
+		
+		//std::cout << "Value of temprow[" << i << "]: " << tempRow[i] << std::endl;
 	}
 	
 	return true;
@@ -56,19 +62,22 @@ bool GameLogic::InsertBottomRow(){
 
 	//if there's something in the top row already, game over (return 1)
 	for (int colNum = 0; colNum < 6; colNum++){
-		if (gso.gameBoard[11][colNum] != 0) { return 1; }
+		if (gso.gameBoard[11][colNum] != 0) { std::cout << "game over" << std::endl; isGameOver = true; return true; }
 	}
 
 
 	//first, shift everything in the board up
 	//start top row, left column
 	//then move down a row until at row 1 (new row will get inserted at row 0)
-	for (int rowNum = 11; rowNum > 0; rowNum--) {
+	for (int rowNum = 10; rowNum > -1; rowNum--) {
 		for (int colNum = 0; colNum < 6; colNum++) {
 
 			//if the space isn't empty, move the block up 1
-			if (gso.gameBoard[rowNum][colNum] != 0)
-				gso.gameBoard[rowNum + 1][colNum] = gso.gameBoard[rowNum][colNum];
+			//if (gso.gameBoard[rowNum][colNum] != 0){
+
+			
+			gso.gameBoard[rowNum + 1][colNum] = gso.gameBoard[rowNum][colNum];
+			//}
 		}
 	}
 
@@ -76,16 +85,59 @@ bool GameLogic::InsertBottomRow(){
 	//insert the last row at the bottom
 	for (int j = 0; j < 6; j++){
 		gso.gameBoard[0][j] = tempRow[j];
+		//std::cout << "gameBoard value[0][" << j << "]: " << gso.gameBoard[0][j] << ", tempRow val: " << tempRow[j] << std::endl;
 	}
+
+
+
+	//remake the temp row:
+	PopulateTempRow();
 
 
 	return false;
 }
 
 
+bool GameLogic::ApplyGravity(){
 
-//need to double-check this functions, make sure it'sctually swapping correctly
-//also, as of right now gravity isn't implemented in these
+	//for every piece on the board, starting at row 1
+	for (int rowNum = 1; rowNum < 12; rowNum++){
+		for (int colNum = 0; colNum < 6; colNum++){
+			
+			int currentBlockRow = rowNum;
+			//std::cout << "Checking: " << currentBlockRow << colNum << std::endl;
+
+			//while the current block exists and has nothing directly below it, or the row below it is still playable
+			while ((gso.gameBoard[currentBlockRow][colNum] > 0) && (gso.gameBoard[currentBlockRow - 1][colNum] == 0) && (currentBlockRow > 0) ){
+				
+				//std::cout << "Moving " << currentBlockRow << colNum << std::endl;
+					//the empty space below is set to the current block
+					gso.gameBoard[currentBlockRow - 1][colNum] = gso.gameBoard[currentBlockRow][colNum];
+
+					//the current block is set to empty
+					gso.gameBoard[currentBlockRow][colNum] = 0;
+
+					//check the block below
+					currentBlockRow--;
+			}
+			//gso.Print();
+			//std::cin.get();
+		}
+	}
+
+	return true;
+}
+
+
+bool GameLogic::InsertRowAt(int insertOnRowNum, std::array<int, 6> rowToInsert){
+	//insert the row at the specified place
+	for (int j = 0; j < 6; j++){ gso.gameBoard[insertOnRowNum][j] = rowToInsert[j]; }
+	return true;
+}
+
+
+//need to double-check this functions, make sure it's actually swapping correctly
+//also, as of right now gravity isn't implemented in this
 //should gravity be applied here, or should it be done in the main game loop?
 
 
@@ -96,7 +148,7 @@ bool GameLogic::SwapPieces(int row1Num, int col1Num, int row2Num, int col2Num){
 		(row1Num < 0 || row1Num > 11 || row2Num < 0 || row2Num > 11) ||
 		(col1Num < 0 || col1Num > 5  || col2Num < 0 || col2Num > 5)
 		)
-		{return false;}
+	{std::cout << "Swapping out of bounds" << std::endl;  return false;}
 
 	int temp = gso.gameBoard[row1Num][col1Num];
 	gso.gameBoard[row1Num][col1Num] = gso.gameBoard[row2Num][col2Num];
@@ -105,7 +157,7 @@ bool GameLogic::SwapPieces(int row1Num, int col1Num, int row2Num, int col2Num){
 }
 
 void GameLogic::MainGameLoop(){
-	while (true){
+	while (!isGameOver){
 
 		//used to maintain the game loop
 		clock.restart();
@@ -133,7 +185,8 @@ void GameLogic::MainGameLoop(){
 		//send new game state back to client
 
 
-		//sleep for what's left of 16ms 
+		//sleep for what's left of 16ms (about 60fps, for now) (note: gso.Print() takes 8ms every time it's called)
+		//still don't know how long parsing the messages will take
 		//hopefully, clock.restart() returns in ms
 		sf::Time sleepTime = sf::milliseconds(16) - clock.restart();
 		sf::sleep(sleepTime);
