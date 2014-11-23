@@ -11,5 +11,6 @@ public:
 	UserInfo playerInfo;
 	sf::TcpSocket* playerSocket;
 
+	Player& operator=(Player p);
 };
 
