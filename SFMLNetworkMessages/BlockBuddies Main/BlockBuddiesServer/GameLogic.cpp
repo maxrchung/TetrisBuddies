@@ -28,16 +28,36 @@ void GameLogic::InitialBoardPopulation(){
 	for (int rowNum = 0; rowNum < 8; rowNum++) {
 		for (int colNum = 0; colNum < 6; colNum++) {
 
-			//gameBoard[i][j] = (rand() % numColors) + 1;
 			gso.gameBoard[rowNum][colNum] = (rand() % numColors) + 1;
 		}
 	}
 
 	/*
-	//check for anything that got matched and cleared. 
+	//check for anything that got matched and cleared.
 	//replace them with new numbers
 	//repeat until the clear list is empty
 	*/
+
+
+	//temporatily printing out the game state here so I can see what got cleared
+	//gso.Print();
+
+	/*
+	check for any matches
+	if there are any, remove them, apply gravity, refill the ones that are now 0, then check again starting at the lowest row that had something cleared in it
+	*/
+
+	//right now, they don't get refilled. they're just  gone
+	do{
+		for (int rowNum = 0; rowNum < 8; rowNum++) {
+			for (int colNum = 0; colNum < 6; colNum++) {
+				CheckForMatches(rowNum, colNum);
+			}
+		}
+		ClearMatches();
+		ApplyGravity();
+	} while (!blocksMarkedForDeletion.empty());
+
 
 	gso.score = 0;
 
@@ -97,7 +117,7 @@ bool GameLogic::InsertBottomRow(){
 	return false;
 }
 
-
+//need to save the individual blocks that get moved so we can put them in checkForMatches
 bool GameLogic::ApplyGravity(){
 
 	//for every piece on the board, starting at row 1
@@ -120,6 +140,9 @@ bool GameLogic::ApplyGravity(){
 					//check the block below
 					currentBlockRow--;
 			}
+
+			//need to save each block's final position so we can add it to the CheckForMatches set
+
 			//gso.Print();
 			//std::cin.get();
 		}
@@ -170,6 +193,8 @@ bool GameLogic::CheckForMatches(int rowNum, int colNum){
 	int rowToCheck = rowNum;
 	int colToCheck = colNum - 1;
 
+	int matchNum = 0;
+
 	//if blocks to the left match, add to potentialMatches and repeat
 	while ( (colToCheck > -1) && (gso.gameBoard[rowToCheck][colToCheck] == gso.gameBoard[rowNum][colNum])){
 		potentialMatches.insert(std::make_pair(rowToCheck, colToCheck));
@@ -212,8 +237,31 @@ bool GameLogic::CheckForMatches(int rowNum, int colNum){
 		blocksMarkedForDeletion.insert(potentialMatches.begin(), potentialMatches.end());
 	}
 
-	PrintBlocksMarkedForDeletion();
+	//PrintBlocksMarkedForDeletion();
 
+	//this is where scoring needs to be done. assuming blocksToClear is empty, it would be the number of elements in that set
+	//if not, when the function loads get an iterator to the end of blocksMarkedForDeletion. number of combo items = current end of BMFD - end position when this function was loaded
+
+	return true;
+}
+
+bool GameLogic::ClearMatches(){
+
+	//for each element in the BMFD set:
+		//get the row, col numbers, and set that element in the game board array to 0;
+
+
+	int row;
+	int col;
+
+	for (std::set<std::pair<int, int>>::iterator i = blocksMarkedForDeletion.begin(); i != blocksMarkedForDeletion.end(); ++i){
+		row = (*i).first;
+		col = (*i).second;
+		gso.gameBoard[row][col] = 0;
+	}
+		
+	//clear the BMFD
+	blocksMarkedForDeletion.clear();
 	return true;
 }
 

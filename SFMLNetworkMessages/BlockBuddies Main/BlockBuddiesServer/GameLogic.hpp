@@ -21,8 +21,6 @@ public:
 	void MainGameLoop();
 
 
-
-
 //private:
 
 	//holds the array that keeps track of the board, as well as the player's score
@@ -35,8 +33,6 @@ public:
 	//TA values: easy = 4, normal/hard = 5, multiplayer = 6 (gray blocks that make garbage)
 	int numColors;
 	
-	
-
 	//used for keeping time for the game loop
 	sf::Clock clock;
 
@@ -51,7 +47,8 @@ public:
 	//it's in the ServerMessages file already- decodeMessage
 	//std::array<std::string, 5> parsedMessage;
 							
-
+	//the row that gets added to the bottom of the stack.
+	//it's here as a separate item in case we decide to send it to be anumated by the client later
 	int tempRow[6];
 
 
@@ -65,6 +62,8 @@ public:
 
 	//functions**********************************************
 	
+	//returns the player's score
+	int GetScore() { return gso.score; }
 
 	//if it returns true, game over.
 	bool InsertBottomRow();
@@ -79,8 +78,10 @@ public:
 	//looks at the message queue, takes the first message, and puts it in parsedMessage
 	//void GetMessage();
 
+	//call this to see which blocks are marked for deletion
 	void PrintBlocksMarkedForDeletion() const;
 
+	//**NEED TO TEST THIS ONE AND MAKE SURE IT WORKS
 	//this is the functions to swap blocks in the gameBoard array
 	bool SwapPieces(int row1Num, int col1Num, int row2Num, int col2Num);
 
@@ -93,6 +94,13 @@ public:
 	//inserts a row that's passed to it at the row you specify
 	//only used for debugging
 	bool InsertRowAt(int insertOnRowNum, std::array<int, 6> rowToInsert);
+
+
+	//uses the blocksMarkedForDeletion set to remove them from the game board
+	//gravity isn't done automatically (because there might be a pause later)
+	//but gravity timer doesn't really matter; the important one is pausing the row insertion timer
+
+	bool ClearMatches();
 
 	//need a function to create the message, and put it in a queue
 	//also need a function to read the message from the client and act (beginning of loop)

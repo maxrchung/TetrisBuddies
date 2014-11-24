@@ -2,19 +2,33 @@
 
 To do:
 
-make a new main function that tests out all the game logic stuff so far
-(might have to temporarily make all the functions public to test them individually)
 
 
-implement gravity
-get clearing detection working, make sure it updates the scores and the timers correctly
+test that Swap() works properly
+Change ApplyGravity so it saves each block that falls after it lands to check for matches
+add checkForMatches to Swap()
+Add CheckForMatches to InsertNewRow()
+
+
+put a GameOver() call at the end of the GameLoop() function (so it calls the function which does all the appropriate GameOver() stuff, like returning the score and whatnot)
+get the actual GameLoop stuff in place and working correctly, make sure it responds to incoming messages approriately and sends outgoing ones correctlyr
+
+
+
+
+//make a new main function that tests out all the game logic stuff so far
+//(might have to temporarily make all the functions public to test them individually)
+
+
+//implement gravity
+//get clearing detection working, make sure it updates the scores and the timers correctly
 get chaining working 
 (maybe make it a loop-
 	after a piece is moved
 		if the "clear list" isn't empty
 			remove the pieces from the board that are on the list
-			perform gravity, add any pieces that moved by falling onto a list
-			check for pieces to clear, add them to the clear list if appropriate
+//			perform gravity, add any pieces that moved by falling onto a list
+//			check for pieces to clear, add them to the clear list if appropriate
 			repeat until clear list is empty
 )
 
@@ -52,12 +66,12 @@ int main(){
 
 	sf::Clock clock;
 
-	gl.InsertRowAt(2, CreateRow(1, 1, 1, 2, 1, 1));
+	//gl.InsertRowAt(2, CreateRow(1, 1, 1, 2, 1, 1));
 	//gl.gso.Print();
 	
 
-	gl.InsertRowAt(5, CreateRow(1, 2, 2, 2, 2, 2));
-	gl.InsertRowAt(8, CreateRow(1, 3, 0, 3, 0, 0));
+	//gl.InsertRowAt(5, CreateRow(1, 2, 2, 2, 2, 2));
+	//gl.InsertRowAt(8, CreateRow(1, 3, 0, 3, 0, 0));
 	
 	//gl.gso.Print();
 
@@ -67,21 +81,21 @@ int main(){
 
 	//gl.ApplyGravity();
 	
-	gl.InsertRowAt(11, CreateRow(4, 4, 4, 4, 4, 4));
+	//gl.InsertRowAt(11, CreateRow(4, 4, 4, 4, 4, 4));
 	//gl.gso.Print();
-	gl.ApplyGravity();
+	//gl.ApplyGravity();
 
 
-	gl.InsertRowAt(11, CreateRow(4, 4, 4, 2, 2, 2));
+	//gl.InsertRowAt(11, CreateRow(4, 4, 4, 2, 2, 2));
 
-	gl.ApplyGravity();
-	gl.gso.Print();
+	//gl.ApplyGravity();
+	//gl.gso.Print();
 
-	gl.CheckForMatches(0, 1);
+	//gl.CheckForMatches(0, 1);
 	//gl.PrintBlocksMarkedForDeletion();
 
-	//gl.InitialBoardPopulation();
-	//gl.gso.Print();
+	gl.InitialBoardPopulation();
+	gl.gso.Print();
 
 	/*
 	sf::Time sleepTime = clock.restart();
