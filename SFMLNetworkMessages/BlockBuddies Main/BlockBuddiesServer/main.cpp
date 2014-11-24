@@ -48,39 +48,46 @@ std::array<int, 6> CreateRow(int c1, int c2, int c3, int c4, int c5, int c6){
 
 int main(){
 	GameLogic gl;
-	//gl.gso.Print();
+	gl.gso.Print();
 
 	sf::Clock clock;
 
-	gl.InsertRowAt(2, CreateRow(1, 1, 1, 1, 1, 1));
+	gl.InsertRowAt(2, CreateRow(1, 1, 1, 2, 1, 1));
 	//gl.gso.Print();
 	
 
-	gl.InsertRowAt(5, CreateRow(2, 2, 2, 2, 2, 2));
-	gl.InsertRowAt(8, CreateRow(0, 3, 0, 3, 0, 0));
+	gl.InsertRowAt(5, CreateRow(1, 2, 2, 2, 2, 2));
+	gl.InsertRowAt(8, CreateRow(1, 3, 0, 3, 0, 0));
 	
 	//gl.gso.Print();
 
-	gl.InsertBottomRow();
-	gl.InsertBottomRow();
+	//gl.InsertBottomRow();
+	//gl.InsertBottomRow();
 
 
 	//gl.ApplyGravity();
 	
 	gl.InsertRowAt(11, CreateRow(4, 4, 4, 4, 4, 4));
 	//gl.gso.Print();
+	gl.ApplyGravity();
 
+
+	gl.InsertRowAt(11, CreateRow(4, 4, 4, 2, 2, 2));
 
 	gl.ApplyGravity();
-	//gl.gso.Print();
+	gl.gso.Print();
+
+	gl.CheckForMatches(0, 1);
+	//gl.PrintBlocksMarkedForDeletion();
 
 	//gl.InitialBoardPopulation();
 	//gl.gso.Print();
 
+	/*
 	sf::Time sleepTime = clock.restart();
 	sf::sleep(sleepTime);
 	std::cout << "Slept for " << sleepTime.asMilliseconds() << std::endl;
-
+	*/
 
 	std::cin.get();
 }

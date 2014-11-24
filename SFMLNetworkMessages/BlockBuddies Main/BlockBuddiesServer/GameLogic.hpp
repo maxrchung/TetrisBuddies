@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include <array>
 #include <ctime>
+#include <queue>
+#include <set>
 #include <string>
 #include "GameStateObject.hpp"
 
@@ -54,8 +56,9 @@ public:
 
 
 
+	std::set<std::pair<int, int>> blocksMarkedForDeletion;
 
-
+	std::set<std::pair<int, int>> blocksToCheckForMatches;
 
 
 
@@ -76,14 +79,16 @@ public:
 	//looks at the message queue, takes the first message, and puts it in parsedMessage
 	//void GetMessage();
 
+	void PrintBlocksMarkedForDeletion() const;
+
 	//this is the functions to swap blocks in the gameBoard array
 	bool SwapPieces(int row1Num, int col1Num, int row2Num, int col2Num);
 
 	//checks the whole board for any pieces that need to be moved down
 	bool ApplyGravity();
 
-	//returns a list of pieces that will be cleared as a result of matching to the square passed in
-	//CheckForMatches(int rowNum, int colNum);
+	//adds blocks that will be cleared as a result of matching to the square passed in to blocksMarkedForDeletion
+	bool CheckForMatches(int rowNum, int colNum);
 
 	//inserts a row that's passed to it at the row you specify
 	//only used for debugging

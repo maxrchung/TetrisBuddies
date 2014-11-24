@@ -156,6 +156,81 @@ bool GameLogic::SwapPieces(int row1Num, int col1Num, int row2Num, int col2Num){
 	return true;
 }
 
+
+
+bool GameLogic::CheckForMatches(int rowNum, int colNum){
+	
+	
+	//where all the pieces go that are tested for each combo check
+	std::set<std::pair<int, int>> potentialMatches;
+	potentialMatches.insert(std::make_pair(rowNum, colNum));
+
+	gso.gameBoard[rowNum][colNum];
+
+	int rowToCheck = rowNum;
+	int colToCheck = colNum - 1;
+
+	//if blocks to the left match, add to potentialMatches and repeat
+	while ( (colToCheck > -1) && (gso.gameBoard[rowToCheck][colToCheck] == gso.gameBoard[rowNum][colNum])){
+		potentialMatches.insert(std::make_pair(rowToCheck, colToCheck));
+		colToCheck--;
+	}
+
+	colToCheck = colNum + 1;
+
+	//if blocks to the right match, add to potentialMatches and repeat
+	while ((colToCheck < 6) && (gso.gameBoard[rowToCheck][colToCheck] == gso.gameBoard[rowNum][colNum])){
+		potentialMatches.insert(std::make_pair(rowToCheck, colToCheck));
+		colToCheck++;
+	}
+
+	//if the number in potential matches is > 2, add them to the BlocksToDelete
+	if (potentialMatches.size() > 2){
+		blocksMarkedForDeletion.insert(potentialMatches.begin(), potentialMatches.end());
+	}
+
+	//reset to check for up/down
+	rowToCheck = rowNum + 1;
+	colToCheck = colNum;
+	potentialMatches.clear();
+	potentialMatches.insert(std::make_pair(rowNum, colNum));
+
+	//if blocks above match, add to potentialMatches and repeat
+	while ((rowToCheck < 12) && (gso.gameBoard[rowToCheck][colToCheck] == gso.gameBoard[rowNum][colNum])){
+		potentialMatches.insert(std::make_pair(rowToCheck, colToCheck));
+		rowToCheck++;
+	}
+
+	//if blocks below match, add to potentialMatches and repeat
+	while ((rowToCheck > -1) && (gso.gameBoard[rowToCheck][colToCheck] == gso.gameBoard[rowNum][colNum])){
+		potentialMatches.insert(std::make_pair(rowToCheck, colToCheck));
+		rowToCheck--;
+	}
+
+	//if the number in potential matches is > 2, add them to the BlocksToDelete
+	if (potentialMatches.size() > 2){
+		blocksMarkedForDeletion.insert(potentialMatches.begin(), potentialMatches.end());
+	}
+
+	PrintBlocksMarkedForDeletion();
+
+	return true;
+}
+
+void GameLogic::PrintBlocksMarkedForDeletion() const {
+	std::cout << "contents of blocksmarkedfordeletion: ";
+
+	int row;
+	int col;
+
+	for (std::set<std::pair<int, int>>::iterator i = blocksMarkedForDeletion.begin(); i != blocksMarkedForDeletion.end(); ++i){
+		row = (*i).first;
+		col = (*i).second;
+		
+		std::cout << row << "," << col << " ";
+	}
+}
+
 void GameLogic::MainGameLoop(){
 	while (!isGameOver){
 
