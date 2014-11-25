@@ -106,7 +106,6 @@ void RegisterScreen::update()
 		{
 			if (i->label.getString() == "Enter")
 			{
-				//This might be optimized
 				if (password->input.getString() == password2->input.getString())
 				{
 					if (ClientManager::getInstance().registerUser(username->input.getString(),

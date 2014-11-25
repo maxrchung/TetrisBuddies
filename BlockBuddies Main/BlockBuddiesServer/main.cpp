@@ -1,6 +1,6 @@
 #include "DatabaseManager.h"
 #include "NetworkManager.h"
-
+#include <windows.h>
 
 
 int main()
@@ -12,14 +12,16 @@ int main()
 	while (true)
 	{
 		//Handle what is needed
-		/*sf::Packet packet;
+		/*
+		Sleep(500); 
+		sf::Packet packet;
 		std::string str = "bob";
 		packet << str;
 		if (!NetworkManager::connectPlayers.empty())
 		{
 			NetworkManager::connectPlayers.front().playerSocket->send(packet);
-
-		}*/
+		}
+		*/
 	}
 
 	return 0;

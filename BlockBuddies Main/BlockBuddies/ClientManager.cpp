@@ -1,5 +1,5 @@
 #include "ClientManager.h"
-
+#include "windows.h"
 //Connects to the server socket
 //Currently connects on the local machine only
 
@@ -75,13 +75,21 @@ void ClientManager::messageWait()
 {	
 	while (true)
 	{
+		Sleep(550);
+
 		sf::Packet packet;
+		socket.setBlocking(false);
 		if (socket.receive(packet) != sf::Socket::Done)
 		{
+			
+		}
+		else
+		{
 			std::string recieved;
-			if(packet >> recieved)
-
+			packet >> recieved;
 			std::cout << "Received: " << recieved << std::endl;
 		}
+		socket.setBlocking(true);
+
 	}
 }
