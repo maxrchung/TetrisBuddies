@@ -13,8 +13,9 @@ public:
 	~MatchMakingHandler();
 
 	std::queue<Player> activePlayers;
-	static std::list<Game> activeGames;
+	static std::list<Game*> activeGames;
 	void addMessage(Message message);
+	void checkForMatches();
 	void makeGame(Player p1, Player p2);
 
 };

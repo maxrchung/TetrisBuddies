@@ -1,13 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test", "Test\Test.vcxproj", "{1CCF9B3C-DA6C-4977-B980-E4091C8F1F66}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BlockBuddies", "BlockBuddies\BlockBuddies.vcxproj", "{F14A11ED-47D0-456F-A7B6-EF3BA7657776}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NewBlockBuddiesGameplay", "..\NewGameplay\NewBlockBuddiesGameplay\NewBlockBuddiesGameplay\NewBlockBuddiesGameplay.vcxproj", "{B673DE05-C1A2-4E7C-90A5-F7A46EFEFE0B}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BlockBuddiesServer", "BlockBuddiesServer\BlockBuddiesServer.vcxproj", "{BCEC204E-3F63-4CFD-AE08-E5D1EA65F285}"
 EndProject
@@ -17,15 +13,10 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1CCF9B3C-DA6C-4977-B980-E4091C8F1F66}.Debug|Win32.ActiveCfg = Debug|Win32
-		{1CCF9B3C-DA6C-4977-B980-E4091C8F1F66}.Release|Win32.ActiveCfg = Release|Win32
 		{F14A11ED-47D0-456F-A7B6-EF3BA7657776}.Debug|Win32.ActiveCfg = Debug|Win32
 		{F14A11ED-47D0-456F-A7B6-EF3BA7657776}.Debug|Win32.Build.0 = Debug|Win32
 		{F14A11ED-47D0-456F-A7B6-EF3BA7657776}.Release|Win32.ActiveCfg = Release|Win32
 		{F14A11ED-47D0-456F-A7B6-EF3BA7657776}.Release|Win32.Build.0 = Release|Win32
-		{B673DE05-C1A2-4E7C-90A5-F7A46EFEFE0B}.Debug|Win32.ActiveCfg = Debug|Win32
-		{B673DE05-C1A2-4E7C-90A5-F7A46EFEFE0B}.Release|Win32.ActiveCfg = Release|Win32
-		{B673DE05-C1A2-4E7C-90A5-F7A46EFEFE0B}.Release|Win32.Build.0 = Release|Win32
 		{BCEC204E-3F63-4CFD-AE08-E5D1EA65F285}.Debug|Win32.ActiveCfg = Debug|Win32
 		{BCEC204E-3F63-4CFD-AE08-E5D1EA65F285}.Debug|Win32.Build.0 = Debug|Win32
 		{BCEC204E-3F63-4CFD-AE08-E5D1EA65F285}.Release|Win32.ActiveCfg = Release|Win32

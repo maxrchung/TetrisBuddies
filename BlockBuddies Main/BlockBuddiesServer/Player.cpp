@@ -16,3 +16,10 @@ Player::Player(sf::TcpSocket* userSocket, UserInfo userInfo)
 Player::~Player()
 {
 }
+
+Player& Player::operator=(Player p)
+{
+	playerSocket = p.playerSocket;
+	playerInfo = p.playerInfo;
+	return *this;
+}

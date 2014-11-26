@@ -8,15 +8,15 @@ public:
 	Game();
 	~Game();
 
-	Player player1;
-	Player player2;
+	Player* player1;
+	Player* player2;
 	int GameID;
 	bool gameOver;
 
 	void runGame();
-	Message createDelta();
+//	Message createDelta();
 
-	std::queue<Message> inputs;
+	//std::queue<Message> inputs;
 
 
 };
