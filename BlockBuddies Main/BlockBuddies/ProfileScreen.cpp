@@ -8,23 +8,23 @@ ProfileScreen::ProfileScreen()
 						 600.0f)),
 
 	 buttons({ new Button(Screens::HOME,
-                          "Home",	 
+                          "Home",
 						  -175.0f,
-						  -200.0f,
+						  -225.0f,
 						  150.0f,
 						  50.0f),
 
 	           new Button(Screens::PROFILE,
                           "Profile",	 
 						  0.0f,
-						  -200.0f,
+						  -225.0f,
 						  150.0f,
 						  50.0f),
 
 	           new Button(Screens::GAMETYPE,
     		              "Play",
 						  175.0f,
-						  -200.0f,
+						  -225.0f,
 						  150.0f,
 						  50.0f) })
 {

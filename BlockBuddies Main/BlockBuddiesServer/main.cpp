@@ -12,16 +12,6 @@ int main()
 	while (true)
 	{
 		//Handle what is needed
-		
-		Sleep(500); 
-		sf::Packet packet;
-		std::string str = "bob";
-		packet << str;
-		if (!NetworkManager::connectPlayers.empty())
-		{
-			NetworkManager::connectPlayers.front().playerSocket->send(packet);
-		}
-		
 	}
 
 	return 0;

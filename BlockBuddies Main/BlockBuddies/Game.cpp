@@ -42,14 +42,14 @@ void Game::update()
 	// Manages tabbing between Selectable elements
 	SelectManager::getInstance()->update();
 
-	// The UIManager handles all the textboxes, buttons, and text inputs
-	// on the screen
-	UIManager::getInstance()->update();
-
 	// After inputs and UIElements and updated, we update the screen
 	// This will involve bigger picture actions such as sending
 	// network messages if we need to
 	ScreenManager::getInstance()->currentScreen->update();
+
+	// The UIManager handles all the textboxes, buttons, and text inputs
+	// on the screen
+	UIManager::getInstance()->update();
 }
 
 void Game::draw()

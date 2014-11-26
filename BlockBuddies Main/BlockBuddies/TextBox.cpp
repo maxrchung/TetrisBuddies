@@ -20,8 +20,6 @@ TextBox::TextBox(char* message,
 	if (isTitle)
 		this->message.setCharacterSize(GraphicsManager::getInstance()->titleSize);
 
-	textWrap();
-
 	// Sets the message color of the TextBox
 	this->message.setColor(GraphicsManager::getInstance()->typeColor);
 
@@ -41,6 +39,8 @@ TextBox::TextBox(char* message,
 
 	// If we need to reset the position, we need to remember where to go
 	targetPosition = sf::Vector2f(posX, posY);
+
+	textWrap();
 
 	prevMessage = this->message;
 }

@@ -40,7 +40,7 @@ HomeScreen::HomeScreen()
 
 	else // if not connected
 	{
-		welcome = new TextBox("Currently running in offline mode",
+		welcome = new TextBox("Currently playing in offline mode",
 	                          0.0f,
 							  0.0f,
 							  300.0f);
