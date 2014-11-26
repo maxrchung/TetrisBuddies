@@ -78,7 +78,7 @@ void ClientManager::messageWait()
 		Sleep(550);
 
 		sf::Packet packet;
-		socket.setBlocking(false);
+		//socket.setBlocking(false);
 		if (socket.receive(packet) != sf::Socket::Done)
 		{
 			
@@ -89,7 +89,7 @@ void ClientManager::messageWait()
 			packet >> recieved;
 			std::cout << "Received: " << recieved << std::endl;
 		}
-		socket.setBlocking(true);
+		//socket.setBlocking(true);
 
 	}
 }
