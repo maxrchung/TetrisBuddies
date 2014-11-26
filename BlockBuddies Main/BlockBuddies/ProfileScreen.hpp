@@ -3,6 +3,7 @@
 
 #include "Screen.hpp"
 #include "Button.hpp"
+#include "Section.hpp"
 
 // Screen that displays the logged in user's statistics
 // and stats. In the future we may enhance this to allow
@@ -15,6 +16,7 @@ public:
 	void draw();
 
 private:
+	Section* section;
 	std::vector<Button*> buttons;
 };
 

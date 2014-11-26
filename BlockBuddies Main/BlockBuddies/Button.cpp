@@ -4,6 +4,7 @@
 #include "ScreenManager.hpp"
 #include "UIManager.hpp"
 #include "InputManager.hpp"
+#include "ClientManager.h"
 
 Button::Button(Screens toScreen,
 	           char* label,

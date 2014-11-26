@@ -55,14 +55,21 @@ LoginScreen::LoginScreen()
 	 buttons({ new Button(Screens::HOME,
 		                  "Enter",
 						  0.0f,
-						  125.0f,
+						  100.0f,
 						  150.0f,
 						  50.0f),
 
 			   new Button(Screens::REGISTER,
 			              "Register",
 						  0.0f,
-						  200.0f,
+						  175.0f,
+						  150.0f,
+						  50.0f),
+
+			   new Button(Screens::HOME,
+			              "Offline Mode",
+						  0.0f,
+						  250.0f,
 						  150.0f,
 						  50.0f) })
 {
@@ -123,6 +130,7 @@ void LoginScreen::update()
 				break;
 			}
 		}
+
 		else if (i->label.getString() == "Register")
 		{
 			if (i->isActivated ||
@@ -140,7 +148,23 @@ void LoginScreen::update()
 				//play sound then switch screen
 				sound.play();
 				ScreenManager::getInstance()->switchScreen(i->toScreen);
+
+				i->isActivated = false;
+
+				break;
 			}
+		}
+
+		else if(i->label.getString() == "Offline Mode")
+		{
+			if (i->isActivated ||
+				(InputManager::getInstance()->enter && i->isSelected))
+			{
+				//play sound then switch screen
+				sound.play();
+				ScreenManager::getInstance()->switchScreen(i->toScreen);
+			}
+
 			break;
 		}
 	}

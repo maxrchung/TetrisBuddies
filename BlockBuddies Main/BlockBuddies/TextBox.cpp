@@ -41,14 +41,15 @@ TextBox::TextBox(char* message,
 
 	// If we need to reset the position, we need to remember where to go
 	targetPosition = sf::Vector2f(posX, posY);
+
+	prevMessage = this->message;
 }
 
 // Snippet of code for dealing with text wraps
 void TextBox::textWrap()
 {
-	// Lol. If a "\n" doesn't exist in the text, then you know you are
-	// allowed to do textWrapping
-	if (message.getString().find("\n") == sf::String::InvalidPos)
+	// Only textwrap if the previous and the current messages are different
+	if (message.getString() != prevMessage.getString())
 	{
 		// If the text is greater than the given boundingWidth
 		if (this->message.getLocalBounds().width > boundingWidth)
@@ -105,6 +106,8 @@ void TextBox::update()
 	// This is needed in cases where, for example, the status is updated
 	// and needs to be rewrapped again
 	textWrap();
+
+	prevMessage = message;
 }
 
 void TextBox::draw()

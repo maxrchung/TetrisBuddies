@@ -3,6 +3,7 @@
 
 #include "Screen.hpp"
 #include "Button.hpp"
+#include "Section.hpp"
 
 // Screen that displays the available gametypes to play
 class GameTypeScreen : public Screen
@@ -13,6 +14,7 @@ public:
 	void draw();
 
 private:
+	Section* section;
 	std::vector<Button*> buttons;
 };
 

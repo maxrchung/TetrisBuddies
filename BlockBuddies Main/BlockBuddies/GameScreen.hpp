@@ -22,7 +22,6 @@ private:
 	CursorHandler *ch;
 	bool pressed, pressed2;
 	sf::RectangleShape rec;
-
 };
 
 #endif//GAMESCREEN_HPP

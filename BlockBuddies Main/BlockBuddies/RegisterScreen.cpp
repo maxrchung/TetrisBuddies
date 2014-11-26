@@ -69,14 +69,14 @@ RegisterScreen::RegisterScreen()
 	buttons({ new Button(Screens::HOME,
 		                 "Enter",
 						 0.0f,
-						 125.0f,
+						 137.5f,
 						 150.0f,
 						 50.0f),
 
 			  new Button(Screens::LOGIN,
 		                 "Cancel",
 						 0.0f,
-						 200.0f,
+						 212.5f,
 						 150.0f,
 						 50.0f) })
 {

@@ -30,6 +30,9 @@ private:
 	void textWrap();
 	float boundingWidth;
 
+	// Used to check if there is a change in the message
+	sf::Text prevMessage;
+
 	// Determines how the text is aligned
 	Alignments textAlignment;
 

@@ -3,6 +3,8 @@
 
 #include "Screen.hpp"
 #include "Button.hpp"
+#include "Section.hpp"
+#include "TextBox.hpp"
 
 // Screen you get into when you first login or register an account
 // Basically the central hub to take you to other parts
@@ -14,6 +16,8 @@ public:
 	void draw();
 
 private:
+	Section* section;
+	TextBox* welcome;
 	std::vector<Button*> buttons;
 };
 

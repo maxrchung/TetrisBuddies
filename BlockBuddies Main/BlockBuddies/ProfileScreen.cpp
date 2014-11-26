@@ -2,26 +2,31 @@
 #include "InputManager.hpp"
 
 ProfileScreen::ProfileScreen()
-	:buttons({ new Button(Screens::HOME,
+	:section(new Section(0.0f,
+	                     0.0f,
+						 1000.0f,
+						 600.0f)),
+
+	 buttons({ new Button(Screens::HOME,
                           "Home",	 
 						  -175.0f,
 						  -200.0f,
 						  150.0f,
-						  75.0f),
+						  50.0f),
 
 	           new Button(Screens::PROFILE,
                           "Profile",	 
 						  0.0f,
 						  -200.0f,
 						  150.0f,
-						  75.0f),
+						  50.0f),
 
 	           new Button(Screens::GAMETYPE,
     		              "Play",
 						  175.0f,
 						  -200.0f,
 						  150.0f,
-						  75.0f) })
+						  50.0f) })
 {
 }
 
