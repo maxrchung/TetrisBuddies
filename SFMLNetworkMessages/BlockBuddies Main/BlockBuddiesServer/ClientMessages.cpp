@@ -25,64 +25,56 @@ sf::Packet ClientMessages::NewRowPacket(){
 //pass it a packet full of game state data, and decode it into a passed in GameStateObject
 void ClientMessages::DecodeGameState(sf::Packet& decodeMe, GameStateObject& gso){
 
+	sf::Uint32 sc;
+	decodeMe >> sc;
+	gso.score = sc;
+
+	sf::Uint8 square = 9;
+
+	for (int colNum = 0; colNum < gso.boardWidth; colNum++)
+	{
+		decodeMe >> square;
+		//std::cout << "Decoded square: " << (int)square << std::endl;
+		gso.tempRow[colNum] = square;
+	}
+
+	for (int rowNum = 0; rowNum < gso.boardHeight; rowNum++) {
+		for (int colNum = 0; colNum < gso.boardWidth; colNum++)
+		{
+			decodeMe >> square;
+			//std::cout << "Decoded square: " << (int)square << std::endl;
+			gso.gameBoard[rowNum][colNum] = square;
+		}
+	}
 }
 
-bool ClientMessages::ProcessMessage(sf::Packet toProcess){
+
+
+bool ClientMessages::ProcessMessage(sf::Packet& toProcess, GameStateObject& gso){
 
 	sf::Uint8 command;
 	toProcess >> command;
 
 	//Current game state
 	if (command == 1){ 
-		//put the game state in the proper location here
-		
-		sf::Uint8 ps;
-		sf::Uint8 bs;
-		sf::Uint8 squareVal;
-
-		toProcess >> ps >> bs;
-
-		std::cout << "Game state: " << std::endl;
-		std::cout << "Player score: " << (int)ps << std::endl;
-		std::cout << "Board Speed: " << (int)bs << std::endl;
-
-		int localBoard[12][6];
-
-
-		//output rows, top to bottom
-		for (int rowNum = 11; rowNum > -1; rowNum--){
-			std::cout << std::endl;
-			std::cout << "Row " << rowNum << ":| ";
-			//output columns left to right
-			for (int colNum = 0; colNum < 6; colNum++){
-				
-				toProcess >> squareVal;
-				localBoard[rowNum][colNum] = squareVal;
-				std::cout << " " << localBoard[rowNum][colNum];
-			}
-			std::cout << " |";
-		}
+		DecodeGameState(toProcess, gso);
+		return true;
 	}
 
-	//Temp Row contents
-	else if (command == 2){
-		//put the rest of the packet data in the temp row here
-		std::cout << "This is the contents of the temp row " << std::endl;
-	}
 
 	//Game Started
 	else if (command == 3){
-		//call StartGame()
-		std::cout << "Game has started!" << std::endl;
+		//StartGame() function needs to be called
+		//std::cout << "Game has started!" << std::endl;
+		return true;
 	}
 
-	//Move a piece
+	//Game Over
 	else if (command == 4){
 		//call GameOver()
-		std::cout << "Game Over!" << std::endl;
+		//std::cout << "Game Over!" << std::endl;
+		return true;
 	}
-
-
 
 	return false;
 }
