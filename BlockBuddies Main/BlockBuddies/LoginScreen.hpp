@@ -2,12 +2,10 @@
 #define LOGINSCREEN_HPP
 
 #include "Screen.hpp"
-#include <vector>
 #include "Button.hpp"
 #include "TextBox.hpp"
 #include "TextInput.hpp"
 #include "Section.hpp"
-#include "Selectable.hpp"
 #include <SFML\Audio.hpp>
 
 // Screen to login with account
@@ -39,8 +37,11 @@ private:
 	TextBox* passwordTag;
 	TextInput* username;
 	TextInput* password;
-	std::vector<Button*> buttons;
-	//added a sound object to login screen
+    Button* home;
+    Button* signup;
+    Button* offlineHome;
+
+    //added a sound object to login screen
 	sf::Sound sound;
 };
 

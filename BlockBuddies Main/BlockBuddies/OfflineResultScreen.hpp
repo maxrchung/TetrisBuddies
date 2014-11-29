@@ -1,15 +1,15 @@
-#ifndef RESULTSCREEN_HPP
-#define RESULTSCREEN_HPP
+#ifndef OFFLINERESULTSCREEN_HPP
+#define OFFLINERESULTSCREEN_HPP
 
 #include "Screen.hpp"
 #include "Button.hpp"
 #include "Section.hpp"
 #include "TextBox.hpp"
 
-class ResultScreen : public Screen
+class OfflineResultScreen : public Screen
 {
 	public:
-		ResultScreen();
+		OfflineResultScreen();
 		void update();
 		void draw();
 	private:
@@ -18,7 +18,8 @@ class ResultScreen : public Screen
         TextBox* status;
         TextBox* scoreTag; // "Score"
         TextBox* score; // Ex. "5000"
-        Button* home;
-        Button* game;
+        Button* login;
+        Button* offlineGame;
+        Button* offlineHome;
 };
-#endif REULSTSCREEN_HPP //ResultScreen.hpp
+#endif//OFFLINERESULTSCREEN_HPP

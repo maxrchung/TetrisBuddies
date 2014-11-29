@@ -2,9 +2,7 @@
 #include "GraphicsManager.hpp"
 #include "ScreenManager.hpp"
 #include "LoginScreen.hpp"
-#include "UIManager.hpp"
 #include "InputManager.hpp"
-#include "SelectManager.hpp"
 
 #include <iostream>
 
@@ -16,8 +14,6 @@ Game::Game()
 	// Note that UIManager and SelectManager must call init() first or 
 	// else making the new screen at ScreenManager will reset all the
 	// elements
-	SelectManager::getInstance()->init();
-	UIManager::getInstance()->init();
 	GraphicsManager::getInstance()->init();
 	ScreenManager::getInstance()->init();
 	InputManager::getInstance()->init();
@@ -39,17 +35,10 @@ void Game::update()
 	// Manages corner buttons and background
 	GraphicsManager::getInstance()->update();
 
-	// Manages tabbing between Selectable elements
-	SelectManager::getInstance()->update();
-
 	// After inputs and UIElements and updated, we update the screen
 	// This will involve bigger picture actions such as sending
 	// network messages if we need to
-	ScreenManager::getInstance()->currentScreen->update();
-
-	// The UIManager handles all the textboxes, buttons, and text inputs
-	// on the screen
-	UIManager::getInstance()->update();
+	ScreenManager::getInstance()->update();
 }
 
 void Game::draw()
@@ -59,12 +48,9 @@ void Game::draw()
 
 	GraphicsManager::getInstance()->draw();
 
-	// Display all the UIElements
-	UIManager::getInstance()->draw();
-
 	// This will usually be empty for Login/Register screen and the like, but GameScreen
 	// will need this to draw things
-	ScreenManager::getInstance()->currentScreen->draw();
+	ScreenManager::getInstance()->draw();
 
 	// Draw everything that we've since prepped onto the window
 	GraphicsManager::getInstance()->window.display();

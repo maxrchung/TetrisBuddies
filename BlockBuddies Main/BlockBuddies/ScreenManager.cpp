@@ -6,9 +6,10 @@
 #include "GameTypeScreen.hpp"
 #include "GameScreen.hpp"
 #include "ResultScreen.hpp"
-#include "UIManager.hpp"
 #include "InputManager.hpp"
-#include "SelectManager.hpp"
+#include "OfflineHomeScreen.hpp"
+#include "OfflineGameTypeScreen.hpp"
+#include "OfflineResultScreen.hpp"
 
 ScreenManager* ScreenManager::instance;
 
@@ -21,8 +22,32 @@ ScreenManager* ScreenManager::getInstance()
 
 void ScreenManager::init()
 {
+	// Initialize all the screens to a map
+	screens = std::map<Screens, Screen*> { 
+		                                     { Screens::LOGIN, new LoginScreen() },
+											 { Screens::REGISTER, new RegisterScreen() },
+											 { Screens::HOME, new HomeScreen() },
+											 { Screens::PROFILE, new ProfileScreen() },
+											 { Screens::GAMETYPE, new GameTypeScreen() },
+											 { Screens::GAME, new GameScreen() },
+											 { Screens::RESULT, new ResultScreen() },
+                                             { Screens::OFFLINEHOME, new OfflineHomeScreen() },
+                                             { Screens::OFFLINEGAMETYPE, new OfflineGameTypeScreen() },
+                                             { Screens::OFFLINERESULT, new OfflineResultScreen() }
+	                                     };
+
 	// Set this to something else if you want to start on a specific screen
-	currentScreen = new LoginScreen();
+	currentScreen = screens[Screens::OFFLINERESULT];
+}
+
+void ScreenManager::update()
+{
+	currentScreen->update();
+}
+
+void ScreenManager::draw()
+{
+	currentScreen->draw();
 }
 
 void ScreenManager::switchScreen(const Screens toScreen)
@@ -31,43 +56,8 @@ void ScreenManager::switchScreen(const Screens toScreen)
 	// switchScreen calculations
 	InputManager::getInstance()->mouseReleased = false;
 
-	// Making sure to delete for memory leak issues
-	delete currentScreen;
-
-	// Clear the select manager so it doesn't have any elements when we
-	// switch to the next screen
-	SelectManager::getInstance()->clear();
+    // Deselects any selected elements before going to a new screen
+    currentScreen->deselect();
 	
-	// Clears the UIElements list so that the next Screen's elements
-	// can be put on
-	// UIManager will deal with memory leaks
-	UIManager::getInstance()->clear();
-
-	// Changes the screen based on the given enum
-	switch (toScreen)
-	{
-	case LOGIN:
-		currentScreen = new LoginScreen();
-		break;
-	case REGISTER:
-		currentScreen = new RegisterScreen();
-		break;
-	case HOME:
-		currentScreen = new HomeScreen();
-		break;
-	case PROFILE:
-		currentScreen = new ProfileScreen();
-		break;
-	case GAMETYPE:
-		currentScreen = new GameTypeScreen();
-		break;
-	case GAME:
-		currentScreen = new GameScreen();
-		break;
-	case RESULT:
-		currentScreen = new ResultScreen();
-		break;
-	default:
-		break;
-	}
+	currentScreen = screens[toScreen];
 }

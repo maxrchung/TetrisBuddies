@@ -51,9 +51,6 @@
     <ClInclude Include="UIElement.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UIManager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="InputManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -70,9 +67,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Selectable.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SelectManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BlockHandler.hpp">
@@ -94,6 +88,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ResultScreen.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OfflineHomeScreen.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OfflineResultScreen.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OfflineGameTypeScreen.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -131,12 +134,6 @@
     <ClCompile Include="GameScreen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UIManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="UIElement.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -147,12 +144,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Section.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SelectManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Selectable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BlockHandler.cpp">
@@ -174,6 +165,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ResultScreen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OfflineHomeScreen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OfflineResultScreen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OfflineGameTypeScreen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

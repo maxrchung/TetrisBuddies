@@ -3,7 +3,6 @@
 
 #include "SFML/Graphics.hpp"
 #include "UIElement.hpp"
-#include "UIManager.hpp"
 #include "Selectable.hpp"
 
 // A UIElement that takes in input from the user

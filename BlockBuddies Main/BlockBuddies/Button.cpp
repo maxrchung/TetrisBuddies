@@ -2,7 +2,6 @@
 #include "GraphicsManager.hpp"
 #include "SFML/Window.hpp"
 #include "ScreenManager.hpp"
-#include "UIManager.hpp"
 #include "InputManager.hpp"
 #include "ClientManager.h"
 

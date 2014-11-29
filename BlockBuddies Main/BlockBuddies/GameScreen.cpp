@@ -1,4 +1,5 @@
 #include "GameScreen.hpp"
+#include "ClientManager.h"
 
 // To be filled in at the gameplay people's discretion
 GameScreen::GameScreen()
@@ -104,7 +105,10 @@ void GameScreen::update()
 	{
 		delete bh;
 		delete ch;
-		ScreenManager::getInstance()->switchScreen(RESULT);
+        if(ClientManager::getInstance().isConnected)
+            ScreenManager::getInstance()->switchScreen(RESULT);
+        else
+            ScreenManager::getInstance()->switchScreen(OFFLINERESULT);
 	}
 }
 

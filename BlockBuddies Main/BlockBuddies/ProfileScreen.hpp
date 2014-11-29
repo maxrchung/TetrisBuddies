@@ -17,7 +17,9 @@ public:
 
 private:
 	Section* section;
-	std::vector<Button*> buttons;
+    Button* home;
+    Button* profile;
+    Button* gameType;
 };
 
 #endif//PROFILESCREEN_HPP

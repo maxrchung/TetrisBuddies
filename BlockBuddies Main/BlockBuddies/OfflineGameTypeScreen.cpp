@@ -1,36 +1,28 @@
-#include "GameTypeScreen.hpp"
+#include "OfflineGameTypeScreen.hpp"
 #include "InputManager.hpp"
-#include "ClientManager.h"
 
-GameTypeScreen::GameTypeScreen()
+OfflineGameTypeScreen::OfflineGameTypeScreen()
     :section(new Section(0.0f,
                          0.0f,
                          1000.0f,
                          600.0f)),
-     
-     home(new Button(Screens::HOME,
+
+     home(new Button(Screens::OFFLINEHOME,
                      "Home",
-                     -175.0f,
+                     -87.5f,
                      -225.0f,
                      150.0f,
                      50.0f)),
 
-     profile(new Button(Screens::PROFILE,
-                        "Profile",
-                        0.0f,
-                        -225.0f,
-                        150.0f,
-                        50.0f)),
-
-     gameType(new Button(Screens::GAMETYPE,
+     gameType(new Button(Screens::OFFLINEGAMETYPE,
                          "Play",
-                         175.0f,
+                         87.5f,
                          -225.0f,
                          150.0f,
                          50.0f)),
 
      game(new Button(Screens::GAME,
-                     "Start Game",
+                     "Start Game",	 
                      0.0f,
                      0.0f,
                      150.0f,
@@ -38,17 +30,15 @@ GameTypeScreen::GameTypeScreen()
 {
     UIElements = { section,
                    home,
-                   profile,
                    gameType,
                    game };
 
     selectables = { home,
-                    profile,
                     gameType,
                     game };
 }
 
-void GameTypeScreen::update()
+void OfflineGameTypeScreen::update()
 {
     Screen::update();
 
@@ -57,13 +47,8 @@ void GameTypeScreen::update()
     {
         ScreenManager::getInstance()->switchScreen(home->toScreen);
     }
+
     
-    else if (profile->isActivated ||
-             (InputManager::getInstance()->enter && profile->isSelected))
-    {
-        ScreenManager::getInstance()->switchScreen(profile->toScreen);
-    }
-        
     else if (gameType->isActivated ||
              (InputManager::getInstance()->enter && gameType->isSelected))
     {
@@ -77,7 +62,7 @@ void GameTypeScreen::update()
     }
 }
 
-void GameTypeScreen::draw()
+void OfflineGameTypeScreen::draw()
 {
     Screen::draw();
 }

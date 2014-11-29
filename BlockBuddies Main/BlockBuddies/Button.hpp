@@ -6,7 +6,6 @@
 #include "SFML/Graphics.hpp"
 #include "UIElement.hpp"
 #include "Selectable.hpp"
-#include "UIManager.hpp"
 
 // Is a UIElement, added into UIElements vector in UIManager
 class Button : public UIElement, public Selectable
@@ -47,4 +46,4 @@ private:
 	sf::RectangleShape boundingRect;
 };
 
-#endif BUTTON_HPP
+#endif//BUTTON_HPP

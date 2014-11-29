@@ -3,7 +3,6 @@
 
 #include "SFML/Graphics.hpp"
 #include "UIElement.hpp"
-#include "UIManager.hpp"
 
 // TextBox for just displaying text on the screen, no
 // flairs attached

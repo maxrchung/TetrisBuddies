@@ -1,24 +1,23 @@
-#ifndef GAMETYPESCREEN_HPP
-#define GAMETYPESCREEN_HPP
+#ifndef OFFLINEGAMETYPESCREEN_HPP
+#define OFFLINEGAMETYPESCREEN_HPP
 
 #include "Screen.hpp"
 #include "Button.hpp"
 #include "Section.hpp"
 
 // Screen that displays the available gametypes to play
-class GameTypeScreen : public Screen
+class OfflineGameTypeScreen : public Screen
 {
 public:
-    GameTypeScreen();
+    OfflineGameTypeScreen();
     void update();
     void draw();
 
 private:
     Section* section;
     Button* home;
-    Button* profile;
     Button* gameType;
     Button* game;
 };
 
-#endif//GAMETYPESCREEN_HPP
+#endif//OFFLINEGAMETYPESCREEN_HPP

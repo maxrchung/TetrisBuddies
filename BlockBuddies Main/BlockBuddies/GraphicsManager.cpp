@@ -21,7 +21,7 @@ void GraphicsManager::init()
 {
 	// Sets windowndow to fullscreen
 	window.create(sf::VideoMode::getFullscreenModes()[0], 
-				  "Block Buddies", 
+				  "Block Buddies",
 				  sf::Style::Fullscreen);
 
 	// In case we run into choppy display issues
@@ -33,7 +33,7 @@ void GraphicsManager::init()
 	scale = GraphicsManager::window.getSize().y / 800.0f;	
 
 	// The font size of a title, such as LOGIN, REGISTER, RESULTS
-	titleSize = 48 *scale;
+	titleSize = 48 * scale;
 
 	// The font size of a button label, such as the "Enter" text of an Enter Button
 	labelSize = 24 * scale;
@@ -42,10 +42,10 @@ void GraphicsManager::init()
 	messageSize = 16 * scale;
 
 	// This can be switched out, but I like this as a Title/Button font
-	labelFont.loadFromFile("Roboto-Regular.ttf");
+	labelFont.loadFromFile("SourceSansPro-Regular.otf");
 
 	// Font of the message, for now it is the same as label, but it can be switched out
-	messageFont.loadFromFile("Roboto-Regular.ttf");	
+	messageFont.loadFromFile("SourceSansPro-Regular.otf");	
 
 	// Sets the framerate for the window drawing, note that I do not think this
 	// actually applies for the actual game updates

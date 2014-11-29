@@ -1,6 +1,5 @@
 #include "RegisterScreen.hpp"
 #include "Section.hpp"
-#include "UIManager.hpp"
 #include "TextBox.hpp"
 #include "TextInput.hpp"
 #include "GraphicsManager.hpp"
@@ -22,7 +21,7 @@ RegisterScreen::RegisterScreen()
 
      status(new TextBox("Enter username once and password twice to register an account",
 	                    0.0f,
-						-135.0f,
+						-125.0f,
 						300.0f)),
 
      usernameTag(new TextBox("Username: ",
@@ -66,67 +65,80 @@ RegisterScreen::RegisterScreen()
 							 Alignments::LEFT,
 							 true)),
 
-	buttons({ new Button(Screens::HOME,
-		                 "Enter",
-						 0.0f,
-						 137.5f,
-						 150.0f,
-						 50.0f),
+	 home(new Button(Screens::HOME,
+		             "Enter",
+                     0.0f,
+                     137.5f,
+                     150.0f,
+                     50.0f)),
 
-			  new Button(Screens::LOGIN,
-		                 "Cancel",
-						 0.0f,
-						 212.5f,
-						 150.0f,
-						 50.0f) })
+	 login(new Button(Screens::LOGIN,
+		              "Cancel",
+                      0.0f,
+                      212.5f,
+                      150.0f,
+                      50.0f))
 {
+    UIElements = { section,
+                   title,
+                   status,
+                   usernameTag,
+                   passwordTag,
+                   password2Tag,
+                   username,
+                   password,
+                   password2,
+                   login,
+                   home };
+
+    selectables = { username,
+                    password,
+                    password2,
+                    home,
+                    login };
 }
 
 void RegisterScreen::update()
 {
+    Screen::update();
+
 	// If no buttons are currently selected and the player presses
 	// enter, then the enter button is automatically activated
 	if(InputManager::getInstance()->enter)
 	{
 		bool selected = false;
-		for(auto i : buttons)
-			if (i->isSelected)
-			{
+        if (login->isSelected ||
+            home->isSelected)
 				selected = true;
-				break;
-			}
 
-		if (!selected)
-			buttons[0]->isActivated = true;
+        if (!selected)
+			home->isActivated = true;
 	}
 
-	for(auto i : buttons)
-		if (i->isActivated ||
-		    (InputManager::getInstance()->enter && i->isSelected))
-		{
-			if (i->label.getString() == "Enter")
-			{
-				if (password->input.getString() == password2->input.getString())
-				{
-					if (ClientManager::getInstance().registerUser(username->input.getString(),
-					             	                              password->input.getString()))
-						ScreenManager::getInstance()->switchScreen(i->toScreen);
-					else
-						status->message.setString("Username taken");
-				}
-				else 
-					status->message.setString("Passwords do not match");
-			}
-			else if (i->label.getString() == "Cancel")
-			{
-				ScreenManager::getInstance()->switchScreen(i->toScreen);
-			}
-
-			break;
-		}
+    if (home->isActivated ||
+        (InputManager::getInstance()->enter && home->isSelected))
+    {
+        if (password->input.getString() == password2->input.getString())
+        {
+            if (ClientManager::getInstance().registerUser(username->input.getString(),
+                password->input.getString()))
+            {
+                ScreenManager::getInstance()->switchScreen(home->toScreen);
+            }
+            else
+                status->message.setString("Username taken");
+        }
+        else
+            status->message.setString("Passwords do not match");
+    }
+    else if (login->isActivated ||
+             (InputManager::getInstance()->enter && login->isSelected))
+    {
+        ScreenManager::getInstance()->switchScreen(login->toScreen);
+    }
 }
 
 void RegisterScreen::draw()
 {
-
+    Screen::draw();
 }

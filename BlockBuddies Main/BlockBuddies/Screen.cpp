@@ -1,36 +1,10 @@
-#include "SelectManager.hpp"
+#include "Screen.hpp"
 #include "InputManager.hpp"
 
-SelectManager* SelectManager::instance;
-
-
-SelectManager* SelectManager::getInstance()
+// Updates selectables and UIElements
+void Screen::update()
 {
-	if (!instance)
-		instance = new SelectManager;
-	return instance;
-}
-
-void SelectManager::init()
-{
-	selectables = std::vector<Selectable*>();
-}
-
-void SelectManager::add(Selectable* selectable)
-{	
-	selectables.push_back(selectable);
-}
-
-void SelectManager::clear()
-{
-	// We don't free the memory of Selectables here because
-	// UIManager will handle that for us
-	selectables.clear();
-}
-
-void SelectManager::update()
-{
-	// If the player hits tab, it iterates forward in our Selectable vector	
+    // If the player hits tab, it iterates forward in our Selectable vector
 	if (InputManager::getInstance()->tab)
 	{
 		// This is to check if any Selectable element is currently selected
@@ -81,4 +55,20 @@ void SelectManager::update()
 	if(InputManager::getInstance()->mouseReleased)
 		for (auto& i : selectables)
 			i->isSelected = false;
+
+    // Updates all the UIelements
+    for(auto& a : UIElements)
+        a->update();
+}
+
+void Screen::draw()
+{
+    for(auto& a : UIElements)
+        a->draw();
+}
+
+void Screen::deselect()
+{
+    for(auto selectable : selectables)
+        selectable->isSelected = false;
 }

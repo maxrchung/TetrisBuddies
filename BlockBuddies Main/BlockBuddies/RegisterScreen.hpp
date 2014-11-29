@@ -2,7 +2,6 @@
 #define REGISTERSCREEN_HPP
 
 #include "Screen.hpp"
-#include <vector>
 #include "Button.hpp"
 #include "TextBox.hpp"
 #include "TextInput.hpp"
@@ -30,7 +29,9 @@ private:
 	TextInput* username;
 	TextInput* password;
 	TextInput* password2;
-	std::vector<Button*> buttons;
+
+    Button* login;
+    Button* home;
 };
 
 #endif//REGISTERSCREEN_HPP

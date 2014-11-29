@@ -18,7 +18,9 @@ public:
 private:
 	Section* section;
 	TextBox* welcome;
-	std::vector<Button*> buttons;
+	Button* home;
+	Button* profile;
+	Button* gameType;
 };
 
 #endif//HOMESCREEN_HPP

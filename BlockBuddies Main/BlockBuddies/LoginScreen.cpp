@@ -18,6 +18,11 @@ LoginScreen::LoginScreen()
 					   // Parameter tells the constructor that it is a title
 					   true)),
 
+	 status(new TextBox("Enter username and password ",
+	                    0.0f,
+						-125.0f,
+						300.0f)),
+
      usernameTag(new TextBox("Username: ",
 		                     -140.0f,
 							 -25.0f,
@@ -31,11 +36,6 @@ LoginScreen::LoginScreen()
 							 25.0f,
 							 250.0f,
 							 Alignments::LEFT)),
-
-	 status(new TextBox("Enter username and password ",
-	                    0.0f,
-						-125.0f,
-						300.0f)),
 
      username(new TextInput(-60.0f,
 		                    -25.0f,
@@ -52,125 +52,126 @@ LoginScreen::LoginScreen()
 							Alignments::LEFT,
 							true)),
 
-	 buttons({ new Button(Screens::HOME,
-		                  "Enter",
-						  0.0f,
-						  100.0f,
-						  150.0f,
-						  50.0f),
+	 home(new Button(Screens::HOME,
+		             "Enter",
+                     0.0f,
+                     100.0f,
+                     150.0f,
+                     50.0f)),
 
-			   new Button(Screens::REGISTER,
-			              "Register",
-						  0.0f,
-						  175.0f,
-						  150.0f,
-						  50.0f),
+     signup(new Button(Screens::REGISTER,
+                       "Register",
+                       0.0f,
+                       175.0f,
+                       150.0f,
+                       50.0f)),
 
-			   new Button(Screens::HOME,
-			              "Offline Mode",
-						  0.0f,
-						  250.0f,
-						  150.0f,
-						  50.0f) })
+     offlineHome(new Button(Screens::OFFLINEHOME,
+			            "Offline Mode",
+                        0.0f,
+                        250.0f,
+                        150.0f,
+                        50.0f))
 {
+    UIElements = { section,
+                   title,
+                   status,
+                   usernameTag,
+                   passwordTag,
+                   username,
+                   password,
+                   home,
+                   signup,
+                   offlineHome };
+
+    selectables = { username,
+                    password,
+                    home,
+                    signup,
+                    offlineHome };
+
 	//set the sound with a soundbuffer from the soundmanager
 	sound.setBuffer(*SoundManager::getInstance().getSound("scream"));
 }
 
 void LoginScreen::update()
 {
+    Screen::update();
+
 	// If no buttons are currently selected and the player presses
 	// enter, then the enter button is automatically activated
 	if(InputManager::getInstance()->enter)
 	{
 		bool selected = false;
-		for(auto i : buttons)
-			if (i->isSelected)
-			{
-				selected = true;
-				break;
-			}
+        if (home->isSelected ||
+            signup->isSelected ||
+            offlineHome->isSelected)
+        {
+            selected = true;
+        }
 
 		if (!selected)
-			buttons[0]->isActivated = true;
+			home->isActivated = true;
 	}
 
 	//Bug if you fail to log in and enter a correct log in the second time.
 	//Can't log in if it's not in the DB at least
-	for (auto i : buttons)
-	{
-		if (i->label.getString() == "Enter")
-		{
-			if (i->isActivated ||
-				(InputManager::getInstance()->enter && i->isSelected))
-			{
-				if (!ClientManager::getInstance().isConnected)
-				{
-					if (!ClientManager::getInstance().initConnection(sf::IpAddress::getLocalAddress(), 5000))
-					{
-						status->message.setString("Connection failed");
-						break;
-					}
-				}
+    if (home->isActivated ||
+        (InputManager::getInstance()->enter && home->isSelected))
+    {
+        if (!ClientManager::getInstance().isConnected)
+        {
+            if (!ClientManager::getInstance().initConnection(sf::IpAddress::getLocalAddress(), 5000))
+                status->message.setString("Connection failed");
+        }
+    
+        if(ClientManager::getInstance().isConnected)
+        {
+            if (ClientManager::getInstance().loginUser(username->input.getString(),
+                                                       password->input.getString()))
+            {
+                //play sound then switch screens
+                sound.play();
+                ScreenManager::getInstance()->switchScreen(home->toScreen);
+            }
 
-				if (ClientManager::getInstance().loginUser(username->input.getString(), 
-					                                       password->input.getString()))
-				{
-					//play sound then switch screens
-					sound.play();
-					ScreenManager::getInstance()->switchScreen(i->toScreen);
-				}
-				else{
-					//play sounds then change strings
-					if (sound.getStatus() != sound.Playing)
-						sound.play();
+            else {
+                //play sounds then change strings
+                if (sound.getStatus() != sound.Playing)
+                    sound.play();
+                
+                status->message.setString("Wrong username or password");
+            }
+        }
+    }
 
-					status->message.setString("Wrong username or password");
-				}
-				break;
-			}
-		}
+    else if (signup->isActivated ||
+             (InputManager::getInstance()->enter && signup->isSelected))
+    {
+        if (!ClientManager::getInstance().isConnected)
+        {
+            if (!ClientManager::getInstance().initConnection(sf::IpAddress::getLocalAddress(), 5000))
+                status->message.setString("Connection failed");
+        }
+				
+        else
+        {
+            //play sound then switch screen
+            sound.play();
+            ScreenManager::getInstance()->switchScreen(signup->toScreen);
+        }
+    }
 
-		else if (i->label.getString() == "Register")
-		{
-			if (i->isActivated ||
-				(InputManager::getInstance()->enter && i->isSelected))
-			{
-				if (!ClientManager::getInstance().isConnected)
-				{
-					if (!ClientManager::getInstance().initConnection(sf::IpAddress::getLocalAddress(), 5000))
-					{
-						status->message.setString("Connection failed");
-						break;
-					}
-				}
-
-				//play sound then switch screen
-				sound.play();
-				ScreenManager::getInstance()->switchScreen(i->toScreen);
-
-				i->isActivated = false;
-
-				break;
-			}
-		}
-
-		else if(i->label.getString() == "Offline Mode")
-		{
-			if (i->isActivated ||
-				(InputManager::getInstance()->enter && i->isSelected))
-			{
-				//play sound then switch screen
-				sound.play();
-				ScreenManager::getInstance()->switchScreen(i->toScreen);
-			}
-
-			break;
-		}
-	}
+    if (offlineHome->isActivated ||
+        (InputManager::getInstance()->enter && offlineHome->isSelected))
+    {
+        //play sound then switch screen
+        sound.play();
+        ScreenManager::getInstance()->switchScreen(offlineHome->toScreen);
+    }
 }
 
 void LoginScreen::draw()
 {
-
+    Screen::draw();
 }
