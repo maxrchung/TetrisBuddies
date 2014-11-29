@@ -1,5 +1,6 @@
 #include "ServerMessages.hpp"
 
+/*
 bool ServerMessages::ProcessMessage(sf::Packet toProcess){
 	sf::Uint8 command;
 	
@@ -29,12 +30,12 @@ bool ServerMessages::ProcessMessage(sf::Packet toProcess){
 
 	return false;
 }
+*/
 
 
 sf::Packet ServerMessages::StartPacket(){
 	sf::Packet ret;
 	sf::Uint8 startCommand = 3;
-	ret << startCommand;
 	return ret;
 }
 
@@ -45,11 +46,11 @@ sf::Packet ServerMessages::GameOverPacket(){
 	return ret;
 }
 
-sf::Packet ServerMessages::GameStatePacket(GameStateObject& gs){
-	sf::Packet ret;
-	sf::Uint8 gameStateCommand = 1;
-	ret << gameStateCommand;
-	//append the game state to ret
-	ret << gs.CreatePacket();
-	return ret;
+
+
+sf::Packet ServerMessages::GameStatePacket(GameLogic& gl){
+	//I put the '1' command in the GSO::GSPacket creation itself
+	//packets don't like to be inserted into other packets
+
+	return gl.GSPacket();
 }
