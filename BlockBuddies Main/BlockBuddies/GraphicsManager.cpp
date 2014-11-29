@@ -20,9 +20,9 @@ GraphicsManager* GraphicsManager::getInstance()
 void GraphicsManager::init()
 {
 	// Sets windowndow to fullscreen
-	window.create(sf::VideoMode::getFullscreenModes()[0], 
+	window.create(sf::VideoMode::getDesktopMode(), 
 				  "Block Buddies",
-				  sf::Style::Fullscreen);
+				  sf::Style::None);
 
 	// In case we run into choppy display issues
 	window.setVerticalSyncEnabled(true);
@@ -42,10 +42,10 @@ void GraphicsManager::init()
 	messageSize = 16 * scale;
 
 	// This can be switched out, but I like this as a Title/Button font
-	labelFont.loadFromFile("SourceSansPro-Regular.otf");
+	labelFont.loadFromFile("Roboto-Regular.ttf");
 
 	// Font of the message, for now it is the same as label, but it can be switched out
-	messageFont.loadFromFile("SourceSansPro-Regular.otf");	
+	messageFont.loadFromFile("Roboto-Regular.ttf");	
 
 	// Sets the framerate for the window drawing, note that I do not think this
 	// actually applies for the actual game updates
