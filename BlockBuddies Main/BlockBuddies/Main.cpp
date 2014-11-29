@@ -1,5 +1,5 @@
 #include "Game.hpp"
-#include "ClientManager.h"
+
 int main()
 {
 	Game game;

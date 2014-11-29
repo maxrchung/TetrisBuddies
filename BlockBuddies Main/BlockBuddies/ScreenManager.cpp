@@ -37,7 +37,7 @@ void ScreenManager::init()
 	                                     };
 
 	// Set this to something else if you want to start on a specific screen
-	currentScreen = screens[Screens::OFFLINERESULT];
+	currentScreen = screens[Screens::LOGIN];
 }
 
 void ScreenManager::update()
