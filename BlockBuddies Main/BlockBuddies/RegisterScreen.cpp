@@ -5,6 +5,7 @@
 #include "GraphicsManager.hpp"
 #include "InputManager.hpp"
 #include "ClientManager.h"
+#include "ScreenManager.hpp"
 
 RegisterScreen::RegisterScreen()
 	:section(new Section(0.0f,
@@ -79,17 +80,17 @@ RegisterScreen::RegisterScreen()
                       150.0f,
                       50.0f))
 {
-    UIElements = { section,
-                   title,
-                   status,
-                   usernameTag,
-                   passwordTag,
-                   password2Tag,
-                   username,
-                   password,
-                   password2,
-                   login,
-                   home };
+    UIElements.push_back(section);
+    UIElements.push_back(title);
+    UIElements.push_back(status);
+    UIElements.push_back(usernameTag);
+    UIElements.push_back(passwordTag);
+    UIElements.push_back(password2Tag);
+    UIElements.push_back(username);
+    UIElements.push_back(password);
+    UIElements.push_back(password2);
+    UIElements.push_back(login);
+    UIElements.push_back(home);
 
     selectables = { username,
                     password,

@@ -10,6 +10,8 @@
 #include "OfflineHomeScreen.hpp"
 #include "OfflineGameTypeScreen.hpp"
 #include "OfflineResultScreen.hpp"
+#include "CloseScreen.hpp"
+#include "OfflineCloseScreen.hpp"
 
 ScreenManager* ScreenManager::instance;
 
@@ -33,21 +35,40 @@ void ScreenManager::init()
 											 { Screens::RESULT, new ResultScreen() },
                                              { Screens::OFFLINEHOME, new OfflineHomeScreen() },
                                              { Screens::OFFLINEGAMETYPE, new OfflineGameTypeScreen() },
-                                             { Screens::OFFLINERESULT, new OfflineResultScreen() }
+                                             { Screens::OFFLINERESULT, new OfflineResultScreen() },
+                                             { Screens::CLOSE, new CloseScreen() },
+                                             { Screens::OFFLINECLOSE, new OfflineCloseScreen() }
 	                                     };
 
 	// Set this to something else if you want to start on a specific screen
-	currentScreen = screens[Screens::LOGIN];
+    currentScreens = { screens[Screens::LOGIN] };
 }
 
 void ScreenManager::update()
 {
-	currentScreen->update();
+    // Only update the most recently added screen
+	currentScreens[currentScreens.size() - 1]->update();
 }
 
 void ScreenManager::draw()
 {
-	currentScreen->draw();
+    currentScreens[0]->draw();
+
+    if(currentScreens.size() > 1)
+    {
+        for(int i = 1; i < currentScreens.size() - 1; i++)
+        {
+            currentScreens[i]->draw();
+        }
+        // Used to provide a darkening layer between the last layer
+        // and the layers before it
+        sf::RectangleShape darken(sf::Vector2f((float) GraphicsManager::getInstance()->window.getSize().x,
+                                               (float) GraphicsManager::getInstance()->window.getSize().y));
+        darken.setFillColor(sf::Color(0, 0, 0, 255/2));
+        GraphicsManager::getInstance()->window.draw(darken);
+
+        currentScreens[currentScreens.size() - 1]->draw();
+    }
 }
 
 void ScreenManager::switchScreen(const Screens toScreen)
@@ -57,7 +78,20 @@ void ScreenManager::switchScreen(const Screens toScreen)
 	InputManager::getInstance()->mouseReleased = false;
 
     // Deselects any selected elements before going to a new screen
-    currentScreen->deselect();
+    for(auto& screen : currentScreens)
+        screen->deselect();
+
+    for(auto& screen : currentScreens)
+        screen->deactivate();
 	
-	currentScreen = screens[toScreen];
+    currentScreens = { screens[toScreen] };
+}
+
+// For adding a notification screen or a close screen on top of the
+// current one
+void ScreenManager::addScreen(const Screens toScreen)
+{
+    InputManager::getInstance()->mouseReleased = false;
+
+    currentScreens.push_back(screens[toScreen]);
 }

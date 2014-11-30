@@ -28,6 +28,7 @@ void InputManager::update()
 	backspace = false;
 	enter = false;
 	tab = false;
+    escape = false;
 
 	// Input is an sf::String, so we clear it before the events check
 	input.clear();
@@ -54,6 +55,8 @@ void InputManager::update()
 				enter = true;
 			else if(event.key.code == sf::Keyboard::Tab)			
 				tab = true;
+            else if(event.key.code == sf::Keyboard::Escape)
+                escape = true;
 			break;
 
 		// Reads in any entered key, see Events Explained in SFML 2.1

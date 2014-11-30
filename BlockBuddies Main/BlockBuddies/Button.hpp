@@ -2,10 +2,11 @@
 #define BUTTON_HPP
 
 #include "Screen.hpp"
-#include "ScreenManager.hpp"
 #include "SFML/Graphics.hpp"
 #include "UIElement.hpp"
 #include "Selectable.hpp"
+
+enum Screens;
 
 // Is a UIElement, added into UIElements vector in UIManager
 class Button : public UIElement, public Selectable

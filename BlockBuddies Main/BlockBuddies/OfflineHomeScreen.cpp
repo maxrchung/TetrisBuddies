@@ -1,5 +1,6 @@
 #include "OfflineHomeScreen.hpp"
 #include "InputManager.hpp"
+#include "ScreenManager.hpp"
 
 OfflineHomeScreen::OfflineHomeScreen()
     :section(new Section(0.0f,
@@ -26,10 +27,10 @@ OfflineHomeScreen::OfflineHomeScreen()
                                 150.0f,
                                 50.0f))
 {
-    UIElements = { section,
-                   welcome,
-                   offlineHome,
-                   offlineGameType };
+    UIElements.push_back(section);
+    UIElements.push_back(welcome);
+    UIElements.push_back(offlineHome);
+    UIElements.push_back(offlineGameType);
 
     selectables = { offlineHome,
                     offlineGameType };

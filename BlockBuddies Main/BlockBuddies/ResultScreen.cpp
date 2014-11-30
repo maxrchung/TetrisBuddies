@@ -1,5 +1,6 @@
 #include "ResultScreen.hpp"
 #include "InputManager.hpp"
+#include "ScreenManager.hpp"
 
 ResultScreen::ResultScreen()
 	:section(new Section(0.0f,
@@ -45,17 +46,16 @@ ResultScreen::ResultScreen()
                      150.0f,
                      50.0f))
 {
-    UIElements = { section,
-                   title,
-                   status,
-                   scoreTag,
-                   score,
-                   game,
-                   home };
+    UIElements.push_back(section);
+    UIElements.push_back(title);
+    UIElements.push_back(status);
+    UIElements.push_back(scoreTag);
+    UIElements.push_back(score);
+    UIElements.push_back(game);
+    UIElements.push_back(home);
     
     selectables = { game,
                     home };
-
 }
 
 void ResultScreen::update()

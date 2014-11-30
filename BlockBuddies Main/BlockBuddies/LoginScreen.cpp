@@ -67,22 +67,22 @@ LoginScreen::LoginScreen()
                        50.0f)),
 
      offlineHome(new Button(Screens::OFFLINEHOME,
-			            "Offline Mode",
-                        0.0f,
-                        250.0f,
-                        150.0f,
-                        50.0f))
+			                "Offline Mode",
+                            0.0f,
+                            250.0f,
+                            150.0f,
+                            50.0f))
 {
-    UIElements = { section,
-                   title,
-                   status,
-                   usernameTag,
-                   passwordTag,
-                   username,
-                   password,
-                   home,
-                   signup,
-                   offlineHome };
+    UIElements.push_back(section);
+    UIElements.push_back(title);
+    UIElements.push_back(status);
+    UIElements.push_back(usernameTag);
+    UIElements.push_back(passwordTag);
+    UIElements.push_back(username);
+    UIElements.push_back(password);
+    UIElements.push_back(home);
+    UIElements.push_back(signup);
+    UIElements.push_back(offlineHome);
 
     selectables = { username,
                     password,
@@ -162,8 +162,8 @@ void LoginScreen::update()
         }
     }
 
-    if (offlineHome->isActivated ||
-        (InputManager::getInstance()->enter && offlineHome->isSelected))
+    else if (offlineHome->isActivated ||
+             (InputManager::getInstance()->enter && offlineHome->isSelected))
     {
         //play sound then switch screen
         sound.play();

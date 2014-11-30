@@ -21,12 +21,6 @@ public:
 	static GraphicsManager* getInstance();
 	void init();
 
-	// These functions are necessary for elements that will always remain on the
-	// screen. For instance, checking mouse clicks on the corner buttons or
-	// possibly manipulating the background
-	void update();
-	void draw();
-
 	// Utility/overloaded functions for some efficiency
 	// The Bounds parameter indicates whether to find a local bound or a global bound
 	// Situations using either or may vary. When manipulating the origin of objects,
@@ -46,15 +40,6 @@ public:
 	// Scale factor based off of the height compared to arbitrary 
 	// number. For now, I've set it as 800, my base resolution
 	float scale;
-
-	// Since it's going to be the same for every screen, the background
-	// is just made here
-	sf::RectangleShape background;
-
-	// Buttons for closing
-	sf::RectangleShape close;
-	// X symbol on top of close
-	sf::Text closeX;
 
 	// Font sizes
 	int titleSize;

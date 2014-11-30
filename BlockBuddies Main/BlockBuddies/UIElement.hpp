@@ -10,14 +10,16 @@ enum Alignments
 };
 
 // Basically, anything you want to display on the screen
-// (at least for menus anyways), should be inherited from
-// this class. Buttons, textboxes, etc. will all be automatically
-// placed into the UIManager and will update/draw from there
+// (at least for UI anyways), should be inherited from
+// this class. Buttons, textboxes, etc.
 class UIElement
 {
 public:
 	virtual void update() = 0;
 	virtual void draw() = 0;
+
+    // Determines whether to display the element or not
+    bool isDisplayed = true;
 };
 
 #endif//UIELEMENT_HPP

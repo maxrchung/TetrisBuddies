@@ -1,6 +1,7 @@
 #include "GameTypeScreen.hpp"
 #include "InputManager.hpp"
 #include "ClientManager.h"
+#include "ScreenManager.hpp"
 
 GameTypeScreen::GameTypeScreen()
     :section(new Section(0.0f,
@@ -36,11 +37,11 @@ GameTypeScreen::GameTypeScreen()
                      150.0f,
                      50.0f))
 {
-    UIElements = { section,
-                   home,
-                   profile,
-                   gameType,
-                   game };
+    UIElements.push_back(section);
+    UIElements.push_back(home);
+    UIElements.push_back(profile);
+    UIElements.push_back(gameType);
+    UIElements.push_back(game);
 
     selectables = { home,
                     profile,

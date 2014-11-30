@@ -1,9 +1,32 @@
 #include "Screen.hpp"
 #include "InputManager.hpp"
+#include "GraphicsManager.hpp"
+#include "ScreenManager.hpp"
+#include "ClientManager.h"
+
+Screen::Screen()
+    :close(new Button(Screens::CLOSE,
+                      "X",
+                      (GraphicsManager::getInstance()->window.getSize().x / 2.0f) - 20.0f,
+                      -((GraphicsManager::getInstance()->window.getSize().y / 2.0f) - 20.0f),
+                      30.0f,
+                      30.0f))
+{
+    UIElements.push_back(close);
+}
 
 // Updates selectables and UIElements
 void Screen::update()
 {
+    if (close->isActivated)
+    {
+        close->isActivated = false;
+        if(ClientManager::getInstance().isConnected)
+            ScreenManager::getInstance()->addScreen(close->toScreen);
+        else
+            ScreenManager::getInstance()->addScreen(Screens::OFFLINECLOSE);
+    }
+
     // If the player hits tab, it iterates forward in our Selectable vector
 	if (InputManager::getInstance()->tab)
 	{
@@ -58,17 +81,35 @@ void Screen::update()
 
     // Updates all the UIelements
     for(auto& a : UIElements)
-        a->update();
+    {
+        if(a->isDisplayed)
+            a->update();
+    }
 }
 
 void Screen::draw()
 {
     for(auto& a : UIElements)
-        a->draw();
+    {
+        if(a->isDisplayed)
+            a->draw();
+    }
 }
 
 void Screen::deselect()
 {
     for(auto selectable : selectables)
         selectable->isSelected = false;
+}
+
+void Screen::deactivate()
+{
+    for(auto& UIElement : UIElements)
+    {
+        Button* button = dynamic_cast<Button*>(UIElement);
+        if(button)
+        {
+            button->isActivated = false;
+        }
+    }
 }

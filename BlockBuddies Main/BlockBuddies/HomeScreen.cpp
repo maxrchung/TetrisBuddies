@@ -1,5 +1,6 @@
 #include "HomeScreen.hpp"
 #include "InputManager.hpp"
+#include "ScreenManager.hpp"
 
 HomeScreen::HomeScreen()
     :section(new Section(0.0f,
@@ -33,11 +34,11 @@ HomeScreen::HomeScreen()
                          150.0f,
                          50.0f))
 {
-    UIElements = { section,
-                   welcome,
-                   home,
-                   profile,
-                   gameType };
+    UIElements.push_back(section);
+    UIElements.push_back(welcome);
+    UIElements.push_back(home);
+    UIElements.push_back(profile);
+    UIElements.push_back(gameType);
 
     selectables = { home,
                     profile,

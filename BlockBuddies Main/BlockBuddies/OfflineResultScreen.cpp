@@ -1,5 +1,6 @@
 #include "OfflineResultScreen.hpp"
 #include "InputManager.hpp"
+#include "ScreenManager.hpp"
 
 OfflineResultScreen::OfflineResultScreen()
 	:section(new Section(0.0f,
@@ -52,14 +53,14 @@ OfflineResultScreen::OfflineResultScreen()
                             150.0f,
                             50.0f))
 {
-    UIElements = { section,
-                   title,
-                   status,
-                   scoreTag,
-                   score,
-                   login,
-                   offlineHome,
-                   offlineGame };
+    UIElements.push_back(section);
+    UIElements.push_back(title);
+    UIElements.push_back(status);
+    UIElements.push_back(scoreTag);
+    UIElements.push_back(score);
+    UIElements.push_back(login);
+    UIElements.push_back(offlineHome);
+    UIElements.push_back(offlineGame);
 
     selectables = { login,
                     offlineHome,

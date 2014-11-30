@@ -14,6 +14,7 @@
     <ClInclude Include="BlockHandler.hpp" />
     <ClInclude Include="Button.hpp" />
     <ClInclude Include="ClientManager.h" />
+    <ClInclude Include="CloseScreen.hpp" />
     <ClInclude Include="CursorHandler.hpp" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="GameScreen.hpp" />
@@ -22,6 +23,7 @@
     <ClInclude Include="GameTypeScreen.hpp" />
     <ClInclude Include="InputManager.hpp" />
     <ClInclude Include="LoginScreen.hpp" />
+    <ClInclude Include="OfflineCloseScreen.hpp" />
     <ClInclude Include="OfflineGameTypeScreen.hpp" />
     <ClInclude Include="OfflineHomeScreen.hpp" />
     <ClInclude Include="OfflineResultScreen.hpp" />
@@ -44,6 +46,7 @@
     <ClCompile Include="BlockHandler.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ClientManager.cpp" />
+    <ClCompile Include="CloseScreen.cpp" />
     <ClCompile Include="CursorHandler.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameScreen.cpp" />
@@ -53,6 +56,7 @@
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="LoginScreen.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="OfflineCloseScreen.cpp" />
     <ClCompile Include="OfflineGameTypeScreen.cpp" />
     <ClCompile Include="OfflineHomeScreen.cpp" />
     <ClCompile Include="OfflineResultScreen.cpp" />

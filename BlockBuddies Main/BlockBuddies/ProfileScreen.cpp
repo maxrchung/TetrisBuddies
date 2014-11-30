@@ -1,5 +1,6 @@
 #include "ProfileScreen.hpp"
 #include "InputManager.hpp"
+#include "ScreenManager.hpp"
 
 ProfileScreen::ProfileScreen()
 	:section(new Section(0.0f,
@@ -28,10 +29,10 @@ ProfileScreen::ProfileScreen()
                          150.0f,
                          50.0f))
 {
-    UIElements = { section,
-                   home,
-                   profile,
-                   gameType };
+    UIElements.push_back(section);
+    UIElements.push_back(home);
+    UIElements.push_back(profile);
+    UIElements.push_back(gameType);
 
     selectables = { home,
                     profile,

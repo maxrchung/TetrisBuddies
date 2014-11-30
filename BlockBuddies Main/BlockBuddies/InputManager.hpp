@@ -23,6 +23,7 @@ public:
 	bool backspace;
 	bool enter;
 	bool tab;
+    bool escape;
 	
 private:
 	InputManager(){};

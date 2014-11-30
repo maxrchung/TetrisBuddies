@@ -15,13 +15,13 @@ public:
     void update();
     void draw();
     void switchScreen(const Screens toScreen);
+    void addScreen(const Screens toScreen);
 
-    // currentScreens is a pointer to a vector of the currently displayed screen
-    // The reason it is a vector is because we may have overlaying screens that pop-up
-    // For example, one could be on the LoginScreen, and when the player presses the close button,
-    // An overlaying screen pops up that'll signify whether they would like to logout, exit 
-    // completely return to home, cancel, etc.
-    Screen* currentScreen;
+    // currentScreens is a vector of the current screens displayed on screen
+    // The reason why we need to make it a structure instead of just one Screen*
+    // is because we may have overlay screens, such as the CloseScreen put
+    // on top of other screens
+    std::vector<Screen*> currentScreens;
 
 private:
     // All the Screens are created beforehand so they don't have to be reinstantiated every single time
