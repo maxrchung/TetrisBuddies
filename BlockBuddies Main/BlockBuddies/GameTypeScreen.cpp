@@ -33,20 +33,29 @@ GameTypeScreen::GameTypeScreen()
      game(new Button(Screens::GAME,
                      "Start Game",
                      0.0f,
-                     0.0f,
+                     -37.5f,
                      150.0f,
-                     50.0f))
+                     50.0f)),
+     
+     multiplayer(new Button(Screens::MULTIPLAYER,
+                            "Multiplayer",
+                            0.0f,
+                            37.5f,
+                            150.0f,
+                            50.0f))
 {
     UIElements.push_back(section);
     UIElements.push_back(home);
     UIElements.push_back(profile);
     UIElements.push_back(gameType);
     UIElements.push_back(game);
+    UIElements.push_back(multiplayer);
 
     selectables = { home,
                     profile,
                     gameType,
-                    game };
+                    game,
+                    multiplayer};
 }
 
 void GameTypeScreen::update()
@@ -75,6 +84,12 @@ void GameTypeScreen::update()
              (InputManager::getInstance()->enter && game->isSelected))
     {
         ScreenManager::getInstance()->switchScreen(game->toScreen);
+    }
+
+    else if (multiplayer->isActivated ||
+             (InputManager::getInstance()->enter && multiplayer->isSelected))
+    {
+        ScreenManager::getInstance()->switchScreen(multiplayer->toScreen);
     }
 }
 

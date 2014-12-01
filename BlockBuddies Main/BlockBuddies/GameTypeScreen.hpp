@@ -19,6 +19,7 @@ private:
     Button* profile;
     Button* gameType;
     Button* game;
+    Button* multiplayer;
 };
 
 #endif//GAMETYPESCREEN_HPP

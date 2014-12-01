@@ -27,6 +27,7 @@ enum Screens
     OFFLINERESULT,
     CLOSE,
     OFFLINECLOSE,
+    MULTIPLAYER,
     NONE
 };
 

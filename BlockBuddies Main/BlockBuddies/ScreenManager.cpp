@@ -12,6 +12,7 @@
 #include "OfflineResultScreen.hpp"
 #include "CloseScreen.hpp"
 #include "OfflineCloseScreen.hpp"
+#include "MultiplayerScreen.hpp"
 
 ScreenManager* ScreenManager::instance;
 
@@ -37,7 +38,8 @@ void ScreenManager::init()
                                              { Screens::OFFLINEGAMETYPE, new OfflineGameTypeScreen() },
                                              { Screens::OFFLINERESULT, new OfflineResultScreen() },
                                              { Screens::CLOSE, new CloseScreen() },
-                                             { Screens::OFFLINECLOSE, new OfflineCloseScreen() }
+                                             { Screens::OFFLINECLOSE, new OfflineCloseScreen() },
+                                             { Screens::MULTIPLAYER, new MultiplayerScreen() }
 	                                     };
 
 	// Set this to something else if you want to start on a specific screen
