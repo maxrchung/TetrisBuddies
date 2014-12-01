@@ -36,6 +36,7 @@ private:
 	bool coloredBlock;
 	bool gameOver;
 	void check(int x, int y);
+	void checkEverything();
 };
 
 #endif BLOCKHANDLER_HPP

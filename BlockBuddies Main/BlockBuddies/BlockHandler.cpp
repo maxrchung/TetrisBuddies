@@ -50,6 +50,7 @@ BlockHandler::BlockHandler(int ww, int wh)
 		gridPosx++;
 	}
 
+	checkEverything();
 }
 
 
@@ -111,6 +112,9 @@ void BlockHandler::swapBlocksHorizL(int x, int y)
 		sf::RectangleShape temp = blocks[mainblocky][mainblockx];
 		blocks[mainblocky][mainblockx].setFillColor(blocks[leftblocky][leftblockx].getFillColor());
 		blocks[leftblocky][leftblockx].setFillColor(temp.getFillColor());
+		//if you want to drop blocks from a higher column to a lower one.
+		if (blocks[mainblocky][mainblockx].getFillColor() == sf::Color::Transparent || blocks[leftblocky][leftblockx].getFillColor() == sf::Color::Transparent)
+			dropBlocks();
 		checkBlocks(mainblockx, mainblocky);  //checks if any blocks are matching after a swap
 	}
 
@@ -130,6 +134,9 @@ void BlockHandler::swapBlocksHorizR(int x, int y)
 		sf::RectangleShape temp = blocks[mainblocky][mainblockx];
 		blocks[mainblocky][mainblockx].setFillColor(blocks[rightblocky][rightblockx].getFillColor());
 		blocks[rightblocky][rightblockx].setFillColor(temp.getFillColor());
+		//if you want to drop blocks from a higher column to a lower one.
+		if (blocks[mainblocky][mainblockx].getFillColor() == sf::Color::Transparent || blocks[rightblocky][rightblockx].getFillColor() == sf::Color::Transparent)
+			dropBlocks();
 		checkBlocks(mainblockx, mainblocky);  //checks if any blocks are matching after a swap
 	}
 
@@ -167,71 +174,75 @@ void BlockHandler::checkBlocks(int x, int y)
 
 void BlockHandler::check(int x, int y)
 {
-	//checks 1 right and 1 left of it, the first line are constraints to prevent line wrap clearing
-	if (x > 0 && x < SCREENWIDTH/25 - 1 &&
-		blocks[y][x].getFillColor() == blocks[y][x + 1].getFillColor() && blocks[y][x].getFillColor() == blocks[y][x - 1].getFillColor())
+	//only check blocks that arent empty
+	if (blocks[y][x].getFillColor() != sf::Color::Transparent)
 	{
-		columns.push(y); columns.push(y); columns.push(y);
-		rows.push(x); rows.push(x + 1); rows.push(x - 1);
-		clearBlocks = true;
-		//check the 2nd right and 2nd left
-		if (x < SCREENWIDTH / 25 - 2 && blocks[y][x].getFillColor() == blocks[y][x + 2].getFillColor())
+		//checks 1 right and 1 left of it, the first line are constraints to prevent line wrap clearing
+		if (x > 0 && x < SCREENWIDTH / 25 - 1 &&
+			blocks[y][x].getFillColor() == blocks[y][x + 1].getFillColor() && blocks[y][x].getFillColor() == blocks[y][x - 1].getFillColor())
 		{
-			columns.push(y);
-			rows.push(x + 2);
+			columns.push(y); columns.push(y); columns.push(y);
+			rows.push(x); rows.push(x + 1); rows.push(x - 1);
+			clearBlocks = true;
+			//check the 2nd right and 2nd left
+			if (x < SCREENWIDTH / 25 - 2 && blocks[y][x].getFillColor() == blocks[y][x + 2].getFillColor())
+			{
+				columns.push(y);
+				rows.push(x + 2);
+			}
+			if (x > 1 && blocks[y][x].getFillColor() == blocks[y][x - 2].getFillColor())
+			{
+				columns.push(y);
+				rows.push(x - 2);
+			}
 		}
-		if (x > 1 && blocks[y][x].getFillColor() == blocks[y][x - 2].getFillColor())
+		//check the right side for match 3
+		else if (x < SCREENWIDTH / 25 - 2 && blocks[y][x].getFillColor() == blocks[y][x + 1].getFillColor() && blocks[y][x].getFillColor() == blocks[y][x + 2].getFillColor())
 		{
-			columns.push(y);
-			rows.push(x - 2);
+			columns.push(y); columns.push(y); columns.push(y);
+			rows.push(x); rows.push(x + 1); rows.push(x + 2);
+			clearBlocks = true;
 		}
-	}
-	//check the right side for match 3
-	else if (x < SCREENWIDTH / 25 - 2 && blocks[y][x].getFillColor() == blocks[y][x + 1].getFillColor() && blocks[y][x].getFillColor() == blocks[y][x + 2].getFillColor())
-	{
-		columns.push(y); columns.push(y); columns.push(y);
-		rows.push(x); rows.push(x + 1); rows.push(x + 2);
-		clearBlocks = true;
-	}
-	//check left side for match 3
-	else if (x > 1 && blocks[y][x].getFillColor() == blocks[y][x - 1].getFillColor() && blocks[y][x].getFillColor() == blocks[y][x - 2].getFillColor())
-	{
-		columns.push(y); columns.push(y); columns.push(y);
-		rows.push(x); rows.push(x - 1); rows.push(x - 2);
-		clearBlocks = true;
-	}
+		//check left side for match 3
+		else if (x > 1 && blocks[y][x].getFillColor() == blocks[y][x - 1].getFillColor() && blocks[y][x].getFillColor() == blocks[y][x - 2].getFillColor())
+		{
+			columns.push(y); columns.push(y); columns.push(y);
+			rows.push(x); rows.push(x - 1); rows.push(x - 2);
+			clearBlocks = true;
+		}
 
-	//checks 1 block above and 1 block below
-	if (blocks[y][x].getFillColor() == blocks[y + 1][x].getFillColor() && blocks[y][x].getFillColor() == blocks[y - 1][x].getFillColor())
-	{
-		columns.push(y); columns.push(y + 1); columns.push(y - 1);
-		rows.push(x); rows.push(x); rows.push(x);
-		clearBlocks = true;
-		//check the 2nd above and 2nd below
-		if (blocks[y][x].getFillColor() == blocks[y + 2][x].getFillColor())
+		//checks 1 block above and 1 block below
+		if (blocks[y][x].getFillColor() == blocks[y + 1][x].getFillColor() && blocks[y][x].getFillColor() == blocks[y - 1][x].getFillColor())
 		{
-			columns.push(y + 2);
-			rows.push(x);
+			columns.push(y); columns.push(y + 1); columns.push(y - 1);
+			rows.push(x); rows.push(x); rows.push(x);
+			clearBlocks = true;
+			//check the 2nd above and 2nd below
+			if (blocks[y][x].getFillColor() == blocks[y + 2][x].getFillColor())
+			{
+				columns.push(y + 2);
+				rows.push(x);
+			}
+			if (blocks[y][x].getFillColor() == blocks[y - 2][x].getFillColor())
+			{
+				columns.push(y - 2);
+				rows.push(x);
+			}
 		}
-		if (blocks[y][x].getFillColor() == blocks[y - 2][x].getFillColor())
+		//check the top for match 3
+		else if (blocks[y][x].getFillColor() == blocks[y + 1][x].getFillColor() && blocks[y][x].getFillColor() == blocks[y + 2][x].getFillColor())
 		{
-			columns.push(y - 2);
-			rows.push(x);
+			columns.push(y); columns.push(y + 1); columns.push(y + 2);
+			rows.push(x); rows.push(x); rows.push(x);
+			clearBlocks = true;
 		}
-	}
-	//check the top for match 3
-	else if (blocks[y][x].getFillColor() == blocks[y + 1][x].getFillColor() && blocks[y][x].getFillColor() == blocks[y + 2][x].getFillColor())
-	{
-		columns.push(y); columns.push(y + 1); columns.push(y + 2);
-		rows.push(x); rows.push(x); rows.push(x);
-		clearBlocks = true;
-	}
-	//check bottom for match 3
-	else if (blocks[y][x].getFillColor() == blocks[y - 1][x].getFillColor() && blocks[y][x].getFillColor() == blocks[y - 2][x].getFillColor())
-	{
-		columns.push(y); columns.push(y - 1); columns.push(y - 2);
-		rows.push(x); rows.push(x); rows.push(x);
-		clearBlocks = true;
+		//check bottom for match 3
+		else if (blocks[y][x].getFillColor() == blocks[y - 1][x].getFillColor() && blocks[y][x].getFillColor() == blocks[y - 2][x].getFillColor())
+		{
+			columns.push(y); columns.push(y - 1); columns.push(y - 2);
+			rows.push(x); rows.push(x); rows.push(x);
+			clearBlocks = true;
+		}
 	}
 }
 
@@ -259,9 +270,44 @@ void BlockHandler::dropBlocks()
 			tempColumn = i; // set the temp column back 
 		}
 	}
+
+	//after the blocks drop, check the whole grid for any matches
+	 checkEverything();
 }
 
-//made this, dunno if its needed
+//checks whole grid for matches
+void BlockHandler::checkEverything()
+{
+	for (int y = 0; y < (SCREENHEIGHT / 25); y++)
+	{
+		for (int x = 0; x < (SCREENWIDTH / 25); x++)
+		{
+			check(x,y);
+		}
+	}
+
+	if (clearBlocks == true)
+	{
+		while (!columns.empty() && !rows.empty())
+		{
+			//if the game somehow gets a value larger than the gamescreen size, throw it away.
+			if (columns.front() >= SCREENHEIGHT / 25 || rows.front() >= SCREENWIDTH / 25)
+			{
+				columns.pop(); rows.pop();
+			}
+			else
+			{
+				blocks[columns.front()][rows.front()].setFillColor(sf::Color::Transparent);
+				columns.pop(); rows.pop();
+			}
+		}
+		clearBlocks = false;
+		dropBlocks();
+	}
+}
+
+
+//finds the highest block
 void BlockHandler::findHighestBlock()
 {
 	for (int i = 0; i < (SCREENHEIGHT / 25); i++)
@@ -330,6 +376,9 @@ void BlockHandler::raiseBlocks()
 			break;
 		}
 	}
+
+	//check for matches once a new line comes in
+	checkEverything();
 }
 
 bool BlockHandler::GameOver()

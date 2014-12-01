@@ -3,7 +3,7 @@
 
 // To be filled in at the gameplay people's discretion
 GameScreen::GameScreen()
-	: pressed(false), pressed2(false)
+	: pressed(false), pressed2(false), reset(false), raiseBlock(false)
 {
 	bh = new BlockHandler(GraphicsManager::getInstance()->window.getSize().x, GraphicsManager::getInstance()->window.getSize().y);
 	ch = new CursorHandler(bh->SCREENWIDTH, bh->SCREENHEIGHT, GraphicsManager::getInstance()->window.getSize().x, GraphicsManager::getInstance()->window.getSize().y);	
@@ -13,12 +13,60 @@ GameScreen::GameScreen()
 	rec.setPosition(GraphicsManager::getInstance()->window.getSize().x/2 - bh->SCREENWIDTH/2, GraphicsManager::getInstance()->window.getSize().y/2 - bh->SCREENHEIGHT/2	);
 	rec.setOutlineThickness(25);
 	rec.setOutlineColor(sf::Color::Black);
+
 }
 
 void GameScreen::update()
 {
+	if (reset)
+	{
+		bh = new BlockHandler(GraphicsManager::getInstance()->window.getSize().x, GraphicsManager::getInstance()->window.getSize().y);
+		ch = new CursorHandler(bh->SCREENWIDTH, bh->SCREENHEIGHT, GraphicsManager::getInstance()->window.getSize().x, GraphicsManager::getInstance()->window.getSize().y);
+		raiseBlock = false;
+		reset = false;
+		clock.restart();
+	}
+
 	if (!bh->GameOver())
 	{
+
+		time = clock.getElapsedTime();
+		//Timed Block Rises, boolean raiseBlock prevents multiple block raises when time has multiple of same number because of rounding
+		if (std::round(time.asSeconds() * 10) / 10 <= 0)
+		{
+		}
+		else if (std::round(time.asSeconds() * 10) / 10 < 60) //every 10 seconds for the 1st minute
+		{
+			if (fmod(std::round(time.asSeconds() * 10) / 10, 10) == 0 && !raiseBlock)
+			{
+				bh->raiseBlocks();
+				raiseBlock = true;
+			}
+			else if (fmod(std::round(time.asSeconds() * 10) / 10, 10) != 0 && raiseBlock)
+				raiseBlock = false;
+		}
+		else if (std::round(time.asSeconds() * 10) / 10 < 120) // every 6 seconds for the 2nd minute
+		{
+			if (fmod(std::round(time.asSeconds() * 10) / 10, 6) == 0 && !raiseBlock)
+			{
+				bh->raiseBlocks();
+				raiseBlock = true;
+			}
+			else if (fmod(std::round(time.asSeconds() * 10) / 10, 6) != 0 && raiseBlock)
+				raiseBlock = false;
+		}
+		else if (std::round(time.asSeconds() * 10) / 10 > 120) // every 3 seconds after the 2nd minute
+		{
+			if (fmod(std::round(time.asSeconds() * 10) / 10, 3) == 0 && !raiseBlock)
+			{
+				bh->raiseBlocks();
+				raiseBlock = true;
+			}
+			else if (fmod(std::round(time.asSeconds() * 10) / 10, 3) != 0 && raiseBlock)
+				raiseBlock = false;
+		}
+
+
 		//keyboard movement for cursor
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 		{
@@ -90,7 +138,7 @@ void GameScreen::update()
 				pressed2 = true;
 			}
 		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) //swaps the main block with the bottom block
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) //creates a new line of blocks at the bottom
 		{
 			if (pressed2 == false)
 			{
@@ -105,6 +153,7 @@ void GameScreen::update()
 	{
 		delete bh;
 		delete ch;
+		reset = true;
         if(ClientManager::getInstance().isConnected)
             ScreenManager::getInstance()->switchScreen(RESULT);
         else
@@ -114,22 +163,24 @@ void GameScreen::update()
 
 void GameScreen::draw()
 {
-	//draws a border around the game
-	GraphicsManager::getInstance()->window.draw(rec);
-
-	//draws blocks on screen
-	for (int i = 0; i < bh->SCREENHEIGHT / 25; i++)
+	if (!reset)
 	{
-		for (int j = 0; j < bh->SCREENWIDTH / 25; j++)
-		{
-			GraphicsManager::getInstance()->window.draw(bh->getBlocks(j, i));
-		}
-	}
-	
-	GraphicsManager::getInstance()->window.draw(ch->getMainCursor()); //draws main cursor
-	GraphicsManager::getInstance()->window.draw(ch->getLeftCursor()); //draws left cursor
-	GraphicsManager::getInstance()->window.draw(ch->getRightCursor()); //draws right cursor
-	GraphicsManager::getInstance()->window.draw(ch->getTopCursor()); //draws top cursor
-	GraphicsManager::getInstance()->window.draw(ch->getBottomCursor()); //draws bottom cursor
+		//draws a border around the game
+		GraphicsManager::getInstance()->window.draw(rec);
 
+		//draws blocks on screen
+		for (int i = 0; i < bh->SCREENHEIGHT / 25; i++)
+		{
+			for (int j = 0; j < bh->SCREENWIDTH / 25; j++)
+			{
+				GraphicsManager::getInstance()->window.draw(bh->getBlocks(j, i));
+			}
+		}
+
+		GraphicsManager::getInstance()->window.draw(ch->getMainCursor()); //draws main cursor
+		GraphicsManager::getInstance()->window.draw(ch->getLeftCursor()); //draws left cursor
+		GraphicsManager::getInstance()->window.draw(ch->getRightCursor()); //draws right cursor
+		GraphicsManager::getInstance()->window.draw(ch->getTopCursor()); //draws top cursor
+		GraphicsManager::getInstance()->window.draw(ch->getBottomCursor()); //draws bottom cursor
+	}
 }

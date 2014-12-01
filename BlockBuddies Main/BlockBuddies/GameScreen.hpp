@@ -20,8 +20,10 @@ public:
 private:
 	BlockHandler *bh;
 	CursorHandler *ch;
-	bool pressed, pressed2;
+	bool pressed, pressed2, reset, raiseBlock;
 	sf::RectangleShape rec;
+	sf::Clock clock;
+	sf::Time time;
 };
 
 #endif//GAMESCREEN_HPP
