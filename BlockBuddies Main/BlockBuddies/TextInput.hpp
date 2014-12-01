@@ -25,15 +25,13 @@ public:
 	void draw();
 
 	sf::Text input;
+	sf::Text protectedInput;
 	
 private:
 	sf::RectangleShape boundingRect;
 	Alignments drawAlignment;
 	Alignments textAlignment;
 	bool isProtected;
-
-	// Used to display the asterisks
-	sf::Text protectedInput;
 
 	// Private class for handling the cursor within TextInput
 	class InputCursor {

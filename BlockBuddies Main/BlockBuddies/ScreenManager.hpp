@@ -16,6 +16,7 @@ public:
     void draw();
     void switchScreen(const Screens toScreen);
     void addScreen(const Screens toScreen);
+    void popScreen();
 
     // currentScreens is a vector of the current screens displayed on screen
     // The reason why we need to make it a structure instead of just one Screen*

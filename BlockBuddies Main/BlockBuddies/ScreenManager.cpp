@@ -73,9 +73,7 @@ void ScreenManager::draw()
 
 void ScreenManager::switchScreen(const Screens toScreen)
 {	
-	// Turn this false so that it doesn't get improperly read for future
-	// switchScreen calculations
-	InputManager::getInstance()->mouseReleased = false;
+    currentScreens = { screens[toScreen] };
 
     // Deselects any selected elements before going to a new screen
     for(auto& screen : currentScreens)
@@ -84,14 +82,24 @@ void ScreenManager::switchScreen(const Screens toScreen)
     for(auto& screen : currentScreens)
         screen->deactivate();
 	
-    currentScreens = { screens[toScreen] };
 }
 
 // For adding a notification screen or a close screen on top of the
 // current one
 void ScreenManager::addScreen(const Screens toScreen)
 {
-    InputManager::getInstance()->mouseReleased = false;
-
     currentScreens.push_back(screens[toScreen]);
+
+    for(auto& screen : currentScreens)
+        screen->deselect();
+
+    for(auto& screen : currentScreens)
+        screen->deactivate();
 }
+
+// Removes the last screen
+void ScreenManager::popScreen()
+{
+    currentScreens.pop_back();
+}
+

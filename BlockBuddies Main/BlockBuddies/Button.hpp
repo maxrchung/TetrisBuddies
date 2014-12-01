@@ -41,9 +41,6 @@ public:
 	// Boolean check on whether a button has been clicked on
 	bool isActivated = false;
 	sf::Text label;
-
-private:
-	// Displayed rect of the button
 	sf::RectangleShape boundingRect;
 };
 

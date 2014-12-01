@@ -81,7 +81,7 @@ void CloseScreen::update()
              (InputManager::getInstance()->enter && cancel->isSelected) ||
              InputManager::getInstance()->escape)
     {
-        ScreenManager::getInstance()->currentScreens.pop_back();
+        ScreenManager::getInstance()->popScreen();
         return;
     }
 }

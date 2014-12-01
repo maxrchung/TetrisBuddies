@@ -3,6 +3,7 @@
 #include "GraphicsManager.hpp"
 #include "ScreenManager.hpp"
 #include "ClientManager.h"
+#include "TextInput.hpp"
 
 Screen::Screen()
     :close(new Button(Screens::CLOSE,
@@ -110,6 +111,19 @@ void Screen::deactivate()
         if(button)
         {
             button->isActivated = false;
+            button->boundingRect.setFillColor(GraphicsManager::getInstance()->buttonColor);
+            button->label.setColor(GraphicsManager::getInstance()->backgroundColor);
         }
+
+        else
+        {
+            TextInput* textInput = dynamic_cast<TextInput*>(UIElement);
+            if (textInput)
+            {
+                textInput->input.setString("");
+                textInput->protectedInput.setString("");
+            }
+        }
+
     }
 }
