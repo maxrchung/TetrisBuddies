@@ -1,5 +1,6 @@
 #include "ClientManager.h"
 #include "windows.h"
+
 //Connects to the server socket
 //Currently connects on the local machine only
 
@@ -20,6 +21,12 @@ bool ClientManager::initConnection(sf::IpAddress IP, int portNumber)
 	}
 }
 
+char* ClientManager::getName()
+{
+
+	return "Coming Soon";
+}
+
 bool ClientManager::loginUser(std::string username , std::string password)
 {
 	//Sends the log in
@@ -35,10 +42,15 @@ bool ClientManager::loginUser(std::string username , std::string password)
 	result >> t;
 
 	if (t == 0)
-		return true;
-	else
 		return false;
-	
+	else
+	{
+		int test;
+		
+		result >> player.username >>  player.gamesPlayed >> player.gamesWon >> player.gamesLost >> player.highScore;
+		test = 0;
+		return true;
+	}
 }
 
 bool ClientManager::registerUser(std::string username, std::string password)
@@ -56,20 +68,17 @@ bool ClientManager::registerUser(std::string username, std::string password)
 	result >> t;
 
 	if (t == 0)
-		return true;
-	else
 		return false;
+	else
+	{
+		int test;
+
+		result >> player.username >> player.gamesPlayed >> player.gamesWon >> player.gamesLost >> player.highScore;
+		test = 0;
+		return true;
+	}
 }
 
-//Needs to be updated to work with UserInfo.h
-void ClientManager::createUser()
-{
-	sf::Packet playerInfo;
-	socket.receive(playerInfo);
-
-	//insert code to creat a new object here
-
-}
 
 void ClientManager::messageWait()
 {	
