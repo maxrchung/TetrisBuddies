@@ -10,7 +10,7 @@ class TextBox : public UIElement
 {
 public:
 	TextBox(char* message,
-		    float posX,
+		    float posX,  
 		    float posY,
 			float width,
 
