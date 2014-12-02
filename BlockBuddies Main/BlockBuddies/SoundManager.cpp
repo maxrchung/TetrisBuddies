@@ -26,3 +26,43 @@ sf::SoundBuffer* SoundManager::getSound(std::string songName)
 	sf::SoundBuffer* buff =  soundMap.at(songName);
 	return buff;
 }
+
+void SoundManager::playMusic(std::string songName)
+{
+	if (music.getStatus() != music.Playing)
+	{
+		if (music.openFromFile(songName))
+		{
+			music.play();
+		}
+		else
+		{
+			std::cout << "song not found" << std::endl;
+		}
+	}
+	else
+	{
+		music.stop();
+		if (music.openFromFile(songName))
+		{
+			music.play();
+		}
+		else
+		{
+			std::cout << "song not found" << std::endl;
+		}
+	}
+}
+
+void SoundManager::stopMusic()
+{
+	music.stop();
+}
+void SoundManager::setMusicVolume(float volume)
+{
+	music.setVolume(volume);
+}
+void SoundManager::setMusicLoop(bool loop)
+{
+	music.setLoop(loop);
+}

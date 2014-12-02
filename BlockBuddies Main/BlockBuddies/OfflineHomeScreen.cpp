@@ -1,6 +1,7 @@
 #include "OfflineHomeScreen.hpp"
 #include "InputManager.hpp"
 #include "ScreenManager.hpp"
+#include "SoundManager.h"
 
 OfflineHomeScreen::OfflineHomeScreen()
     :section(new Section(0.0f,

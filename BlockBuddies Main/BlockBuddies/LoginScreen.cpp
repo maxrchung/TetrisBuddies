@@ -92,6 +92,7 @@ LoginScreen::LoginScreen()
 
 	//set the sound with a soundbuffer from the soundmanager
 	sound.setBuffer(*SoundManager::getInstance().getSound("scream"));
+	SoundManager::getInstance().playMusic("Sounds/Slamstorm.ogg");
 }
 
 void LoginScreen::update()
@@ -121,8 +122,12 @@ void LoginScreen::update()
     {
         if (!ClientManager::getInstance().isConnected)
         {
-            if (!ClientManager::getInstance().initConnection(sf::IpAddress::getLocalAddress(), 5000))
-                status->message.setString("Connection failed");
+			if (!ClientManager::getInstance().initConnection(sf::IpAddress::getLocalAddress(), 5000))
+			{
+				status->message.setString("Connection failed");
+				if (sound.getStatus() != sound.Playing)
+					sound.play();
+			}
         }
     
         if(ClientManager::getInstance().isConnected)
@@ -137,8 +142,8 @@ void LoginScreen::update()
 
             else {
                 //play sounds then change strings
-                if (sound.getStatus() != sound.Playing)
-                    sound.play();
+				if (sound.getStatus() != sound.Playing)
+					sound.play();
                 
                 status->message.setString("Wrong username or password");
             }
@@ -150,8 +155,12 @@ void LoginScreen::update()
     {
         if (!ClientManager::getInstance().isConnected)
         {
-            if (!ClientManager::getInstance().initConnection(sf::IpAddress::getLocalAddress(), 5000))
-                status->message.setString("Connection failed");
+			if (!ClientManager::getInstance().initConnection(sf::IpAddress::getLocalAddress(), 5000))
+			{
+				status->message.setString("Connection failed");
+				if (sound.getStatus() != sound.Playing)
+					sound.play();
+			}
         }
 				
         else
@@ -166,7 +175,8 @@ void LoginScreen::update()
              (InputManager::getInstance()->enter && offlineHome->isSelected))
     {
         //play sound then switch screen
-        sound.play();
+		sound.setBuffer(*SoundManager::getInstance().getSound("repressed"));
+		sound.play();
         ScreenManager::getInstance()->switchScreen(offlineHome->toScreen);
     }
 }

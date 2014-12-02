@@ -1,6 +1,6 @@
 #include "GameScreen.hpp"
 #include "ClientManager.h"
-
+#include "SoundManager.h"
 // To be filled in at the gameplay people's discretion
 GameScreen::GameScreen()
 	: pressed(false), pressed2(false), reset(false), raiseBlock(false)
@@ -13,7 +13,6 @@ GameScreen::GameScreen()
 	rec.setPosition(GraphicsManager::getInstance()->window.getSize().x/2 - bh->SCREENWIDTH/2, GraphicsManager::getInstance()->window.getSize().y/2 - bh->SCREENHEIGHT/2	);
 	rec.setOutlineThickness(25);
 	rec.setOutlineColor(sf::Color::Black);
-
 }
 
 void GameScreen::update()
@@ -151,6 +150,7 @@ void GameScreen::update()
 	}
 	else
 	{
+		SoundManager::getInstance().playMusic("Sounds/Slamstorm.ogg");
 		delete bh;
 		delete ch;
 		reset = true;

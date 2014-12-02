@@ -1,6 +1,7 @@
 #include "OfflineGameTypeScreen.hpp"
 #include "InputManager.hpp"
 #include "ScreenManager.hpp"
+#include "SoundManager.h"
 
 OfflineGameTypeScreen::OfflineGameTypeScreen()
     :section(new Section(0.0f,
@@ -59,6 +60,8 @@ void OfflineGameTypeScreen::update()
     else if (game->isActivated ||
              (InputManager::getInstance()->enter && game->isSelected))
     {
+
+		SoundManager::getInstance().playMusic("Sounds/Slamtris.ogg");
         ScreenManager::getInstance()->switchScreen(game->toScreen);
     }
 }
