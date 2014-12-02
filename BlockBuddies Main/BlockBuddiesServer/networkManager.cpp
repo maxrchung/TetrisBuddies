@@ -1,6 +1,8 @@
 #include "NetworkManager.h"
 #include "DatabaseManager.h"
 #include "Player.h"
+#include "UserInfo.h"
+
 std::list<Player> NetworkManager::connectPlayers;
 void NetworkManager::run()
 {
@@ -87,16 +89,19 @@ void NetworkManager::checkForConnections()
 							{
 								if (DatabaseManager::getInstance().loginUser(user, pass))
 								{
-									int i = 0;
+									int i = 1;
+									Player newPlayer = Player(*it, DatabaseManager::getInstance().getUserInfo(user));
 									sf::Packet answer;
-									answer << i;
+									UserInfo sendMe = DatabaseManager::getInstance().getUserInfo(user);
+									answer << i << 
+									newPlayer.playerInfo.username << newPlayer.playerInfo.gamesPlayed <<
+									newPlayer.playerInfo.gamesWon << newPlayer.playerInfo.gamesLost << newPlayer.playerInfo.highScore;
 									client.send(answer);
-									Player newPlayer =  Player(*it, DatabaseManager::getInstance().getUserInfo(user));
 									connectPlayers.push_back(newPlayer);
 								}
 								else
 								{
-									int i = 1;
+									int i = 0;
 									sf::Packet answer;
 									answer << i;
 									client.send(answer);
@@ -107,16 +112,19 @@ void NetworkManager::checkForConnections()
 
 								if (DatabaseManager::getInstance().registerUser(user, pass))
 								{
-									int i = 0;
+									int i = 1;
+									Player newPlayer = Player(*it, DatabaseManager::getInstance().getUserInfo(user));
 									sf::Packet answer;
-									answer << i;
+									UserInfo sendMe = DatabaseManager::getInstance().getUserInfo(user);
+									answer << i <<
+										newPlayer.playerInfo.username << newPlayer.playerInfo.gamesPlayed <<
+										newPlayer.playerInfo.gamesWon << newPlayer.playerInfo.gamesLost << newPlayer.playerInfo.highScore;
 									client.send(answer);
-									Player newPlayer =  Player(*it, DatabaseManager::getInstance().getUserInfo(user));
 									connectPlayers.push_back(newPlayer);
 								}
 								else
 								{
-									int i = 1;
+									int i = 0;
 									sf::Packet answer;
 									answer << i;
 									client.send(answer);

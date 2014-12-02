@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <SFML/Network.hpp>
+#include "UserInfo.h"
 
 class ClientManager
 {
@@ -15,17 +16,17 @@ public:
 	}
 
 	bool initConnection(sf::IpAddress IP, int portNumber);
-
-	void createUser();
+	char* getName();
 	void messageWait();
 	bool loginUser(std::string username, std::string password);
 	bool registerUser(std::string username, std::string password);
-
 	bool isConnected = false; // Denotes whether or not you are connected
 
+	UserInfo player;
 	void run();
 
 private:
+
 
 	ClientManager() {}                                  // Private constructor
 	~ClientManager() {}

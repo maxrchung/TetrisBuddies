@@ -1,6 +1,6 @@
 #ifndef PROFILESCREEN_HPP
 #define PROFILESCREEN_HPP
-
+#include "TextBox.hpp"
 #include "Screen.hpp"
 #include "Button.hpp"
 #include "Section.hpp"
@@ -17,6 +17,16 @@ public:
 
 private:
 	Section* section;
+	TextBox* usernameTag;
+	TextBox* highscoreTag;
+	TextBox* gamesplayedTag;
+	TextBox* gameswonTag;
+
+	TextBox* nameTag;
+	TextBox* hsTag;
+	TextBox* gpTag;
+	TextBox* gwTag;
+
     Button* home;
     Button* profile;
     Button* gameType;
