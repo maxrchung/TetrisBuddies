@@ -1,6 +1,6 @@
 #include "ClientManager.h"
 #include "windows.h"
-
+#include "UserInfo.h"
 //Connects to the server socket
 //Currently connects on the local machine only
 

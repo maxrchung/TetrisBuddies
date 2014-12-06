@@ -4,38 +4,77 @@
 #include "UserInfo.h"
 
 std::list<Player> NetworkManager::connectPlayers;
+
 void NetworkManager::run()
 {
 	//gamelogic will go here
 }
-bool checkLogin(std::string user, std::string pass)
+bool NetworkManager::checkLogin(std::string user, std::string pass)
 {
 	return DatabaseManager::getInstance().loginUser(user, pass);
 }
 
-bool registerUser(std::string user, std::string pass)
+bool NetworkManager::registerUser(std::string user, std::string pass)
 {
 	return DatabaseManager::getInstance().registerUser(user, pass);
 }
 
-bool parseMessage(sf::Packet parse)
+
+
+sf::Packet NetworkManager::parseMessage(sf::Packet parse, sf::TcpSocket* socket)
 {
 	int i;
+	parse >> i;
 	std::string user;
 	std::string pass;
-	parse >> i >> user >> pass;
-	//Checks to see if the int is 0 || 1
-	//This can be expanded to multiple message types and then call the correct function later on. 
-	//A suggestion but for now this works for our simple set up.
+	
+
+	sf::Packet answer;
 	switch (i) {
+	//LoginUser
 	case 0:
-		return checkLogin(user, pass);
+
+		parse >> user >> pass;
+		if (checkLogin(user, pass))
+		{
+			int i = 1;
+			Player newPlayer = Player(socket, DatabaseManager::getInstance().getUserInfo(user));
+			answer << i <<
+				newPlayer.playerInfo.username << newPlayer.playerInfo.gamesPlayed <<
+				newPlayer.playerInfo.gamesWon << newPlayer.playerInfo.gamesLost << newPlayer.playerInfo.highScore;
+			connectPlayers.push_back(newPlayer);
+			return answer;
+		}
+		else
+		{
+			
+			return answer << 0;
+		}
+		
+	//Register User
 	case 1:
-		return registerUser(user, pass);
+
+		parse >> user >> pass;
+		if (registerUser(user, pass))
+		{
+			int i = 1;
+			Player newPlayer = Player(socket, DatabaseManager::getInstance().getUserInfo(user));
+			answer << i <<
+				newPlayer.playerInfo.username << newPlayer.playerInfo.gamesPlayed <<
+				newPlayer.playerInfo.gamesWon << newPlayer.playerInfo.gamesLost << newPlayer.playerInfo.highScore;
+			connectPlayers.push_back(newPlayer);
+			return answer;
+		}
+		else
+		{
+
+			return answer << 0;
+		}
 	default:
-		return false;
+		return answer << 0;
 	}
 }
+
 
 void NetworkManager::checkForConnections()
 {
@@ -68,69 +107,17 @@ void NetworkManager::checkForConnections()
 				
 				for (std::list<sf::TcpSocket*>::iterator it = clients.begin(); it != clients.end(); ++it)
 				{
-					
+
 					sf::TcpSocket& client = **it;
 					if (connections.isReady(client))
 					{
-						//This will have to be replaced with some way of parsing the message
+						//Add a queue to store packets then send them out. 
 						sf::Packet packet;
-						
+
 						if (client.receive(packet) == sf::Socket::Done)
 						{
-							int i;
-							std::string user;
-							std::string pass;
-							packet >> i >> user >> pass;
-							//Checks to see if the int is 0 || 1
-							//This can be expanded to multiple message types and then call the correct function later on. 
-							//A suggestion but for now this works for our simple set up.
-							
-							if (i == 0)
-							{
-								if (DatabaseManager::getInstance().loginUser(user, pass))
-								{
-									int i = 1;
-									Player newPlayer = Player(*it, DatabaseManager::getInstance().getUserInfo(user));
-									sf::Packet answer;
-									UserInfo sendMe = DatabaseManager::getInstance().getUserInfo(user);
-									answer << i << 
-									newPlayer.playerInfo.username << newPlayer.playerInfo.gamesPlayed <<
-									newPlayer.playerInfo.gamesWon << newPlayer.playerInfo.gamesLost << newPlayer.playerInfo.highScore;
-									client.send(answer);
-									connectPlayers.push_back(newPlayer);
-								}
-								else
-								{
-									int i = 0;
-									sf::Packet answer;
-									answer << i;
-									client.send(answer);
-								}
-							}
-							else if (i == 1)
-							{
+							client.send(parseMessage(packet, *it));
 
-								if (DatabaseManager::getInstance().registerUser(user, pass))
-								{
-									int i = 1;
-									Player newPlayer = Player(*it, DatabaseManager::getInstance().getUserInfo(user));
-									sf::Packet answer;
-									UserInfo sendMe = DatabaseManager::getInstance().getUserInfo(user);
-									answer << i <<
-										newPlayer.playerInfo.username << newPlayer.playerInfo.gamesPlayed <<
-										newPlayer.playerInfo.gamesWon << newPlayer.playerInfo.gamesLost << newPlayer.playerInfo.highScore;
-									client.send(answer);
-									connectPlayers.push_back(newPlayer);
-								}
-								else
-								{
-									int i = 0;
-									sf::Packet answer;
-									answer << i;
-									client.send(answer);
-								}
-							}
-							
 						}
 					}
 				}

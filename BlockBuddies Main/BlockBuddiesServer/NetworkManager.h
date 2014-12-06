@@ -27,7 +27,8 @@ public:
 	bool checkLogin(std::string user, std::string pass);
 	bool registerUser(std::string user, std::string pass);
 	void makeNewPlayer();
-	bool parseMessage(sf::Packet parse);
+	sf::Packet parseMessage(sf::Packet parse, sf::TcpSocket* socket);
+
 	static std::list<Player> connectPlayers;
 
 
