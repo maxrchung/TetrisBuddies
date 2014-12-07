@@ -1,0 +1,18 @@
+Matches**
+
+Match 3-
+	3 horizontal
+	3 vertical
+	
+Match 4-
+	4 Horizontal
+	4 vertical
+	
+match 5-
+	5 horizontal
+	5 vertical
+	L (up & left, up & right, down & left, down & right)
+	
+Match 7-
+	5 horizontal, 2 vertical
+	2 horizontal, 5 vertical

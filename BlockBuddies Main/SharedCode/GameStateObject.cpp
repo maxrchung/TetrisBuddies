@@ -71,7 +71,7 @@ sf::Packet GameStateObject::GSPacket() const{
 		for (int colNum = 0; colNum < boardWidth; colNum++)
 		{
 			square = gameBoard[rowNum][colNum];
-			std::cout << "Square value: " << (int)square << std::endl;
+			//std::cout << "Square value: " << (int)square << std::endl;
 			gameStatePacket << square;
 		}
 	}

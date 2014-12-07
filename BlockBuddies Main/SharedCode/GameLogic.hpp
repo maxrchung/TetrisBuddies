@@ -13,7 +13,6 @@
 #include <set>
 #include <string>
 #include "GameStateObject.hpp"
-//#include "ServerMessages.hpp"
 
 class GameLogic{
 
@@ -25,17 +24,23 @@ public:
 	void Print(){ gso.Print(); }
 	void PrintBlocksMarkedForDeletion() const;
 	void PrintBTCFM() const;
+	bool IsGameOver() const { return isGameOver; }
 
 	sf::Packet GSPacket() const;
 
 	//used whenever a message needs to be passed into this game. Puts the message in the message queue 
 	bool ReceiveMessage(sf::Packet incomingMessage);
 
+	std::queue<sf::Packet> outgoingMessages;
+
 	//Debug functions:
 
 	//inserts a row that's passed to it at the row you specify
 	//temporarily here so I can test the game state encoding/decoding
 	bool InsertRowAt(int insertOnRowNum, std::array<int, 7> rowToInsert);
+	bool SwapPieces(int row1Num, int col1Num, int row2Num, int col2Num);
+	bool ProcessBTCFM();
+	bool ClearMatches();
 	//bool PopulateTempRow();
 
 
@@ -77,7 +82,7 @@ private:
 	bool ProcessMessage(sf::Packet toProcess);
 
 	//swap blocks in the gameBoard array
-	bool SwapPieces(int row1Num, int col1Num, int row2Num, int col2Num);
+	//bool SwapPieces(int row1Num, int col1Num, int row2Num, int col2Num);
 
 	//checks the whole board for any pieces that need to be moved down
 	bool ApplyGravity();
@@ -87,17 +92,25 @@ private:
 	bool CheckBlockForMatches(int rowNum, int colNum);
 
 	//Runs all the blocks in blocksToCheckForMatches through CheckBlocksForMatches()
-	bool ProcessBTCFM();
+	//bool ProcessBTCFM();
 
 	//Apples gravity and clears BMFD
-	bool ClearMatches();
+	//bool ClearMatches();
 
 
 
+	sf::Packet StartPacket(){
+		sf::Packet ret;
+		sf::Uint8 startCommand = 3;
+		return ret;
+	}
 
-	//need a function to create the message, and put it in a queue
-	//also need a function to read the message from the client and act (beginning of loop)
-
+	sf::Packet GameOverPacket(){
+		sf::Packet ret;
+		sf::Uint8 gameOverCommand = 4;
+		ret << gameOverCommand;
+		return ret;
+	}
 
 
 

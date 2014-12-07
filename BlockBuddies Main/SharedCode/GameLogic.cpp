@@ -6,12 +6,12 @@ GameLogic::GameLogic(){
 	
 	srand(time(NULL));
 	
-	//make sure tempRow is set to 0
-	//for (int i = 0; i < gso.boardWidth; i++){gso.tempRow[i] = 0;}
 
 	// Tetris Attack has 4 colors on easy, 5 colors on med/hard, and 6 in multi (grey blocks that become garbage)
 	numColors = 5; 
-	isGameOver = false;
+
+	//this is set to true in InitalBoardPopulation(), which is what's run when the game starts for the first time
+	isGameOver = true;
 
 	//I don't know what a good value for this is.  We can play with it and find out what works.  Also, it will have to decrease as the game goes on. Based on score, maybe? Or game time? Or level?
 	totalRowInsertionTime = 50;
@@ -21,7 +21,6 @@ GameLogic::GameLogic(){
 	blocksToCheckForMatches.clear();
 	//messagesToDecode doesn't have a clear
 
-	//PopulateTempRow();
 }
 
 bool GameLogic::ReceiveMessage(sf::Packet incomingMessage){
@@ -35,9 +34,8 @@ void GameLogic::InitialBoardPopulation(){
 	isGameOver = false;
 
 	//also set the difficulty and whatnot here
-	//right now this is already set in the sonstructor, but it's here so we can change it if necessary
+	//right now this is already set in the constructor, but it's here so we can change it if necessary
 	numColors = 5;
-
 
 
 	//want at least 5 empty rows
@@ -46,7 +44,6 @@ void GameLogic::InitialBoardPopulation(){
 	//randomly fill most of the board with blocks.
 	for (int rowNum = 0; rowNum < initHeight; rowNum++) {
 		for (int colNum = 0; colNum < gso.boardWidth; colNum++) {
-
 			gso.gameBoard[rowNum][colNum] = (rand() % numColors) + 1;
 		}
 	}
@@ -113,6 +110,7 @@ bool GameLogic::InsertBottomRow(){
 		if (gso.gameBoard[gso.boardHeight - 1][colNum] != 0) { 
 			std::cout << "game over" << std::endl; 
 			isGameOver = true; 
+			outgoingMessages.push(GameOverPacket());
 			return true; }
 	}
 
@@ -138,10 +136,8 @@ bool GameLogic::InsertBottomRow(){
 		blocksToCheckForMatches.insert(std::make_pair(0, j));
 	}
 
-
 	//remake the temp row:
 	PopulateTempRow();
-
 
 	return false;
 }
@@ -283,6 +279,7 @@ bool GameLogic::CheckBlockForMatches(int rowNum, int colNum){
 	}
 
 	//if blocks below match, add to potentialMatches and repeat
+	rowToCheck = rowNum - 1;
 	while ((rowToCheck > -1) && (gso.gameBoard[rowToCheck][colToCheck] == gso.gameBoard[rowNum][colNum])){
 		potentialMatches.insert(std::make_pair(rowToCheck, colToCheck));
 		rowToCheck--;
@@ -305,7 +302,8 @@ bool GameLogic::CheckBlockForMatches(int rowNum, int colNum){
 
 	if (clearedBlocks > 0){
 		//this isn't complete yet
-		int points = (clearedBlocks * 10);
+		int bonusBlocks = clearedBlocks - 3;
+		int points = (clearedBlocks * 10) + (bonusBlocks * 10);
 		gso.score += points;
 	}
 
@@ -378,6 +376,13 @@ bool GameLogic::ProcessMessage(sf::Packet toProcess){
 		//so it should be public?
 		//maybe
 		//unless threre's a better way to do it
+		
+		if (isGameOver == true){
+			InitialBoardPopulation();
+			outgoingMessages.push(StartPacket());
+		}
+		
+		else { std::cout << "Game has already started" << std::endl; }
 
 		return true;
 	}
@@ -391,7 +396,12 @@ void GameLogic::GameTick(){
 		//reduce timers (pauses for clear timers, time to insert new row)
 		rowInsertionTimeLeft--;
 
-
+		//while messageQueue isn't empty
+		while ( !messagesToDecode.empty())
+		{
+			ProcessMessage(messagesToDecode.front());
+			messagesToDecode.pop();
+		}
 
 
 		//while messageQueue isn't empty
@@ -402,6 +412,8 @@ void GameLogic::GameTick(){
 					//swap pieces
 
 		ProcessBTCFM();
+		ClearMatches();
+
 
 		//if the insert new row timer is 0;
 		if (rowInsertionTimeLeft == 0){
@@ -412,7 +424,9 @@ void GameLogic::GameTick(){
 		}
 
 		//send appropriate packets back to the client, such as game over or new game state
-
+			//only possible packets to send: new GameState, start game, game over
+			//startGame and GameOver are sent by ProcessMessage
+		outgoingMessages.push(GSPacket());
 	
 }
 
@@ -459,68 +473,5 @@ bool GameLogic::InsertRowAt(int insertOnRowNum, std::array<int, 7> rowToInsert){
 
 //Decoded here, the packet is correct
 sf::Packet GameLogic::GSPacket() const{
-	
-	/*
-
-	sf::Packet test = gso.GSPacket();
-	sf::Uint8 decoded;
-	test >> decoded;
-	std::cout << "(GL:GSP) First byte: " << (int)decoded << std::endl;
-
-	for (int rowNum = 0; rowNum < gso.boardHeight; rowNum++) {
-		for (int colNum = 0; colNum < gso.boardWidth; colNum++)
-		{
-
-			test >> decoded;
-			std::cout << "(in GL::GSPacket)Decoded value: " << (int)decoded << std::endl;
-			//gameStatePacket << square;
-		}
-	}
-	
-	
-	return test;
-
-	*/
-
 	return gso.GSPacket(); 
 }
-
-
-/*
-//this function will probably be deleted along with all the other parsedMessage stuff
-void Gamelogic::GetMessage(){
-	
-	//1: request game start
-	//2: request swap(piece1row, piece1col, piece2row, piece2col)
-	//3 : request new row
-
-	//clear parsedMessage:
-	for (int i = 0; i < parsedMessage.size(); i++){
-		parsedMessage[i] = "";
-	}
-
-	//take the string that's at the head of the queue, parse it, and put the pieces in parsedMessage
-	
-
-
-	//in a loop, find from the beginning of the string to the token
-	//place that in parsedMessage[i]
-	//the string we're parsing then ebcomes the reaminder of the unparsed string
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-*/

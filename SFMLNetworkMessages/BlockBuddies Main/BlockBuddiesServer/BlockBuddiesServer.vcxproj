@@ -20,7 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ClientMessages.cpp" />
-    <ClCompile Include="GameClient.cpp" />
     <ClCompile Include="GameLogic.cpp" />
     <ClCompile Include="GameStateObject.cpp" />
     <ClCompile Include="main.cpp" />
