@@ -23,7 +23,7 @@ bool NetworkManager::registerUser(std::string user, std::string pass)
 
 sf::Packet NetworkManager::parseMessage(sf::Packet parse, sf::TcpSocket* socket)
 {
-	int i;
+	sf::Uint8 i;
 	parse >> i;
 	std::string user;
 	std::string pass;
@@ -37,7 +37,7 @@ sf::Packet NetworkManager::parseMessage(sf::Packet parse, sf::TcpSocket* socket)
 		parse >> user >> pass;
 		if (checkLogin(user, pass))
 		{
-			int i = 1;
+			sf::Uint8 i = 1;
 			Player newPlayer = Player(socket, DatabaseManager::getInstance().getUserInfo(user));
 			answer << i <<
 				newPlayer.playerInfo.username << newPlayer.playerInfo.gamesPlayed <<
@@ -52,12 +52,12 @@ sf::Packet NetworkManager::parseMessage(sf::Packet parse, sf::TcpSocket* socket)
 		}
 		
 	//Register User
-	case 1:
+	case 2:
 
 		parse >> user >> pass;
 		if (registerUser(user, pass))
 		{
-			int i = 1;
+			sf::Uint8 i = 1;
 			Player newPlayer = Player(socket, DatabaseManager::getInstance().getUserInfo(user));
 			answer << i <<
 				newPlayer.playerInfo.username << newPlayer.playerInfo.gamesPlayed <<

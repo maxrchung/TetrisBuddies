@@ -26,14 +26,14 @@ bool ClientManager::loginUser(std::string username , std::string password)
 {
 	//Sends the log in
 	sf::Packet login;
-	int i = 0;
+	sf::Uint8 i = 0;
 	login << i << username << password;
 	socket.send(login);
 	//Gets the result from the server
 	sf::Packet result;
 	socket.receive(result);
 
-	int t;
+	sf::Uint8 t;
 	result >> t;
 
 	if (t == 0)
@@ -50,7 +50,8 @@ bool ClientManager::loginUser(std::string username , std::string password)
 bool ClientManager::registerUser(std::string username, std::string password)
 {
 	sf::Packet toAdd;
-	int i = 1;
+	//Sends 2 to the server indicating that it's a register package
+	sf::Uint8 i  = 2;
 	toAdd << i << username << password;
 	socket.send(toAdd);
 
