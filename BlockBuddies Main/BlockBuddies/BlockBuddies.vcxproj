@@ -15,6 +15,7 @@
     <ClInclude Include="BlockHandler.hpp" />
     <ClInclude Include="Button.hpp" />
     <ClInclude Include="ClientManager.h" />
+    <ClInclude Include="ClientMessages.hpp" />
     <ClInclude Include="CloseScreen.hpp" />
     <ClInclude Include="CursorHandler.hpp" />
     <ClInclude Include="Game.hpp" />
@@ -48,6 +49,7 @@
     <ClCompile Include="BlockHandler.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ClientManager.cpp" />
+    <ClCompile Include="ClientMessages.cpp" />
     <ClCompile Include="CloseScreen.cpp" />
     <ClCompile Include="CursorHandler.cpp" />
     <ClCompile Include="Game.cpp" />

@@ -51,6 +51,7 @@ get chaining working
 #include <SFML/Network.hpp>
 #include <iostream>
 #include <string>
+#include <array>
 #include "ClientMessages.hpp"
 #include "GameStateObject.hpp"
 #include "ServerMessages.hpp"

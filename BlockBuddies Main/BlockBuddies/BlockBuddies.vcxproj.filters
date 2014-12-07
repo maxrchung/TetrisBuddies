@@ -108,6 +108,9 @@
     <ClInclude Include="..\SharedCode\UserInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ClientMessages.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp">
@@ -195,6 +198,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\SharedCode\UserInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientMessages.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
