@@ -44,12 +44,29 @@ void ScreenManager::init()
 
 	// Set this to something else if you want to start on a specific screen
     currentScreens = { screens[Screens::LOGIN] };
+
+	//set the initialPosition of the window
+	view = GraphicsManager::getInstance()->window.getDefaultView();
 }
 
 void ScreenManager::update()
 {
     // Only update the most recently added screen
 	currentScreens[currentScreens.size() - 1]->update();
+
+	
+	//screen shake
+	if (shakeTimer.asMilliseconds() > 0)
+	{
+		view = GraphicsManager::getInstance()->window.getDefaultView();
+		view.setCenter(sf::Vector2f(view.getCenter().x + rand() % 5, view.getCenter().y + rand() % 5));
+		GraphicsManager::getInstance()->window.setView(view);
+		shakeTimer -= clock.getElapsedTime();
+	}
+	else{
+		GraphicsManager::getInstance()->window.setView(GraphicsManager::getInstance()->window.getDefaultView());
+	}
+	clock.restart();
 }
 
 void ScreenManager::draw()
@@ -105,3 +122,7 @@ void ScreenManager::popScreen()
     currentScreens.pop_back();
 }
 
+void ScreenManager::shake(int seconds)
+{
+	shakeTimer = sf::seconds(seconds);
+}
