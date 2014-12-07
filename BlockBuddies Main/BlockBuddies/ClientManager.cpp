@@ -21,11 +21,6 @@ bool ClientManager::initConnection(sf::IpAddress IP, int portNumber)
 	}
 }
 
-char* ClientManager::getName()
-{
-
-	return "Coming Soon";
-}
 
 bool ClientManager::loginUser(std::string username , std::string password)
 {
@@ -45,10 +40,9 @@ bool ClientManager::loginUser(std::string username , std::string password)
 		return false;
 	else
 	{
-		int test;
 		
 		result >> player.username >>  player.gamesPlayed >> player.gamesWon >> player.gamesLost >> player.highScore;
-		test = 0;
+		player.winPercentage = (float)player.gamesWon / player.gamesPlayed;
 		return true;
 	}
 }
@@ -71,10 +65,8 @@ bool ClientManager::registerUser(std::string username, std::string password)
 		return false;
 	else
 	{
-		int test;
-
 		result >> player.username >> player.gamesPlayed >> player.gamesWon >> player.gamesLost >> player.highScore;
-		test = 0;
+		player.winPercentage = (float)player.gamesWon / player.gamesPlayed;	
 		return true;
 	}
 }

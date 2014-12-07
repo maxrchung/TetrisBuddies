@@ -21,6 +21,14 @@ public:
 			// Denotes whether to use a larger font to
 			// indicate that this is a title
 			bool isTitle = false);
+
+	TextBox(std::string message,
+		float posX,
+		float posY,
+		float width,
+		Alignments textAlignment = Alignments::CENTER,
+		bool isTitle = false);
+
 	void update();
 	void draw();
 	sf::Text message;

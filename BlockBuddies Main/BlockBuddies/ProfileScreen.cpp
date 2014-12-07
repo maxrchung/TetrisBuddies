@@ -22,7 +22,7 @@ ProfileScreen::ProfileScreen()
 						 150.0f,
 						 Alignments::LEFT)),
 
-	nameTag(new TextBox(ClientManager::getInstance().getName(),
+	nameTag(new TextBox("Default",
 						 -70.0f,
 						 -125.0f,
 						 250.0f,
@@ -45,6 +45,7 @@ ProfileScreen::ProfileScreen()
 						 25.0f,
 						 250.0f,
 						 Alignments::LEFT)),
+
 	gpTag(new TextBox("0",
 						 -70.0f,
 						 25.0f,
@@ -63,6 +64,17 @@ ProfileScreen::ProfileScreen()
 						 250.0f,
 						 Alignments::LEFT)),
 
+	winpercentageTag(new TextBox("Win rate: ",
+						 -250.0f,
+						 175.0f,
+						 250.0f,
+						 Alignments::LEFT)),
+
+	wpTag(new TextBox("0",
+						 -70.0f,
+						 175.0f,
+						 250.0f,
+						 Alignments::LEFT)),
 
 	 home(new Button(Screens::HOME,
                      "Home",
@@ -90,21 +102,39 @@ ProfileScreen::ProfileScreen()
 	UIElements.push_back(highscoreTag);
 	UIElements.push_back(gameswonTag);
 	UIElements.push_back(gamesplayedTag);
+	UIElements.push_back(winpercentageTag);
 	UIElements.push_back(nameTag);
 	UIElements.push_back(hsTag);
 	UIElements.push_back(gwTag);
 	UIElements.push_back(gpTag);
+	UIElements.push_back(wpTag);
     UIElements.push_back(home);
     UIElements.push_back(profile);
     UIElements.push_back(gameType);
+
+	needsUpdate = true;
 
     selectables = { home,
                     profile,
                     gameType };
 }
+void ProfileScreen::reload()
+{
+		nameTag->message.setString(ClientManager::getInstance().player.username);
+		hsTag->message.setString(std::to_string(ClientManager::getInstance().player.highScore));
+		gpTag->message.setString(std::to_string(ClientManager::getInstance().player.gamesPlayed));
+		gwTag->message.setString(std::to_string(ClientManager::getInstance().player.gamesPlayed));
+		wpTag->message.setString(std::to_string(ClientManager::getInstance().player.winPercentage));
+
+		needsUpdate = false;
+}
+
 
 void ProfileScreen::update()
 {
+	if (needsUpdate == true)
+		reload();
+
     Screen::update();
 
     if (home->isActivated ||
