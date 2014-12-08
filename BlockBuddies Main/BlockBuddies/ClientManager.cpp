@@ -1,7 +1,6 @@
 #include "ClientManager.h"
 #include "windows.h"
 #include <iostream>
-
 //Connects to the server socket
 //Currently connects on the local machine only
 
@@ -24,7 +23,6 @@ bool ClientManager::initConnection(sf::IpAddress IP, int portNumber)
 		return true;
 	}
 }
-
 void ClientManager::update()
 {
     if(!receivedPackets.empty())
@@ -49,11 +47,6 @@ void ClientManager::update()
     }
 }
 
-char* ClientManager::getName()
-{
-	return "Coming Soon";
-}
-
 bool ClientManager::loginUser(std::string username , std::string password)
 {
 	//Sends the log in
@@ -69,8 +62,6 @@ bool ClientManager::loginUser(std::string username , std::string password)
 
 	socket.send(login);
     std::cout << "Send login packet" << std::endl;
-    std::cout << login << std::endl;
-	//Gets the result from the server
 
     // Block until we receive a message
     while(receivedPackets.empty()) 
@@ -82,8 +73,8 @@ bool ClientManager::loginUser(std::string username , std::string password)
     queueAccess.lock();
     receivedPackets.pop();
     queueAccess.unlock();
+
     std::cout << "Receive login packet" << std::endl;
-    std::cout << result << std::endl;
 
 	bool success;
 	result >> success;
@@ -104,15 +95,12 @@ bool ClientManager::registerUser(std::string username, std::string password)
     registerPacket << PacketDecode::PACKET_REGISTER
                    << username
                    << password;
-
     queueAccess.lock();
     // Clear the queue before taking in the result
     receivedPackets = std::queue<sf::Packet>();
     queueAccess.unlock();
-
 	socket.send(registerPacket);
     std::cout << "Sending register packet" << std::endl;
-    std::cout << registerPacket << std::endl;
 
     // Block until a packet is in the queue
     while(receivedPackets.empty()) {}
@@ -123,7 +111,6 @@ bool ClientManager::registerUser(std::string username, std::string password)
     queueAccess.unlock();
 
     std::cout << "Receive register packet" << std::endl;
-    std::cout << result << std::endl;
 
 	bool success;
 	result >> success;

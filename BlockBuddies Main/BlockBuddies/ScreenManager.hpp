@@ -24,6 +24,9 @@ public:
     // on top of other screens
     std::vector<Screen*> currentScreens;
 
+	//allow the screen to shakeit
+
+	void shake(int);
 private:
     // All the Screens are created beforehand so they don't have to be reinstantiated every single time
     std::map <Screens, Screen*> screens;
@@ -33,6 +36,12 @@ private:
     ScreenManager& operator=(ScreenManager const&){};
 
     static ScreenManager* instance;
+
+	//Timers to decide when to stop the screen shake
+	sf::Clock clock;
+	sf::Time shakeTimer;
+	sf::Vector2f initPos;
+	sf::View view;
 };
 
 #endif//SCREENMANAGER_HPP

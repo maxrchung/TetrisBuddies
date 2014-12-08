@@ -25,7 +25,7 @@ public:
 	}
 
 	bool initConnection(sf::IpAddress IP, int portNumber);
-	char* getName();
+
 	void messageWait();
 	bool loginUser(std::string username, std::string password);
 	bool registerUser(std::string username, std::string password);

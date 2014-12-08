@@ -19,17 +19,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ClientMessages.cpp" />
-    <ClCompile Include="GameClient.cpp" />
-    <ClCompile Include="GameLogic.cpp" />
-    <ClCompile Include="GameStateObject.cpp" />
+    <ClCompile Include="..\..\..\BlockBuddies Main\SharedCode\ClientMessages.cpp" />
+    <ClCompile Include="..\..\..\BlockBuddies Main\SharedCode\GameLogic.cpp" />
+    <ClCompile Include="..\..\..\BlockBuddies Main\SharedCode\GameStateObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ServerMessages.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ClientMessages.hpp" />
-    <ClInclude Include="GameLogic.hpp" />
-    <ClInclude Include="GameStateObject.hpp" />
+    <ClInclude Include="..\..\..\BlockBuddies Main\SharedCode\ClientMessages.hpp" />
+    <ClInclude Include="..\..\..\BlockBuddies Main\SharedCode\GameLogic.hpp" />
+    <ClInclude Include="..\..\..\BlockBuddies Main\SharedCode\GameStateObject.hpp" />
     <ClInclude Include="ServerMessages.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -101,7 +100,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>SFML_STATIC;GLEW_STATIC;WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\SFML-2.1-static\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\SFML-2.1-static\include;%(AdditionalIncludeDirectories);$(ProjectDir)..\..\..\BlockBuddies Main\SharedCode</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>

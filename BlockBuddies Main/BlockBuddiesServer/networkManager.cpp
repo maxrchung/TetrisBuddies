@@ -33,7 +33,6 @@ void NetworkManager::update()
             queueAccess.unlock();
             
             std::cout << "Popped off packet" << std::endl;
-            std::cout << packet << std::endl;
 
             PacketDecode decode;
             int decodeIndex;
@@ -57,17 +56,14 @@ void NetworkManager::update()
                                << userInfo;
                         player.playerSocket->send(answer);
 
-                        std::cout << "Sent login packet" << std::endl;
-                        std::cout << answer << std::endl;
+                        std::cout << "Sent login packet accept" << std::endl;
                     }
                     else
                     {
                         sf::Packet answer;
                         answer << false;
                         player.playerSocket->send(answer);
-
-                        std::cout << "Sent login packet" << std::endl;
-                        std::cout << answer << std::endl;
+                        std::cout << "Sent login packet reject" << std::endl;
                     }
                     break;
                 }
@@ -89,8 +85,7 @@ void NetworkManager::update()
                                << userInfo;
                         player.playerSocket->send(answer);
 
-                        std::cout << "Sent packet register" << std::endl;
-                        std::cout << answer << std::endl;
+                        std::cout << "Sent packet register accept" << std::endl;
                     }
                     else
                     {
@@ -98,8 +93,7 @@ void NetworkManager::update()
                         answer << false;
                         player.playerSocket->send(answer);
 
-                        std::cout << "Sent packet register" << std::endl;
-                        std::cout << answer << std::endl;
+                        std::cout << "Sent packet register reject" << std::endl;
                     }
                     break;
                 }
@@ -139,6 +133,7 @@ void NetworkManager::checkForConnections()
 				// The listener socket is not ready, test all other sockets (the clients)
 				for (auto& player : connectPlayers)
 				{
+
 					if (connections.isReady(*player.playerSocket))
 					{
 						sf::Packet packet;
@@ -148,9 +143,9 @@ void NetworkManager::checkForConnections()
                             player.receivedPackets.push(packet);
                             queueAccess.unlock();
 						}
-					}
-				}
-			}
-		}
-	}
+                    }
+                }
+            }
+        }
+    }
 }

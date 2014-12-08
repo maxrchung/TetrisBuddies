@@ -26,7 +26,6 @@ class NetworkManager
 {
 public:
     static NetworkManager* getInstance();
-
     void init();
     void update();
 	void checkForConnections();

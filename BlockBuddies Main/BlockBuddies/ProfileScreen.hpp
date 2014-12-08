@@ -14,18 +14,23 @@ public:
 	ProfileScreen();
 	void update();
 	void draw();
+	void reload();
 
 private:
+
+	bool needsUpdate;
 	Section* section;
 	TextBox* usernameTag;
 	TextBox* highscoreTag;
 	TextBox* gamesplayedTag;
 	TextBox* gameswonTag;
+	TextBox* winpercentageTag;
 
 	TextBox* nameTag;
 	TextBox* hsTag;
 	TextBox* gpTag;
 	TextBox* gwTag;
+	TextBox* wpTag;
 
     Button* home;
     Button* profile;

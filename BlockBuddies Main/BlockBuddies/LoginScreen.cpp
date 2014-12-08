@@ -177,6 +177,7 @@ void LoginScreen::update()
         //play sound then switch screen
 		sound.setBuffer(*SoundManager::getInstance().getSound("repressed"));
 		sound.play();
+		ScreenManager::getInstance()->shake(1);
         ScreenManager::getInstance()->switchScreen(offlineHome->toScreen);
     }
 }

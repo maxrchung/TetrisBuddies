@@ -11,9 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\SharedCode\UserInfo.h" />
     <ClInclude Include="BlockHandler.hpp" />
     <ClInclude Include="Button.hpp" />
     <ClInclude Include="ClientManager.h" />
+    <ClInclude Include="ClientMessages.hpp" />
     <ClInclude Include="CloseScreen.hpp" />
     <ClInclude Include="CursorHandler.hpp" />
     <ClInclude Include="Game.hpp" />
@@ -41,12 +43,13 @@
     <ClInclude Include="TextInput.hpp" />
     <ClInclude Include="UIElement.hpp" />
     <ClInclude Include="User.hpp" />
-    <ClInclude Include="UserInfo.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\SharedCode\UserInfo.cpp" />
     <ClCompile Include="BlockHandler.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ClientManager.cpp" />
+    <ClCompile Include="ClientMessages.cpp" />
     <ClCompile Include="CloseScreen.cpp" />
     <ClCompile Include="CursorHandler.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -72,7 +75,6 @@
     <ClCompile Include="sqlite3.c" />
     <ClCompile Include="TextBox.cpp" />
     <ClCompile Include="TextInput.cpp" />
-    <ClCompile Include="UserInfo.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F14A11ED-47D0-456F-A7B6-EF3BA7657776}</ProjectGuid>
@@ -117,7 +119,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>SFML_STATIC;GLEW_STATIC;WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\SFML-2.1-static\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\SFML-2.1-static\include;%(AdditionalIncludeDirectories); $(ProjectDir)..\SharedCode</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>

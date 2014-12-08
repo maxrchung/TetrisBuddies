@@ -18,33 +18,30 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ClientMessages.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ServerMessages.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameStateObject.cpp">
+    <ClCompile Include="..\..\..\BlockBuddies Main\SharedCode\ClientMessages.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameClient.cpp">
+    <ClCompile Include="..\..\..\BlockBuddies Main\SharedCode\GameLogic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameLogic.cpp">
+    <ClCompile Include="..\..\..\BlockBuddies Main\SharedCode\GameStateObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ClientMessages.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ServerMessages.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameStateObject.hpp">
+    <ClInclude Include="..\..\..\BlockBuddies Main\SharedCode\ClientMessages.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameLogic.hpp">
+    <ClInclude Include="..\..\..\BlockBuddies Main\SharedCode\GameLogic.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\BlockBuddies Main\SharedCode\GameStateObject.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
