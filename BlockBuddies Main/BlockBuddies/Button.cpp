@@ -76,6 +76,8 @@ void Button::update()
 													(float) mousePosition.y))
 		    isActivated = true;
 	}
+    else
+        isActivated = false;
 }
 
 void Button::draw()

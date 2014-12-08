@@ -3,6 +3,7 @@
 #include "ScreenManager.hpp"
 #include "LoginScreen.hpp"
 #include "InputManager.hpp"
+#include "ClientManager.h"
 
 #include <iostream>
 
@@ -17,7 +18,6 @@ Game::Game()
 	GraphicsManager::getInstance()->init();
 	ScreenManager::getInstance()->init();
 	InputManager::getInstance()->init();
-	//NetworkManager::getInstance()->init()
 }
 
 void Game::run() 
@@ -29,6 +29,9 @@ void Game::run()
 
 void Game::update()
 {
+    //  Checks received packets and responds to them
+    ClientManager::getInstance().update();
+
 	// Resets inputs and checks for new ones
 	InputManager::getInstance()->update();
 

@@ -4,6 +4,15 @@
 #include <iostream>
 #include <SFML/Network.hpp>
 #include "UserInfo.h"
+#include <queue>
+#include <mutex>
+#include <thread>
+
+enum PacketDecode
+{
+    PACKET_LOGIN,
+    PACKET_REGISTER
+};
 
 class ClientManager
 {
@@ -23,10 +32,12 @@ public:
 	bool isConnected = false; // Denotes whether or not you are connected
 
 	UserInfo player;
-	void run();
+	void update();
 
 private:
-
+    std::queue<sf::Packet> receivedPackets;
+    std::mutex queueAccess;
+    std::thread messageThread;
 
 	ClientManager() {}                                  // Private constructor
 	~ClientManager() {}

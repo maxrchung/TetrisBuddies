@@ -2,41 +2,113 @@
 #include "DatabaseManager.h"
 #include "Player.h"
 #include "UserInfo.h"
+#include <iostream>
 
-std::list<Player> NetworkManager::connectPlayers;
-void NetworkManager::run()
-{
-	//gamelogic will go here
-}
-bool checkLogin(std::string user, std::string pass)
-{
-	return DatabaseManager::getInstance().loginUser(user, pass);
-}
+NetworkManager* NetworkManager::instance;
 
-bool registerUser(std::string user, std::string pass)
+NetworkManager* NetworkManager::getInstance()
 {
-	return DatabaseManager::getInstance().registerUser(user, pass);
+	if(!instance)
+		instance = new NetworkManager;
+	return instance;
 }
 
-bool parseMessage(sf::Packet parse)
+void NetworkManager::init()
 {
-	int i;
-	std::string user;
-	std::string pass;
-	parse >> i >> user >> pass;
-	//Checks to see if the int is 0 || 1
-	//This can be expanded to multiple message types and then call the correct function later on. 
-	//A suggestion but for now this works for our simple set up.
-	switch (i) {
-	case 0:
-		return checkLogin(user, pass);
-	case 1:
-		return registerUser(user, pass);
-	default:
-		return false;
-	}
+    messageThread = std::thread(&NetworkManager::checkForConnections, this);
 }
 
+// Loops through player packet queues and responds to
+// each packet
+void NetworkManager::update()
+{
+    for(auto& player : connectPlayers)
+    {
+        if(!player.receivedPackets.empty())
+        {
+            sf::Packet packet = player.receivedPackets.front();
+
+            queueAccess.lock();
+            player.receivedPackets.pop();
+            queueAccess.unlock();
+            
+            std::cout << "Popped off packet" << std::endl;
+            std::cout << packet << std::endl;
+
+            PacketDecode decode;
+            int decodeIndex;
+            packet >> decodeIndex;
+            decode = PacketDecode(decodeIndex);
+
+            switch(decode)
+            {
+                case PacketDecode::LOGIN:
+                {
+                    std::string user;
+                    std::string pass;
+                    packet >> user 
+                           >> pass;
+                    if (DatabaseManager::getInstance().loginUser(user, pass))
+                    {
+                        UserInfo userInfo = DatabaseManager::getInstance().getUserInfo(user);
+                        player.playerInfo = userInfo;
+                        sf::Packet answer;
+                        answer << true // Indicates successful login
+                               << userInfo;
+                        player.playerSocket->send(answer);
+
+                        std::cout << "Sent login packet" << std::endl;
+                        std::cout << answer << std::endl;
+                    }
+                    else
+                    {
+                        sf::Packet answer;
+                        answer << false;
+                        player.playerSocket->send(answer);
+
+                        std::cout << "Sent login packet" << std::endl;
+                        std::cout << answer << std::endl;
+                    }
+                    break;
+                }
+                case PacketDecode::REGISTER:
+                {
+                    std::string user;
+                    std::string pass;
+                    packet >> user 
+                           >> pass;
+
+                    // Returns true if a user can be registered
+                    // else returns false if the account already exists
+                    if (DatabaseManager::getInstance().registerUser(user, pass))
+                    {
+                        int i = 1;
+                        UserInfo userInfo = DatabaseManager::getInstance().getUserInfo(user);
+                        sf::Packet answer;
+                        answer << true
+                               << userInfo;
+                        player.playerSocket->send(answer);
+
+                        std::cout << "Sent packet register" << std::endl;
+                        std::cout << answer << std::endl;
+                    }
+                    else
+                    {
+                        sf::Packet answer;
+                        answer << false;
+                        player.playerSocket->send(answer);
+
+                        std::cout << "Sent packet register" << std::endl;
+                        std::cout << answer << std::endl;
+                    }
+                    break;
+                }
+            }
+        }
+    }
+}
+
+// Checks for conneciton requests and incoming messages
 void NetworkManager::checkForConnections()
 {
 	listener.listen(5000);
@@ -53,8 +125,7 @@ void NetworkManager::checkForConnections()
 				sf::TcpSocket* client = new sf::TcpSocket;
 				if (listener.accept(*client) == sf::Socket::Done)
 				{
-					//Adds to the list of connections
-					clients.push_back(client);
+                    connectPlayers.push_back(Player(client));
 					connections.add(*client);
 				}
 				else
@@ -62,81 +133,24 @@ void NetworkManager::checkForConnections()
 					delete client;
 				}
 			}
+
 			else
 			{
 				// The listener socket is not ready, test all other sockets (the clients)
-				
-				for (std::list<sf::TcpSocket*>::iterator it = clients.begin(); it != clients.end(); ++it)
+				for (auto& player : connectPlayers)
 				{
-					
-					sf::TcpSocket& client = **it;
-					if (connections.isReady(client))
+					if (connections.isReady(*player.playerSocket))
 					{
-						//This will have to be replaced with some way of parsing the message
 						sf::Packet packet;
-						
-						if (client.receive(packet) == sf::Socket::Done)
+                        if(player.playerSocket->receive(packet) == sf::Socket::Done)
 						{
-							int i;
-							std::string user;
-							std::string pass;
-							packet >> i >> user >> pass;
-							//Checks to see if the int is 0 || 1
-							//This can be expanded to multiple message types and then call the correct function later on. 
-							//A suggestion but for now this works for our simple set up.
-							
-							if (i == 0)
-							{
-								if (DatabaseManager::getInstance().loginUser(user, pass))
-								{
-									int i = 1;
-									Player newPlayer = Player(*it, DatabaseManager::getInstance().getUserInfo(user));
-									sf::Packet answer;
-									UserInfo sendMe = DatabaseManager::getInstance().getUserInfo(user);
-									answer << i << 
-									newPlayer.playerInfo.username << newPlayer.playerInfo.gamesPlayed <<
-									newPlayer.playerInfo.gamesWon << newPlayer.playerInfo.gamesLost << newPlayer.playerInfo.highScore;
-									client.send(answer);
-									connectPlayers.push_back(newPlayer);
-								}
-								else
-								{
-									int i = 0;
-									sf::Packet answer;
-									answer << i;
-									client.send(answer);
-								}
-							}
-							else if (i == 1)
-							{
-
-								if (DatabaseManager::getInstance().registerUser(user, pass))
-								{
-									int i = 1;
-									Player newPlayer = Player(*it, DatabaseManager::getInstance().getUserInfo(user));
-									sf::Packet answer;
-									UserInfo sendMe = DatabaseManager::getInstance().getUserInfo(user);
-									answer << i <<
-										newPlayer.playerInfo.username << newPlayer.playerInfo.gamesPlayed <<
-										newPlayer.playerInfo.gamesWon << newPlayer.playerInfo.gamesLost << newPlayer.playerInfo.highScore;
-									client.send(answer);
-									connectPlayers.push_back(newPlayer);
-								}
-								else
-								{
-									int i = 0;
-									sf::Packet answer;
-									answer << i;
-									client.send(answer);
-								}
-							}
-							
+                            queueAccess.lock();
+                            player.receivedPackets.push(packet);
+                            queueAccess.unlock();
 						}
 					}
 				}
 			}
 		}
-
 	}
-
 }

@@ -6,10 +6,9 @@ Player::Player()
 	playerInfo = UserInfo();
 }
 
-Player::Player(sf::TcpSocket* userSocket, UserInfo userInfo)
+Player::Player(sf::TcpSocket* userSocket)
+    :playerSocket(userSocket)
 {
-	playerSocket = userSocket;
-	playerInfo = userInfo;
 }
 
 

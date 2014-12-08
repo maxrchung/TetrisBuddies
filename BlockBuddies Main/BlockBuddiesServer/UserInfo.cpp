@@ -43,3 +43,21 @@ void UserInfo::printOut()
 	std::cout << "WinRate :" << winPercentage << std::endl;
 	
 }
+
+sf::Packet& operator <<(sf::Packet& packet, const UserInfo& userInfo)
+{
+    return packet << userInfo.username 
+                  << userInfo.gamesPlayed
+                  << userInfo.gamesWon 
+                  << userInfo.gamesLost 
+                  << userInfo.highScore;
+}
+
+sf::Packet& operator >>(sf::Packet& packet, UserInfo& userInfo)
+{
+    return packet >> userInfo.username 
+                  >> userInfo.gamesPlayed
+                  >> userInfo.gamesWon 
+                  >> userInfo.gamesLost 
+                  >> userInfo.highScore;
+}

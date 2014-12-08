@@ -4,6 +4,8 @@
 
 int main()
 {
+    // Testing code for finding a graphical bug
+    // Please leave it in, but ignore it
 /*
     sf::RenderWindow window;
     window.create(sf::VideoMode::getDesktopMode(),

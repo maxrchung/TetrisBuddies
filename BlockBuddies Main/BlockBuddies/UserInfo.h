@@ -1,5 +1,8 @@
-#pragma once
+#ifndef USERINFO_H
+#define USERINFO_H
+
 #include <string>
+#include <SFML/Network.hpp>
 
 class UserInfo
 {
@@ -17,3 +20,8 @@ public:
 	void printOut();
 };
 
+sf::Packet& operator <<(sf::Packet& packet, const UserInfo& userInfo);
+
+sf::Packet& operator >>(sf::Packet& packet, UserInfo& userInfo);
+
+#endif//USERINFO_H

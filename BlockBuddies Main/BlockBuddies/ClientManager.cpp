@@ -1,5 +1,6 @@
 #include "ClientManager.h"
 #include "windows.h"
+#include <iostream>
 
 //Connects to the server socket
 //Currently connects on the local machine only
@@ -17,13 +18,39 @@ bool ClientManager::initConnection(sf::IpAddress IP, int portNumber)
 	else 
 	{
 		isConnected = true;
-		return true;		
+
+        // Hidden this parameter
+        messageThread = std::thread(&ClientManager::messageWait, this);
+		return true;
 	}
+}
+
+void ClientManager::update()
+{
+    if(!receivedPackets.empty())
+    {
+        sf::Packet packet = receivedPackets.front();
+        queueAccess.lock();
+        receivedPackets.pop();
+        queueAccess.unlock();
+
+        PacketDecode decode;
+        int decodeIndex;
+        packet >> decodeIndex;
+        decode = PacketDecode(decodeIndex);
+
+        // There are no packets that are currently handled in this function
+        // This is because when you call loginUser() or registerUser()
+        // you automatically block in these functions until the server
+        // responds or your request times out
+        
+        // We will, however, most likely need this section for things that 
+        // require constant updates, such as game updates
+    }
 }
 
 char* ClientManager::getName()
 {
-
 	return "Coming Soon";
 }
 
@@ -31,74 +58,101 @@ bool ClientManager::loginUser(std::string username , std::string password)
 {
 	//Sends the log in
 	sf::Packet login;
-	int i = 0;
-	login << i << username << password;
+	login << PacketDecode::PACKET_LOGIN
+          << username 
+          << password;
+
+    queueAccess.lock();
+    // Clear the queue before taking in the result
+    receivedPackets = std::queue<sf::Packet>();
+    queueAccess.unlock();
+
 	socket.send(login);
+    std::cout << "Send login packet" << std::endl;
+    std::cout << login << std::endl;
 	//Gets the result from the server
-	sf::Packet result;
-	socket.receive(result);
 
-	int t;
-	result >> t;
+    // Block until we receive a message
+    while(receivedPackets.empty()) 
+    {
+        std::cout << "looping..." << std::endl;
+    }
 
-	if (t == 0)
-		return false;
-	else
+	sf::Packet result = receivedPackets.front();
+    queueAccess.lock();
+    receivedPackets.pop();
+    queueAccess.unlock();
+    std::cout << "Receive login packet" << std::endl;
+    std::cout << result << std::endl;
+
+	bool success;
+	result >> success;
+
+	if (success)
 	{
-		int test;
-		
-		result >> player.username >>  player.gamesPlayed >> player.gamesWon >> player.gamesLost >> player.highScore;
-		test = 0;
+        // See UserInfo's >> overload
+		result >> player;
 		return true;
 	}
+    else
+        return false;
 }
 
 bool ClientManager::registerUser(std::string username, std::string password)
 {
-	sf::Packet toAdd;
-	int i = 1;
-	toAdd << i << username << password;
-	socket.send(toAdd);
+	sf::Packet registerPacket;
+    registerPacket << PacketDecode::PACKET_REGISTER
+                   << username
+                   << password;
 
-	//Gets the result from the server
-	sf::Packet result;
-	socket.receive(result);
-	
-	int t;
-	result >> t;
+    queueAccess.lock();
+    // Clear the queue before taking in the result
+    receivedPackets = std::queue<sf::Packet>();
+    queueAccess.unlock();
 
-	if (t == 0)
-		return false;
-	else
+	socket.send(registerPacket);
+    std::cout << "Sending register packet" << std::endl;
+    std::cout << registerPacket << std::endl;
+
+    // Block until a packet is in the queue
+    while(receivedPackets.empty()) {}
+
+	sf::Packet result = receivedPackets.front();
+    queueAccess.lock();
+    receivedPackets.pop();
+    queueAccess.unlock();
+
+    std::cout << "Receive register packet" << std::endl;
+    std::cout << result << std::endl;
+
+	bool success;
+	result >> success;
+
+	if(success)
 	{
-		int test;
-
-		result >> player.username >> player.gamesPlayed >> player.gamesWon >> player.gamesLost >> player.highScore;
-		test = 0;
-		return true;
+        // See UserInfo's >> overload
+        result >> player;
+        return true;
 	}
+    else
+		return false;
 }
 
 
 void ClientManager::messageWait()
 {	
-	while (true)
+	while (isConnected)
 	{
-		Sleep(550);
-
 		sf::Packet packet;
-		//socket.setBlocking(false);
 		if (socket.receive(packet) != sf::Socket::Done)
 		{
-			
+            // Error message
 		}
 		else
 		{
-			std::string recieved;
-			packet >> recieved;
-			std::cout << "Received: " << recieved << std::endl;
+            queueAccess.lock();
+            receivedPackets.push(packet);
+            queueAccess.unlock();
 		}
-		//socket.setBlocking(true);
-
 	}
 }

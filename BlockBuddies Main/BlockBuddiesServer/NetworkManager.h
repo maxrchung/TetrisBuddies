@@ -2,11 +2,19 @@
 
 #include <string>
 #include <vector>
-#include <SFML/System/Thread.hpp>
 #include <SFML/Network.hpp>
 #include <iostream>
 #include <list>
 #include "Player.h"
+#include <mutex>
+#include <thread>
+
+enum PacketDecode
+{
+    LOGIN,
+    REGISTER
+};
+
 //The following code will create a thread for checking connections
 //This will also work if you have any class and you replace everything with your input.
 
@@ -16,28 +24,27 @@
 
 class NetworkManager
 {
-	
 public:
-	
-	NetworkManager() {}
-	~NetworkManager() {}
+    static NetworkManager* getInstance();
 
-	void run();
+    void init();
+    void update();
 	void checkForConnections();
-	bool checkLogin(std::string user, std::string pass);
-	bool registerUser(std::string user, std::string pass);
 	void makeNewPlayer();
-	bool parseMessage(sf::Packet parse);
-	static std::list<Player> connectPlayers;
+    
+    std::list<Player> connectPlayers;
 
+	bool running = true;
 
 private:
+    std::mutex queueAccess;
+    sf::SocketSelector connections;
+	sf::TcpListener listener;
+    std::thread messageThread;
+
+    static NetworkManager* instance;
 	
 	NetworkManager(const NetworkManager&);                 
 	NetworkManager& operator=(const NetworkManager&);
-	sf::SocketSelector connections;
-	std::list<sf::TcpSocket*> clients;
-	sf::TcpListener listener;
-	bool running = true;
-
+	NetworkManager() {}
 };

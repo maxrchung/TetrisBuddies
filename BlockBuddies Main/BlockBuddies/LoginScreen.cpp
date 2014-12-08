@@ -8,7 +8,7 @@ LoginScreen::LoginScreen()
 	                     0.0f,
 						 400.0f,
 						 600.0f)),
-
+                         
      title(new TextBox("LOGIN",
 	                   0.0f,
 					   -200.0f,

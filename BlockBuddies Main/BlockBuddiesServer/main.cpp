@@ -1,17 +1,16 @@
-#include "DatabaseManager.h"
 #include "NetworkManager.h"
 #include <windows.h>
+#include <thread>
 
 
 int main()
 {	
-	NetworkManager postMaster;
-	sf::Thread thread(&NetworkManager::checkForConnections, &postMaster);
-	thread.launch();
+    NetworkManager::getInstance()->init();
 
-	while (true)
+	while(NetworkManager::getInstance()->running)
 	{
 		//Handle what is needed
+        NetworkManager::getInstance()->update();
 	}
 
 	return 0;
