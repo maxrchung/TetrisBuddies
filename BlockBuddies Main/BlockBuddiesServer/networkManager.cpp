@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "UserInfo.h"
 #include <iostream>
+#include "MessageType.h"
 
 NetworkManager* NetworkManager::instance;
 
@@ -16,6 +17,11 @@ NetworkManager* NetworkManager::getInstance()
 void NetworkManager::init()
 {
     messageThread = std::thread(&NetworkManager::checkForConnections, this);
+}
+
+void NetworkManager::newHighScore()
+{
+	
 }
 
 // Loops through player packet queues and responds to
@@ -41,7 +47,7 @@ void NetworkManager::update()
 
             switch(decode)
             {
-                case PacketDecode::LOGIN:
+                case PacketDecode::PACKET_LOGIN:
                 {
                     std::string user;
                     std::string pass;
@@ -67,7 +73,7 @@ void NetworkManager::update()
                     }
                     break;
                 }
-                case PacketDecode::REGISTER:
+                case PacketDecode::PACKET_REGISTER:
                 {
                     std::string user;
                     std::string pass;

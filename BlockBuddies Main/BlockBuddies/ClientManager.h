@@ -8,11 +8,6 @@
 #include <mutex>
 #include <thread>
 
-enum PacketDecode
-{
-    PACKET_LOGIN,
-    PACKET_REGISTER
-};
 
 class ClientManager
 {

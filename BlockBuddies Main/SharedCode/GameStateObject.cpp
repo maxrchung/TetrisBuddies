@@ -1,5 +1,5 @@
 #include "GameStateObject.hpp"
-
+#include "MessageType.h"
 
 GameStateObject::GameStateObject(){
 	
@@ -48,9 +48,7 @@ sf::Packet GameStateObject::GSPacket() const{
 	
 	
 	sf::Packet gameStatePacket;
-
-	sf::Uint8 gameStateCommand = 1;
-	gameStatePacket << gameStateCommand;
+	gameStatePacket << PacketDecode::PACKET_GAMESTATE;
 	gameStatePacket << score;
 
 	//set to 10 so we can see if the value doesn't get assigned

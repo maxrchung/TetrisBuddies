@@ -1,25 +1,26 @@
 #include "ClientMessages.hpp"
+#include "MessageType.h"
 
 sf::Packet ClientMessages::StartPacket(){
 	sf::Packet ret;
-	sf::Uint8 val = 1;
-	ret	<< val;
+	ret << PacketDecode::PACKET_LOGIN;
 	return ret;
 }
 
 sf::Packet ClientMessages::SwapPacket(sf::Uint8 p1row, sf::Uint8 p1col, sf::Uint8 p2row, sf::Uint8 p2col){
+	
 	sf::Packet ret;
-	sf::Uint8 val = 2;
-	ret << val << p1row << p1col << p2row << p2col;
+	ret << PacketDecode::PACKET_SWAP << p1row << p1col << p2row << p2col;
 	return ret;
 }
 
 sf::Packet ClientMessages::NewRowPacket(){
+
 	sf::Packet ret;
-	sf::Uint8 val = 3;
-	ret << val;
+	ret << PacketDecode::PACKET_NEWROW;
 	return ret;
 }
+
 
 
 //pass it a packet full of game state data, and decode it into a passed in GameStateObject
@@ -52,11 +53,12 @@ void ClientMessages::DecodeGameState(sf::Packet& decodeMe, GameStateObject& gso)
 
 bool ClientMessages::ProcessMessage(sf::Packet& toProcess, GameStateObject& gso){
 
+	
 	sf::Uint8 command;
 	toProcess >> command;
 
 	//Current game state
-	if (command == 1){ 
+	if (command == 4){ 
 		DecodeGameState(toProcess, gso);
 		return true;
 	}
@@ -70,7 +72,7 @@ bool ClientMessages::ProcessMessage(sf::Packet& toProcess, GameStateObject& gso)
 	}
 
 	//Game Over
-	else if (command == 4){
+	else if (command == 8){
 		//call GameOver()
 		//std::cout << "Game Over!" << std::endl;
 		return true;

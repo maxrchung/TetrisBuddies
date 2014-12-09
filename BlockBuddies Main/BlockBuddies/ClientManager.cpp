@@ -1,6 +1,7 @@
 #include "ClientManager.h"
 #include "windows.h"
 #include <iostream>
+#include "MessageType.h"
 //Connects to the server socket
 //Currently connects on the local machine only
 
@@ -37,7 +38,7 @@ void ClientManager::update()
         packet >> decodeIndex;
         decode = PacketDecode(decodeIndex);
 
-        // There are no packets that are currently handled in this function
+        // There are no packets that are currently handled in this function 
         // This is because when you call loginUser() or registerUser()
         // you automatically block in these functions until the server
         // responds or your request times out
@@ -124,7 +125,6 @@ bool ClientManager::registerUser(std::string username, std::string password)
     else
 		return false;
 }
-
 
 void ClientManager::messageWait()
 {	

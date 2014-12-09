@@ -25,6 +25,7 @@
     <ClInclude Include="GameTypeScreen.hpp" />
     <ClInclude Include="InputManager.hpp" />
     <ClInclude Include="LoginScreen.hpp" />
+    <ClInclude Include="MessageType.h" />
     <ClInclude Include="MultiplayerScreen.hpp" />
     <ClInclude Include="OfflineCloseScreen.hpp" />
     <ClInclude Include="OfflineGameTypeScreen.hpp" />

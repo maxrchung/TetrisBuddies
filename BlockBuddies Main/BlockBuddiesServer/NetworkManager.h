@@ -9,11 +9,6 @@
 #include <mutex>
 #include <thread>
 
-enum PacketDecode
-{
-    LOGIN,
-    REGISTER
-};
 
 //The following code will create a thread for checking connections
 //This will also work if you have any class and you replace everything with your input.
@@ -30,7 +25,7 @@ public:
     void update();
 	void checkForConnections();
 	void makeNewPlayer();
-    
+	void newHighScore();
     std::list<Player> connectPlayers;
 
 	bool running = true;
