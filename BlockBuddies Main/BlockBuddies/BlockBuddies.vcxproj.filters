@@ -111,7 +111,7 @@
     <ClInclude Include="ClientMessages.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MessageType.h">
+    <ClInclude Include="..\SharedCode\MessageType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

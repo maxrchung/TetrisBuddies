@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\SharedCode\MessageType.h" />
     <ClInclude Include="..\SharedCode\UserInfo.h" />
     <ClInclude Include="BlockHandler.hpp" />
     <ClInclude Include="Button.hpp" />
@@ -25,7 +26,6 @@
     <ClInclude Include="GameTypeScreen.hpp" />
     <ClInclude Include="InputManager.hpp" />
     <ClInclude Include="LoginScreen.hpp" />
-    <ClInclude Include="MessageType.h" />
     <ClInclude Include="MultiplayerScreen.hpp" />
     <ClInclude Include="OfflineCloseScreen.hpp" />
     <ClInclude Include="OfflineGameTypeScreen.hpp" />
