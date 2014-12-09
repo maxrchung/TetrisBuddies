@@ -25,7 +25,8 @@ public:
     void update();
 	void checkForConnections();
 	void makeNewPlayer();
-	void newHighScore();
+	void newHighScore(int newScore, std::string username);
+	void addWin(std::string username, bool win);
     std::list<Player> connectPlayers;
 
 	bool running = true;

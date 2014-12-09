@@ -3,7 +3,7 @@
 
 sf::Packet ClientMessages::StartPacket(){
 	sf::Packet ret;
-	ret << PacketDecode::PACKET_LOGIN;
+	ret << PacketDecode::PACKET_START;
 	return ret;
 }
 

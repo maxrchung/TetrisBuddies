@@ -19,9 +19,15 @@ void NetworkManager::init()
     messageThread = std::thread(&NetworkManager::checkForConnections, this);
 }
 
-void NetworkManager::newHighScore()
+void NetworkManager::newHighScore(int newScore, std::string username)
 {
-	
+	DatabaseManager::getInstance().updateNewHighScore(username,newScore);
+}
+
+//Used to indicate a loss or a win by passing true or false
+void NetworkManager::addWin(std::string username, bool win)
+{
+	DatabaseManager::getInstance().updateUserGames(username, win);
 }
 
 // Loops through player packet queues and responds to
