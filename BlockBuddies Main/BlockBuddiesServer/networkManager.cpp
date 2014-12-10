@@ -112,8 +112,10 @@ void NetworkManager::update()
                 }
 				case PacketDecode::PACKET_START:
 				{
-					std::cout << "In theory we start now!" << std::endl;
-					
+					//I had errors when I put this under the class def. 
+					//Should be made a single object instead.
+					GameLogic gameHandler;
+					player.playerSocket->send(gameHandler.GSPacket());
 				}
             }
         }

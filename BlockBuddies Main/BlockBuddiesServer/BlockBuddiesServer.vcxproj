@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\SharedCode\GameLogic.cpp" />
+    <ClCompile Include="..\SharedCode\GameStateObject.cpp" />
+    <ClCompile Include="..\SharedCode\UserInfo.cpp" />
     <ClCompile Include="DatabaseManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
@@ -31,6 +34,10 @@
     <ClCompile Include="UserInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\SharedCode\GameLogic.hpp" />
+    <ClInclude Include="..\SharedCode\GameStateObject.hpp" />
+    <ClInclude Include="..\SharedCode\MessageType.h" />
+    <ClInclude Include="..\SharedCode\UserInfo.h" />
     <ClInclude Include="DatabaseManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="MatchMakingHandler.h" />

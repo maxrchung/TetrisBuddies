@@ -19,7 +19,6 @@ enum PacketDecode
 	PACKET_SCOREUPDATE,
 	//7
 	PACKET_GAMEOVER
-	
 };
 
 #endif

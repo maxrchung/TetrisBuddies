@@ -2,12 +2,7 @@
 #include "InputManager.hpp"
 #include "ScreenManager.hpp"
 #include "ClientManager.h"
-/*
-TextBox* nameTag;
-TextBox* hsTag;
-TextBox* gpTag;
-TextBox* gwTag;
-*/
+
 
 ProfileScreen::ProfileScreen()
 	:

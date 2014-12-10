@@ -29,7 +29,7 @@ public:
 	void addWin(std::string username, bool win);
     std::list<Player> connectPlayers;
 
-
+	GameLogic gameHandler;
 
 	bool running = true;
 
