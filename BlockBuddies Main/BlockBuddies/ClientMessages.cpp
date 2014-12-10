@@ -53,26 +53,27 @@ void ClientMessages::DecodeGameState(sf::Packet& decodeMe, GameStateObject& gso)
 
 bool ClientMessages::ProcessMessage(sf::Packet& toProcess, GameStateObject& gso){
 
-	
+	PacketDecode decode;
 	sf::Uint8 command;
 	toProcess >> command;
+	decode = PacketDecode(command);
 
 	//Current game state
-	if (command == 4){ 
+	if (command == PacketDecode::PACKET_GAMESTATE){ 
 		DecodeGameState(toProcess, gso);
 		return true;
 	}
 
 
 	//Game Started
-	else if (command == 3){
+	else if (command == PacketDecode::PACKET_START){
 		//StartGame() function needs to be called
 		//std::cout << "Game has started!" << std::endl;
 		return true;
 	}
 
 	//Game Over
-	else if (command == 8){
+	else if (command == PacketDecode::PACKET_GAMEOVER){
 		//call GameOver()
 		//std::cout << "Game Over!" << std::endl;
 		return true;

@@ -15,9 +15,7 @@ enum PacketDecode
 	//6
 	PACKET_SCOREUPDATE,
 	//7
-	PACKET_GAMEWON,
-	//8
-	PACKET_GAMELOST,
+	PACKET_GAMEOVER
 	
 };
 

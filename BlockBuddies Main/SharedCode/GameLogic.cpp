@@ -1,6 +1,6 @@
 //Implementation of GameLogic.hpp
 #include "GameLogic.hpp"
-
+#include "MessageType.h"
 
 GameLogic::GameLogic(){
 	
@@ -342,12 +342,15 @@ bool GameLogic::ClearMatches(){
 bool GameLogic::ProcessMessage(sf::Packet toProcess){
 	
 	sf::Uint8 command;
-
+	PacketDecode decode;
 	toProcess >> command;
+	decode = PacketDecode(command);
+
+	
 
 
 	//swap will be the most common command, so it gets checked first
-	 if (command == 2){
+	if (command == PacketDecode::PACKET_SWAP){
 		//std::cout << "Got 'Request Swap' command!" << std::endl;
 		sf::Uint8 p1r, p1c, p2r, p2c;
 		toProcess >> p1r >> p1c >> p2r >> p2c;
@@ -359,7 +362,7 @@ bool GameLogic::ProcessMessage(sf::Packet toProcess){
 	}
 
 
-	else if (command == 3){
+	else if (command == PacketDecode::PACKET_NEWROW){
 		//std::cout << "Got 'Request New Row' command!" << std::endl;
 
 		//**set the row insertion time left to 0;
@@ -367,7 +370,7 @@ bool GameLogic::ProcessMessage(sf::Packet toProcess){
 		return true;
 	}
 
-	else if (command == 1){
+	else if (command == PacketDecode::PACKET_START){
 		//std::cout << "Got 'Start Game' command!" << std::endl;
 		
 		//do all the game initalization stuff
