@@ -42,7 +42,6 @@ Button::Button(Screens toScreen,
     this->label.setOrigin(GraphicsManager::getInstance()->getCenter(this->label).x,
                           this->label.getOrigin().y - 2 * GraphicsManager::getInstance()->scale);
 	this->label.setPosition(boundingRect.getPosition());
-    
 }
 
 void Button::update()
