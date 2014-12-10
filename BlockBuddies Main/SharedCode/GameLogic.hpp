@@ -13,6 +13,7 @@
 #include <set>
 #include <string>
 #include "GameStateObject.hpp"
+#include "MessageType.h"
 
 class GameLogic{
 
@@ -101,14 +102,13 @@ private:
 
 	sf::Packet StartPacket(){
 		sf::Packet ret;
-		sf::Uint8 startCommand = 3;
+		ret << PacketDecode::PACKET_START;
 		return ret;
 	}
 
 	sf::Packet GameOverPacket(){
 		sf::Packet ret;
-		sf::Uint8 gameOverCommand = 4;
-		ret << gameOverCommand;
+		ret << PacketDecode::PACKET_GAMEOVER;
 		return ret;
 	}
 
