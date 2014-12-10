@@ -36,8 +36,13 @@ Button::Button(Screens toScreen,
 	// name to resolve this issue; I can foresee this being an issue possibly in the future,
 	// but because I want to stick to convention, after some thought, I decided not to change it
 	this->label.setColor(GraphicsManager::getInstance()->typeColor);
+    this->label.setString("Wq");
 	this->label.setOrigin(GraphicsManager::getInstance()->getCenter(this->label));
+    this->label.setString(label);
+    this->label.setOrigin(GraphicsManager::getInstance()->getCenter(this->label).x,
+                          this->label.getOrigin().y - 2 * GraphicsManager::getInstance()->scale);
 	this->label.setPosition(boundingRect.getPosition());
+    
 }
 
 void Button::update()
