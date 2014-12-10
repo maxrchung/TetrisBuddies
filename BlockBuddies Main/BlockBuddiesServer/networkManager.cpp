@@ -4,6 +4,7 @@
 #include "UserInfo.h"
 #include <iostream>
 #include "MessageType.h"
+#include "GameLogic.hpp"
 
 NetworkManager* NetworkManager::instance;
 
@@ -109,6 +110,11 @@ void NetworkManager::update()
                     }
                     break;
                 }
+				case PacketDecode::PACKET_START:
+				{
+					std::cout << "In theory we start now!" << std::endl;
+					
+				}
             }
         }
     }

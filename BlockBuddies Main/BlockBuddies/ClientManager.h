@@ -7,6 +7,7 @@
 #include <queue>
 #include <mutex>
 #include <thread>
+#include "ClientMessages.hpp"
 
 
 class ClientManager
@@ -23,9 +24,12 @@ public:
 
 	void messageWait();
 	bool loginUser(std::string username, std::string password);
+	void requestStartGame();
+	void requestSwap(sf::Uint8 p1row, sf::Uint8 p1col, sf::Uint8 p2row, sf::Uint8 p2col);
 	bool registerUser(std::string username, std::string password);
 	bool isConnected = false; // Denotes whether or not you are connected
 
+	ClientMessages messageMaker;
 	UserInfo player;
 	void update();
 

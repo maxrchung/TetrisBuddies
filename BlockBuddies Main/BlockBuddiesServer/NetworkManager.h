@@ -29,6 +29,8 @@ public:
 	void addWin(std::string username, bool win);
     std::list<Player> connectPlayers;
 
+
+
 	bool running = true;
 
 private:

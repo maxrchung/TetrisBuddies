@@ -1,3 +1,6 @@
+#ifndef MESSAGETYPE_HPP
+#define MESSAGETYPE_HPP
+
 enum PacketDecode
 {
 	//0
@@ -19,3 +22,4 @@ enum PacketDecode
 	
 };
 
+#endif

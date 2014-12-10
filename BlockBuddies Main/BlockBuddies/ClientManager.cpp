@@ -126,6 +126,21 @@ bool ClientManager::registerUser(std::string username, std::string password)
 		return false;
 }
 
+void ClientManager::requestStartGame()
+{
+	sf::Packet toSend;
+	toSend = messageMaker.StartPacket();
+	socket.send(toSend);
+}
+
+void ClientManager::requestSwap(sf::Uint8 p1row, sf::Uint8 p1col, sf::Uint8 p2row, sf::Uint8 p2col)
+{
+	sf::Packet toSend;
+	toSend = messageMaker.SwapPacket(p1row, p1col, p2row, p2col);
+	socket.send(toSend);
+
+}
+
 void ClientManager::messageWait()
 {	
 	while (isConnected)
