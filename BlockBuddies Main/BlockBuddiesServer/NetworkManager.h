@@ -8,7 +8,7 @@
 #include "Player.h"
 #include <mutex>
 #include <thread>
-
+#include "GameLogic.hpp"
 
 //The following code will create a thread for checking connections
 //This will also work if you have any class and you replace everything with your input.

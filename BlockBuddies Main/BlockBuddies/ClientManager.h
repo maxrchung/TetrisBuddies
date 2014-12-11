@@ -8,7 +8,7 @@
 #include <mutex>
 #include <thread>
 #include "ClientMessages.hpp"
-
+#include "GameLogic.hpp"
 
 class ClientManager
 {
@@ -28,6 +28,9 @@ public:
 	void requestSwap(sf::Uint8 p1row, sf::Uint8 p1col, sf::Uint8 p2row, sf::Uint8 p2col);
 	bool registerUser(std::string username, std::string password);
 	bool isConnected = false; // Denotes whether or not you are connected
+
+	GameLogic gameLogicHandler;
+
 
 	ClientMessages messageMaker;
 	UserInfo player;

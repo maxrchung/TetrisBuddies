@@ -341,7 +341,7 @@ bool GameLogic::ClearMatches(){
 
 bool GameLogic::ProcessMessage(sf::Packet toProcess){
 	
-	sf::Uint8 command;
+	int command;
 	PacketDecode decode;
 	toProcess >> command;
 	decode = PacketDecode(command);

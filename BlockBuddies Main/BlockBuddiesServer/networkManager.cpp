@@ -4,7 +4,7 @@
 #include "UserInfo.h"
 #include <iostream>
 #include "MessageType.h"
-#include "GameLogic.hpp"
+
 
 NetworkManager* NetworkManager::instance;
 
@@ -40,7 +40,6 @@ void NetworkManager::update()
         if(!player.receivedPackets.empty())
         {
             sf::Packet packet = player.receivedPackets.front();
-
             queueAccess.lock();
             player.receivedPackets.pop();
             queueAccess.unlock();
@@ -51,7 +50,8 @@ void NetworkManager::update()
             int decodeIndex;
             packet >> decodeIndex;
             decode = PacketDecode(decodeIndex);
-
+			sf::Packet notPopped;
+			notPopped<< decode;
             switch(decode)
             {
                 case PacketDecode::PACKET_LOGIN:
@@ -110,12 +110,12 @@ void NetworkManager::update()
                     }
                     break;
                 }
-				case PacketDecode::PACKET_START:
+				default:
 				{
-					//I had errors when I put this under the class def. 
-					//Should be made a single object instead.
-					GameLogic gameHandler;
+					gameHandler.ReceiveMessage(notPopped);
+					gameHandler.GameTick();
 					player.playerSocket->send(gameHandler.GSPacket());
+					break;
 				}
             }
         }

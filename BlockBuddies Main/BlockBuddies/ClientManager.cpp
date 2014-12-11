@@ -33,10 +33,12 @@ void ClientManager::update()
         receivedPackets.pop();
         queueAccess.unlock();
 
-        PacketDecode decode;
+
+        /*PacketDecode decode;
         int decodeIndex;
         packet >> decodeIndex;
         decode = PacketDecode(decodeIndex);
+		*/
 
         // There are no packets that are currently handled in this function 
         // This is because when you call loginUser() or registerUser()
