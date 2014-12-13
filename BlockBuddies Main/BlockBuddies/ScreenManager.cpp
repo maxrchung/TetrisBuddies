@@ -134,10 +134,5 @@ void ScreenManager::shake(int seconds)
 void ScreenManager::closeGame()
 {
     Game::isRunning = false;
-    ClientManager::getInstance().isConnected = false;
-    
-    ClientManager::getInstance().socket.disconnect();
-
-    // This blocks the current thread until messageThread stops
-    ClientManager::getInstance().messageThread.join();
+    ClientManager::getInstance().closeConnection();
 }

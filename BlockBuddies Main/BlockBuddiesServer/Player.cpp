@@ -22,3 +22,10 @@ Player& Player::operator=(Player p)
 	playerInfo = p.playerInfo;
 	return *this;
 }
+
+// Checks if the player usernames match
+// No need to check further since playerinfos should be unique
+bool Player::operator==(Player p)
+{
+    return playerInfo == p.playerInfo; 
+}

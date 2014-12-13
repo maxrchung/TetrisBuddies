@@ -37,6 +37,7 @@ public:
 	GameStateObject currentGSO;
 	bool isUpdated;
 	void update();
+    void closeConnection();
     std::thread messageThread;
 	sf::TcpSocket socket;
 

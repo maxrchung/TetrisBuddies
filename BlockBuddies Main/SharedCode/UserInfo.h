@@ -18,6 +18,8 @@ public:
 	int gamesLost;
 	float winPercentage;
 	void printOut();
+
+    bool operator==(UserInfo u);
 };
 
 sf::Packet& operator <<(sf::Packet& packet, const UserInfo& userInfo);

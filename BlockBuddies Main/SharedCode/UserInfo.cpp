@@ -44,6 +44,13 @@ void UserInfo::printOut()
 	
 }
 
+// Checks if the usernames are the same. There's no point in checking 
+// the other info since the usernames should be unique anyways
+bool UserInfo::operator==(UserInfo u)
+{
+    return username == u.username;
+}
+
 sf::Packet& operator <<(sf::Packet& packet, const UserInfo& userInfo)
 {
     return packet << userInfo.username 

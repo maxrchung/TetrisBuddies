@@ -31,7 +31,6 @@
     <ClCompile Include="NetworkManager.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="sqlite3.c" />
-    <ClCompile Include="UserInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\SharedCode\GameLogic.hpp" />
@@ -46,7 +45,6 @@
     <ClInclude Include="NetworkManager.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="sqlite3.h" />
-    <ClInclude Include="UserInfo.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="game.db" />

@@ -14,5 +14,6 @@ public:
     std::queue<sf::Packet> receivedPackets;
 
 	Player& operator=(Player p);
+    bool operator==(Player p);
 };
 

@@ -69,7 +69,7 @@ void CloseScreen::update()
         (InputManager::getInstance()->enter && login->isSelected))
     {
         ScreenManager::getInstance()->switchScreen(login->toScreen);
-        ClientManager::getInstance().isConnected = false;
+        ClientManager::getInstance().closeConnection();
     }
 
     else if (exit->isActivated ||

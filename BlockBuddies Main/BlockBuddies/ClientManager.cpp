@@ -184,3 +184,33 @@ void ClientManager::messageWait()
         test++;
 	}
 }
+
+// Disconnects socket and (wow)closes connection
+void ClientManager::closeConnection()
+{
+    isConnected = false;
+
+    sf::Packet disconnect;
+    disconnect << PacketDecode::PACKET_DISCONNECT;
+    queueAccess.lock();
+    // Clear the queue before taking in the result
+    receivedPackets = std::queue<sf::Packet>();
+    queueAccess.unlock();
+	socket.send(disconnect);
+    std::cout << "Sending disconnect packet" << std::endl;
+
+    // Block until a packet is in the queue
+    while(receivedPackets.empty()) {}
+
+	sf::Packet result = receivedPackets.front();
+    queueAccess.lock();
+    receivedPackets.pop();
+    queueAccess.unlock();
+
+    std::cout << "Receive disconnect packet" << std::endl;
+
+    socket.disconnect();
+
+    // This blocks the current thread until messageThread stops
+    messageThread.join();
+}

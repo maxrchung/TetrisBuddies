@@ -35,6 +35,9 @@ void NetworkManager::addWin(std::string username, bool win)
 // each packet
 void NetworkManager::update()
 {
+    // Needed for removing a player from the list
+    Player* toDisconnect = NULL;
+
     for(auto& player : connectPlayers)
     {
         if(!player.receivedPackets.empty())
@@ -80,6 +83,7 @@ void NetworkManager::update()
                     }
                     break;
                 }
+
                 case PacketDecode::PACKET_REGISTER:
                 {
                     std::string user;
@@ -110,6 +114,17 @@ void NetworkManager::update()
                     }
                     break;
                 }
+
+                case PacketDecode::PACKET_DISCONNECT:
+                {
+                    sf::Packet answer;
+                    player.playerSocket->send(answer);
+                    std::cout << "Sent disconnect packet" << std::endl;
+
+                    toDisconnect = &player;
+                    break;
+                }
+
 				default:
 				{
 					gameHandler.ReceiveMessage(notPopped);
@@ -119,6 +134,17 @@ void NetworkManager::update()
 				}
             }
         }
+    }
+
+    // Disconnect afterwards so we don't run into iterating problems
+    if (toDisconnect)
+    {
+        std::cout << "Size of connectPlayers: " << connectPlayers.size() << std::endl;
+        queueAccess.lock();
+        connectPlayers.remove(*toDisconnect);
+        queueAccess.unlock();
+        std::cout << "Removed disconnected player" << std::endl;
+        std::cout << "Size of connectPlayers: " << connectPlayers.size() << std::endl;
     }
 }
 
@@ -150,21 +176,20 @@ void NetworkManager::checkForConnections()
 
 			else
 			{
+                queueAccess.lock();
 				// The listener socket is not ready, test all other sockets (the clients)
 				for (auto& player : connectPlayers)
 				{
-
 					if (connections.isReady(*player.playerSocket))
 					{
 						sf::Packet packet;
                         if(player.playerSocket->receive(packet) == sf::Socket::Done)
 						{
-                            queueAccess.lock();
                             player.receivedPackets.push(packet);
-                            queueAccess.unlock();
 						}
                     }
                 }
+                queueAccess.unlock();
             }
         }
     }
