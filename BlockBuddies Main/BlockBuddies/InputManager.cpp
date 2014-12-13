@@ -1,6 +1,8 @@
 #include "InputManager.hpp"
 #include "GraphicsManager.hpp"
 #include "Game.hpp"
+#include "ScreenManager.hpp"
+
 InputManager* InputManager::instance;
 
 InputManager* InputManager::getInstance()
@@ -42,9 +44,7 @@ void InputManager::update()
 		{
 		// This should run in the case of alt+f4
 		case sf::Event::Closed:
-
-			// May need to put more 
-			Game::isRunning = false;
+            ScreenManager::getInstance()->closeGame();
 			break;
 
 	    // Checks for key down

@@ -37,18 +37,17 @@ public:
 	GameStateObject currentGSO;
 	bool isUpdated;
 	void update();
+    std::thread messageThread;
+	sf::TcpSocket socket;
 
 private:
     std::queue<sf::Packet> receivedPackets;
     std::mutex queueAccess;
-    std::thread messageThread;
 
 	ClientManager() {}                                  // Private constructor
 	~ClientManager() {}
 	ClientManager(const ClientManager&);                 // Prevent copy-construction
 	ClientManager& operator=(const ClientManager&);
-
-	sf::TcpSocket socket;
 };
 
 

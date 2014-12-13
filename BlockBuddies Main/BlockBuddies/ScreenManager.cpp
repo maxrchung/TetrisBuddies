@@ -14,6 +14,7 @@
 #include "OfflineCloseScreen.hpp"
 #include "MultiplayerScreen.hpp"
 #include "NetworkedSinglePlayer.h"
+#include "Game.hpp"
 
 ScreenManager* ScreenManager::instance;
 
@@ -127,4 +128,16 @@ void ScreenManager::popScreen()
 void ScreenManager::shake(int seconds)
 {
 	shakeTimer = sf::seconds(seconds);
+}
+
+// Does the necessary things for closing the game
+void ScreenManager::closeGame()
+{
+    Game::isRunning = false;
+    ClientManager::getInstance().isConnected = false;
+    
+    ClientManager::getInstance().socket.disconnect();
+
+    // This blocks the current thread until messageThread stops
+    ClientManager::getInstance().messageThread.join();
 }

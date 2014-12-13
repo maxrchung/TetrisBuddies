@@ -164,8 +164,10 @@ void ClientManager::requestSwap(sf::Uint8 p1row, sf::Uint8 p1col, sf::Uint8 p2ro
 
 void ClientManager::messageWait()
 {	
+    int test = 0;
 	while (isConnected)
 	{
+        std::cout << "Before " << test << std::endl;
 		sf::Packet packet;
 		if (socket.receive(packet) != sf::Socket::Done)
 		{
@@ -178,5 +180,7 @@ void ClientManager::messageWait()
             queueAccess.unlock();
 			std::cout << "packet came in \n";
 		}
+        std::cout << "After " << test << std::endl;
+        test++;
 	}
 }

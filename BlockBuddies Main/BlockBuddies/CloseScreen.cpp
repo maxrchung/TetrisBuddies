@@ -69,12 +69,13 @@ void CloseScreen::update()
         (InputManager::getInstance()->enter && login->isSelected))
     {
         ScreenManager::getInstance()->switchScreen(login->toScreen);
+        ClientManager::getInstance().isConnected = false;
     }
 
     else if (exit->isActivated ||
              (InputManager::getInstance()->enter && exit->isSelected))
     {
-        Game::isRunning = false;
+        ScreenManager::getInstance()->closeGame();
     }
 
     else if (cancel->isActivated ||
