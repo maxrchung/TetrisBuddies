@@ -6,7 +6,6 @@
 class CursorHandler
 {
 public:
-	CursorHandler(int, int, int, int);
 	CursorHandler(int, int, int, int, int, int);
 	void Left(sf::Keyboard::Key L);
 	void Right(sf::Keyboard::Key R);
