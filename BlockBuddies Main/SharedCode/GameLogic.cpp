@@ -367,6 +367,10 @@ bool GameLogic::ProcessMessage(sf::Packet toProcess){
 
 		//**set the row insertion time left to 0;
 		rowInsertionTimeLeft = 0;
+
+		//increases the total insertion time by 1, because it gets reduced by 1 in the Tick()
+		totalRowInsertionTime++;
+
 		return true;
 	}
 
@@ -421,6 +425,11 @@ void GameLogic::GameTick(){
 		//if the insert new row timer is 0;
 		if (rowInsertionTimeLeft == 0){
 			InsertBottomRow();
+
+			//reduces the total row insertion time whenver a new row is inserted
+			if (totalRowInsertionTime > 1){
+				totalRowInsertionTime--;
+			}
 
 			//reset the row insertion timer
 			rowInsertionTimeLeft = totalRowInsertionTime;
