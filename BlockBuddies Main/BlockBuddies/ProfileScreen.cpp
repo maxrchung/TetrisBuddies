@@ -121,8 +121,8 @@ void ProfileScreen::reload()
 		gwTag->message.setString(std::to_string(ClientManager::getInstance().player.gamesPlayed));
 		wpTag->message.setString(std::to_string(ClientManager::getInstance().player.winPercentage));
 		
-		//ClientManager::getInstance().requestStartGame();
-		//ClientManager::getInstance().requestSwap(2,3,4,1);
+		ClientManager::getInstance().requestStartGame();
+		ClientManager::getInstance().requestSwap(2,3,4,1);
 
 		needsUpdate = false;
 }

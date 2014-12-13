@@ -43,15 +43,17 @@ void NetworkManager::update()
             queueAccess.lock();
             player.receivedPackets.pop();
             queueAccess.unlock();
-            
+			sf::Packet notPopped;
+			notPopped = packet;
+
             std::cout << "Popped off packet" << std::endl;
 
             PacketDecode decode;
             int decodeIndex;
             packet >> decodeIndex;
             decode = PacketDecode(decodeIndex);
-			sf::Packet notPopped;
-			notPopped<< decode;
+			
+			
             switch(decode)
             {
                 case PacketDecode::PACKET_LOGIN:

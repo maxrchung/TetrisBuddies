@@ -354,7 +354,7 @@ bool GameLogic::ProcessMessage(sf::Packet toProcess){
 		//std::cout << "Got 'Request Swap' command!" << std::endl;
 		sf::Uint8 p1r, p1c, p2r, p2c;
 		toProcess >> p1r >> p1c >> p2r >> p2c;
-		//std::cout << "Swapping piece (" << (int)p1r << ", " << (int)p1c << ") with (" << (int)p2r << ", " << (int)p2c << ")\n" << std::endl;
+		std::cout << "Swapping piece (" << (int)p1r << ", " << (int)p1c << ") with (" << (int)p2r << ", " << (int)p2c << ")\n" << std::endl;
 		
 		//haven't tested this yet; the different data types might cause errors (int vs sf::uint8)
 		SwapPieces(p1r, p1c, p2r, p2c);
