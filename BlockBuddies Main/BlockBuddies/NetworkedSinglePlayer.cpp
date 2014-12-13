@@ -5,26 +5,31 @@ NetworkedSinglePlayer::NetworkedSinglePlayer()
 {
 	winX = GraphicsManager::getInstance()->window.getSize().x;
 	winY = GraphicsManager::getInstance()->window.getSize().y;
-	ch = new CursorHandler(winX / 2, winY, winX, winY);
-
-	//draws a large rectangle around the game screen
-	rec.setSize(sf::Vector2f(winX / 2, winY));
-	rec.setFillColor(sf::Color::Transparent);
-	rec.setPosition(winX / 4, 25);
-	rec.setOutlineThickness(25);
-	rec.setOutlineColor(sf::Color::Black);
 	//fill in initial board
 	int gridPosy = 0;
 	int gridPosx = 0;
-	blockSizeX = (int)(winX / 16);
+	blockSizeX = (int)(winY / 20);
 	blockSizeY = (int)(winY / 20);
+	
+	//draws a large rectangle around the game screen
+	int gameScreenHeight = blockSizeX * 20;
+	int gameScreenWidth = blockSizeX * 16;
+
+	ch = new CursorHandler(gameScreenWidth, gameScreenHeight, winX, winY, blockSizeX , 5); //5 is the offset, dunno why yet
+	rec.setSize(sf::Vector2f(gameScreenWidth, gameScreenHeight));
+	rec.setFillColor(sf::Color::Transparent);
+	rec.setPosition((winX/2) - gameScreenWidth/2, winY/2 - gameScreenHeight/2);
+	rec.setOutlineThickness(blockSizeX);
+	rec.setOutlineColor(sf::Color::Black);
+	std::cout << ((winY * 4)/5) << "<<<<<<<< \n";
+	
 	//creates blocks and puts them in 2D array
-	for (int i = 0; i < winY; i += blockSizeY)
+	for (int i = gameScreenHeight; i > 0; i -= blockSizeY)
 	{
-		for (int j = 0; j < (winX / 2); j += blockSizeX)
+		for (int j = 0; j < gameScreenWidth; j += blockSizeX)
 		{
 			sf::RectangleShape shape(sf::Vector2f(blockSizeX, blockSizeY));
-			shape.setPosition(j + (winX/4), i); //puts it in the middle of the screen
+			shape.setPosition(j + (winX/2 - gameScreenWidth/2), i - (winY/2 - gameScreenHeight/2) - 25); //puts it in the middle of the screen
 			shape.setFillColor(sf::Color::Transparent); //transparent blocks to appear as empty space
 			blocks[gridPosx][gridPosy] = shape;
 			gridPosy++;
@@ -105,8 +110,44 @@ void NetworkedSinglePlayer::update()
 
 	if (InputManager::getInstance()->backspace)
 	{
-		ClientManager::getInstance().requestSwap(2, 3, 2, 4);
+		ClientManager::getInstance().requestSwap(15, 3, 14, 4);
 	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	{
+		if (pressed == false)
+		{
+			ch->Left(sf::Keyboard::Key::Left);
+			pressed = true; // Cannot hold right to move
+		}
+
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	{
+		if (pressed == false)
+		{
+			ch->Right(sf::Keyboard::Key::Right);
+			pressed = true; // Cannot hold right to move
+		}
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+	{
+		if (pressed == false)
+		{
+			ch->Up(sf::Keyboard::Key::Up);
+			pressed = true; // Cannot hold right to move
+		}
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+	{
+		if (pressed == false)
+		{
+			ch->Down(sf::Keyboard::Key::Down);
+			pressed = true; // Cannot hold right to move
+		}
+	}
+	else
+		pressed = false;
 }
 
 void NetworkedSinglePlayer::draw()

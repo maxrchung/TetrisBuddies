@@ -7,7 +7,7 @@ GameScreen::GameScreen()
 	: pressed(false), pressed2(false), reset(false), raiseBlock(false)
 {
 	bh = new BlockHandler(GraphicsManager::getInstance()->window.getSize().x, GraphicsManager::getInstance()->window.getSize().y);
-	ch = new CursorHandler(bh->SCREENWIDTH, bh->SCREENHEIGHT, GraphicsManager::getInstance()->window.getSize().x, GraphicsManager::getInstance()->window.getSize().y);	
+	ch = new CursorHandler(bh->SCREENWIDTH, bh->SCREENHEIGHT, GraphicsManager::getInstance()->window.getSize().x, GraphicsManager::getInstance()->window.getSize().y,25, 0);// 0 is the offset, 25 is the block size	
 	//draws a large rectangle around the game screen
 	rec.setSize(sf::Vector2f(bh->SCREENWIDTH, bh->SCREENHEIGHT));
 	rec.setFillColor(sf::Color::Transparent);
@@ -21,7 +21,7 @@ void GameScreen::update()
 	if (reset)
 	{
 		bh = new BlockHandler(GraphicsManager::getInstance()->window.getSize().x, GraphicsManager::getInstance()->window.getSize().y);
-		ch = new CursorHandler(bh->SCREENWIDTH, bh->SCREENHEIGHT, GraphicsManager::getInstance()->window.getSize().x, GraphicsManager::getInstance()->window.getSize().y);
+		ch = new CursorHandler(bh->SCREENWIDTH, bh->SCREENHEIGHT, GraphicsManager::getInstance()->window.getSize().x, GraphicsManager::getInstance()->window.getSize().y,25, 0);
 		raiseBlock = false;
 		reset = false;
 		clock.restart();
