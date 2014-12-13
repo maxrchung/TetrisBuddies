@@ -28,6 +28,7 @@ enum Screens
     CLOSE,
     OFFLINECLOSE,
     MULTIPLAYER,
+	ONLINESINGLE,
     NONE
 };
 

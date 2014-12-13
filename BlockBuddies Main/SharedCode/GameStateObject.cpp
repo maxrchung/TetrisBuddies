@@ -91,3 +91,64 @@ sf::Packet GameStateObject::GSPacket() const{
 
 	return gameStatePacket;
 }
+GameStateObject& GameStateObject::operator=(GameStateObject& rhs)
+{
+	score = rhs.score;
+
+	for (int colNum = 0; colNum < boardWidth; colNum++){
+		tempRow[colNum] = rhs.tempRow[colNum];
+	}
+
+	for (int rowNum = 0; rowNum < rhs.boardHeight; rowNum++) {
+		for (int colNum = 0; colNum < rhs.boardWidth; colNum++)
+		{
+			gameBoard[rowNum][colNum] = rhs.gameBoard[rowNum][colNum];
+		}
+	}
+
+	return *this;
+}
+sf::Packet& operator <<(sf::Packet& packet, const GameStateObject& gso)
+{
+	packet << gso.score;
+	int square = 10;
+
+	//insert the temp row
+	for (int colNum = 0; colNum < gso.boardWidth; colNum++){
+		square = gso.tempRow[colNum];
+		packet << square;
+	}
+
+
+	//put the contents of the entire board into a single packet
+	//bottom to top, left to right
+
+	for (int rowNum = 0; rowNum < gso.boardHeight; rowNum++) {
+		for (int colNum = 0; colNum < gso.boardWidth; colNum++)
+		{
+			square = gso.gameBoard[rowNum][colNum];
+			//std::cout << "Square value: " << (int)square << std::endl;
+			packet << square;
+		}
+	}
+	return packet;
+}
+
+sf::Packet& operator >>(sf::Packet& packet, GameStateObject& gso)
+{
+	packet >> gso.score;
+
+	//insert the temp row
+	for (int colNum = 0; colNum < gso.boardWidth; colNum++){
+		packet >> gso.tempRow[colNum];
+	}
+
+	for (int rowNum = 0; rowNum < gso.boardHeight; rowNum++) {
+		for (int colNum = 0; colNum < gso.boardWidth; colNum++)
+		{
+			packet >> gso.gameBoard[rowNum][colNum];
+		}
+	}
+	return packet;
+
+}

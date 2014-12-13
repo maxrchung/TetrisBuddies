@@ -30,8 +30,8 @@ GameTypeScreen::GameTypeScreen()
                          150.0f,
                          50.0f)),
 
-     game(new Button(Screens::GAME,
-                     "Start Game",
+     game(new Button(Screens::ONLINESINGLE,
+                     "Solo Game",
                      0.0f,
                      -37.5f,
                      150.0f,
@@ -82,7 +82,8 @@ void GameTypeScreen::update()
 
     else if (game->isActivated ||
              (InputManager::getInstance()->enter && game->isSelected))
-    {
+	{
+		ClientManager::getInstance().requestStartGame();
         ScreenManager::getInstance()->switchScreen(game->toScreen);
     }
 

@@ -2,6 +2,7 @@
 #include "windows.h"
 #include <iostream>
 #include "MessageType.h"
+#include "ScreenManager.hpp"
 //Connects to the server socket
 //Currently connects on the local machine only
 
@@ -23,6 +24,7 @@ bool ClientManager::initConnection(sf::IpAddress IP, int portNumber)
         messageThread = std::thread(&ClientManager::messageWait, this);
 		return true;
 	}
+	isUpdated = false;
 }
 void ClientManager::update()
 {
@@ -47,6 +49,23 @@ void ClientManager::update()
         
         // We will, however, most likely need this section for things that 
         // require constant updates, such as game updates
+		int code;
+		packet >> code; 
+		std::cout << "its a packet with code :" << code << std::endl;
+		switch (code)
+		{
+			case PacketDecode::PACKET_GAMESTATE:
+			{
+				packet >> currentGSO;
+				isUpdated = true;
+				std::cout << "were updating the gso \n";
+				break;
+			}
+			default:
+			{
+			    break;
+			}
+		}
     }
 }
 
@@ -157,6 +176,7 @@ void ClientManager::messageWait()
             queueAccess.lock();
             receivedPackets.push(packet);
             queueAccess.unlock();
+			std::cout << "packet came in \n";
 		}
 	}
 }

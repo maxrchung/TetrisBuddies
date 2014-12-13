@@ -13,6 +13,7 @@
 #include "CloseScreen.hpp"
 #include "OfflineCloseScreen.hpp"
 #include "MultiplayerScreen.hpp"
+#include "NetworkedSinglePlayer.h"
 
 ScreenManager* ScreenManager::instance;
 
@@ -39,7 +40,8 @@ void ScreenManager::init()
                                              { Screens::OFFLINERESULT, new OfflineResultScreen() },
                                              { Screens::CLOSE, new CloseScreen() },
                                              { Screens::OFFLINECLOSE, new OfflineCloseScreen() },
-                                             { Screens::MULTIPLAYER, new MultiplayerScreen() }
+                                             { Screens::MULTIPLAYER, new MultiplayerScreen() },
+											 { Screens::ONLINESINGLE, new NetworkedSinglePlayer()}
 	                                     };
 
 	// Set this to something else if you want to start on a specific screen

@@ -79,7 +79,7 @@ private:
 	//this is to populate the temp row
 	bool PopulateTempRow();
 
-	//decodes a message packet from the cleint
+	//decodes a message packet from the client
 	bool ProcessMessage(sf::Packet toProcess);
 
 	//swap blocks in the gameBoard array
@@ -111,11 +111,6 @@ private:
 		ret << PacketDecode::PACKET_GAMEOVER;
 		return ret;
 	}
-
-
-
-
-
 
 };
 

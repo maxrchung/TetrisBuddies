@@ -18,8 +18,8 @@ public:
 	sf::Packet GSPacket() const; 
 
 	//default Tetris Attack values: 12 rows, 6 cols
-	static const int boardHeight = 13;
-	static const int boardWidth = 7;
+	static const int boardHeight = 20;
+	static const int boardWidth = 16;
 
 	int gameBoard[boardHeight][boardWidth];
 
@@ -27,6 +27,12 @@ public:
 
 	sf::Uint32 score;
 
+	GameStateObject& operator=(GameStateObject& gso);
 };
+
+
+sf::Packet& operator <<(sf::Packet& packet, const GameStateObject& gso);
+
+sf::Packet& operator >>(sf::Packet& packet, GameStateObject& gso);
 
 #endif

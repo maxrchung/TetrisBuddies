@@ -17,6 +17,7 @@ public:
 	sf::RectangleShape getRightCursor();
 	sf::RectangleShape getTopCursor();
 	sf::RectangleShape getBottomCursor();
+	int blockSize;
 private:
 	int xBoundary,yBoundary,screenWidth, screenHeight;
 	sf::RectangleShape mainSquare;
@@ -24,5 +25,6 @@ private:
 	sf::RectangleShape rightSquare;
 	sf::RectangleShape topSquare;
 	sf::RectangleShape bottomSquare;
+	
 };
 #endif CURSORHANDLER_HPP

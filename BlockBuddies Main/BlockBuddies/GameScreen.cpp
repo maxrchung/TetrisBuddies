@@ -1,6 +1,7 @@
 #include "GameScreen.hpp"
 #include "ClientManager.h"
 #include "SoundManager.h"
+#include <iostream>
 // To be filled in at the gameplay people's discretion
 GameScreen::GameScreen()
 	: pressed(false), pressed2(false), reset(false), raiseBlock(false)

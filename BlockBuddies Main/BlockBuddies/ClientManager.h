@@ -34,6 +34,8 @@ public:
 
 	ClientMessages messageMaker;
 	UserInfo player;
+	GameStateObject currentGSO;
+	bool isUpdated;
 	void update();
 
 private:

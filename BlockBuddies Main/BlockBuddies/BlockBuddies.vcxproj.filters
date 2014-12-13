@@ -114,6 +114,15 @@
     <ClInclude Include="..\SharedCode\MessageType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\SharedCode\GameLogic.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SharedCode\GameStateObject.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkedSinglePlayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp">
@@ -204,6 +213,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ClientMessages.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SharedCode\GameLogic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SharedCode\GameStateObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkedSinglePlayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

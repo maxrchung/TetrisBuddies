@@ -476,5 +476,10 @@ bool GameLogic::InsertRowAt(int insertOnRowNum, std::array<int, 7> rowToInsert){
 
 //Decoded here, the packet is correct
 sf::Packet GameLogic::GSPacket() const{
-	return gso.GSPacket(); 
+	
+	sf::Packet gameStatePacket;
+	gameStatePacket << PacketDecode::PACKET_GAMESTATE;
+	gameStatePacket << gso;
+	//return gso.GSPacket(); 
+	return gameStatePacket;
 }
