@@ -3,6 +3,7 @@
 #include <time.h>
 #include "InputManager.hpp"
 #include "Game.hpp"
+#include <math.h>
 
 GraphicsManager* GraphicsManager::instance = NULL;
 
@@ -84,8 +85,8 @@ sf::Vector2f GraphicsManager::getCenter(const sf::Text& text, Bounds bounds)
 	else if (bounds == Bounds::GLOBAL)
 		textRect = text.getGlobalBounds();
 
-	return sf::Vector2f((float)(int)(textRect.left + textRect.width/2.0f),
-                        (float)(int)(textRect.top + textRect.height / 2.0f));
+	return sf::Vector2f(floorf(textRect.left + textRect.width/2.0f),
+                        floorf(textRect.top + textRect.height / 2.0f));
 }
 
 // Basically does the same thing as getCenter except only applies any
@@ -99,8 +100,8 @@ sf::Vector2f GraphicsManager::getLeftCenter(const sf::Text& text, Bounds bounds)
 	else if (bounds == Bounds::GLOBAL)
 		textRect = text.getGlobalBounds();
 
-	return sf::Vector2f((float)(int)(textRect.left),
-                        (float)(int)(textRect.top + textRect.height / 2.0f));
+	return sf::Vector2f(floorf(textRect.left),
+                        floorf(textRect.top + textRect.height / 2.0f));
 }
 
 // Finds the right center point of a Text object
@@ -113,8 +114,8 @@ sf::Vector2f GraphicsManager::getRightCenter(const sf::Text& text, Bounds bounds
 	else if (bounds == Bounds::GLOBAL)
 		textRect = text.getGlobalBounds();
 
-	return sf::Vector2f((float)(int)(textRect.left + textRect.width),
-                        (float)(int)(textRect.top + textRect.height / 2.0f));
+	return sf::Vector2f(floorf(textRect.left + textRect.width),
+                        floorf(textRect.top + textRect.height / 2.0f));
 }
 
 // Overloaded getCenter() function for sf::RectangleShape
@@ -127,8 +128,8 @@ sf::Vector2f GraphicsManager::getCenter(const sf::RectangleShape& rectangle, Bou
 	else if (bounds == Bounds::GLOBAL)
 		rect = rectangle.getGlobalBounds();
     
-	return sf::Vector2f((float)(int)(rect.left + rect.width/2.0f),
-                        (float)(int)(rect.top + rect.height/2.0f));		
+	return sf::Vector2f(floorf(rect.left + rect.width/2.0f),
+                        floorf(rect.top + rect.height/2.0f));
 }
 
 // Returns the left-center point of a rectangle
@@ -141,8 +142,8 @@ sf::Vector2f GraphicsManager::getLeftCenter(const sf::RectangleShape& rectangle,
 	else if (bounds == Bounds::GLOBAL)
 		rect = rectangle.getGlobalBounds();
 
-	return sf::Vector2f((float)(int)(rect.left),
-                        (float)(int)(rect.top + rect.height/2.0f));		
+	return sf::Vector2f(floorf(rect.left),
+                        floorf(rect.top + rect.height/2.0f));		
 }
 
 // Finds the right center point of a rectangle
@@ -155,6 +156,6 @@ sf::Vector2f GraphicsManager::getRightCenter(const sf::RectangleShape& rectangle
 	else if (bounds == Bounds::GLOBAL)
 		rect = rectangle.getGlobalBounds();
 
-	return sf::Vector2f((float)(int)(rect.left + rect.width),
-                        (float)(int)(rect.top + rect.height/2.0f));
+	return sf::Vector2f(floorf(rect.left + rect.width),
+                        floorf(rect.top + rect.height/2.0f));
 }
