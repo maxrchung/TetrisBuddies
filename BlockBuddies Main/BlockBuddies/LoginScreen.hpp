@@ -25,11 +25,12 @@ public:
 
 	void draw();
 
+	TextBox* status;
+
 private:
 	// All the various parts we create
 	Section* section;
 	TextBox* title;
-	TextBox* status;
 
 	// Note that the Tag indicates a descriptor, as in the "Username:"
 	// tag that appears on the left of the TextInput

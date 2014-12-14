@@ -3,6 +3,7 @@
 #include <iostream>
 #include "MessageType.h"
 #include "ScreenManager.hpp"
+#include "LoginScreen.hpp"
 //Connects to the server socket
 //Currently connects on the local machine only
 
@@ -20,7 +21,8 @@ bool ClientManager::initConnection(sf::IpAddress IP, int portNumber)
 	{
 		isConnected = true;
 
-        sendAlive.restart();
+        sendAliveTimer.restart();
+        receiveAliveTimer.restart();
 
         // Hidden this parameter
         messageThread = std::thread(&ClientManager::messageWait, this);
@@ -34,19 +36,6 @@ void ClientManager::update()
     // with the server
     if(!isConnected)
         return;
-
-    // Sends a packet periodically to tell the server that it is alive
-    if(sendAlive.getElapsedTime().asSeconds() > sendAliveTimer)
-    {
-        sendAlive.restart();
-
-        //Sends the log in
-        sf::Packet checkAlive;
-        checkAlive << PacketDecode::PACKET_CHECKALIVE;
-
-        socket.send(checkAlive);
-        std::cout << "Send check alive packet" << std::endl;
-    }
 
     if(!receivedPackets.empty())
     {
@@ -81,11 +70,46 @@ void ClientManager::update()
 				std::cout << "were updating the gso \n";
 				break;
 			}
+
+            case PacketDecode::PACKET_CHECKALIVE:
+            {
+                receiveAliveTimer.restart();
+                std::cout << "Receive check alive packet" << std::endl;
+                break;
+            }
+
 			default:
 			{
 			    break;
 			}
 		}
+    }
+
+    // Sends a packet periodically to tell the server that it is alive
+    if(sendAliveTimer.getElapsedTime().asSeconds() > sendAliveInterval)
+    {
+        sendAliveTimer.restart();
+
+        //Sends the check alive packet
+        sf::Packet checkAlive;
+        checkAlive << PacketDecode::PACKET_CHECKALIVE;
+
+        socket.send(checkAlive);
+        std::cout << "Send check alive packet" << std::endl;
+    }
+
+    // Disconnects if no response from server
+    if(receiveAliveTimer.getElapsedTime().asSeconds() > receiveAliveLimit)
+    {
+        std::cout << "No response from server, disconnecting" << std::endl;
+        ScreenManager::getInstance()->switchScreen(Screens::LOGIN);
+
+        // Some funky casting to write message onto LoginScreen's status.
+        // Most likely we'll remove this and replace the connection lost 
+        // notification with a popup window
+        dynamic_cast<LoginScreen*>((ScreenManager::getInstance()->currentScreens)[0])->status->message.setString("Lost connection with server");
+
+        ClientManager::getInstance().closeConnection();
     }
 }
 
@@ -184,10 +208,8 @@ void ClientManager::requestSwap(sf::Uint8 p1row, sf::Uint8 p1col, sf::Uint8 p2ro
 
 void ClientManager::messageWait()
 {	
-    int test = 0;
 	while (isConnected)
 	{
-        std::cout << "Before " << test << std::endl;
 		sf::Packet packet;
 		if (socket.receive(packet) != sf::Socket::Done)
 		{
@@ -200,8 +222,6 @@ void ClientManager::messageWait()
             queueAccess.unlock();
 			std::cout << "packet came in \n";
 		}
-        std::cout << "After " << test << std::endl;
-        test++;
 	}
 }
 
@@ -218,16 +238,6 @@ void ClientManager::closeConnection()
     queueAccess.unlock();
 	socket.send(disconnect);
     std::cout << "Sending disconnect packet" << std::endl;
-
-    // Block until a packet is in the queue
-    while(receivedPackets.empty()) {}
-
-	sf::Packet result = receivedPackets.front();
-    queueAccess.lock();
-    receivedPackets.pop();
-    queueAccess.unlock();
-
-    std::cout << "Receive disconnect packet" << std::endl;
 
     socket.disconnect();
 

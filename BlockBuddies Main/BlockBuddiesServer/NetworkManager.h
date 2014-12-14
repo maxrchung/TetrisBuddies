@@ -40,6 +40,11 @@ private:
 	sf::TcpListener listener;
     std::thread messageThread;
 
+    // Sends a periodic alive message to all clients
+    // based on set interval
+    sf::Clock sendAliveTimer;
+    int sendAliveInterval = 4;
+
     static NetworkManager* instance;
 	
 	NetworkManager(const NetworkManager&);                 

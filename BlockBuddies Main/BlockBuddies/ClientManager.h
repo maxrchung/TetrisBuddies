@@ -31,7 +31,6 @@ public:
 
 	GameLogic gameLogicHandler;
 
-
 	ClientMessages messageMaker;
 	UserInfo player;
 	GameStateObject currentGSO;
@@ -46,10 +45,14 @@ private:
     std::mutex queueAccess;
 
     // Periodically sends an alive message
-    sf::Clock sendAlive;
+    sf::Clock sendAliveTimer;
+    // Sends an alive message after a set time
+    int sendAliveInterval = 4;
 
-    // Sets an alive message after a set time
-    int sendAliveTimer = 10;
+    // Checks for an alive message from server
+    sf::Clock receiveAliveTimer;
+    // Disconnects if no response after set time
+    int receiveAliveLimit = 10;
 
 	ClientManager() {}                                  // Private constructor
 	~ClientManager() {}

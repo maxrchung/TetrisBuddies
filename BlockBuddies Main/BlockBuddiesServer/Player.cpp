@@ -1,6 +1,6 @@
 #include "Player.h"
 
-int Player::aliveTimerLimit = 30;
+int Player::receiveAliveLimit = 10;
 
 Player::Player()
 {
@@ -12,7 +12,6 @@ Player::Player(sf::TcpSocket* userSocket)
     :playerSocket(userSocket)
 {
 }
-
 
 Player::~Player()
 {
