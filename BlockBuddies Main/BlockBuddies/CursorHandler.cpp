@@ -4,7 +4,9 @@
 CursorHandler::CursorHandler(int sw, int sh, int ww, int wh, int blockS, int offset)
 	:blockSize(blockS)
 {
-	
+	originX = (ww / 2 - (ww / 2 - sw / 2)) / blockSize;
+	originY = (wh / 2 - ((wh / 2 + offset) - sh / 2)) / blockSize;
+
 	xBoundary = (ww / 2 - sw / 2);
 	yBoundary =	(wh / 2 - sh / 2);
 	screenWidth = sw - blockSize;
@@ -48,6 +50,7 @@ void CursorHandler::Left(sf::Keyboard::Key L)
 {
 	if (mainSquare.getPosition().x > xBoundary)
 	{
+		originX--;
 		mainSquare.setPosition(mainSquare.getPosition().x - blockSize, mainSquare.getPosition().y);
 		leftSquare.setPosition(leftSquare.getPosition().x - blockSize, leftSquare.getPosition().y);
 		rightSquare.setPosition(rightSquare.getPosition().x - blockSize, rightSquare.getPosition().y);
@@ -60,6 +63,7 @@ void CursorHandler::Right(sf::Keyboard::Key R)
 {
 	if (mainSquare.getPosition().x < xBoundary+screenWidth)
 	{
+		originX++;
 		mainSquare.setPosition(mainSquare.getPosition().x + blockSize, mainSquare.getPosition().y);
 		leftSquare.setPosition(leftSquare.getPosition().x + blockSize, leftSquare.getPosition().y);
 		rightSquare.setPosition(rightSquare.getPosition().x + blockSize, rightSquare.getPosition().y);
@@ -72,6 +76,7 @@ void CursorHandler::Up(sf::Keyboard::Key U)
 {
 	if (mainSquare.getPosition().y > yBoundary)
 	{
+		originY++;
 		mainSquare.setPosition(mainSquare.getPosition().x, mainSquare.getPosition().y - blockSize);
 		leftSquare.setPosition(leftSquare.getPosition().x, leftSquare.getPosition().y - blockSize);
 		rightSquare.setPosition(rightSquare.getPosition().x, rightSquare.getPosition().y - blockSize);
@@ -84,12 +89,23 @@ void CursorHandler::Down(sf::Keyboard::Key D)
 {
 	if (mainSquare.getPosition().y < yBoundary+screenHeight)
 	{
+		originY--;
 		mainSquare.setPosition(mainSquare.getPosition().x, mainSquare.getPosition().y + blockSize);
 		leftSquare.setPosition(leftSquare.getPosition().x, leftSquare.getPosition().y + blockSize);
 		rightSquare.setPosition(rightSquare.getPosition().x, rightSquare.getPosition().y + blockSize);
 		topSquare.setPosition(topSquare.getPosition().x, topSquare.getPosition().y + blockSize);
 		bottomSquare.setPosition(bottomSquare.getPosition().x, bottomSquare.getPosition().y + blockSize);
 	}
+}
+
+int CursorHandler::getCursorX()
+{
+	return originX;
+}
+
+int CursorHandler::getCursorY()
+{
+	return originY;
 }
 
 sf::RectangleShape CursorHandler::getMainCursor()

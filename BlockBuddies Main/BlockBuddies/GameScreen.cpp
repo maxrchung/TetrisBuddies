@@ -18,6 +18,7 @@ GameScreen::GameScreen()
 
 void GameScreen::update()
 {
+	Screen::update();
 	if (reset)
 	{
 		bh = new BlockHandler(GraphicsManager::getInstance()->window.getSize().x, GraphicsManager::getInstance()->window.getSize().y);
@@ -164,6 +165,7 @@ void GameScreen::update()
 
 void GameScreen::draw()
 {
+	Screen::draw();
 	if (!reset)
 	{
 		//draws a border around the game

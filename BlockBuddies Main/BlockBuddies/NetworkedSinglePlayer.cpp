@@ -110,7 +110,7 @@ void NetworkedSinglePlayer::update()
 
 	if (InputManager::getInstance()->backspace)
 	{
-		ClientManager::getInstance().requestSwap(15, 3, 14, 4);
+		ClientManager::getInstance().requestSwap(ch->getCursorY(), ch->getCursorX(), ch->getCursorY(), ch->getCursorX()+1);
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
@@ -148,6 +148,44 @@ void NetworkedSinglePlayer::update()
 	}
 	else
 		pressed = false;
+
+	//keypress for block switching
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) //swaps the main block with the left block
+	{
+		if (pressed2 == false)
+		{
+			ClientManager::getInstance().requestSwap(ch->getCursorY(), ch->getCursorX(), ch->getCursorY(), ch->getCursorX() - 1);
+			pressed2 = true;
+		}
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) //swaps the main block with the right block
+	{
+		if (pressed2 == false)
+		{
+			ClientManager::getInstance().requestSwap(ch->getCursorY(), ch->getCursorX(), ch->getCursorY(), ch->getCursorX() + 1);
+			pressed2 = true;
+		}
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) //swaps the main block with the top block
+	{
+		if (pressed2 == false)
+		{
+			ClientManager::getInstance().requestSwap(ch->getCursorY(), ch->getCursorX(), ch->getCursorY() + 1, ch->getCursorX());
+			pressed2 = true;
+
+		}
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) //swaps the main block with the bottom block
+	{
+		if (pressed2 == false)
+		{
+			ClientManager::getInstance().requestSwap(ch->getCursorY(), ch->getCursorX(), ch->getCursorY() - 1, ch->getCursorX());
+			pressed2 = true;
+		}
+	}
+	else
+		pressed2 = false; //cannot hold swap button to keep swapping
+
 }
 
 void NetworkedSinglePlayer::draw()
