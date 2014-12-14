@@ -30,7 +30,8 @@ public:
     std::list<Player> connectPlayers;
 
 	GameLogic gameHandler;
-
+	sf::Clock clock;
+	sf::Time tick;
 	bool running = true;
 
 private:

@@ -5,7 +5,7 @@
 GameLogic::GameLogic(){
 	
 	srand(time(NULL));
-	
+	gameHasStarted = false;
 
 	// Tetris Attack has 4 colors on easy, 5 colors on med/hard, and 6 in multi (grey blocks that become garbage)
 	numColors = 5; 
@@ -22,6 +22,8 @@ GameLogic::GameLogic(){
 	//messagesToDecode doesn't have a clear
 
 }
+
+
 
 bool GameLogic::ReceiveMessage(sf::Packet incomingMessage){
 	messagesToDecode.push(incomingMessage);
@@ -385,6 +387,7 @@ bool GameLogic::ProcessMessage(sf::Packet toProcess){
 		//unless threre's a better way to do it
 		
 		if (isGameOver == true){
+			gameHasStarted = true;
 			InitialBoardPopulation();
 			outgoingMessages.push(StartPacket());
 		}

@@ -144,10 +144,36 @@ void NetworkManager::update()
 					break;
 				}
             }
+
+			if (!gameHandler.IsGameOver())
+			{
+				if (tick.asMilliseconds() < 17)
+				{
+					tick += clock.getElapsedTime();
+					gameHandler.GameTick();
+				}
+				else
+				{
+					gameHandler.GameTick();
+					tick = sf::Time::Zero;
+				}
+
+				clock.restart();
+			}
+
+
+			if (gameHandler.gameHasStarted && gameHandler.IsGameOver())
+			{
+				sf::Packet lost;
+				lost << PacketDecode::PACKET_GAMEOVER;
+				player.playerSocket->send(lost);
+			}
+
         }
-        
-        // Remove player if he has not responded
-        if(player.aliveTimer.getElapsedTime().asSeconds() > Player::aliveTimerLimit)
+
+		
+		// Remove player if he has not responded
+		if(player.aliveTimer.getElapsedTime().asSeconds() > Player::aliveTimerLimit)
             toDisconnect = &player;
     }
 
@@ -162,6 +188,7 @@ void NetworkManager::update()
         std::cout << "Size of connectPlayers: " << connectPlayers.size() << std::endl;
     }
 
+	
 }
 
 // Checks for conneciton requests and incoming messages

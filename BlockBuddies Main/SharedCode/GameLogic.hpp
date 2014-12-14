@@ -26,13 +26,14 @@ public:
 	void PrintBlocksMarkedForDeletion() const;
 	void PrintBTCFM() const;
 	bool IsGameOver() const { return isGameOver; }
-
 	sf::Packet GSPacket() const;
 
 	//used whenever a message needs to be passed into this game. Puts the message in the message queue 
 	bool ReceiveMessage(sf::Packet incomingMessage);
 
 	std::queue<sf::Packet> outgoingMessages;
+
+	
 
 	//Debug functions:
 
@@ -43,14 +44,13 @@ public:
 	bool ProcessBTCFM();
 	bool ClearMatches();
 	//bool PopulateTempRow();
-
+	bool gameHasStarted;
 
 private:
 
 
 	//holds the array that keeps track of the board, as well as the player's score
 	GameStateObject gso;
-
 	bool isGameOver;
 
 	//the number of colors that will be used in the game.
