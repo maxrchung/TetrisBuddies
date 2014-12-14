@@ -133,7 +133,7 @@ void NetworkManager::update()
                 case PacketDecode::PACKET_CHECKALIVE:
                 {
                     std::cout << "Received disconnect packet" << std::endl;
-                    player.aliveTimer.restart();
+                    player.receiveAliveTimer.restart();
 
                     break;
                 }
@@ -176,7 +176,7 @@ void NetworkManager::update()
 		}
 
 		// Remove player if he has not responded
-		if(player.aliveTimer.getElapsedTime().asSeconds() > Player::aliveTimerLimit)
+		if(player.receiveAliveTimer.getElapsedTime().asSeconds() > Player::receiveAliveLimit)
             toDisconnect = &player;
     }
 
@@ -191,7 +191,20 @@ void NetworkManager::update()
         std::cout << "Size of connectPlayers: " << connectPlayers.size() << std::endl;
     }
 
-	
+    // Send an alive message periodically to all the players
+    if(sendAliveTimer.getElapsedTime().asSeconds() > sendAliveInterval)
+    {
+        sendAliveTimer.restart();
+
+        sf::Packet packet;
+        packet << PacketDecode::PACKET_CHECKALIVE;
+
+        for(auto& player : connectPlayers)
+        {
+            std::cout << "Send check alive packet" << std::endl;
+            player.playerSocket->send(packet);
+        }
+    }
 }
 
 // Checks for conneciton requests and incoming messages
