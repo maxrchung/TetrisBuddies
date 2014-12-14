@@ -5,16 +5,16 @@
 GameLogic::GameLogic(){
 	
 	srand(time(NULL));
-	gameHasStarted = false;
-
 	// Tetris Attack has 4 colors on easy, 5 colors on med/hard, and 6 in multi (grey blocks that become garbage)
 	numColors = 5; 
 
 	//this is set to true in InitalBoardPopulation(), which is what's run when the game starts for the first time
 	isGameOver = true;
+	sendNewRow = false;
+	gameHasStarted = false;
 
 	//I don't know what a good value for this is.  We can play with it and find out what works.  Also, it will have to decrease as the game goes on. Based on score, maybe? Or game time? Or level?
-	totalRowInsertionTime = 50;
+	totalRowInsertionTime = 610;
 	rowInsertionTimeLeft = totalRowInsertionTime;
 
 	blocksMarkedForDeletion.clear();
@@ -424,24 +424,25 @@ void GameLogic::GameTick(){
 		ProcessBTCFM();
 		ClearMatches();
 
-
 		//if the insert new row timer is 0;
 		if (rowInsertionTimeLeft == 0){
 			InsertBottomRow();
 
 			//reduces the total row insertion time whenver a new row is inserted
 			if (totalRowInsertionTime > 1){
-				totalRowInsertionTime--;
+				totalRowInsertionTime = totalRowInsertionTime - 30;
 			}
 
 			//reset the row insertion timer
+
 			rowInsertionTimeLeft = totalRowInsertionTime;
+			sendNewRow = true;
 		}
 
 		//send appropriate packets back to the client, such as game over or new game state
 			//only possible packets to send: new GameState, start game, game over
 			//startGame and GameOver are sent by ProcessMessage
-		outgoingMessages.push(GSPacket());
+		//outgoingMessages.push(GSPacket());
 	
 }
 

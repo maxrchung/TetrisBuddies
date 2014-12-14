@@ -36,10 +36,12 @@ void NetworkManager::addWin(std::string username, bool win)
 void NetworkManager::update()
 {
     // Needed for removing a player from the list
+
     Player* toDisconnect = NULL;
 
     for(auto& player : connectPlayers)
     {
+		
         if(!player.receivedPackets.empty())
         {
             sf::Packet packet = player.receivedPackets.front();
@@ -55,6 +57,7 @@ void NetworkManager::update()
             int decodeIndex;
             packet >> decodeIndex;
             decode = PacketDecode(decodeIndex);
+			
 			
             switch(decode)
             {
@@ -130,7 +133,7 @@ void NetworkManager::update()
                 case PacketDecode::PACKET_CHECKALIVE:
                 {
                     std::cout << "Received disconnect packet" << std::endl;
-                    player.receiveAliveTimer.restart();
+                    player.aliveTimer.restart();
 
                     break;
                 }
@@ -144,22 +147,6 @@ void NetworkManager::update()
 				}
             }
 
-			if (!gameHandler.IsGameOver())
-			{
-				if (tick.asMilliseconds() < 17)
-				{
-					tick += clock.getElapsedTime();
-					gameHandler.GameTick();
-				}
-				else
-				{
-					gameHandler.GameTick();
-					tick = sf::Time::Zero;
-				}
-
-				clock.restart();
-			}
-
 
 			if (gameHandler.gameHasStarted && gameHandler.IsGameOver())
 			{
@@ -169,9 +156,27 @@ void NetworkManager::update()
 			}
 
         }
-		
+
+		if (!gameHandler.IsGameOver())
+		{
+			if (tick.asMilliseconds() < 17)
+			{
+				tick += clock.getElapsedTime();
+			}
+			else
+			{
+				gameHandler.GameTick();
+				if (gameHandler.sendNewRow)
+					player.playerSocket->send(gameHandler.GSPacket());
+				gameHandler.sendNewRow = false;
+				tick = sf::Time::Zero;
+			}
+
+			clock.restart();
+		}
+
 		// Remove player if he has not responded
-		if(player.receiveAliveTimer.getElapsedTime().asSeconds() > Player::receiveAliveLimit)
+		if(player.aliveTimer.getElapsedTime().asSeconds() > Player::aliveTimerLimit)
             toDisconnect = &player;
     }
 
@@ -186,20 +191,7 @@ void NetworkManager::update()
         std::cout << "Size of connectPlayers: " << connectPlayers.size() << std::endl;
     }
 
-    // Send an alive message periodically to all the players
-    if(sendAliveTimer.getElapsedTime().asSeconds() > sendAliveInterval)
-    {
-        sendAliveTimer.restart();
-
-        sf::Packet packet;
-        packet << PacketDecode::PACKET_CHECKALIVE;
-
-        for(auto& player : connectPlayers)
-        {
-            std::cout << "Send check alive packet" << std::endl;
-            player.playerSocket->send(packet);
-        }
-    }
+	
 }
 
 // Checks for conneciton requests and incoming messages

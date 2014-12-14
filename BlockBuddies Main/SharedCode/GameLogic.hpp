@@ -45,6 +45,7 @@ public:
 	bool ClearMatches();
 	//bool PopulateTempRow();
 	bool gameHasStarted;
+	bool sendNewRow;
 
 private:
 
