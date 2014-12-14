@@ -20,7 +20,9 @@ enum PacketDecode
 	//7
 	PACKET_GAMEOVER,
     //8
-    PACKET_DISCONNECT
+    PACKET_DISCONNECT,
+    //9
+    PACKET_CHECKALIVE
 };
 
 #endif

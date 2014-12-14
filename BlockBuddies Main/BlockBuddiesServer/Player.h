@@ -12,7 +12,12 @@ public:
 	UserInfo playerInfo;
 	sf::TcpSocket* playerSocket;
     std::queue<sf::Packet> receivedPackets;
+    sf::Clock aliveTimer;
 
+    // Server automatically removes the player after
+    // some time limit
+    static int aliveTimerLimit;
+    
 	Player& operator=(Player p);
     bool operator==(Player p);
 };

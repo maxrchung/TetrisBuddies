@@ -120,10 +120,19 @@ void NetworkManager::update()
                 case PacketDecode::PACKET_DISCONNECT:
                 {
                     sf::Packet answer;
+                    answer << PacketDecode::PACKET_DISCONNECT;
                     player.playerSocket->send(answer);
                     std::cout << "Sent disconnect packet" << std::endl;
 
                     toDisconnect = &player;
+                    break;
+                }
+
+                case PacketDecode::PACKET_CHECKALIVE:
+                {
+                    std::cout << "Received disconnect packet" << std::endl;
+                    player.aliveTimer.restart();
+
                     break;
                 }
 
@@ -136,6 +145,10 @@ void NetworkManager::update()
 				}
             }
         }
+        
+        // Remove player if he has not responded
+        if(player.aliveTimer.getElapsedTime().asSeconds() > Player::aliveTimerLimit)
+            toDisconnect = &player;
     }
 
     // Disconnect afterwards so we don't run into iterating problems
@@ -148,6 +161,7 @@ void NetworkManager::update()
         std::cout << "Removed disconnected player" << std::endl;
         std::cout << "Size of connectPlayers: " << connectPlayers.size() << std::endl;
     }
+
 }
 
 // Checks for conneciton requests and incoming messages

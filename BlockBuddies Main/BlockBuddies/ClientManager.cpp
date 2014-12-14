@@ -20,6 +20,8 @@ bool ClientManager::initConnection(sf::IpAddress IP, int portNumber)
 	{
 		isConnected = true;
 
+        sendAlive.restart();
+
         // Hidden this parameter
         messageThread = std::thread(&ClientManager::messageWait, this);
 		return true;
@@ -28,6 +30,24 @@ bool ClientManager::initConnection(sf::IpAddress IP, int portNumber)
 }
 void ClientManager::update()
 {
+    // No point in continuing further if you're not connected
+    // with the server
+    if(!isConnected)
+        return;
+
+    // Sends a packet periodically to tell the server that it is alive
+    if(sendAlive.getElapsedTime().asSeconds() > sendAliveTimer)
+    {
+        sendAlive.restart();
+
+        //Sends the log in
+        sf::Packet checkAlive;
+        checkAlive << PacketDecode::PACKET_CHECKALIVE;
+
+        socket.send(checkAlive);
+        std::cout << "Send check alive packet" << std::endl;
+    }
+
     if(!receivedPackets.empty())
     {
         sf::Packet packet = receivedPackets.front();

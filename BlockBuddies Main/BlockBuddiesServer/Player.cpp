@@ -1,5 +1,7 @@
 #include "Player.h"
 
+int Player::aliveTimerLimit = 30;
+
 Player::Player()
 {
 	playerSocket = nullptr;

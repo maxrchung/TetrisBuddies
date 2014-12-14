@@ -45,6 +45,12 @@ private:
     std::queue<sf::Packet> receivedPackets;
     std::mutex queueAccess;
 
+    // Periodically sends an alive message
+    sf::Clock sendAlive;
+
+    // Sets an alive message after a set time
+    int sendAliveTimer = 10;
+
 	ClientManager() {}                                  // Private constructor
 	~ClientManager() {}
 	ClientManager(const ClientManager&);                 // Prevent copy-construction
