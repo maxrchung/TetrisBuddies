@@ -29,6 +29,7 @@ bool ClientManager::initConnection(sf::IpAddress IP, int portNumber)
 		return true;
 	}
 	isUpdated = false;
+	gameOver = false;
 }
 void ClientManager::update()
 {
@@ -74,10 +75,15 @@ void ClientManager::update()
             case PacketDecode::PACKET_CHECKALIVE:
             {
                 receiveAliveTimer.restart();
-                std::cout << "Receive check alive packet" << std::endl;
+               // std::cout << "Receive check alive packet" << std::endl;
                 break;
             }
 
+			case PacketDecode::PACKET_GAMEOVER:
+			{
+				gameOver = true;
+				std::cout << "game Over \n";
+			}
 			default:
 			{
 			    break;
@@ -95,7 +101,7 @@ void ClientManager::update()
         checkAlive << PacketDecode::PACKET_CHECKALIVE;
 
         socket.send(checkAlive);
-        std::cout << "Send check alive packet" << std::endl;
+      //  std::cout << "Send check alive packet" << std::endl;
     }
 
     // Disconnects if no response from server

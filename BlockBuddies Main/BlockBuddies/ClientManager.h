@@ -37,6 +37,7 @@ public:
 	bool isUpdated;
 	void update();
     void closeConnection();
+	bool gameOver;
     std::thread messageThread;
 	sf::TcpSocket socket;
 

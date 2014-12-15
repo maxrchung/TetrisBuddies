@@ -43,6 +43,14 @@ void GameLogic::InitialBoardPopulation(){
 	//want at least 5 empty rows
 	int initHeight = gso.boardHeight - 5;
 
+	//clear board first
+	//clear the gameBoard
+	for (int rowNum = 0; rowNum < gso.boardHeight; rowNum++){
+		for (int colNum = 0; colNum < gso.boardWidth; colNum++){
+			gso.gameBoard[rowNum][colNum] = 0;
+		}
+	}
+	
 	//randomly fill most of the board with blocks.
 	for (int rowNum = 0; rowNum < initHeight; rowNum++) {
 		for (int colNum = 0; colNum < gso.boardWidth; colNum++) {
@@ -110,9 +118,9 @@ bool GameLogic::InsertBottomRow(){
 	//if there's something in the top row already, game over (return 1)
 	for (int colNum = 0; colNum < gso.boardWidth; colNum++){
 		if (gso.gameBoard[gso.boardHeight - 1][colNum] != 0) { 
-			std::cout << "game over" << std::endl; 
 			isGameOver = true; 
 			outgoingMessages.push(GameOverPacket());
+
 			return true; }
 	}
 
@@ -392,7 +400,7 @@ bool GameLogic::ProcessMessage(sf::Packet toProcess){
 			outgoingMessages.push(StartPacket());
 		}
 		
-		else { std::cout << "Game has already started" << std::endl; }
+		//else { std::cout << "Game has already started" << std::endl; }
 
 		return true;
 	}

@@ -20,5 +20,6 @@ class ResultScreen : public Screen
         TextBox* score; // Ex. "5000"
         Button* home;
         Button* game;
+		std::string scoreString;
 };
 #endif REULSTSCREEN_HPP //ResultScreen.hpp

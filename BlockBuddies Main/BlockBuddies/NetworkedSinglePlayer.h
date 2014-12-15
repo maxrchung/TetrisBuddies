@@ -21,9 +21,13 @@ private:
 	sf::Time timer;
 	unsigned int winX;
 	unsigned int winY;
+	int gameScreenHeight;
+	int gameScreenWidth;
 	GameStateObject gso;
 	sf::RectangleShape blocks[GameStateObject::boardHeight][GameStateObject::boardWidth];
 	int blockSizeX;
 	int blockSizeY;
+	void initGame();
+	bool reset;
 };
 

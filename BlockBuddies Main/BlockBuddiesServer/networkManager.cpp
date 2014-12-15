@@ -153,13 +153,16 @@ void NetworkManager::update()
 				sf::Packet lost;
 				lost << PacketDecode::PACKET_GAMEOVER;
 				player.playerSocket->send(lost);
+				gameHandler.gameHasStarted = false;
+				std::cout << "gameOver Sent \n";
+				
 			}
 
         }
 
 		if (!gameHandler.IsGameOver())
 		{
-			if (tick.asMilliseconds() < 17)
+			if (tick.asMilliseconds() < 10)
 			{
 				tick += clock.getElapsedTime();
 			}

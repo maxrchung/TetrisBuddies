@@ -2,7 +2,7 @@
 #include "InputManager.hpp"
 #include "ClientManager.h"
 #include "ScreenManager.hpp"
-
+#include "SoundManager.h"
 GameTypeScreen::GameTypeScreen()
     :section(new Section(0.0f,
                          0.0f,
@@ -83,6 +83,7 @@ void GameTypeScreen::update()
     else if (game->isActivated ||
              (InputManager::getInstance()->enter && game->isSelected))
 	{
+		SoundManager::getInstance().playMusic("Sounds/Slamtris.ogg");
 		ClientManager::getInstance().requestStartGame();
         ScreenManager::getInstance()->switchScreen(game->toScreen);
     }

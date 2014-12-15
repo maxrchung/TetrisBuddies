@@ -1,9 +1,12 @@
 #include "ResultScreen.hpp"
 #include "InputManager.hpp"
 #include "ScreenManager.hpp"
-
+#include "ClientManager.h"
+#include "SoundManager.h"
+#include <sstream>
 ResultScreen::ResultScreen()
-	:section(new Section(0.0f,
+	:scoreString("5000"),
+	section(new Section(0.0f,
                          0.0f,
                          400.0f,
                          600.0f)),
@@ -25,14 +28,14 @@ ResultScreen::ResultScreen()
                           -40.0f,
                           Alignments::LEFT)),
 
-     score(new TextBox("5000",
+     score(new TextBox("500",
                        0.0f,
                        0.0f,
                        300.0f,
                        Alignments::CENTER,
                        true)),
 
-	 game(new Button(Screens::GAME,
+	 game(new Button(Screens::ONLINESINGLE,
                      "Play Again",
                      0.0f,
                      137.5f,
@@ -53,7 +56,7 @@ ResultScreen::ResultScreen()
     UIElements.push_back(score);
     UIElements.push_back(game);
     UIElements.push_back(home);
-    
+	scoreString = "5000";
     selectables = { game,
                     home };
 }
@@ -71,8 +74,14 @@ void ResultScreen::update()
     else if (game->isActivated ||
              (InputManager::getInstance()->enter && game->isSelected))
     {
+		ClientManager::getInstance().requestStartGame();
+		SoundManager::getInstance().playMusic("Sounds/Slamtris.ogg");
         ScreenManager::getInstance()->switchScreen(game->toScreen);
 	}
+
+	int Number = (int)ClientManager::getInstance().currentGSO.score;
+	scoreString = static_cast<std::ostringstream*>(&(std::ostringstream() << Number))->str();
+	score->message.setString(scoreString);
 }
 
 void ResultScreen::draw()
