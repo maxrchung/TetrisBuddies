@@ -437,8 +437,8 @@ void GameLogic::GameTick(){
 			InsertBottomRow();
 
 			//reduces the total row insertion time whenver a new row is inserted
-			if (totalRowInsertionTime > 1){
-				totalRowInsertionTime = totalRowInsertionTime - 30;
+			if (totalRowInsertionTime > 20){
+				totalRowInsertionTime -= 20;
 			}
 
 			//reset the row insertion timer
