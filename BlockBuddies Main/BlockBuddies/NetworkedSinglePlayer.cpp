@@ -39,7 +39,7 @@ void NetworkedSinglePlayer::initGame()
 	gameScreenHeight = blockSizeX * 20;
 	gameScreenWidth = blockSizeX * 16;
 
-	ch = new CursorHandler(gameScreenWidth, gameScreenHeight, winX, winY, blockSizeX, 5); //5 is the offset, dunno why yet
+	ch = new CursorHandler(gameScreenWidth, gameScreenHeight, winX, winY, blockSizeX, 0); //5 is the offset, dunno why yet
 	rec.setSize(sf::Vector2f(gameScreenWidth, gameScreenHeight));
 	rec.setFillColor(sf::Color::Transparent);
 	rec.setPosition((winX / 2) - gameScreenWidth / 2, winY / 2 - gameScreenHeight / 2);
@@ -53,7 +53,7 @@ void NetworkedSinglePlayer::initGame()
 		for (int j = 0; j < gameScreenWidth; j += blockSizeX)
 		{
 			sf::RectangleShape shape(sf::Vector2f(blockSizeX, blockSizeY));
-			shape.setPosition(j + (winX / 2 - gameScreenWidth / 2), i - (winY / 2 - gameScreenHeight / 2) - 25); //puts it in the middle of the screen
+			shape.setPosition(j + (winX / 2 - gameScreenWidth / 2), i - (winY / 2 - gameScreenHeight / 2) - blockSizeX); //puts it in the middle of the screen
 			shape.setFillColor(sf::Color::Transparent); //transparent blocks to appear as empty space
 			blocks[gridPosx][gridPosy] = shape;
 			gridPosy++;
