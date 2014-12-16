@@ -3,6 +3,7 @@
 #include "InputManager.hpp"
 #include "Game.hpp"
 #include "ClientManager.h"
+#include "LoginScreen.hpp"
 
 CloseScreen::CloseScreen()
 	:section(new Section(0.0f,
@@ -69,6 +70,7 @@ void CloseScreen::update()
         (InputManager::getInstance()->enter && login->isSelected))
     {
         ScreenManager::getInstance()->switchScreen(login->toScreen);
+        dynamic_cast<LoginScreen*>(ScreenManager::getInstance()->currentScreens[0])->status->message.setString("Enter username and password");
         ClientManager::getInstance().closeConnection();
     }
 
