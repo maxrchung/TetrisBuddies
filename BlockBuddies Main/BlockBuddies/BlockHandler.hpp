@@ -23,7 +23,8 @@ public:
 	bool GameOver();
 	const int SCREENWIDTH = 400;
 	const int SCREENHEIGHT = 500;
-
+	int score;
+	static int displayScore;
 private:
 	sf::RectangleShape blocks[20][16];
 	std::queue <int> rows;

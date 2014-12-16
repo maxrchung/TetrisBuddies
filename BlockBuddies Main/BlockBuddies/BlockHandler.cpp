@@ -1,11 +1,12 @@
 #include "BlockHandler.hpp"
 
+int BlockHandler::displayScore = 0;
+
 //takes in window width and window height
 BlockHandler::BlockHandler(int ww, int wh)
 	:windowHeight(wh), windowWidth(ww), gridPosx(0), gridPosy(0), gameOver(false), clearBlocks(false), coloredBlock(false)
 {
 	int color = 0;
-
 	//creates blocks and puts them in 2D array
 	for (int i = 0; i < SCREENHEIGHT; i += 25)
 	{
@@ -51,6 +52,7 @@ BlockHandler::BlockHandler(int ww, int wh)
 	}
 
 	checkEverything();
+	score = 0;
 }
 
 
@@ -184,16 +186,19 @@ void BlockHandler::check(int x, int y)
 			columns.push(y); columns.push(y); columns.push(y);
 			rows.push(x); rows.push(x + 1); rows.push(x - 1);
 			clearBlocks = true;
+			score += 50;
 			//check the 2nd right and 2nd left
 			if (x < SCREENWIDTH / 25 - 2 && blocks[y][x].getFillColor() == blocks[y][x + 2].getFillColor())
 			{
 				columns.push(y);
 				rows.push(x + 2);
+				score += 20;
 			}
 			if (x > 1 && blocks[y][x].getFillColor() == blocks[y][x - 2].getFillColor())
 			{
 				columns.push(y);
 				rows.push(x - 2);
+				score += 20;
 			}
 		}
 		//check the right side for match 3
@@ -202,6 +207,7 @@ void BlockHandler::check(int x, int y)
 			columns.push(y); columns.push(y); columns.push(y);
 			rows.push(x); rows.push(x + 1); rows.push(x + 2);
 			clearBlocks = true;
+			score += 50;
 		}
 		//check left side for match 3
 		else if (x > 1 && blocks[y][x].getFillColor() == blocks[y][x - 1].getFillColor() && blocks[y][x].getFillColor() == blocks[y][x - 2].getFillColor())
@@ -209,24 +215,28 @@ void BlockHandler::check(int x, int y)
 			columns.push(y); columns.push(y); columns.push(y);
 			rows.push(x); rows.push(x - 1); rows.push(x - 2);
 			clearBlocks = true;
+			score += 50;
 		}
-
+		
 		//checks 1 block above and 1 block below
 		if (blocks[y][x].getFillColor() == blocks[y + 1][x].getFillColor() && blocks[y][x].getFillColor() == blocks[y - 1][x].getFillColor())
 		{
 			columns.push(y); columns.push(y + 1); columns.push(y - 1);
 			rows.push(x); rows.push(x); rows.push(x);
 			clearBlocks = true;
+			score += 50;
 			//check the 2nd above and 2nd below
 			if (blocks[y][x].getFillColor() == blocks[y + 2][x].getFillColor())
 			{
 				columns.push(y + 2);
 				rows.push(x);
+				score += 20;
 			}
 			if (blocks[y][x].getFillColor() == blocks[y - 2][x].getFillColor())
 			{
 				columns.push(y - 2);
 				rows.push(x);
+				score += 20;
 			}
 		}
 		//check the top for match 3
@@ -235,6 +245,7 @@ void BlockHandler::check(int x, int y)
 			columns.push(y); columns.push(y + 1); columns.push(y + 2);
 			rows.push(x); rows.push(x); rows.push(x);
 			clearBlocks = true;
+			score += 50;
 		}
 		//check bottom for match 3
 		else if (blocks[y][x].getFillColor() == blocks[y - 1][x].getFillColor() && blocks[y][x].getFillColor() == blocks[y - 2][x].getFillColor())
@@ -242,6 +253,7 @@ void BlockHandler::check(int x, int y)
 			columns.push(y); columns.push(y - 1); columns.push(y - 2);
 			rows.push(x); rows.push(x); rows.push(x);
 			clearBlocks = true;
+			score += 50;
 		}
 	}
 }
@@ -391,3 +403,4 @@ bool BlockHandler::GameOver()
 
 	return gameOver;
 }
+

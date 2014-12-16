@@ -1,6 +1,7 @@
 #include "OfflineResultScreen.hpp"
 #include "InputManager.hpp"
 #include "ScreenManager.hpp"
+#include "BlockHandler.hpp"
 
 OfflineResultScreen::OfflineResultScreen()
 	:section(new Section(0.0f,
@@ -25,12 +26,12 @@ OfflineResultScreen::OfflineResultScreen()
                           -40.0f,
                           Alignments::LEFT)),
 
-     score(new TextBox("5000",
-                        0.0f,
+     score(new TextBox("0",
+                       0.0f,
                         0.0f,
                         300.0f,
                         Alignments::CENTER,
-                        true)),
+                        true)), 
 
 	 login(new Button(Screens::LOGIN,
                       "Login",
@@ -70,6 +71,8 @@ OfflineResultScreen::OfflineResultScreen()
 void OfflineResultScreen::update()
 {
     Screen::update();
+
+	score->message.setString(std::to_string(BlockHandler::displayScore));
 
     if (offlineHome->isActivated ||
         (InputManager::getInstance()->enter && offlineHome->isSelected))

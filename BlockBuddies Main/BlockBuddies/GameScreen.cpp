@@ -2,6 +2,7 @@
 #include "ClientManager.h"
 #include "SoundManager.h"
 #include <iostream>
+
 // To be filled in at the gameplay people's discretion
 GameScreen::GameScreen()
 	: pressed(false), pressed2(false), reset(false), raiseBlock(false)
@@ -33,14 +34,13 @@ void GameScreen::update()
 
 		time = clock.getElapsedTime();
 		//Timed Block Rises, boolean raiseBlock prevents multiple block raises when time has multiple of same number because of rounding
-		if (std::round(time.asSeconds() * 10) / 10 <= 0)
-		{
-		}
+		if (std::round(time.asSeconds() * 10) / 10 <= 0){}
 		else if (std::round(time.asSeconds() * 10) / 10 < 60) //every 10 seconds for the 1st minute
 		{
 			if (fmod(std::round(time.asSeconds() * 10) / 10, 10) == 0 && !raiseBlock)
 			{
 				bh->raiseBlocks();
+				ch->Up(sf::Keyboard::Key::Up);
 				raiseBlock = true;
 			}
 			else if (fmod(std::round(time.asSeconds() * 10) / 10, 10) != 0 && raiseBlock)
@@ -51,6 +51,7 @@ void GameScreen::update()
 			if (fmod(std::round(time.asSeconds() * 10) / 10, 6) == 0 && !raiseBlock)
 			{
 				bh->raiseBlocks();
+				ch->Up(sf::Keyboard::Key::Up);
 				raiseBlock = true;
 			}
 			else if (fmod(std::round(time.asSeconds() * 10) / 10, 6) != 0 && raiseBlock)
@@ -61,6 +62,7 @@ void GameScreen::update()
 			if (fmod(std::round(time.asSeconds() * 10) / 10, 3) == 0 && !raiseBlock)
 			{
 				bh->raiseBlocks();
+				ch->Up(sf::Keyboard::Key::Up);
 				raiseBlock = true;
 			}
 			else if (fmod(std::round(time.asSeconds() * 10) / 10, 3) != 0 && raiseBlock)
@@ -144,6 +146,7 @@ void GameScreen::update()
 			if (pressed2 == false)
 			{
 				bh->raiseBlocks();
+				ch->Up(sf::Keyboard::Key::Up);
 				pressed2 = true;
 			}
 		}
@@ -153,6 +156,7 @@ void GameScreen::update()
 	else
 	{
 		SoundManager::getInstance().playMusic("Sounds/Slamstorm.ogg");
+		BlockHandler::displayScore = bh->score;
 		delete bh;
 		delete ch;
 		reset = true;
