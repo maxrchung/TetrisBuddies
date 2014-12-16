@@ -12,6 +12,7 @@ NetworkedSinglePlayer::NetworkedSinglePlayer()
 	initGame();
 	UIElements.push_back(username);
 	swapSound.setBuffer(*SoundManager::getInstance().getSound("heya"));
+	
 }
 
 
@@ -181,7 +182,7 @@ void NetworkedSinglePlayer::update()
 				ClientManager::getInstance().requestSwap(ch->getCursorY(), ch->getCursorX(), ch->getCursorY(), ch->getCursorX() - 1);
 				if (swapSound.getStatus() != swapSound.Playing)
 					swapSound.play();
-
+				ScreenManager::getInstance()->shake(.5);
 				pressed2 = true;
 			}
 		}
@@ -191,6 +192,7 @@ void NetworkedSinglePlayer::update()
 			{
 				ClientManager::getInstance().requestSwap(ch->getCursorY(), ch->getCursorX(), ch->getCursorY(), ch->getCursorX() + 1);
 				pressed2 = true;
+				ScreenManager::getInstance()->shake(.5);
 				if (swapSound.getStatus() != swapSound.Playing)
 					swapSound.play();
 			}
@@ -201,6 +203,7 @@ void NetworkedSinglePlayer::update()
 			{
 				ClientManager::getInstance().requestSwap(ch->getCursorY(), ch->getCursorX(), ch->getCursorY() + 1, ch->getCursorX());
 				pressed2 = true;
+				ScreenManager::getInstance()->shake(.5);
 				if (swapSound.getStatus() != swapSound.Playing)
 					swapSound.play();
 			}
@@ -211,6 +214,7 @@ void NetworkedSinglePlayer::update()
 			{
 				ClientManager::getInstance().requestSwap(ch->getCursorY(), ch->getCursorX(), ch->getCursorY() - 1, ch->getCursorX());
 				pressed2 = true;
+				ScreenManager::getInstance()->shake(.5);
 				if (swapSound.getStatus() != swapSound.Playing)
 					swapSound.play();
 			}

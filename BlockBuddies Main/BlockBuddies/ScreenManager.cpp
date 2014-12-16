@@ -125,7 +125,7 @@ void ScreenManager::popScreen()
     currentScreens.pop_back();
 }
 
-void ScreenManager::shake(int seconds)
+void ScreenManager::shake(float seconds)
 {
 	shakeTimer = sf::seconds(seconds);
 }
