@@ -127,9 +127,11 @@ void ProfileScreen::reload()
 
 void ProfileScreen::update()
 {
-	if (needsUpdate == true)
+	if (needsUpdate == true || ClientManager::getInstance().infoUpdate)
+	{
 		reload();
-
+		ClientManager::getInstance().infoUpdate = false;
+	}
     Screen::update();
 
     if (home->isActivated ||

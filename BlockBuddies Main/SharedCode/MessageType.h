@@ -22,7 +22,9 @@ enum PacketDecode
     //8
     PACKET_DISCONNECT,
     //9
-    PACKET_CHECKALIVE
+    PACKET_CHECKALIVE,
+	//10
+	PACKET_USERINFOUPDATE
 };
 
 #endif

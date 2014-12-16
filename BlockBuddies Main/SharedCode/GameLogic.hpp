@@ -47,6 +47,10 @@ public:
 	bool gameHasStarted;
 	bool sendNewRow;
 
+	//returns the player's score
+	int GetScore() { return gso.score; }
+
+
 private:
 
 
@@ -68,9 +72,7 @@ private:
 
 	//functions**********************************************
 	
-	//returns the player's score
-	int GetScore() { return gso.score; }
-
+	
 	//if it returns true, game over.
 	bool InsertBottomRow();
 

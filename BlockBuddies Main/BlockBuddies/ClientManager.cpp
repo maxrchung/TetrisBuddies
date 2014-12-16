@@ -84,6 +84,11 @@ void ClientManager::update()
 				gameOver = true;
 				std::cout << "game Over \n";
 			}
+			case PacketDecode::PACKET_USERINFOUPDATE:
+			{
+				packet >> player;
+				infoUpdate = true;
+			}
 			default:
 			{
 			    break;

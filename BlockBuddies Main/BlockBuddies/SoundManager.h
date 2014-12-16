@@ -29,6 +29,7 @@ private:
 		//load initial sounds
 		loadSound("scream", "Sounds/WilhelmScream.wav");
 		loadSound("repressed", "Sounds/repressed.wav");
+		loadSound("heya", "Sounds/SSBB_Link_Smash_Down.wav");
 	}                                  // Private constructor
 	~SoundManager();
 	SoundManager(const SoundManager&);                 // Prevent copy-construction

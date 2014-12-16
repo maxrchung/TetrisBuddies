@@ -152,8 +152,15 @@ void NetworkManager::update()
 			{
 				sf::Packet lost;
 				lost << PacketDecode::PACKET_GAMEOVER;
+				if (player.playerInfo.highScore < gameHandler.GetScore())
+				{
+					DatabaseManager::getInstance().updateNewHighScore(player.playerInfo.username, gameHandler.GetScore());
+					sf::Packet update;
+					update << PacketDecode::PACKET_USERINFOUPDATE;
+					update << DatabaseManager::getInstance().getUserInfo(player.playerInfo.username);
+					player.playerSocket->send(update);
+				}
 				player.playerSocket->send(lost);
-				gameHandler.gameHasStarted = false;
 				std::cout << "gameOver Sent \n";
 				
 			}

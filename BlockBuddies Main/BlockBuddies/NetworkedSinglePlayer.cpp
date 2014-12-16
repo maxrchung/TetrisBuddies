@@ -1,11 +1,17 @@
 #include "NetworkedSinglePlayer.h"
 #include "InputManager.hpp"
 #include "SoundManager.h"
+#include <sstream>
 NetworkedSinglePlayer::NetworkedSinglePlayer()
-	: pressed(false), pressed2(false), reset(false)
+	: pressed(false), pressed2(false), reset(false),
+	username(new TextBox("SDFSIDUFHSLIEUFHSLIUEFHSLEIUFHSLIEUFHSILEUFHSLIEUFHSLIEUFHSLEIUFHSILEUFHSLIEFUH",
+	0,
+	0,
+	600.0f))
 {
 	initGame();
-	
+	UIElements.push_back(username);
+	swapSound.setBuffer(*SoundManager::getInstance().getSound("heya"));
 }
 
 
@@ -15,6 +21,11 @@ NetworkedSinglePlayer::~NetworkedSinglePlayer()
 
 void NetworkedSinglePlayer::initGame()
 {
+	std::string scoreString;
+	int Number = (int)gso.score;
+	scoreString = static_cast<std::ostringstream*>(&(std::ostringstream() << Number))->str();
+	username->message.setString(scoreString);
+
 	winX = GraphicsManager::getInstance()->window.getSize().x;
 	winY = GraphicsManager::getInstance()->window.getSize().y;
 	//fill in initial board
@@ -168,6 +179,9 @@ void NetworkedSinglePlayer::update()
 			if (pressed2 == false)
 			{
 				ClientManager::getInstance().requestSwap(ch->getCursorY(), ch->getCursorX(), ch->getCursorY(), ch->getCursorX() - 1);
+				if (swapSound.getStatus() != swapSound.Playing)
+					swapSound.play();
+
 				pressed2 = true;
 			}
 		}
@@ -177,6 +191,8 @@ void NetworkedSinglePlayer::update()
 			{
 				ClientManager::getInstance().requestSwap(ch->getCursorY(), ch->getCursorX(), ch->getCursorY(), ch->getCursorX() + 1);
 				pressed2 = true;
+				if (swapSound.getStatus() != swapSound.Playing)
+					swapSound.play();
 			}
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) //swaps the main block with the top block
@@ -185,7 +201,8 @@ void NetworkedSinglePlayer::update()
 			{
 				ClientManager::getInstance().requestSwap(ch->getCursorY(), ch->getCursorX(), ch->getCursorY() + 1, ch->getCursorX());
 				pressed2 = true;
-
+				if (swapSound.getStatus() != swapSound.Playing)
+					swapSound.play();
 			}
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) //swaps the main block with the bottom block
@@ -194,6 +211,8 @@ void NetworkedSinglePlayer::update()
 			{
 				ClientManager::getInstance().requestSwap(ch->getCursorY(), ch->getCursorX(), ch->getCursorY() - 1, ch->getCursorX());
 				pressed2 = true;
+				if (swapSound.getStatus() != swapSound.Playing)
+					swapSound.play();
 			}
 		}
 		else

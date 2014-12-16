@@ -23,7 +23,7 @@ void GraphicsManager::init()
 	// Sets window to fullscreen
 	window.create(sf::VideoMode::getDesktopMode(), 
 				  "Block Buddies",
-				  sf::Style::Resize);
+				  sf::Style::None);
 
 	// In case we run into choppy display issues
 	window.setVerticalSyncEnabled(true);

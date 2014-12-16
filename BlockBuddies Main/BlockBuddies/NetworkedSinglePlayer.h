@@ -5,6 +5,8 @@
 #include "CursorHandler.hpp"
 #include "GameStateObject.hpp"
 #include "ClientManager.h"
+#include "UIElement.hpp"
+#include "TextBox.hpp"
 
 class NetworkedSinglePlayer : public Screen
 {
@@ -29,5 +31,9 @@ private:
 	int blockSizeY;
 	void initGame();
 	bool reset;
+	sf::Sound swapSound;
+	TextBox* username;
+	TextBox* score;
+	TextBox* highScore;
 };
 
