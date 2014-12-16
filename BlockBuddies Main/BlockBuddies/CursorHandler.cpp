@@ -5,7 +5,7 @@ CursorHandler::CursorHandler(int sw, int sh, int ww, int wh, int blockS, int off
 	:blockSize(blockS)
 {
 	originX = (ww / 2 - (ww / 2 - sw / 2)) / blockSize;
-	originY = (wh / 2 - ((wh / 2 + offset) - sh / 2)) / blockSize;
+	originY = ((wh / 2 - ((wh / 2 + offset) - sh / 2)) / blockSize)-1;
 
 	xBoundary = (ww / 2 - sw / 2);
 	yBoundary =	(wh / 2 - sh / 2);
