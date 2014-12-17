@@ -91,7 +91,7 @@ void GameTypeScreen::update()
     else if (multiplayer->isActivated ||
              (InputManager::getInstance()->enter && multiplayer->isSelected))
     {
-        ScreenManager::getInstance()->switchScreen(multiplayer->toScreen);
+        ScreenManager::getInstance()->switchScreen(game->toScreen);
     }
 }
 
