@@ -159,6 +159,7 @@ void NetworkManager::update()
 					update << PacketDecode::PACKET_USERINFOUPDATE;
 					update << DatabaseManager::getInstance().getUserInfo(player.playerInfo.username);
 					player.playerSocket->send(update);
+					gameHandler.ResetGame();
 				}
 				player.playerSocket->send(lost);
 				std::cout << "gameOver Sent \n";

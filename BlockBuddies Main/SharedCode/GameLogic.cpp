@@ -23,7 +23,11 @@ GameLogic::GameLogic(){
 
 }
 
-
+void GameLogic::ResetGame()
+{
+	gso =  GameStateObject();
+	totalRowInsertionTime = 610;
+}
 
 bool GameLogic::ReceiveMessage(sf::Packet incomingMessage){
 	messagesToDecode.push(incomingMessage);
@@ -120,7 +124,6 @@ bool GameLogic::InsertBottomRow(){
 		if (gso.gameBoard[gso.boardHeight - 1][colNum] != 0) { 
 			isGameOver = true; 
 			outgoingMessages.push(GameOverPacket());
-
 			return true; }
 	}
 
@@ -158,6 +161,8 @@ bool GameLogic::InsertBottomRow(){
 bool GameLogic::ApplyGravity(){
 
 	bool blockMoved;
+
+
 
 	//for every piece on the board, starting at row 1
 	for (int rowNum = 1; rowNum < gso.boardHeight; rowNum++){
