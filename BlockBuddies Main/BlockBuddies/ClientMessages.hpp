@@ -11,7 +11,7 @@ public:
 	sf::Packet StartPacket();
 	sf::Packet SwapPacket(sf::Uint8, sf::Uint8, sf::Uint8, sf::Uint8);
 	sf::Packet NewRowPacket();
-
+	sf::Packet RequestMultiplayer();
 	//pass it the packet you want to process, and the GameStateObject you want it to operate on
 	bool ProcessMessage(sf::Packet& toProcess, GameStateObject& gso);
 

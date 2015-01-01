@@ -25,6 +25,7 @@ public:
 	void messageWait();
 	bool loginUser(std::string username, std::string password);
 	void requestStartGame();
+	void requestMultiplayerGame();
 	void requestSwap(sf::Uint8 p1row, sf::Uint8 p1col, sf::Uint8 p2row, sf::Uint8 p2col);
 	bool registerUser(std::string username, std::string password);
 	bool isConnected = false; // Denotes whether or not you are connected

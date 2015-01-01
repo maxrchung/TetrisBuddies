@@ -8,8 +8,10 @@
 #include "Player.h"
 #include <mutex>
 #include <thread>
+#include <vector>
 #include "GameLogic.hpp"
-
+#include "Game.h"
+#include "MatchMakingHandler.h"
 //The following code will create a thread for checking connections
 //This will also work if you have any class and you replace everything with your input.
 
@@ -33,6 +35,7 @@ public:
 	sf::Clock clock;
 	sf::Time tick;
 	bool running = true;
+	MatchMakingHandler matches;
 
 private:
     std::mutex queueAccess;

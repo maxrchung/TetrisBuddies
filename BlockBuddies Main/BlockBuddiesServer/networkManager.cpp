@@ -31,6 +31,8 @@ void NetworkManager::addWin(std::string username, bool win)
 	DatabaseManager::getInstance().updateUserGames(username, win);
 }
 
+
+
 // Loops through player packet queues and responds to
 // each packet
 void NetworkManager::update()
@@ -138,9 +140,15 @@ void NetworkManager::update()
                     break;
                 }
 
+				case PacketDecode::PACKET_MULTIPLAYERQUEUE:
+				{
+					matches.activePlayers.push(player);
+					matches.checkForMatches();
+				}
+
 				default:
 				{
-					gameHandler.ReceiveMessage(notPopped);
+					gameHandler.ReceiveMessage(notPopped); 
 					gameHandler.GameTick();
 					player.playerSocket->send(gameHandler.GSPacket());
 					break;
@@ -216,6 +224,8 @@ void NetworkManager::update()
             player.playerSocket->send(packet);
         }
     }
+	//Run matchmaking
+	matches.update();
 }
 
 // Checks for conneciton requests and incoming messages
@@ -256,6 +266,7 @@ void NetworkManager::checkForConnections()
                         if(player.playerSocket->receive(packet) == sf::Socket::Done)
 						{
                             player.receivedPackets.push(packet);
+							
 						}
                     }
                 }

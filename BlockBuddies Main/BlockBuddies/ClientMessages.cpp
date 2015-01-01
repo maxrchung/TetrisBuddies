@@ -21,7 +21,12 @@ sf::Packet ClientMessages::NewRowPacket(){
 	return ret;
 }
 
+sf::Packet ClientMessages::RequestMultiplayer(){
 
+	sf::Packet ret;
+	ret << PacketDecode::PACKET_MULTIPLAYERQUEUE;
+	return ret;
+}
 
 //pass it a packet full of game state data, and decode it into a passed in GameStateObject
 void ClientMessages::DecodeGameState(sf::Packet& decodeMe, GameStateObject& gso){

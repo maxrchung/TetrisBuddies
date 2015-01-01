@@ -16,5 +16,6 @@ Game::~Game()
 
 void Game::runGame()
 {
-
+	playerOneGame.GameTick();
+	playerTwoGame.GameTick();
 }
