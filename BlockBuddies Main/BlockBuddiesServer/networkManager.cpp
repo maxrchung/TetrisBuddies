@@ -142,8 +142,8 @@ void NetworkManager::update()
 
 				case PacketDecode::PACKET_MULTIPLAYERQUEUE:
 				{
-					matches.activePlayers.push(player);
-					matches.checkForMatches();
+					//matches.activePlayers.push(player);
+					//matches.checkForMatches();
 				}
 
 				default:
@@ -225,7 +225,7 @@ void NetworkManager::update()
         }
     }
 	//Run matchmaking
-	matches.update();
+	//matches.update();
 }
 
 // Checks for conneciton requests and incoming messages
