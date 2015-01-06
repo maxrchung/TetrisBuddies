@@ -5,7 +5,7 @@
 #include "Message.h"
 #include "Game.h"
 #include <list>
-#include "NetworkManager.h"
+
 
 class MatchMakingHandler
 {

@@ -35,7 +35,7 @@ public:
 	sf::Clock clock;
 	sf::Time tick;
 	bool running = true;
-//	MatchMakingHandler matches;
+	MatchMakingHandler matches;
 
 private:
     std::mutex queueAccess;
