@@ -4,7 +4,13 @@
 #include "ClientManager.h"
 #include "SoundManager.h"
 LoginScreen::LoginScreen()
-	:section(new Section(0.0f,
+    :backSection(new Section(0.0f,
+                             0.0f,
+                             420.0f,
+                             620.0f,
+                             GraphicsManager::getInstance()->buttonColor)),
+
+     section(new Section(0.0f,
 	                     0.0f,
 						 400.0f,
 						 600.0f)),
@@ -73,6 +79,7 @@ LoginScreen::LoginScreen()
                             150.0f,
                             50.0f))
 {
+    UIElements.push_back(backSection);
     UIElements.push_back(section);
     UIElements.push_back(title);
     UIElements.push_back(status);

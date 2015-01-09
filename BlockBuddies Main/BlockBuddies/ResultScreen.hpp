@@ -13,6 +13,7 @@ class ResultScreen : public Screen
 		void update();
 		void draw();
 	private:
+        Section* backSection;
         Section* section;
         TextBox* title;
         TextBox* status;

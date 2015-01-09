@@ -19,6 +19,7 @@ public:
 private:
 
 	bool needsUpdate;
+    Section* backSection;
 	Section* section;
 	TextBox* usernameTag;
 	TextBox* highscoreTag;

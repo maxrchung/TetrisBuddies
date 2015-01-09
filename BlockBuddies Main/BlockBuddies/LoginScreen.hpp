@@ -29,6 +29,7 @@ public:
 
 private:
 	// All the various parts we create
+    Section* backSection;
 	Section* section;
 	TextBox* title;
 

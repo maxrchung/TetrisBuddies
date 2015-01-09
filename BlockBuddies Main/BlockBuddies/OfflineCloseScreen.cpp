@@ -5,7 +5,13 @@
 #include "ClientManager.h"
 
 OfflineCloseScreen::OfflineCloseScreen()
-	:section(new Section(0.0f,
+	:backSection(new Section(0.0f,
+	                     0.0f,
+						 420.0f,
+						 420.0f,
+                         GraphicsManager::getInstance()->buttonColor)),
+
+     section(new Section(0.0f,
 	                     0.0f,
 						 400.0f,
 						 400.0f)),
@@ -49,6 +55,7 @@ OfflineCloseScreen::OfflineCloseScreen()
     // this screen is on top
     close->isDisplayed = false;
     
+    UIElements.push_back(backSection);
     UIElements.push_back(section);
     UIElements.push_back(title);
     UIElements.push_back(status);

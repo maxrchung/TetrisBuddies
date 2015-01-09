@@ -14,6 +14,7 @@ public:
     void draw();
 
 private:
+    Section* backSection;
     Section* section;
     TextBox* welcome;
     Button* offlineHome;

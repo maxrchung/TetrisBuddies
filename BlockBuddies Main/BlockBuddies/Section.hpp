@@ -3,6 +3,7 @@
 
 #include "UIElement.hpp"
 #include "SFML/Graphics.hpp"
+#include "GraphicsManager.hpp"
 
 // This is a UIElement that is basically responsible for just
 // displaying a colored rectangle. It's basically a glorified
@@ -14,11 +15,13 @@ public:
 	Section(float posX,
 		    float posY,
 			float width,
-			float height);
+			float height,
+            sf::Color color = GraphicsManager::getInstance()->sectionColor);
 	void update();
 	void draw();
 
 private:
+    sf::Color color;
 	sf::RectangleShape boundingRect;
 };
 

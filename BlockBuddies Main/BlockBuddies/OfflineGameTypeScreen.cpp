@@ -4,7 +4,13 @@
 #include "SoundManager.h"
 
 OfflineGameTypeScreen::OfflineGameTypeScreen()
-    :section(new Section(0.0f,
+    :backSection(new Section(0.0f,
+	                     0.0f,
+						 1020.0f,
+						 620.0f,
+                         GraphicsManager::getInstance()->buttonColor)),
+
+     section(new Section(0.0f,
                          0.0f,
                          1000.0f,
                          600.0f)),
@@ -30,6 +36,7 @@ OfflineGameTypeScreen::OfflineGameTypeScreen()
                      150.0f,
                      50.0f))
 {
+    UIElements.push_back(backSection);
     UIElements.push_back(section);
     UIElements.push_back(home);
     UIElements.push_back(gameType);

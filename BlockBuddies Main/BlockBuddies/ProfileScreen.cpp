@@ -6,6 +6,12 @@
 
 ProfileScreen::ProfileScreen()
 	:
+    backSection(new Section(0.0f,
+                            0.0f,
+                            1020.0f,
+                            620.0f,
+                            GraphicsManager::getInstance()->buttonColor)),
+
 	section(new Section(0.0f,
 	                     0.0f,
 						 1000.0f,
@@ -92,6 +98,7 @@ ProfileScreen::ProfileScreen()
                          150.0f,
                          50.0f))
 {
+    UIElements.push_back(backSection);
     UIElements.push_back(section);
 	UIElements.push_back(usernameTag);
 	UIElements.push_back(highscoreTag);

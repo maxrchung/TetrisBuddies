@@ -217,29 +217,21 @@ void TextInput::update()
             if(InputManager::getInstance()->left)
             {
                 if(inputCursor.index > -1)
-                {
-                    std::cout << "left pressed" << std::endl;
                     inputCursor.index--;
-                }
             }
             else if(InputManager::getInstance()->right)
             {
                 // Make sure you have (int) casting because getSize() returns a std::size_t
                 if(inputCursor.index < (int) input.getString().getSize() - 1)
-                {
-                    std::cout << "right pressed" << std::endl;
                     inputCursor.index++;
-                }
             }
             else if(InputManager::getInstance()->up)
             {
-                std::cout << "up pressed" << std::endl;
                 inputCursor.index = input.getString().getSize() - 1;
             }
             // The -1 index puts it before the first index
             else if(InputManager::getInstance()->down)
             {
-                std::cout << "down pressed" << std::endl;
                 inputCursor.index = -1;
             }
 

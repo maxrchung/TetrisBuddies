@@ -16,6 +16,7 @@ public:
 	void draw();
 
 private:
+    Section* backSection;
 	// All the various parts we create
 	Section* section;
 	TextBox* title;

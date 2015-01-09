@@ -14,6 +14,7 @@ public:
     void draw();
 
 private:
+    Section* backSection;
     Section* section;
     Button* home;
     Button* gameType;

@@ -3,7 +3,13 @@
 #include "ScreenManager.hpp"
 
 HomeScreen::HomeScreen()
-    :section(new Section(0.0f,
+    :backSection(new Section(0.0f,
+	                     0.0f,
+						 1020.0f,
+						 620.0f,
+                         GraphicsManager::getInstance()->buttonColor)),
+
+     section(new Section(0.0f,
                          0.0f,
                          1000.0f,
                          600.0f)),
@@ -34,6 +40,7 @@ HomeScreen::HomeScreen()
                          150.0f,
                          50.0f))
 {
+    UIElements.push_back(backSection);
     UIElements.push_back(section);
     UIElements.push_back(welcome);
     UIElements.push_back(home);
