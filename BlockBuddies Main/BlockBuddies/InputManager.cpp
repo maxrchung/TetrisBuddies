@@ -19,6 +19,10 @@ void InputManager::init()
 	backspace = false;
 	enter = false;
 	tab = false;
+    left = false;
+    right = false;
+    up = false;
+    down = false;
 	input = sf::String();
 }
 
@@ -31,13 +35,17 @@ void InputManager::update()
 	enter = false;
 	tab = false;
     escape = false;
+    left = false;
+    right = false;
+    up = false;
+    down = false;
 
 	// Input is an sf::String, so we clear it before the events check
 	input.clear();
 
 	// Our while loop to check for each event in our event queue for
 	// the GraphicManager's window
-	sf::Event event;	
+	sf::Event event;
 	while (GraphicsManager::getInstance()->window.pollEvent(event))
 	{
 		switch (event.type)
@@ -49,7 +57,15 @@ void InputManager::update()
 
 	    // Checks for key down
 		case sf::Event::KeyPressed:
-			if(event.key.code == sf::Keyboard::BackSpace)
+            if(event.key.code == sf::Keyboard::Left)
+                left = true;
+            else if(event.key.code == sf::Keyboard::Right)
+                right = true;
+            else if(event.key.code == sf::Keyboard::Up)
+                up = true;
+            else if(event.key.code == sf::Keyboard::Down)
+                down = true;
+			else if(event.key.code == sf::Keyboard::BackSpace)
 				backspace = true;
 			else if(event.key.code == sf::Keyboard::Return)
 				enter = true;

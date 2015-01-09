@@ -89,7 +89,16 @@ void TextInput::update()
 	// We declare the variable here because multiple parts below reference it
 	sf::Vector2i mousePosition = sf::Mouse::getPosition(GraphicsManager::getInstance()->window);
 
-	// Mouse clicks are checked to see whether or not if the TextInput is currently selected
+	// If the mouse is hovering over the TextInput, then the color is highlighted but
+    // the button is NOT selected
+	if (boundingRect.getGlobalBounds().contains((float)mousePosition.x,
+		                                        (float)mousePosition.y))
+	{
+		boundingRect.setFillColor(GraphicsManager::getInstance()->backgroundColor);
+		input.setColor(GraphicsManager::getInstance()->selectColor);
+	}
+
+	// Mouse clicks are checked to see whether or not if the TextInput is selected
 	if(InputManager::getInstance()->mouseReleased)
 	{
 		// If it is, the button is selected
@@ -108,13 +117,26 @@ void TextInput::update()
 		//  Only delete if the String is empty
 		if (InputManager::getInstance()->backspace)
 		{
-			// Make sure to put this inside of the outer if loop
-			// Because backspace still counts as a character
+			// Make sure to put this in a separate if check
+			// because backspace still counts as a character
 			if(!input.getString().isEmpty())
 			{
+                // Don't do anything if we're at the -1 index
+                if(inputCursor.index == -1)
+                    return;
+
+                // Only delete according to index if it is not protected
 				sf::String deleted(input.getString());
-				deleted.erase(deleted.getSize() - 1);
+                if(isProtected)
+                    deleted.erase(input.getString().getSize() - 1);
+                else
+                    deleted.erase(inputCursor.index);
+
 				input.setString(deleted);
+
+                // Move the cursor backwards
+                // Make sure this goes after all our calculations above
+                inputCursor.index--;
 			}
 		}
 
@@ -139,14 +161,24 @@ void TextInput::update()
 			}
 			// Otherwise we check input by seeing if the new input will fit
 			else
-			{
+            {
 				checkLength = input;
-				checkLength.setString(input.getString() + InputManager::getInstance()->input);
+                sf::String addedInput = checkLength.getString();
+
+                // Need to do + 1 
+                addedInput.insert(inputCursor.index + 1, InputManager::getInstance()->input);
+				checkLength.setString(addedInput);
 
 				if (GraphicsManager::getInstance()->getRightCenter(checkLength).x <=
 					    boundingRect.getSize().x - 5.0f * 2 * GraphicsManager::getInstance()->scale)
+                {
 				   // If it is, set it to the old checkLength we saved earlier
 				   input = checkLength;
+
+                   // Move the cursor forward if valid
+                   // Make sure this also goes after all our calculations above
+                   inputCursor.index++;
+                }
 			}
 
 			// If we are aligning it by the center, then we have to readjust the origin
@@ -180,11 +212,52 @@ void TextInput::update()
 												 input.getPosition().y);
 		}
 
-		else // if !isProtected
-			// Else we set the cursor onto the input
-			inputCursor.boundingRect.setPosition(GraphicsManager::getInstance()->getRightCenter(input, Bounds::GLOBAL).x +
-				                                     1.0f * GraphicsManager::getInstance()->scale,
-												 input.getPosition().y);
+		else // if not isProtected
+        {
+            if(InputManager::getInstance()->left)
+            {
+                if(inputCursor.index > -1)
+                {
+                    std::cout << "left pressed" << std::endl;
+                    inputCursor.index--;
+                }
+            }
+            else if(InputManager::getInstance()->right)
+            {
+                // Make sure you have (int) casting because getSize() returns a std::size_t
+                if(inputCursor.index < (int) input.getString().getSize() - 1)
+                {
+                    std::cout << "right pressed" << std::endl;
+                    inputCursor.index++;
+                }
+            }
+            else if(InputManager::getInstance()->up)
+            {
+                std::cout << "up pressed" << std::endl;
+                inputCursor.index = input.getString().getSize() - 1;
+            }
+            // The -1 index puts it before the first index
+            else if(InputManager::getInstance()->down)
+            {
+                std::cout << "down pressed" << std::endl;
+                inputCursor.index = -1;
+            }
+
+            float cursorLocation = 0.0f;
+            if (inputCursor.index == -1)
+                cursorLocation = GraphicsManager::getInstance()->getLeftCenter(input, Bounds::GLOBAL).x;
+            else
+            {
+                // We use textMeasure to see how far we need to go for the cursor
+                sf::Text textMeasure = input;
+                textMeasure.setString(input.getString().substring(0, inputCursor.index + 1));
+                    
+                cursorLocation = GraphicsManager::getInstance()->getRightCenter(textMeasure, Bounds::GLOBAL).x;
+            }
+
+            inputCursor.boundingRect.setPosition(cursorLocation,
+                                                 input.getPosition().y);
+        }
 
 		// If the cursor timer is greater than some constant
 		if(inputCursor.blinkTimer.getElapsedTime().asMilliseconds() > 500)
@@ -207,20 +280,12 @@ void TextInput::update()
 		inputCursor.isDisplayed = false;
 	}
 
-	// If the mouse is hovering over the TextInput, then it is selected
-	if (boundingRect.getGlobalBounds().contains((float)mousePosition.x,
-		                                        (float)mousePosition.y))
-	{
-		boundingRect.setFillColor(GraphicsManager::getInstance()->backgroundColor);
-		input.setColor(GraphicsManager::getInstance()->selectColor);
-	}
-
 	// Regardless, if the password is protected, we update its color, origin, and position
 	// each loop
 	if (isProtected)
 	{
 		protectedInput.setColor(input.getColor());
-		protectedInput.setPosition(input.getPosition());
+        protectedInput.setPosition(input.getPosition());
 		// Also set the origin so that it can draw from the middle if necessary
 		if (textAlignment == Alignments::LEFT)
 			protectedInput.setOrigin(GraphicsManager::getInstance()->getLeftCenter(protectedInput));
@@ -262,7 +327,6 @@ void TextInput::InputCursor::update()
 {
 	// Nothing in here since the outside TextInput update() function
 	// will handle updating the InputCursor's location and blinking
-	
 }
 
 void TextInput::InputCursor::draw()

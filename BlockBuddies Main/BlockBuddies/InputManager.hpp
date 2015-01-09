@@ -24,6 +24,10 @@ public:
 	bool enter;
 	bool tab;
     bool escape;
+    bool left;
+    bool right;
+    bool up;
+    bool down;
 	
 private:
 	InputManager(){};

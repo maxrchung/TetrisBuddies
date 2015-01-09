@@ -43,7 +43,10 @@ private:
 		sf::Clock blinkTimer;
 
 		// Whether or not it is currently displayed or not
-		bool isDisplayed = true;		
+		bool isDisplayed = true;
+
+        // Position of the cursor relative to the input index
+        int index = -1;
 
 		// We leave this public so that we can access it within TextInput
 		sf::RectangleShape boundingRect;
