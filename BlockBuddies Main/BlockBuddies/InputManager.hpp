@@ -28,6 +28,8 @@ public:
     bool right;
     bool up;
     bool down;
+    bool home;
+    bool end;
 	
 private:
 	InputManager(){};

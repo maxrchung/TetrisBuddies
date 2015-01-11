@@ -225,12 +225,12 @@ void TextInput::update()
                 if(inputCursor.index < (int) input.getString().getSize() - 1)
                     inputCursor.index++;
             }
-            else if(InputManager::getInstance()->up)
+            else if(InputManager::getInstance()->down || InputManager::getInstance()->end)
             {
                 inputCursor.index = input.getString().getSize() - 1;
             }
             // The -1 index puts it before the first index
-            else if(InputManager::getInstance()->down)
+            else if(InputManager::getInstance()->up || InputManager::getInstance()->home)
             {
                 inputCursor.index = -1;
             }

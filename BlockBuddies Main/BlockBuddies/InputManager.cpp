@@ -23,6 +23,8 @@ void InputManager::init()
     right = false;
     up = false;
     down = false;
+    home = false;
+    end = false;
 	input = sf::String();
 }
 
@@ -39,6 +41,8 @@ void InputManager::update()
     right = false;
     up = false;
     down = false;
+    home = false;
+    end = false;
 
 	// Input is an sf::String, so we clear it before the events check
 	input.clear();
@@ -73,6 +77,10 @@ void InputManager::update()
 				tab = true;
             else if(event.key.code == sf::Keyboard::Escape)
                 escape = true;
+            else if(event.key.code == sf::Keyboard::Home)
+                home = true;
+            else if(event.key.code == sf::Keyboard::End)
+                end = true;
 			break;
 
 		// Reads in any entered key, see Events Explained in SFML 2.1
