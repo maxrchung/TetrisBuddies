@@ -121,16 +121,19 @@ void TextInput::update()
 			// because backspace still counts as a character
 			if(!input.getString().isEmpty())
 			{
-                // Don't do anything if we're at the -1 index
-                if(inputCursor.index == -1)
-                    return;
-
                 // Only delete according to index if it is not protected
 				sf::String deleted(input.getString());
                 if(isProtected)
+                {
                     deleted.erase(input.getString().getSize() - 1);
+                }
                 else
+                {
+                    // Don't do anything if we're at the -1 index
+                    if (inputCursor.index == -1)
+                        return;
                     deleted.erase(inputCursor.index);
+                }
 
 				input.setString(deleted);
 
