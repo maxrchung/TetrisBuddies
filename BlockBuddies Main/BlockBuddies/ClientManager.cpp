@@ -89,6 +89,14 @@ void ClientManager::update()
 				packet >> player;
 				infoUpdate = true;
 			}
+			case PacketDecode::PACKET_SWAP:
+			{
+				//fill me in
+			}
+			case PacketDecode::PACKET_CLEAR:
+			{
+				//fill me in
+			}
 			default:
 			{
 			    break;
