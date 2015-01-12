@@ -94,29 +94,22 @@ void TextInput::update()
 	// We declare the variable here because multiple parts below reference it
 	sf::Vector2i mousePosition = sf::Mouse::getPosition(GraphicsManager::getInstance()->window);
 
-	// If the mouse is hovering over the TextInput, then the color is highlighted but
-    // the button is NOT selected
-	if (boundingRect.getGlobalBounds().contains((float)mousePosition.x,
-		                                        (float)mousePosition.y))
-	{
-		boundingRect.setFillColor(GraphicsManager::getInstance()->backgroundColor);
-		input.setColor(GraphicsManager::getInstance()->selectColor);
-	}
-
 	// Mouse clicks are checked to see whether or not if the TextInput is selected
+    // Also deselect all when clicking
 	if(InputManager::getInstance()->mouseReleased)
 	{
 		// If it is, the button is selected
 		if (boundingRect.getGlobalBounds().contains((float)mousePosition.x,
 			                                        (float)mousePosition.y))
+        {
 			isSelected = true;
+            selectAll = false;
+        }
 
 		// Otherwise, deselect the TextInput
 		else
         {
 			isSelected = false;
-
-            // Also deselect all
             selectAll = false;
         }
 	}
@@ -301,7 +294,7 @@ void TextInput::update()
                 if(inputIndex > -1)
                     grow = inputString[inputIndex];
                 checkLength.setString(grow);
-                while(checkLength.getLocalBounds().width < boundingRect.getLocalBounds().width - 10.0f)
+                while(checkLength.getGlobalBounds().width < boundingRect.getGlobalBounds().width - 10.0f)
                 {
                     // We set this here because the while statement checks if the NEXT character
                     // addition will exceed the length
@@ -325,7 +318,7 @@ void TextInput::update()
             }
             // If the inputCursor is in the middle, we still have to check if the right hand text
             // goes past the boundingRect
-            else if(input.getLocalBounds().width + 10.0f > boundingRect.getLocalBounds().width)
+            else if(input.getGlobalBounds().width + 10.0f > boundingRect.getGlobalBounds().width)
             {
                 sf::Text checkLength = input;
                 sf::String inputString = input.getString();
@@ -335,7 +328,7 @@ void TextInput::update()
                     grow += inputString[inputIndex];
                     checkLength.setString(grow);
 
-                    if (checkLength.getLocalBounds().width < boundingRect.getLocalBounds().width - 10.0f)
+                    if (checkLength.getGlobalBounds().width + 10.0f < boundingRect.getGlobalBounds().width)
                         displayedInput = checkLength;
                 }
             }
@@ -343,11 +336,6 @@ void TextInput::update()
 
         else // if isProtected
         {
-            // This sets the input cursor onto protected input
-            inputCursor.boundingRect.setPosition(GraphicsManager::getInstance()->getRightCenter(protectedInput, Bounds::GLOBAL).x
-				                                     + 1.0f * GraphicsManager::getInstance()->scale,
-                                                 input.getPosition().y);
-
             // If it's protected, then we make sure that we loop through all the characters
             // and save them as asterisks to protectedInput
             sf::String asterisks("");
@@ -357,13 +345,42 @@ void TextInput::update()
 
             protectedInput.setColor(input.getColor());
             protectedInput.setPosition(input.getPosition());
-            // Also set the origin so that it can draw from the middle if necessary
-            if (textAlignment == Alignments::LEFT)
-                protectedInput.setOrigin(GraphicsManager::getInstance()->getLeftCenter(protectedInput));
-            else if (textAlignment == Alignments::CENTER)
-                protectedInput.setOrigin(GraphicsManager::getInstance()->getCenter(protectedInput));
+
+            // This sets the input cursor onto protected input
+            inputCursor.boundingRect.setPosition(GraphicsManager::getInstance()->getRightCenter(protectedInput, Bounds::GLOBAL).x
+				                                     + 1.0f * GraphicsManager::getInstance()->scale,
+                                                 input.getPosition().y);
 
             displayedInput = protectedInput;
+
+            // If the inputCursor goes past the boundingRect, then we loop backwards to find the correct
+            // text that should fit within it
+            // If greater than the right hand side
+            if(inputCursor.boundingRect.getPosition().x > boundingRect.getGlobalBounds().left 
+                                                              + boundingRect.getGlobalBounds().width - 5.0f)
+            {
+                sf::Text checkLength = protectedInput;
+                sf::String grow = sf::String("");
+                checkLength.setString(grow);
+
+                // Add asterisks until the input fits
+                while(checkLength.getGlobalBounds().width < boundingRect.getGlobalBounds().width - 10.0f)
+                {
+                    // We set this here because the while statement checks if the NEXT character
+                    // addition will exceed the length
+                    displayedInput = checkLength;
+
+                    grow += "*";
+
+                    checkLength.setString(grow);
+                }
+                displayedInput.setOrigin(GraphicsManager::getInstance()->getRightCenter(displayedInput, Bounds::LOCAL).x,
+                                         protectedInput.getOrigin().y);
+                displayedInput.setPosition(boundingRect.getGlobalBounds().left + boundingRect.getGlobalBounds().width - 5.0f,
+                                           protectedInput.getPosition().y);
+                inputCursor.boundingRect.setPosition(displayedInput.getPosition().x,
+                                                     input.getPosition().y);
+            }
         }
 
 		// Set the colors if it is selected
@@ -391,6 +408,15 @@ void TextInput::update()
 		// If the box is not selected, do not display the cursor
 		inputCursor.isDisplayed = false;
 	}
+
+	// If the mouse is hovering over the TextInput, then the color is highlighted but
+    // the button is NOT selected
+	if (boundingRect.getGlobalBounds().contains((float)mousePosition.x,
+		                                        (float)mousePosition.y))
+	{
+		boundingRect.setFillColor(GraphicsManager::getInstance()->backgroundColor);
+		input.setColor(GraphicsManager::getInstance()->selectColor);
+	}
 }
 
 void TextInput::draw()
@@ -408,6 +434,8 @@ void TextInput::draw()
                             inputCursor.boundingRect.getOrigin().y);
         selectAll.setPosition(displayedInput.getPosition().x,
                               inputCursor.boundingRect.getPosition().y);
+        selectAll.setScale(1.0f,
+                           GraphicsManager::getInstance()->scale);
         GraphicsManager::getInstance()->window.draw(selectAll);
 
         GraphicsManager::getInstance()->window.draw(displayedInput);
