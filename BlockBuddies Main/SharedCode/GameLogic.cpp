@@ -329,16 +329,18 @@ bool GameLogic::CheckBlockForMatches(int rowNum, int colNum){
 //also empties BMFD
 bool GameLogic::ClearMatches(){
 
-	//for each element in the BMFD set:
-		//get the row, col numbers, and set that element in the game board array to 0;
-
-
-	int row;
-	int col;
 
 	if (blocksMarkedForDeletion.empty()){
 		return false;
 	}
+
+
+	//for each element in the BMFD set:
+		//get the row, col numbers, and set that element in the game board array to 0;
+
+	int row;
+	int col;
+
 
 	//for (std::set<std::pair<int, int>>::iterator i = blocksMarkedForDeletion.begin(); i != blocksMarkedForDeletion.end(); ++i){
 	for (auto i : blocksMarkedForDeletion) {
@@ -431,6 +433,7 @@ void GameLogic::GameTick(){
 		{
 			ProcessMessage(messagesToDecode.front());
 			messagesToDecode.pop();
+			gameStateChanged = true;
 		}
 
 
