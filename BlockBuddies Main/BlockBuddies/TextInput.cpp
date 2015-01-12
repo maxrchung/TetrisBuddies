@@ -134,17 +134,11 @@ void TextInput::update()
 			{
                 // Only delete according to index if it is not protected
 				sf::String deleted(input.getString());
-                if(isProtected)
-                {
-                    deleted.erase(input.getString().getSize() - 1);
-                }
-                else
-                {
-                    // Don't do anything if we're at the -1 index
-                    if (inputCursor.index == -1)
-                        return;
-                    deleted.erase(inputCursor.index);
-                }
+
+                // Don't do anything if we're at the -1 index
+                if (inputCursor.index == -1)
+                    return;
+                deleted.erase(inputCursor.index);
 
 				input.setString(deleted);
 
@@ -167,23 +161,19 @@ void TextInput::update()
             // Don't delete from empty inputs
             else if (!input.getString().isEmpty())
             {
-                // Only non-protected inputs will be delete a character forward
-                if (!isProtected)
+                // If the cursor index is not at the last character in the input
+                // then we know we can delete the character afterwards
+                if (inputCursor.index + 1 < (int)input.getString().getSize())
                 {
-                    // If the cursor index is not at the last character in the input
-                    // then we know we can delete the character afterwards
-                    if(inputCursor.index + 1 < (int)input.getString().getSize())
-                    {
-                        sf::String deleted = input.getString();
-                        deleted.erase(inputCursor.index + 1);
-                        input.setString(deleted);
+                    sf::String deleted = input.getString();
+                    deleted.erase(inputCursor.index + 1);
+                    input.setString(deleted);
 
-                        if (selectAll)
-                        {
-                            selectAll = false;
-                            inputCursor.index = -1;
-                            input.setString("");
-                        }
+                    if (selectAll)
+                    {
+                        selectAll = false;
+                        inputCursor.index = -1;
+                        input.setString("");
                     }
                 }
             }
@@ -217,53 +207,46 @@ void TextInput::update()
             else
             {
                 // Don't add a letter if the input is over some limit
-                if ((int)input.getString().getSize() > 30)
+                if ((int)input.getString().getSize() > 50)
                     return;
             
-                if (isProtected)
-                {
-                    input.setString(input.getString() + InputManager::getInstance()->input);
-                }
-                else
-                {
-                    sf::String addedInput = input.getString();
-                    addedInput.insert(inputCursor.index + 1, InputManager::getInstance()->input);
-                    input.setString(addedInput);
-                    inputCursor.index++;
-                }
+                sf::String addedInput = input.getString();
+                addedInput.insert(inputCursor.index + 1, InputManager::getInstance()->input);
+                input.setString(addedInput);
+                inputCursor.index++;
             }
 		}
+
+        if (InputManager::getInstance()->left)
+        {
+            if (inputCursor.index > -1)
+                inputCursor.index--;
+
+            // Turn off select if the cursor movesD
+            selectAll = false;
+        }
+        else if (InputManager::getInstance()->right)
+        {
+            // Make sure you have (int) casting because getSize() returns a std::size_t
+            if (inputCursor.index < (int)input.getString().getSize() - 1)
+                inputCursor.index++;
+            selectAll = false;
+        }
+        else if (InputManager::getInstance()->down || InputManager::getInstance()->end)
+        {
+            inputCursor.index = input.getString().getSize() - 1;
+            selectAll = false;
+        }
+        // The -1 index puts it before the first index
+        else if (InputManager::getInstance()->up || InputManager::getInstance()->home)
+        {
+            inputCursor.index = -1;
+            selectAll = false;
+        }
 
         // This block handles the inputCursor scrolling and positioning
         if(!isProtected)
         {
-            if(InputManager::getInstance()->left)
-            {
-                if(inputCursor.index > -1)
-                    inputCursor.index--;
-
-                // Turn off select if the cursor moves
-                selectAll = false;
-            }
-            else if(InputManager::getInstance()->right)
-            {
-                // Make sure you have (int) casting because getSize() returns a std::size_t
-                if(inputCursor.index < (int) input.getString().getSize() - 1)
-                    inputCursor.index++;
-                selectAll = false;
-            }
-            else if(InputManager::getInstance()->down || InputManager::getInstance()->end)
-            {
-                inputCursor.index = input.getString().getSize() - 1;
-                selectAll = false;
-            }
-            // The -1 index puts it before the first index
-            else if(InputManager::getInstance()->up || InputManager::getInstance()->home)
-            {
-                inputCursor.index = -1;
-                selectAll = false;
-            }
-
             float cursorLocation = 0.0f;
             if (inputCursor.index == -1)
                 cursorLocation = GraphicsManager::getInstance()->getLeftCenter(input, Bounds::GLOBAL).x;
@@ -328,8 +311,10 @@ void TextInput::update()
                     grow += inputString[inputIndex];
                     checkLength.setString(grow);
 
-                    if (checkLength.getGlobalBounds().width + 10.0f < boundingRect.getGlobalBounds().width)
+                    if (checkLength.getGlobalBounds().width + 10.0f <= boundingRect.getGlobalBounds().width)
                         displayedInput = checkLength;
+                    else
+                        break;
                 }
             }
         }
@@ -346,10 +331,20 @@ void TextInput::update()
             protectedInput.setColor(input.getColor());
             protectedInput.setPosition(input.getPosition());
 
-            // This sets the input cursor onto protected input
-            inputCursor.boundingRect.setPosition(GraphicsManager::getInstance()->getRightCenter(protectedInput, Bounds::GLOBAL).x
-				                                     + 1.0f * GraphicsManager::getInstance()->scale,
-                                                 input.getPosition().y);
+            float cursorLocation = 0.0f;
+            if (inputCursor.index == -1)
+                cursorLocation = GraphicsManager::getInstance()->getLeftCenter(protectedInput, Bounds::GLOBAL).x;
+            else
+            {
+                // We use textMeasure to see how far we need to go for the cursor
+                sf::Text textMeasure = protectedInput;
+                textMeasure.setString(protectedInput.getString().substring(0, inputCursor.index + 1));
+                    
+                cursorLocation = GraphicsManager::getInstance()->getRightCenter(textMeasure, Bounds::GLOBAL).x;
+            }
+
+            inputCursor.boundingRect.setPosition(cursorLocation,
+                                                 protectedInput.getPosition().y);
 
             displayedInput = protectedInput;
 
@@ -380,6 +375,24 @@ void TextInput::update()
                                            protectedInput.getPosition().y);
                 inputCursor.boundingRect.setPosition(displayedInput.getPosition().x,
                                                      input.getPosition().y);
+            }
+
+            // If the inputCursor is in the middle, we still have to check if the right hand text
+            // goes past the boundingRect
+            else if(protectedInput.getGlobalBounds().width + 10.0f > boundingRect.getGlobalBounds().width)
+            {
+                sf::Text checkLength = protectedInput;
+                sf::String grow = sf::String("");
+                for(int i = 0; i < (int)protectedInput.getString().getSize(); i++)
+                {
+                    grow += "*";
+                    checkLength.setString(grow);
+
+                    if (checkLength.getGlobalBounds().width + 10.0f <= boundingRect.getGlobalBounds().width)
+                        displayedInput = checkLength;
+                    else
+                        break;
+                }
             }
         }
 
@@ -415,7 +428,7 @@ void TextInput::update()
 		                                        (float)mousePosition.y))
 	{
 		boundingRect.setFillColor(GraphicsManager::getInstance()->backgroundColor);
-		input.setColor(GraphicsManager::getInstance()->selectColor);
+		displayedInput.setColor(GraphicsManager::getInstance()->selectColor);
 	}
 }
 
