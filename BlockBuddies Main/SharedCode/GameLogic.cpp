@@ -336,6 +336,10 @@ bool GameLogic::ClearMatches(){
 	int row;
 	int col;
 
+	if (blocksMarkedForDeletion.empty()){
+		return false;
+	}
+
 	//for (std::set<std::pair<int, int>>::iterator i = blocksMarkedForDeletion.begin(); i != blocksMarkedForDeletion.end(); ++i){
 	for (auto i : blocksMarkedForDeletion) {
 		row = i.first;
@@ -416,6 +420,9 @@ bool GameLogic::ProcessMessage(sf::Packet toProcess){
 
 void GameLogic::GameTick(){
 
+	//if this is true, put the game state as a message to the client
+	bool gameStateChanged = false;
+
 		//reduce timers (pauses for clear timers, time to insert new row)
 		rowInsertionTimeLeft--;
 
@@ -435,7 +442,9 @@ void GameLogic::GameTick(){
 					//swap pieces
 
 		ProcessBTCFM();
-		ClearMatches();
+		if (ClearMatches()){
+			gameStateChanged = true;
+		}
 
 		//if the insert new row timer is 0;
 		if (rowInsertionTimeLeft == 0){
@@ -450,13 +459,20 @@ void GameLogic::GameTick(){
 
 			rowInsertionTimeLeft = totalRowInsertionTime;
 			sendNewRow = true;
+			gameStateChanged = true;
 		}
 
 		//send appropriate packets back to the client, such as game over or new game state
-			//only possible packets to send: new GameState, start game, game over
+			//possible packets to send: new GameState, start game, game over
 			//startGame and GameOver are sent by ProcessMessage
+			//so add: blocks to clear, 
+
+		//queue = FIFO, so make sure you're adding the packets in the correct order
+
 		//outgoingMessages.push(GSPacket());
-	
+		if (gameStateChanged){
+			outgoingMessages.push(GSPacket());
+		}
 }
 
 
