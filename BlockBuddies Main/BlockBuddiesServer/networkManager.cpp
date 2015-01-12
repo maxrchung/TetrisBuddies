@@ -148,9 +148,15 @@ void NetworkManager::update()
 
 				default:
 				{
-					gameHandler.ReceiveMessage(notPopped); 
+					gameHandler.ReceiveMessage(notPopped);
 					gameHandler.GameTick();
-					player.playerSocket->send(gameHandler.GSPacket());
+
+					while(!gameHandler.outgoingMessages.empty())
+					{
+						sf::Packet toSend = gameHandler.outgoingMessages.front();
+						gameHandler.outgoingMessages.pop();
+						player.playerSocket->send(toSend);
+					}
 					break;
 				}
             }
@@ -225,7 +231,7 @@ void NetworkManager::update()
         }
     }
 	//Run matchmaking
-	matches.update();
+	//matches.update();
 }
 
 // Checks for conneciton requests and incoming messages
