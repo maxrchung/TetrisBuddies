@@ -33,8 +33,7 @@ enum PacketDecode
 	PACKET_CLEAR,
 	//14
 	PACKET_DROP,
-	//15
-	PACKET_NEWROW
+	
 
 };
 
