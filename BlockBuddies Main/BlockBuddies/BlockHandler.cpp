@@ -29,21 +29,26 @@ BlockHandler::BlockHandler(int ww, int wh)
 				switch (color)
 				{
 				case 0:
+					//green
 					c.r = 50;
 					c.g = 205;
 					c.b = 50;
 					break;
 				case 1:
+					//blue
 					c.b = 128;
 					break;
 				case 2:
+					//red
 					c.r = 255;
 					break;
 				case 3:
+					//purple
 					c.r = 148;
 					c.b = 211;
 					break;
 				case 4:
+					//orange
 					c.r = 255;
 					c.g = 140;
 					break;
@@ -387,8 +392,8 @@ void BlockHandler::raiseBlocks()
 		for (int j = 0; j < (SCREENWIDTH / 25); j++)
 		{
 			blocks[i][j].setFillColor(blocks[i + 1][j].getFillColor());
-			blocks[i][j].setOutlineColor(blocks[i + 1][j].getOutlineColor());
 			blocks[i][j].setOutlineThickness(blocks[i + 1][j].getOutlineThickness());
+			blocks[i][j].setOutlineColor(blocks[i + 1][j].getOutlineColor());
 		}
 	}
 
@@ -396,25 +401,30 @@ void BlockHandler::raiseBlocks()
 	{
 		//random the block colors
 		int color = rand() % 5;
-		sf::Color c(0, 0, 0, 175);
+		sf::Color c(0, 0, 0, 200);
 		switch (color)
 		{
 		case 0:
+			//green
 			c.r = 50;
 			c.g = 205;
 			c.b = 50;
 			break;
 		case 1:
+			//blue
 			c.b = 128;
 			break;
 		case 2:
+			//red
 			c.r = 255;
 			break;
 		case 3:
+			//purple
 			c.r = 148;
 			c.b = 211;
 			break;
 		case 4:
+			//orange
 			c.r = 255;
 			c.g = 140;
 			break;
