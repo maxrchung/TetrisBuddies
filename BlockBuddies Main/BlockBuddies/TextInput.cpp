@@ -55,7 +55,7 @@ TextInput::TextInput(float posX,
 		input.setPosition(boundingRect.getPosition());
 		// We move a small distance away so that the letters aren't drawn directly
 		// on the boundingRect border
-		input.move(5.0f * GraphicsManager::getInstance()->scale, 0.0f);
+		input.move(5.0f, 0.0f);
 	}
 	// Otherwise, we'll need to recalculate to find the left-center point of the boundingRect
 	// The input as of now always comes reads in from the left of the box
@@ -68,9 +68,13 @@ TextInput::TextInput(float posX,
 	// At the end, we reset the string
 	input.setString("");
 
+    displayedInput = input;
+
 	// If it is protected, setup the protected asterisks input
 	if (isProtected)
 	{
+        // We temporarily set the string as "*" so we can align
+        // the origin properly in place
 		protectedInput = sf::Text("*",
 			                      *input.getFont(),
 								  input.getCharacterSize());
@@ -81,6 +85,7 @@ TextInput::TextInput(float posX,
 			protectedInput.setOrigin(GraphicsManager::getInstance()->getCenter(protectedInput));
 		protectedInput.setPosition(input.getPosition());
 		protectedInput.setString("");
+        displayedInput = protectedInput;
 	}
 }
 
@@ -108,7 +113,12 @@ void TextInput::update()
 
 		// Otherwise, deselect the TextInput
 		else
+        {
 			isSelected = false;
+
+            // Also deselect all
+            selectAll = false;
+        }
 	}
 
 	// If this textbox is currently selected
@@ -117,9 +127,17 @@ void TextInput::update()
 		//  Only delete if the String is empty
 		if (InputManager::getInstance()->backspace)
 		{
+            // Delete all if selected
+            if (selectAll)
+            {
+                selectAll = false;
+                inputCursor.index = -1;
+                input.setString("");
+            }
+
 			// Make sure to put this in a separate if check
 			// because backspace still counts as a character
-			if(!input.getString().isEmpty())
+			else if(!input.getString().isEmpty())
 			{
                 // Only delete according to index if it is not protected
 				sf::String deleted(input.getString());
@@ -143,99 +161,114 @@ void TextInput::update()
 			}
 		}
 
+        else if(InputManager::getInstance()->del)
+        {
+            // Delete all if selected
+            if (selectAll)
+            {
+                selectAll = false;
+                inputCursor.index = -1;
+                input.setString("");
+            }
+
+            // Don't delete from empty inputs
+            else if (!input.getString().isEmpty())
+            {
+                // Only non-protected inputs will be delete a character forward
+                if (!isProtected)
+                {
+                    // If the cursor index is not at the last character in the input
+                    // then we know we can delete the character afterwards
+                    if(inputCursor.index + 1 < (int)input.getString().getSize())
+                    {
+                        sf::String deleted = input.getString();
+                        deleted.erase(inputCursor.index + 1);
+                        input.setString(deleted);
+
+                        if (selectAll)
+                        {
+                            selectAll = false;
+                            inputCursor.index = -1;
+                            input.setString("");
+                        }
+                    }
+                }
+            }
+        }
+
+        // If ctrl+A is pressed, select all the text
+        else if(InputManager::getInstance()->a && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LControl))
+        {
+            // Only select if there's actual input
+            if((int) input.getString().getSize() > 0)
+                selectAll = true;
+        }
+
+        // We can deselect all with escape
+        else if(InputManager::getInstance()->escape)
+        {
+            selectAll = false;
+        }
+
 		// Add in the input text from the InputManager
 		else if (!InputManager::getInstance()->input.isEmpty())
 		{
-			// checkLength is a copy of input that is used to limit the
-			// String length of input
-			sf::Text checkLength;
-			// We set it according to whether or not we have protected input
-			if(isProtected)
-			{
-				checkLength = protectedInput;
-
-				// We make sure we are measuring by asterisks rather than the actual input itself
-				checkLength.setString(checkLength.getString() + "*");
-
-				if (GraphicsManager::getInstance()->getRightCenter(checkLength).x <=
-					    boundingRect.getSize().x - 5.0f * 2 * GraphicsManager::getInstance()->scale)
-					// If the asterisks fit, then set the input accordingly
-					input.setString(input.getString() + InputManager::getInstance()->input);
-			}
-			// Otherwise we check input by seeing if the new input will fit
-			else
+            // Delete all but the given input if selected
+            if (selectAll)
             {
-				checkLength = input;
-                sf::String addedInput = checkLength.getString();
+                selectAll = false;
+                inputCursor.index = 0;
+                input.setString(InputManager::getInstance()->input);
+            }
 
-                // Need to do + 1 
-                addedInput.insert(inputCursor.index + 1, InputManager::getInstance()->input);
-				checkLength.setString(addedInput);
-
-				if (GraphicsManager::getInstance()->getRightCenter(checkLength).x <=
-					    boundingRect.getSize().x - 5.0f * 2 * GraphicsManager::getInstance()->scale)
+            else
+            {
+                // Don't add a letter if the input is over some limit
+                if ((int)input.getString().getSize() > 30)
+                    return;
+            
+                if (isProtected)
                 {
-				   // If it is, set it to the old checkLength we saved earlier
-				   input = checkLength;
-
-                   // Move the cursor forward if valid
-                   // Make sure this also goes after all our calculations above
-                   inputCursor.index++;
+                    input.setString(input.getString() + InputManager::getInstance()->input);
                 }
-			}
-
-			// If we are aligning it by the center, then we have to readjust the origin
-			// and position so that it redraws from the center of the textbox each time
-			// Left alignment is always set from the leftmost area, so we don't have to
-			// worry about that
-			if (textAlignment == Alignments::CENTER)
-			{
-				input.setOrigin(GraphicsManager::getInstance()->getCenter(input).x,
-					            input.getOrigin().y);
-				input.setPosition(boundingRect.getPosition());
-			}
+                else
+                {
+                    sf::String addedInput = input.getString();
+                    addedInput.insert(inputCursor.index + 1, InputManager::getInstance()->input);
+                    input.setString(addedInput);
+                    inputCursor.index++;
+                }
+            }
 		}
 
-		// Set the colors if it is selected
-		boundingRect.setFillColor(GraphicsManager::getInstance()->backgroundColor);
-		input.setColor(GraphicsManager::getInstance()->selectColor);
-
-		if (isProtected)
-		{
-			// If it's protected, then we make sure that we loop through all the characters
-			// and save them as asterisks to protectedInput
-			sf::String asterisks("");
-			for (int i = 0; i < input.getString().getSize(); i++)
-				asterisks += "*";
-			protectedInput.setString(asterisks);
-
-			// This sets the input cursor onto protected input
-			inputCursor.boundingRect.setPosition(GraphicsManager::getInstance()->getRightCenter(protectedInput, Bounds::GLOBAL).x +
-				                                     1.0f * GraphicsManager::getInstance()->scale,
-												 input.getPosition().y);
-		}
-
-		else // if not isProtected
+        // This block handles the inputCursor scrolling and positioning
+        if(!isProtected)
         {
             if(InputManager::getInstance()->left)
             {
                 if(inputCursor.index > -1)
                     inputCursor.index--;
+
+                // Turn off select if the cursor moves
+                selectAll = false;
             }
             else if(InputManager::getInstance()->right)
             {
                 // Make sure you have (int) casting because getSize() returns a std::size_t
                 if(inputCursor.index < (int) input.getString().getSize() - 1)
                     inputCursor.index++;
+                selectAll = false;
             }
             else if(InputManager::getInstance()->down || InputManager::getInstance()->end)
             {
                 inputCursor.index = input.getString().getSize() - 1;
+                selectAll = false;
             }
             // The -1 index puts it before the first index
             else if(InputManager::getInstance()->up || InputManager::getInstance()->home)
             {
                 inputCursor.index = -1;
+                selectAll = false;
             }
 
             float cursorLocation = 0.0f;
@@ -252,8 +285,92 @@ void TextInput::update()
 
             inputCursor.boundingRect.setPosition(cursorLocation,
                                                  input.getPosition().y);
+
+            displayedInput = input;
+
+            // If the inputCursor goes past the boundingRect, then we loop backwards to find the correct
+            // text that should fit within it
+            // If greater than the right hand side
+            if(inputCursor.boundingRect.getPosition().x > boundingRect.getGlobalBounds().left 
+                                                              + boundingRect.getGlobalBounds().width - 5.0f)
+            {
+                sf::Text checkLength = input;
+                sf::String inputString = input.getString();
+                int inputIndex = inputCursor.index;
+                sf::String grow;
+                if(inputIndex > -1)
+                    grow = inputString[inputIndex];
+                checkLength.setString(grow);
+                while(checkLength.getLocalBounds().width < boundingRect.getLocalBounds().width - 10.0f)
+                {
+                    // We set this here because the while statement checks if the NEXT character
+                    // addition will exceed the length
+                    displayedInput = checkLength;
+
+                    // Make sure we don't have any negative indicies
+                    if(--inputIndex <= 0)
+                        break;
+
+                    // Insert a new character in front
+                    grow.insert(0, inputString[inputIndex]);
+                    checkLength.setString(grow);
+                }
+
+                displayedInput.setOrigin(GraphicsManager::getInstance()->getRightCenter(displayedInput, Bounds::LOCAL).x,
+                                         input.getOrigin().y);
+                displayedInput.setPosition(boundingRect.getGlobalBounds().left + boundingRect.getGlobalBounds().width - 5.0f,
+                                           input.getPosition().y);
+                inputCursor.boundingRect.setPosition(displayedInput.getPosition().x,
+                                                     input.getPosition().y);
+            }
+            // If the inputCursor is in the middle, we still have to check if the right hand text
+            // goes past the boundingRect
+            else if(input.getLocalBounds().width + 10.0f > boundingRect.getLocalBounds().width)
+            {
+                sf::Text checkLength = input;
+                sf::String inputString = input.getString();
+                sf::String grow = sf::String("");
+                for(int inputIndex = 0; inputIndex < (int)inputString.getSize(); inputIndex++)
+                {
+                    grow += inputString[inputIndex];
+                    checkLength.setString(grow);
+
+                    if (checkLength.getLocalBounds().width < boundingRect.getLocalBounds().width - 10.0f)
+                        displayedInput = checkLength;
+                }
+            }
         }
 
+        else // if isProtected
+        {
+            // This sets the input cursor onto protected input
+            inputCursor.boundingRect.setPosition(GraphicsManager::getInstance()->getRightCenter(protectedInput, Bounds::GLOBAL).x
+				                                     + 1.0f * GraphicsManager::getInstance()->scale,
+                                                 input.getPosition().y);
+
+            // If it's protected, then we make sure that we loop through all the characters
+            // and save them as asterisks to protectedInput
+            sf::String asterisks("");
+            for (int i = 0; i < input.getString().getSize(); i++)
+                asterisks += "*";
+            protectedInput.setString(asterisks);
+
+            protectedInput.setColor(input.getColor());
+            protectedInput.setPosition(input.getPosition());
+            // Also set the origin so that it can draw from the middle if necessary
+            if (textAlignment == Alignments::LEFT)
+                protectedInput.setOrigin(GraphicsManager::getInstance()->getLeftCenter(protectedInput));
+            else if (textAlignment == Alignments::CENTER)
+                protectedInput.setOrigin(GraphicsManager::getInstance()->getCenter(protectedInput));
+
+            displayedInput = protectedInput;
+        }
+
+		// Set the colors if it is selected
+		boundingRect.setFillColor(GraphicsManager::getInstance()->backgroundColor);
+		displayedInput.setColor(GraphicsManager::getInstance()->selectColor);
+
+        // This block handles inputCursor blinking
 		// If the cursor timer is greater than some constant
 		if(inputCursor.blinkTimer.getElapsedTime().asMilliseconds() > 500)
 		{
@@ -269,23 +386,10 @@ void TextInput::update()
 	else // if !isSelected
 	{
 		boundingRect.setFillColor(GraphicsManager::getInstance()->buttonColor);
-		input.setColor(GraphicsManager::getInstance()->typeColor);
+		displayedInput.setColor(GraphicsManager::getInstance()->typeColor);
 
 		// If the box is not selected, do not display the cursor
 		inputCursor.isDisplayed = false;
-	}
-
-	// Regardless, if the password is protected, we update its color, origin, and position
-	// each loop
-	if (isProtected)
-	{
-		protectedInput.setColor(input.getColor());
-        protectedInput.setPosition(input.getPosition());
-		// Also set the origin so that it can draw from the middle if necessary
-		if (textAlignment == Alignments::LEFT)
-			protectedInput.setOrigin(GraphicsManager::getInstance()->getLeftCenter(protectedInput));
-		else if(textAlignment == Alignments::CENTER)
-			protectedInput.setOrigin(GraphicsManager::getInstance()->getCenter(protectedInput));
 	}
 }
 
@@ -293,16 +397,26 @@ void TextInput::draw()
 {
 	// Draw the background boundingRect
 	GraphicsManager::getInstance()->window.draw(boundingRect);
+    
+    // Highlight all the text if we are selecting all
+    if(selectAll)
+    {
+        sf::RectangleShape selectAll = sf::RectangleShape(sf::Vector2f(displayedInput.getLocalBounds().width,
+                                                                       inputCursor.boundingRect.getLocalBounds().height));
+        selectAll.setFillColor(GraphicsManager::getInstance()->sectionColor);
+        selectAll.setOrigin(displayedInput.getOrigin().x,
+                            inputCursor.boundingRect.getOrigin().y);
+        selectAll.setPosition(displayedInput.getPosition().x,
+                              inputCursor.boundingRect.getPosition().y);
+        GraphicsManager::getInstance()->window.draw(selectAll);
 
-	// If the TextInput is password protected, then draw the asterisks
-	// version of the input. Otherwise, draw the input normally
-	if (isProtected)
-		GraphicsManager::getInstance()->window.draw(protectedInput);
-
-	else 
-		GraphicsManager::getInstance()->window.draw(input);
-
-	inputCursor.draw();
+        GraphicsManager::getInstance()->window.draw(displayedInput);
+    }
+    else
+    {
+        GraphicsManager::getInstance()->window.draw(displayedInput);
+        inputCursor.draw();
+    }
 }
 
 // Private InputCursor class for TextInput

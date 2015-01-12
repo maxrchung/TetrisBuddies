@@ -25,6 +25,8 @@ void InputManager::init()
     down = false;
     home = false;
     end = false;
+    del = false;
+    a = false;
 	input = sf::String();
 }
 
@@ -43,6 +45,8 @@ void InputManager::update()
     down = false;
     home = false;
     end = false;
+    del = false;
+    a = false;
 
 	// Input is an sf::String, so we clear it before the events check
 	input.clear();
@@ -81,6 +85,10 @@ void InputManager::update()
                 home = true;
             else if(event.key.code == sf::Keyboard::End)
                 end = true;
+            else if(event.key.code == sf::Keyboard::Delete)
+                del = true;
+            else if(event.key.code == sf::Keyboard::A)
+                a = true;
 			break;
 
 		// Reads in any entered key, see Events Explained in SFML 2.1

@@ -24,14 +24,14 @@ public:
 	void update();
 	void draw();
 
+    // input is what the user types in
+    // protectedInput is only used when the TextInput's isProtected is true,
+    //     and it changes the input to all asterisks
+    // displayedInput is what is actually drawn to the screen, may be different
+    //     depending if letters are past the TextInput's boundingRect
 	sf::Text input;
 	sf::Text protectedInput;
-	
-private:
-	sf::RectangleShape boundingRect;
-	Alignments drawAlignment;
-	Alignments textAlignment;
-	bool isProtected;
+    sf::Text displayedInput;
 
 	// Private class for handling the cursor within TextInput
 	class InputCursor {
@@ -51,6 +51,13 @@ private:
 		// We leave this public so that we can access it within TextInput
 		sf::RectangleShape boundingRect;
 	} inputCursor;
+	
+private:
+	sf::RectangleShape boundingRect;
+	Alignments drawAlignment;
+	Alignments textAlignment;
+	bool isProtected;
+    bool selectAll = false;
 };
 
 #endif//TEXTINPUT_HPP

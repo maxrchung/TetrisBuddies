@@ -119,7 +119,7 @@ void ScreenManager::addScreen(const Screens toScreen)
         screen->deactivate();
 }
 
-// Removes the last screen
+// Removes the front screen
 void ScreenManager::popScreen()
 {
     currentScreens.pop_back();
@@ -134,5 +134,6 @@ void ScreenManager::shake(float seconds)
 void ScreenManager::closeGame()
 {
     Game::isRunning = false;
-    ClientManager::getInstance().closeConnection();
+    if(ClientManager::getInstance().isConnected)
+        ClientManager::getInstance().closeConnection();
 }

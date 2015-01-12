@@ -30,6 +30,8 @@ public:
     bool down;
     bool home;
     bool end;
+    bool del;
+    bool a;
 	
 private:
 	InputManager(){};

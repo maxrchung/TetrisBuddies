@@ -122,6 +122,8 @@ void Screen::deactivate()
             {
                 textInput->input.setString("");
                 textInput->protectedInput.setString("");
+                textInput->displayedInput.setString("");
+                textInput->inputCursor.index = -1;
             }
         }
 
