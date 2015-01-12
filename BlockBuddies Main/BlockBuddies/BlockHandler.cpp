@@ -18,31 +18,42 @@ BlockHandler::BlockHandler(int ww, int wh)
 			if (i < 250)
 			{
 				shape.setFillColor(sf::Color::Transparent); //transparent blocks to appear as empty space
+				shape.setOutlineThickness(-2);
+				shape.setOutlineColor(sf::Color::Transparent);
 			}
 			else
 			{
 				//random the block colors
 				color = rand() % 5;
+				sf::Color c(0, 0, 0, 200);
 				switch (color)
 				{
 				case 0:
-					shape.setFillColor(sf::Color::Green);
+					c.r = 50;
+					c.g = 205;
+					c.b = 50;
 					break;
 				case 1:
-					shape.setFillColor(sf::Color::Blue);
+					c.b = 128;
 					break;
 				case 2:
-					shape.setFillColor(sf::Color::Red);
+					c.r = 255;
 					break;
 				case 3:
-					shape.setFillColor(sf::Color::Magenta);
+					c.r = 148;
+					c.b = 211;
 					break;
 				case 4:
-					shape.setFillColor(sf::Color::Yellow);
+					c.r = 255;
+					c.g = 140;
 					break;
 				default:
 					break;
 				}
+				shape.setFillColor(c);
+				c.a = 255;
+				shape.setOutlineThickness(-2);
+				shape.setOutlineColor(c);
 			}
 			blocks[gridPosx][gridPosy] = shape;
 			gridPosy++;
@@ -75,7 +86,9 @@ void BlockHandler::swapBlocksVertT(int x, int y)
 	{
 		sf::RectangleShape temp = blocks[mainblocky][mainblockx];
 		blocks[mainblocky][mainblockx].setFillColor(blocks[topblocky][topblockx].getFillColor());
+		blocks[mainblocky][mainblockx].setOutlineColor(blocks[topblocky][topblockx].getOutlineColor());
 		blocks[topblocky][topblockx].setFillColor(temp.getFillColor());
+		blocks[topblocky][topblockx].setOutlineColor(temp.getOutlineColor());
 		checkBlocks(mainblockx, mainblocky);  //checks if any blocks are matching after a swap
 	}
 
@@ -94,7 +107,9 @@ void BlockHandler::swapBlocksVertB(int x, int y)
 	{
 		sf::RectangleShape temp = blocks[mainblocky][mainblockx];
 		blocks[mainblocky][mainblockx].setFillColor(blocks[botblocky][botblockx].getFillColor());
+		blocks[mainblocky][mainblockx].setOutlineColor(blocks[botblocky][botblockx].getOutlineColor());
 		blocks[botblocky][botblockx].setFillColor(temp.getFillColor());
+		blocks[botblocky][botblockx].setOutlineColor(temp.getOutlineColor());
 		checkBlocks(mainblockx, mainblocky);  //checks if any blocks are matching after a swap
 	}
 
@@ -113,7 +128,9 @@ void BlockHandler::swapBlocksHorizL(int x, int y)
 	{
 		sf::RectangleShape temp = blocks[mainblocky][mainblockx];
 		blocks[mainblocky][mainblockx].setFillColor(blocks[leftblocky][leftblockx].getFillColor());
+		blocks[mainblocky][mainblockx].setOutlineColor(blocks[leftblocky][leftblockx].getOutlineColor());
 		blocks[leftblocky][leftblockx].setFillColor(temp.getFillColor());
+		blocks[leftblocky][leftblockx].setOutlineColor(temp.getOutlineColor());
 		//if you want to drop blocks from a higher column to a lower one.
 		if (blocks[mainblocky][mainblockx].getFillColor() == sf::Color::Transparent || blocks[leftblocky][leftblockx].getFillColor() == sf::Color::Transparent)
 			dropBlocks();
@@ -135,7 +152,9 @@ void BlockHandler::swapBlocksHorizR(int x, int y)
 	{
 		sf::RectangleShape temp = blocks[mainblocky][mainblockx];
 		blocks[mainblocky][mainblockx].setFillColor(blocks[rightblocky][rightblockx].getFillColor());
+		blocks[mainblocky][mainblockx].setOutlineColor(blocks[rightblocky][rightblockx].getOutlineColor());
 		blocks[rightblocky][rightblockx].setFillColor(temp.getFillColor());
+		blocks[rightblocky][rightblockx].setOutlineColor(temp.getOutlineColor());
 		//if you want to drop blocks from a higher column to a lower one.
 		if (blocks[mainblocky][mainblockx].getFillColor() == sf::Color::Transparent || blocks[rightblocky][rightblockx].getFillColor() == sf::Color::Transparent)
 			dropBlocks();
@@ -166,6 +185,8 @@ void BlockHandler::checkBlocks(int x, int y)
 			else
 			{
 				blocks[columns.front()][rows.front()].setFillColor(sf::Color::Transparent);
+				blocks[columns.front()][rows.front()].setOutlineThickness(-2);
+				blocks[columns.front()][rows.front()].setOutlineColor(sf::Color::Transparent);
 				columns.pop(); rows.pop();
 			}
 		}
@@ -272,10 +293,14 @@ void BlockHandler::dropBlocks()
 				while (blocks[i][j].getFillColor() == sf::Color::Transparent)
 				{
 					tempColumn--;
-					//set the block to the block above it's color
+					//set the block to the block above it's color,outline and thickness
 					blocks[i][j].setFillColor(blocks[tempColumn][j].getFillColor());
+					blocks[i][j].setOutlineThickness(blocks[tempColumn][j].getOutlineThickness());
+					blocks[i][j].setOutlineColor(blocks[tempColumn][j].getOutlineColor());
 					//set the block above to transparent
 					blocks[tempColumn][j].setFillColor(sf::Color::Transparent);
+					blocks[tempColumn][j].setOutlineThickness(-2);
+					blocks[tempColumn][j].setOutlineColor(sf::Color::Transparent);
 				}
 				coloredBlock = false; //reset if there is a colored block
 			}
@@ -310,6 +335,8 @@ void BlockHandler::checkEverything()
 			else
 			{
 				blocks[columns.front()][rows.front()].setFillColor(sf::Color::Transparent);
+				blocks[columns.front()][rows.front()].setOutlineThickness(-2);
+				blocks[columns.front()][rows.front()].setOutlineColor(sf::Color::Transparent);
 				columns.pop(); rows.pop();
 			}
 		}
@@ -360,6 +387,8 @@ void BlockHandler::raiseBlocks()
 		for (int j = 0; j < (SCREENWIDTH / 25); j++)
 		{
 			blocks[i][j].setFillColor(blocks[i + 1][j].getFillColor());
+			blocks[i][j].setOutlineColor(blocks[i + 1][j].getOutlineColor());
+			blocks[i][j].setOutlineThickness(blocks[i + 1][j].getOutlineThickness());
 		}
 	}
 
@@ -367,26 +396,35 @@ void BlockHandler::raiseBlocks()
 	{
 		//random the block colors
 		int color = rand() % 5;
+		sf::Color c(0, 0, 0, 175);
 		switch (color)
 		{
 		case 0:
-			blocks[SCREENHEIGHT / 25 - 1][k].setFillColor(sf::Color::Green);
+			c.r = 50;
+			c.g = 205;
+			c.b = 50;
 			break;
 		case 1:
-			blocks[SCREENHEIGHT / 25 - 1][k].setFillColor(sf::Color::Blue);
+			c.b = 128;
 			break;
 		case 2:
-			blocks[SCREENHEIGHT / 25 - 1][k].setFillColor(sf::Color::Red);
+			c.r = 255;
 			break;
 		case 3:
-			blocks[SCREENHEIGHT / 25 - 1][k].setFillColor(sf::Color::Magenta);
+			c.r = 148;
+			c.b = 211;
 			break;
 		case 4:
-			blocks[SCREENHEIGHT / 25 - 1][k].setFillColor(sf::Color::Yellow);
+			c.r = 255;
+			c.g = 140;
 			break;
 		default:
 			break;
 		}
+		blocks[SCREENHEIGHT / 25 - 1][k].setFillColor(c);
+		c.a = 255;
+		blocks[SCREENHEIGHT / 25 - 1][k].setOutlineThickness(-2);
+		blocks[SCREENHEIGHT / 25 - 1][k].setOutlineColor(c);
 	}
 
 	//check for matches once a new line comes in
