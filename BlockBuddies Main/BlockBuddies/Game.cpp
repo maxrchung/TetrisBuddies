@@ -43,8 +43,9 @@ void Game::update()
 
 void Game::draw()
 {
-	// Clears what's on the window from the last draw with the background color
-	GraphicsManager::getInstance()->window.clear(GraphicsManager::getInstance()->backgroundColor);
+	// Clears what's on the window from the last draw with the background color and a border
+	GraphicsManager::getInstance()->window.clear(GraphicsManager::getInstance()->buttonColor);
+    GraphicsManager::getInstance()->window.draw(GraphicsManager::getInstance()->background);
 
 	// This will usually be empty for Login/Register screen and the like, but GameScreen
 	// will need this to draw things

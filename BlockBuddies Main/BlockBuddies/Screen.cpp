@@ -8,8 +8,8 @@
 Screen::Screen()
     :close(new Button(Screens::CLOSE,
                       "X",
-                      (GraphicsManager::getInstance()->window.getSize().x / 2.0f) / GraphicsManager::getInstance()->scale - 20.0f,
-                      -(GraphicsManager::getInstance()->window.getSize().y / 2.0f) / GraphicsManager::getInstance()->scale + 20.0f,
+                      (GraphicsManager::getInstance()->window.getSize().x / 2.0f) / GraphicsManager::getInstance()->scale - 15.0f,
+                      -(GraphicsManager::getInstance()->window.getSize().y / 2.0f) / GraphicsManager::getInstance()->scale + 15.0f,
                       30.0f,
                       30.0f))
 {

@@ -66,6 +66,11 @@ void GraphicsManager::init()
 	// They represent respectively the darkest and lightest colors
 	selectColor =       buttonColor;
 	typeColor =         backgroundColor;
+
+    background = sf::RectangleShape(sf::Vector2f(window.getSize().x - 20, window.getSize().y - 20));
+    background.setFillColor(backgroundColor);
+    background.setOrigin(getCenter(background));
+    background.setPosition(window.getSize().x / 2.0f, window.getSize().y / 2.0f);
 }
 
 // getCenter() is a utility function for getting the origin of an object

@@ -65,6 +65,9 @@ public:
 	sf::Color buttonColor;
 	sf::Color typeColor;
 
+    // Background that is drawn on top of the border
+    sf::RectangleShape background;
+
 private:
 	// Singleton overhead stuff to take care of
 	GraphicsManager(){};
