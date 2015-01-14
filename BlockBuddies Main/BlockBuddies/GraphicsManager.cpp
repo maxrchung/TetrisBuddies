@@ -67,10 +67,16 @@ void GraphicsManager::init()
 	selectColor =       buttonColor;
 	typeColor =         backgroundColor;
 
-    background = sf::RectangleShape(sf::Vector2f(window.getSize().x - 20, window.getSize().y - 20));
-    background.setFillColor(backgroundColor);
-    background.setOrigin(getCenter(background));
-    background.setPosition(window.getSize().x / 2.0f, window.getSize().y / 2.0f);
+    borders = std::vector<sf::RectangleShape>(4);
+    borders[0] = sf::RectangleShape(sf::Vector2f(window.getSize().x, 10.0f));
+    borders[1] = sf::RectangleShape(sf::Vector2f(10.0f, window.getSize().y));
+    borders[2] = sf::RectangleShape(sf::Vector2f(window.getSize().x, 10.0f));
+    borders[2].setPosition(0.0f, window.getSize().y - 10.0f);
+    borders[3] = sf::RectangleShape(sf::Vector2f(10.0f, window.getSize().y));
+    borders[3].setPosition(window.getSize().x - 10.0f, 0.0f);
+
+    for(auto& border : borders)
+        border.setFillColor(buttonColor);
 }
 
 // getCenter() is a utility function for getting the origin of an object

@@ -123,6 +123,12 @@
     <ClInclude Include="NetworkedSinglePlayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BlockMeteor.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockShowerManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp">
@@ -222,6 +228,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="NetworkedSinglePlayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BlockShowerManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BlockMeteor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

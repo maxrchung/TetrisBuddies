@@ -2,6 +2,7 @@
 #define GRAPHICSMANAGER_HPP
 
 #include "SFML/Graphics.hpp"
+#include <vector>
 
 // Indicates whether to find a local or global bound
 enum Bounds 
@@ -65,8 +66,8 @@ public:
 	sf::Color buttonColor;
 	sf::Color typeColor;
 
-    // Background that is drawn on top of the border
-    sf::RectangleShape background;
+    // Borders outlining the screen
+    std::vector<sf::RectangleShape> borders;
 
 private:
 	// Singleton overhead stuff to take care of
