@@ -53,9 +53,6 @@ public:
 	sf::Font labelFont;
 	sf::Font messageFont;
 
-	// Framerate of the window draws, right now is at 60FPS
-	int framerate;
-
 	// Colors to choose from
 	// typeColor = backgroundColor and selectColor = buttonColor 
 	// at the moment. I like how we use very few colors, but this

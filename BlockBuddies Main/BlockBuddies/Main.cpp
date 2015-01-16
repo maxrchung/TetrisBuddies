@@ -4,11 +4,12 @@
 
 int main()
 {
-	Game game;
+    // Initialize game
+    Game::getInstance()->init();
 
-	while (game.isRunning)
+	while (Game::getInstance()->isRunning)
 		// Lets Game handle everything
-		game.run();
+		Game::getInstance()->run();
 
 	return 0;
 }

@@ -48,10 +48,8 @@ void GraphicsManager::init()
 	// Font of the message, for now it is the same as label, but it can be switched out
 	messageFont.loadFromFile("Roboto-Regular.ttf");	
 
-	// Sets the framerate for the window drawing, note that I do not think this
-	// actually applies for the actual game updates
-	framerate = 60;
-	window.setFramerateLimit(GraphicsManager::framerate);
+    // Runs at 60 FPS
+	window.setFramerateLimit(60);
 
 	// Every time the game is opened, a random color is generated
 	// Note that the colors all have the same hue but different shading

@@ -4,17 +4,20 @@
 #include "MessageType.h"
 #include "ScreenManager.hpp"
 #include "LoginScreen.hpp"
+#include "Game.hpp"
 //Connects to the server socket
 //Currently connects on the local machine only
 
 bool ClientManager::initConnection(sf::IpAddress IP, int portNumber)
 {
+    Game::getInstance()->startLoadingThread();
 	//Tries to connect
 	sf::Socket::Status status = socket.connect(IP, portNumber);
 	//Checks if it was able to connect
 	if (status != sf::Socket::Done)
 	{
 		isConnected = false;
+        Game::getInstance()->stopLoadingThread();
 		return false;
 	}
 	else 
@@ -26,11 +29,13 @@ bool ClientManager::initConnection(sf::IpAddress IP, int portNumber)
 
         // Hidden this parameter
         messageThread = std::thread(&ClientManager::messageWait, this);
+        Game::getInstance()->stopLoadingThread();
 		return true;
 	}
 	isUpdated = false;
 	gameOver = false;
 }
+
 void ClientManager::update()
 {
     // No point in continuing further if you're not connected
@@ -148,11 +153,15 @@ bool ClientManager::loginUser(std::string username , std::string password)
 	socket.send(login);
     std::cout << "Send login packet" << std::endl;
 
+    Game::getInstance()->startLoadingThread();
+
     // Block until we receive a message
     while(receivedPackets.empty()) 
     {
         std::cout << "looping..." << std::endl;
     }
+
+    Game::getInstance()->stopLoadingThread();
 
 	sf::Packet result = receivedPackets.front();
     queueAccess.lock();
@@ -187,8 +196,12 @@ bool ClientManager::registerUser(std::string username, std::string password)
 	socket.send(registerPacket);
     std::cout << "Sending register packet" << std::endl;
 
+    Game::getInstance()->startLoadingThread();
+
     // Block until a packet is in the queue
     while(receivedPackets.empty()) {}
+
+    Game::getInstance()->stopLoadingThread();
 
 	sf::Packet result = receivedPackets.front();
     queueAccess.lock();

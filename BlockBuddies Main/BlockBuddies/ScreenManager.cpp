@@ -133,7 +133,7 @@ void ScreenManager::shake(float seconds)
 // Does the necessary things for closing the game
 void ScreenManager::closeGame()
 {
-    Game::isRunning = false;
+    Game::getInstance()->isRunning = false;
     if(ClientManager::getInstance().isConnected)
         ClientManager::getInstance().closeConnection();
 }

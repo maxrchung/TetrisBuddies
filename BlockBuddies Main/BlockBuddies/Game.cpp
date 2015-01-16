@@ -8,9 +8,17 @@
 
 #include <iostream>
 
-bool Game::isRunning = true;
+Game* Game::instance;
 
-Game::Game()
+Game* Game::getInstance()
+{
+    if(!instance)
+        instance = new Game();
+
+    return instance;
+}
+
+void Game::init()
 {
 	// Initialize the singletons
 	// Note that UIManager and SelectManager must call init() first or 
@@ -64,4 +72,43 @@ void Game::draw()
 
 	// Draw everything that we've since prepped onto the window
 	GraphicsManager::getInstance()->window.display();
+}
+
+// Call this function to start loading before you start blocking
+void Game::startLoadingThread()
+{
+    isLoading = true;
+    GraphicsManager::getInstance()->window.setActive(false);
+    loadingThread = std::thread(&Game::loadingUpdate, this);
+}
+
+// While the game is loading, update the background block shower animation
+// and draw everything without updating
+void Game::loadingUpdate()
+{
+    // We need to do this odd setActive(true) and setActive(false)
+    // because SFML doesn't like when we have a global sf::RenderWindow
+    // that multiple threads are drawing to.
+    //
+    // Not a great fix, but it seems to not result in any problems, so
+    // I'll take it I suppose. I think from what I read on forums, the
+    // better design would be to simply avoid static/global variables
+    // in general and pass the RenderWindow between classes and functions
+    // that need it, but that would involve rewriting a lot of what we have
+    GraphicsManager::getInstance()->window.setActive(true);
+
+    while(isLoading)
+    {
+        BlockShowerManager::getInstance()->update();
+        draw();
+    }
+
+    GraphicsManager::getInstance()->window.setActive(false);
+}
+
+void Game::stopLoadingThread()
+{
+    isLoading = false;
+    loadingThread.join();
+    GraphicsManager::getInstance()->window.setActive(true);
 }

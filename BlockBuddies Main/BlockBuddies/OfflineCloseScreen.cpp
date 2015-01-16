@@ -81,7 +81,7 @@ void OfflineCloseScreen::update()
     else if (exit->isActivated ||
              (InputManager::getInstance()->enter && exit->isSelected))
     {
-        Game::isRunning = false;
+        Game::getInstance()->isRunning = false;
     }
 
     else if (cancel->isActivated ||

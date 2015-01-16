@@ -134,7 +134,7 @@ void NetworkManager::update()
 
                 case PacketDecode::PACKET_CHECKALIVE:
                 {
-                    std::cout << "Received disconnect packet" << std::endl;
+                    std::cout << "Received checkalive packet" << std::endl;
                     player.receiveAliveTimer.restart();
 
                     break;
