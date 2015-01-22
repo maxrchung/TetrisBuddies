@@ -35,6 +35,7 @@
   <ItemGroup>
     <ClInclude Include="..\SharedCode\GameLogic.hpp" />
     <ClInclude Include="..\SharedCode\GameStateObject.hpp" />
+    <ClInclude Include="..\SharedCode\GameTimedEvent.h" />
     <ClInclude Include="..\SharedCode\MessageType.h" />
     <ClInclude Include="..\SharedCode\UserInfo.h" />
     <ClInclude Include="DatabaseManager.h" />
