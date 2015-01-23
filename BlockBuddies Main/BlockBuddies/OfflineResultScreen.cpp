@@ -2,6 +2,7 @@
 #include "InputManager.hpp"
 #include "ScreenManager.hpp"
 #include "BlockHandler.hpp"
+#include "BlockShowerManager.hpp"
 
 OfflineResultScreen::OfflineResultScreen()
 	:backSection(new Section(0.0f,
@@ -90,6 +91,7 @@ void OfflineResultScreen::update()
     else if (offlineGame->isActivated ||
              (InputManager::getInstance()->enter && offlineGame->isSelected))
     {
+        BlockShowerManager::getInstance()->fade.state = FadeStates::FADING_OUT;
         ScreenManager::getInstance()->switchScreen(offlineGame->toScreen);
 	}
 

@@ -86,7 +86,15 @@ void Button::update()
 
 void Button::draw()
 {
+    boundingRect.setFillColor(sf::Color(boundingRect.getFillColor().r,
+                                        boundingRect.getFillColor().g,
+                                        boundingRect.getFillColor().b,
+                                        fade.value));
 	GraphicsManager::getInstance()->window.draw(boundingRect);
+
+    sf::Color labelColor = label.getColor();
+    labelColor.a = fade.value;
+    label.setColor(labelColor);
 	GraphicsManager::getInstance()->window.draw(label);
 }
 

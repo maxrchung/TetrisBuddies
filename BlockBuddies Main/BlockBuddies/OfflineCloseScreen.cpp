@@ -3,6 +3,7 @@
 #include "InputManager.hpp"
 #include "Game.hpp"
 #include "ClientManager.h"
+#include "BlockShowerManager.hpp"
 
 OfflineCloseScreen::OfflineCloseScreen()
 	:backSection(new Section(0.0f,
@@ -76,19 +77,23 @@ void OfflineCloseScreen::update()
         (InputManager::getInstance()->enter && login->isSelected))
     {
         ScreenManager::getInstance()->switchScreen(login->toScreen);
+        BlockShowerManager::getInstance()->fade.state = FadeStates::FADING_IN;
+        InputManager::getInstance()->resetInput();
     }
 
     else if (exit->isActivated ||
              (InputManager::getInstance()->enter && exit->isSelected))
     {
         Game::getInstance()->isRunning = false;
+        InputManager::getInstance()->resetInput();
     }
 
     else if (cancel->isActivated ||
              (InputManager::getInstance()->enter && cancel->isSelected) ||
              InputManager::getInstance()->escape)
     {
-        ScreenManager::getInstance()->currentScreens.pop_back();
+        fade.state = FadeStates::FADING_OUT;
+        InputManager::getInstance()->resetInput();
         return;
     }
 }

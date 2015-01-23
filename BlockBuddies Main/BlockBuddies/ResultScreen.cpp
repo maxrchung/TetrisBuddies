@@ -3,6 +3,7 @@
 #include "ScreenManager.hpp"
 #include "ClientManager.h"
 #include "SoundManager.h"
+#include "BlockShowerManager.hpp"
 #include <sstream>
 ResultScreen::ResultScreen()
 	:scoreString("5000"),
@@ -82,6 +83,7 @@ void ResultScreen::update()
     else if (game->isActivated ||
              (InputManager::getInstance()->enter && game->isSelected))
     {
+        BlockShowerManager::getInstance()->fade.state = FadeStates::FADING_OUT;
 		ClientManager::getInstance().requestStartGame();
 		SoundManager::getInstance().playMusic("Sounds/Slamtris.ogg");
         ScreenManager::getInstance()->switchScreen(game->toScreen);

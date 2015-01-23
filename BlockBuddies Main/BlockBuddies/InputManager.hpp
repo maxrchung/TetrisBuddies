@@ -13,6 +13,9 @@ public:
 	void init();
 	void update();
 
+    // Resets all inputs to false
+    void resetInput();
+
 	// Checks for mouse up
 	bool mouseReleased;
 

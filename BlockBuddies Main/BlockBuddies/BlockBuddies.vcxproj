@@ -23,6 +23,7 @@
     <ClInclude Include="ClientMessages.hpp" />
     <ClInclude Include="CloseScreen.hpp" />
     <ClInclude Include="CursorHandler.hpp" />
+    <ClInclude Include="Fade.hpp" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="GameScreen.hpp" />
     <ClInclude Include="GraphicsManager.hpp" />
@@ -62,6 +63,7 @@
     <ClCompile Include="ClientMessages.cpp" />
     <ClCompile Include="CloseScreen.cpp" />
     <ClCompile Include="CursorHandler.cpp" />
+    <ClCompile Include="Fade.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameScreen.cpp" />
     <ClCompile Include="GameTypeScreen.cpp" />

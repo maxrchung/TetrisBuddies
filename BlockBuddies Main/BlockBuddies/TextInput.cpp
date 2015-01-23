@@ -434,6 +434,9 @@ void TextInput::update()
 
 void TextInput::draw()
 {
+    sf::Color adjustColor = boundingRect.getFillColor();
+    adjustColor.a = fade.value;
+    boundingRect.setFillColor(adjustColor);
 	// Draw the background boundingRect
 	GraphicsManager::getInstance()->window.draw(boundingRect);
     
@@ -442,7 +445,9 @@ void TextInput::draw()
     {
         sf::RectangleShape selectAll = sf::RectangleShape(sf::Vector2f(displayedInput.getLocalBounds().width,
                                                                        inputCursor.boundingRect.getLocalBounds().height));
-        selectAll.setFillColor(GraphicsManager::getInstance()->sectionColor);
+        adjustColor = GraphicsManager::getInstance()->sectionColor;
+        adjustColor.a = fade.value;
+        selectAll.setFillColor(adjustColor);
         selectAll.setOrigin(displayedInput.getOrigin().x,
                             inputCursor.boundingRect.getOrigin().y);
         selectAll.setPosition(displayedInput.getPosition().x,
@@ -451,11 +456,23 @@ void TextInput::draw()
                            GraphicsManager::getInstance()->scale);
         GraphicsManager::getInstance()->window.draw(selectAll);
 
+        adjustColor = displayedInput.getColor();
+        adjustColor.a = fade.value;
+        displayedInput.setColor(adjustColor);
         GraphicsManager::getInstance()->window.draw(displayedInput);
     }
     else
     {
+        adjustColor = displayedInput.getColor();
+        adjustColor.a = fade.value;
+        displayedInput.setColor(adjustColor);
         GraphicsManager::getInstance()->window.draw(displayedInput);
+
+        inputCursor.boundingRect.setFillColor(sf::Color(inputCursor.boundingRect.getFillColor().r,
+                                                        inputCursor.boundingRect.getFillColor().g,
+                                                        inputCursor.boundingRect.getFillColor().b,
+                                                        fade.value));
+                                              
         inputCursor.draw();
     }
 }
@@ -482,5 +499,7 @@ void TextInput::InputCursor::update()
 void TextInput::InputCursor::draw()
 {
 	if (InputCursor::isDisplayed)
+    {
 		GraphicsManager::getInstance()->window.draw(InputCursor::boundingRect);
+    }
 }

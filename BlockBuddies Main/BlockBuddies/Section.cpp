@@ -25,5 +25,8 @@ void Section::update()
 
 void Section::draw()
 {
+    sf::Color adjustColor = boundingRect.getFillColor();
+    adjustColor.a = fade.value;
+    boundingRect.setFillColor(adjustColor);
 	GraphicsManager::getInstance()->window.draw(boundingRect);
 }

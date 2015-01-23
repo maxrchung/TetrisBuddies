@@ -15,6 +15,7 @@ InputManager* InputManager::getInstance()
 
 void InputManager::init()
 {
+    resetInput();
 	mouseReleased = false;
 	backspace = false;
 	enter = false;
@@ -34,19 +35,7 @@ void InputManager::init()
 void InputManager::update()
 {
 	// Resets all booleans and inputs before starting future checks
-	mouseReleased = false;
-	backspace = false;
-	enter = false;
-	tab = false;
-    escape = false;
-    left = false;
-    right = false;
-    up = false;
-    down = false;
-    home = false;
-    end = false;
-    del = false;
-    a = false;
+    resetInput();
 
 	// Input is an sf::String, so we clear it before the events check
 	input.clear();
@@ -110,4 +99,21 @@ void InputManager::update()
 			break;
 		}
 	}
+}
+
+void InputManager::resetInput()
+{
+    mouseReleased = false;
+	backspace = false;
+	enter = false;
+	tab = false;
+    escape = false;
+    left = false;
+    right = false;
+    up = false;
+    down = false;
+    home = false;
+    end = false;
+    del = false;
+    a = false;
 }

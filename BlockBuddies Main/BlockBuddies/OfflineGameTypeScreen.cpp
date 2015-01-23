@@ -2,6 +2,7 @@
 #include "InputManager.hpp"
 #include "ScreenManager.hpp"
 #include "SoundManager.h"
+#include "BlockShowerManager.hpp"
 
 OfflineGameTypeScreen::OfflineGameTypeScreen()
     :backSection(new Section(0.0f,
@@ -67,7 +68,7 @@ void OfflineGameTypeScreen::update()
     else if (game->isActivated ||
              (InputManager::getInstance()->enter && game->isSelected))
     {
-
+        BlockShowerManager::getInstance()->fade.state = FadeStates::FADING_OUT;
 		SoundManager::getInstance().playMusic("Sounds/Slamtris.ogg");
         ScreenManager::getInstance()->switchScreen(game->toScreen);
     }

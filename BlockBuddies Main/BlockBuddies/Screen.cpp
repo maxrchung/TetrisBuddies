@@ -4,6 +4,7 @@
 #include "ScreenManager.hpp"
 #include "ClientManager.h"
 #include "TextInput.hpp"
+#include "Section.hpp"
 
 Screen::Screen()
     :close(new Button(Screens::CLOSE,
@@ -13,6 +14,7 @@ Screen::Screen()
                       30.0f,
                       30.0f))
 {
+    fade = Fade();
     UIElements.push_back(close);
 }
 
@@ -84,25 +86,38 @@ void Screen::update()
     for(auto& a : UIElements)
     {
         if(a->isDisplayed)
+        {
             a->update();
+        }
     }
 }
 
 void Screen::draw()
 {
-    for(auto& a : UIElements)
+    // For slightly bad reasons, we put the fade.update() here rather than in Screen::update()
+    // because there are cases where we do not want to allow Screen::update() to run and only
+    // draw the screen. The alternative would be to include some variable within Screen::update()
+    // and only allow fade.update() to run if this variable is true. However, I feel this is
+    // somewhat too complicated and can get unwieldy if we forget to change the a variable 
+    // properly in another section.
+    fade.update();
+
+    for(auto& UIElement : UIElements)
     {
-        if(a->isDisplayed)
-            a->draw();
+        // Not sure if this is the best way to handle fade, but I think it'll suffice
+        UIElement->fade = fade;
+        UIElement->draw();
     }
 }
 
+// Deselects all the selectables
 void Screen::deselect()
 {
     for(auto selectable : selectables)
         selectable->isSelected = false;
 }
 
+// Deactivates all the UIElements
 void Screen::deactivate()
 {
     for(auto& UIElement : UIElements)

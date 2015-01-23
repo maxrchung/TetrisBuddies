@@ -3,6 +3,7 @@
 
 #include "Screen.hpp"
 #include <map>
+#include <deque>
 
 // ScreenManager takes care of switching screens and holds
 // a currentScreen variable
@@ -19,11 +20,14 @@ public:
     void popScreen();
     void closeGame();
 
-    // currentScreens is a vector of the current screens displayed on screen
+    // currentScreens is a deque of the current screens displayed on screen
     // The reason why we need to make it a structure instead of just one Screen*
     // is because we may have overlay screens, such as the CloseScreen put
     // on top of other screens
-    std::vector<Screen*> currentScreens;
+    //
+    // I changed it from a vector to a deque because with screens constantly popping on and off
+    // from fades it makes more sense as nodes rather than a vector
+    std::deque<Screen*> currentScreens;
 
 	//allow the screen to shakeit
 

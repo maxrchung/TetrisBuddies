@@ -3,6 +3,8 @@
 #include "ClientManager.h"
 #include "ScreenManager.hpp"
 #include "SoundManager.h"
+#include "BlockShowerManager.hpp"
+
 GameTypeScreen::GameTypeScreen()
     :backSection(new Section(0.0f,
 	                     0.0f,
@@ -90,6 +92,8 @@ void GameTypeScreen::update()
     else if (game->isActivated ||
              (InputManager::getInstance()->enter && game->isSelected))
 	{
+        BlockShowerManager::getInstance()->fade.state = FadeStates::FADING_OUT;
+
 		SoundManager::getInstance().playMusic("Sounds/Slamtris.ogg");
 		ClientManager::getInstance().requestStartGame();
         ScreenManager::getInstance()->switchScreen(game->toScreen);

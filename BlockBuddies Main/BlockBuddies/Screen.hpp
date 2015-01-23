@@ -6,6 +6,7 @@
 #include "Button.hpp"
 #include "UIElement.hpp"
 #include <SFML\Audio.hpp>
+#include "Fade.hpp"
 
 class Button;
 
@@ -43,6 +44,7 @@ public:
     void deselect();
     void deactivate();
     Button* close;
+    Fade fade;
 
 protected:
 	std::vector <UIElement*> UIElements;

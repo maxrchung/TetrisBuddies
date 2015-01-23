@@ -1,6 +1,7 @@
 #include "GameScreen.hpp"
 #include "ClientManager.h"
 #include "SoundManager.h"
+#include "BlockShowerManager.hpp"
 #include <iostream>
 
 // To be filled in at the gameplay people's discretion
@@ -160,6 +161,8 @@ void GameScreen::update()
 		delete bh;
 		delete ch;
 		reset = true;
+        BlockShowerManager::getInstance()->fade.state = FadeStates::FADING_IN;
+
         if(ClientManager::getInstance().isConnected)
             ScreenManager::getInstance()->switchScreen(RESULT);
         else

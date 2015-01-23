@@ -46,7 +46,7 @@ void ScreenManager::init()
 	                                     };
 
 	// Set this to something else if you want to start on a specific screen
-    currentScreens = { screens[Screens::LOGIN] };
+    switchScreen(Screens::LOGIN);
 
 	//set the initialPosition of the window
 	view = GraphicsManager::getInstance()->window.getDefaultView();
@@ -54,15 +54,29 @@ void ScreenManager::init()
 
 void ScreenManager::update()
 {
-    // Only update the most recently added screen
-	currentScreens[currentScreens.size() - 1]->update();
+    int removeIndex = -1;
+    // Loops backwards so we can check updates for the top screens first
+    for(int i = currentScreens.size() - 1; i >= 0; i--)
+    {
+        if(currentScreens[i]->fade.state == FadeStates::FADED_IN)
+            currentScreens[i]->update();
+        // Sets index of fade out
+        else if(currentScreens[i]->fade.state == FadeStates::FADED_OUT)
+            removeIndex = i;
+    }
 
-	
+    // Removes faded out elements, doesn't matter if this only removes
+    // one at a time per loop
+    //
+    // Also, we must remove after the loop so we don't mess up indexing
+    if(removeIndex != -1)
+        currentScreens.erase(currentScreens.begin() + removeIndex);
+
 	//screen shake
 	if (shakeTimer.asMilliseconds() > 0)
 	{
 		view = GraphicsManager::getInstance()->window.getDefaultView();
-		view.setCenter(sf::Vector2f(view.getCenter().x + rand() % 5, view.getCenter().y + rand() % 5));
+		view.setCenter(sf::Vector2f(view.getCenter().x + rand() % 5 - 2.5f, view.getCenter().y + rand() % 5 - 2.5f));
 		GraphicsManager::getInstance()->window.setView(view);
 		shakeTimer -= clock.getElapsedTime();
 	}
@@ -74,55 +88,42 @@ void ScreenManager::update()
 
 void ScreenManager::draw()
 {
-    currentScreens[0]->draw();
-
-    if(currentScreens.size() > 1)
-    {
-        for(int i = 1; i < currentScreens.size() - 1; i++)
-        {
-            currentScreens[i]->draw();
-        }
-        // Used to provide a darkening layer between the last layer
-        // and the layers before it
-        sf::RectangleShape darken(sf::Vector2f((float) GraphicsManager::getInstance()->window.getSize().x,
-                                               (float) GraphicsManager::getInstance()->window.getSize().y));
-        darken.setFillColor(sf::Color(0, 0, 0, 255/2));
-        GraphicsManager::getInstance()->window.draw(darken);
-
-        currentScreens[currentScreens.size() - 1]->draw();
-    }
+    for (int i = 0; i < currentScreens.size(); i++)
+        currentScreens[i]->draw();
 }
 
 void ScreenManager::switchScreen(const Screens toScreen)
 {	
-    currentScreens = { screens[toScreen] };
+    screens[toScreen]->fade.state = FadeStates::FADING_IN;
 
-    // Deselects any selected elements before going to a new screen
+    // Add to the front, as the back will disappear
+    currentScreens.push_front(screens[toScreen]);
+
+    // Deselects and deactivate any selected elements before going to a new screen
     for(auto& screen : currentScreens)
+    {
         screen->deselect();
-
-    for(auto& screen : currentScreens)
         screen->deactivate();
-	
+
+        // Start fading out
+        if(screen->fade.state == FadeStates::FADED_IN)
+            screen->fade.state = FadeStates::FADING_OUT;
+    }
 }
 
 // For adding a notification screen or a close screen on top of the
 // current one
 void ScreenManager::addScreen(const Screens toScreen)
 {
+    screens[toScreen]->fade.state = FadeStates::FADING_IN;
+
     currentScreens.push_back(screens[toScreen]);
 
     for(auto& screen : currentScreens)
+    {
         screen->deselect();
-
-    for(auto& screen : currentScreens)
         screen->deactivate();
-}
-
-// Removes the front screen
-void ScreenManager::popScreen()
-{
-    currentScreens.pop_back();
+    }
 }
 
 void ScreenManager::shake(float seconds)

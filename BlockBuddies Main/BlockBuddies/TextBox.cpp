@@ -156,5 +156,8 @@ void TextBox::update()
 
 void TextBox::draw()
 {
+    sf::Color adjustColor = message.getColor();
+    adjustColor.a = fade.value;
+    message.setColor(adjustColor);
 	GraphicsManager::getInstance()->window.draw(message);
 }

@@ -13,6 +13,8 @@ BlockShowerManager* BlockShowerManager::getInstance()
 
 void BlockShowerManager::init()
 {
+    fade = Fade();
+    fade.state = FadeStates::FADING_IN;
     // Initializes all the meteors to random positions
     meteors = std::vector<BlockMeteor>(30);
     for(int i = 0; i < 30; i++)
@@ -26,13 +28,24 @@ void BlockShowerManager::init()
 
 void BlockShowerManager::update()
 {
-    for(auto& meteor : meteors)
+    fade.update();
+
+    // No point in updating the meteors if it is not visible
+    if(fade.state != FadeStates::FADED_OUT)
     {
-        meteor.update();
-        if(meteor.boundingRect.getGlobalBounds().top - meteor.boundingRect.getSize().y 
-               > GraphicsManager::getInstance()->window.getSize().y)
+        for (auto& meteor : meteors)
         {
-            reload(meteor);
+            meteor.update();
+            meteor.boundingRect.setFillColor(sf::Color(meteor.boundingRect.getFillColor().r,
+                                                       meteor.boundingRect.getFillColor().g,
+                                                       meteor.boundingRect.getFillColor().b,
+                                                       fade.value));
+
+            if (meteor.boundingRect.getGlobalBounds().top - meteor.boundingRect.getSize().y
+                    > GraphicsManager::getInstance()->window.getSize().y)
+            {
+                reload(meteor);
+            }
         }
     }
 }
@@ -63,6 +76,7 @@ void BlockShowerManager::reload(BlockMeteor& bm)
     sf::Color bgColor = GraphicsManager::getInstance()->backgroundColor;
     sf::Color newColor = sf::Color(bgColor.r - colorVariance * 64, 
                                    bgColor.g - colorVariance * 64,
-                                   bgColor.b - colorVariance * 64);
+                                   bgColor.b - colorVariance * 64,
+                                   fade.value);
     bm.boundingRect.setFillColor(newColor);
 }

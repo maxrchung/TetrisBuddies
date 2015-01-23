@@ -4,6 +4,7 @@
 #include "Game.hpp"
 #include "ClientManager.h"
 #include "LoginScreen.hpp"
+#include "BlockShowerManager.hpp"
 
 CloseScreen::CloseScreen()
 	:backSection(new Section(0.0f,
@@ -79,24 +80,34 @@ void CloseScreen::update()
         ScreenManager::getInstance()->switchScreen(login->toScreen);
         dynamic_cast<LoginScreen*>(ScreenManager::getInstance()->currentScreens[0])->status->message.setString("Enter username and password");
         ClientManager::getInstance().closeConnection();
+        BlockShowerManager::getInstance()->fade.state = FadeStates::FADING_IN;
+        InputManager::getInstance()->resetInput();
     }
 
     else if (exit->isActivated ||
              (InputManager::getInstance()->enter && exit->isSelected))
     {
         ScreenManager::getInstance()->closeGame();
+        InputManager::getInstance()->resetInput();
     }
 
     else if (cancel->isActivated ||
              (InputManager::getInstance()->enter && cancel->isSelected) ||
              InputManager::getInstance()->escape)
     {
-        ScreenManager::getInstance()->popScreen();
+        fade.state = FadeStates::FADING_OUT;
+        InputManager::getInstance()->resetInput();
         return;
     }
 }
 
 void CloseScreen::draw()
 {
+    // Used to provide a darkening layer between the last layer
+    // and the layers before it
+    sf::RectangleShape darken(sf::Vector2f((float)GraphicsManager::getInstance()->window.getSize().x,
+                                           (float)GraphicsManager::getInstance()->window.getSize().y));
+    darken.setFillColor(sf::Color(0, 0, 0, fade.value));
+    GraphicsManager::getInstance()->window.draw(darken);
     Screen::draw();
 }
