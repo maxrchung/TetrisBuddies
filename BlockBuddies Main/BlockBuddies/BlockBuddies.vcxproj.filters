@@ -129,6 +129,9 @@
     <ClInclude Include="BlockShowerManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\SharedCode\GameTimedEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Fade.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -7,6 +7,26 @@
 //iostream so we can print out the game state to make sure it looks correct
 
 
+
+
+
+
+
+//TO DO:
+/*
+
+add a timestamp
+add a frame number
+add something to indicate a new line has been inserted? (maybe a bool newLineActive that's always false except when a line is inserted)
+add something to track falling blocks
+add something to track clearing blocks
+add something to track the cursor position (used only for multiplayer animation)
+rework the whole game state packet thing so we don't have all the weird encoding and decoding (it works fine now, but it makes changing it harder)
+
+*/
+
+
+
 class GameStateObject{
 
 public:
