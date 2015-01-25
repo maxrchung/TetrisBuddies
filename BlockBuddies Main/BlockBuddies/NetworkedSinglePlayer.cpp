@@ -2,6 +2,8 @@
 #include "InputManager.hpp"
 #include "SoundManager.h"
 #include <sstream>
+#include "Animate.h"
+#include <vector>
 NetworkedSinglePlayer::NetworkedSinglePlayer()
 	: pressed(false), pressed2(false), reset(false),
 	username(new TextBox("SDFSIDUFHSLIEUFHSLIUEFHSLEIUFHSLIEUFHSILEUFHSLIEUFHSLIEUFHSLEIUFHSILEUFHSLIEFUH",
@@ -183,6 +185,55 @@ void NetworkedSinglePlayer::update()
 				if (swapSound.getStatus() != swapSound.Playing)
 					swapSound.play();
 				ScreenManager::getInstance()->shake(.5);
+
+				int y = ch->getCursorY();
+				int x = ch->getCursorX();
+
+				//animate
+
+				sf::Color first = blocks[y][x].getFillColor();
+				sf::Color second = blocks[y][x - 1].getFillColor();
+
+				sf::Clock fadeCalc;
+				int dur = 300;
+				//start color + ((end color - start color) * (elapsed time / total time))
+				float alpha;
+				float temp = 255;
+				fadeCalc.restart();
+				bool switched = false;
+				while (fadeCalc.getElapsedTime().asMilliseconds() <= dur)
+				{
+					alpha = temp + (0 - temp) * ((float)fadeCalc.getElapsedTime().asMilliseconds() / (float)dur);
+					temp = alpha;
+
+					if (first.a > 40)
+					{
+						if (first.a)
+							first.a = alpha;
+						second.a = alpha;
+						blocks[y][x].setFillColor(first);
+						blocks[y][x - 1].setFillColor(second);
+						NetworkedSinglePlayer::draw();
+						GraphicsManager::getInstance()->window.draw(blocks[y][x]);
+						GraphicsManager::getInstance()->window.draw(blocks[y][x - 1]);
+					}
+					else if (fadeCalc.getElapsedTime().asMilliseconds() <= dur / 2)
+						switched = true;
+						
+					if (switched)
+					{
+
+						first.a += alpha + 10;
+						second.a += alpha;
+						blocks[y][x].setFillColor(second);
+						blocks[y][x - 1].setFillColor(first);
+						NetworkedSinglePlayer::draw();
+						GraphicsManager::getInstance()->window.draw(blocks[y][x]);
+						GraphicsManager::getInstance()->window.draw(blocks[y][x - 1]);
+					}
+					
+					
+			}
 				pressed2 = true;
 			}
 		}
@@ -195,6 +246,35 @@ void NetworkedSinglePlayer::update()
 				ScreenManager::getInstance()->shake(.5);
 				if (swapSound.getStatus() != swapSound.Playing)
 					swapSound.play();
+
+				//animate
+				/*int y = ch->getCursorY();
+				int x = ch->getCursorX();
+
+				sf::Color first = blocks[y][x].getFillColor();
+				sf::Color second = blocks[y][x + 1].getFillColor();
+
+				sf::Clock fadeCalc;
+				int dur = 300;
+				//start color + ((end color - start color) * (elapsed time / total time))
+				float alpha;
+				int counter = 1;
+				fadeCalc.restart();
+				bool switched = false;
+				blocks[y][x].setPosition(blocks[y][x].getPosition().x + 25, blocks[y][x].getPosition().y);
+				GraphicsManager::getInstance()->window.draw(blocks[y][x]);
+				while (fadeCalc.getElapsedTime().asMilliseconds() <= dur)
+				{
+					if (fadeCalc.getElapsedTime().asMilliseconds() > 60 * counter)
+					{
+						counter++;
+						blocks[y][x + 1].setPosition(blocks[y][x + 1].getPosition().x - 5, blocks[y][x + 1].getPosition().y);
+						GraphicsManager::getInstance()->window.draw(blocks[y][x + 1]);
+					}
+				}
+
+				blocks[y][x + 1].setPosition(blocks[y][x].getPosition().x - 25, blocks[y][x + 1].getPosition().y);
+				*/
 			}
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) //swaps the main block with the top block

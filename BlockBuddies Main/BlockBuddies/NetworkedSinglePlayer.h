@@ -15,7 +15,10 @@ public:
 	~NetworkedSinglePlayer();
 	void update();
 	void draw();
+	sf::RectangleShape blocks[GameStateObject::boardHeight][GameStateObject::boardWidth];
+
 private:
+	
 	CursorHandler *ch;
 	bool pressed, pressed2;
 	sf::RectangleShape rec;
@@ -26,7 +29,6 @@ private:
 	int gameScreenHeight;
 	int gameScreenWidth;
 	GameStateObject gso;
-	sf::RectangleShape blocks[GameStateObject::boardHeight][GameStateObject::boardWidth];
 	int blockSizeX;
 	int blockSizeY;
 	void initGame();
