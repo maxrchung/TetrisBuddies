@@ -90,11 +90,15 @@ void Button::draw()
                                         boundingRect.getFillColor().g,
                                         boundingRect.getFillColor().b,
                                         fade.value));
+    float scaleFactor = GraphicsManager::getInstance()->scale * (fade.value/255.0f / 4.0f + 0.75f);
+    boundingRect.setScale(sf::Vector2f(scaleFactor, scaleFactor));
 	GraphicsManager::getInstance()->window.draw(boundingRect);
 
     sf::Color labelColor = label.getColor();
     labelColor.a = fade.value;
     label.setColor(labelColor);
+    label.setScale(sf::Vector2f(scaleFactor, scaleFactor));
+
 	GraphicsManager::getInstance()->window.draw(label);
 }
 

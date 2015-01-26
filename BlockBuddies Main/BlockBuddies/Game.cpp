@@ -70,7 +70,7 @@ void Game::draw()
 	// will need this to draw things
 	ScreenManager::getInstance()->draw();
 
-	// Draw everything that we've since prepped onto the window
+    // Draw everything that we've since prepped onto the window
 	GraphicsManager::getInstance()->window.display();
 }
 

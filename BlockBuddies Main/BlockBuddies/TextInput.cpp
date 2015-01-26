@@ -437,6 +437,8 @@ void TextInput::draw()
     sf::Color adjustColor = boundingRect.getFillColor();
     adjustColor.a = fade.value;
     boundingRect.setFillColor(adjustColor);
+    float scaleFactor = GraphicsManager::getInstance()->scale * (fade.value/255.0f / 4.0f + 0.75f);
+    boundingRect.setScale(sf::Vector2f(scaleFactor, scaleFactor));
 	// Draw the background boundingRect
 	GraphicsManager::getInstance()->window.draw(boundingRect);
     
@@ -454,11 +456,13 @@ void TextInput::draw()
                               inputCursor.boundingRect.getPosition().y);
         selectAll.setScale(1.0f,
                            GraphicsManager::getInstance()->scale);
+        selectAll.setScale(sf::Vector2f(scaleFactor, scaleFactor));
         GraphicsManager::getInstance()->window.draw(selectAll);
 
         adjustColor = displayedInput.getColor();
         adjustColor.a = fade.value;
         displayedInput.setColor(adjustColor);
+        displayedInput.setScale(sf::Vector2f(scaleFactor, scaleFactor));
         GraphicsManager::getInstance()->window.draw(displayedInput);
     }
     else
@@ -466,13 +470,14 @@ void TextInput::draw()
         adjustColor = displayedInput.getColor();
         adjustColor.a = fade.value;
         displayedInput.setColor(adjustColor);
+        displayedInput.setScale(sf::Vector2f(scaleFactor, scaleFactor));
         GraphicsManager::getInstance()->window.draw(displayedInput);
 
         inputCursor.boundingRect.setFillColor(sf::Color(inputCursor.boundingRect.getFillColor().r,
                                                         inputCursor.boundingRect.getFillColor().g,
                                                         inputCursor.boundingRect.getFillColor().b,
                                                         fade.value));
-                                              
+        inputCursor.boundingRect.setScale(sf::Vector2f(scaleFactor, scaleFactor));
         inputCursor.draw();
     }
 }

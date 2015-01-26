@@ -159,5 +159,8 @@ void TextBox::draw()
     sf::Color adjustColor = message.getColor();
     adjustColor.a = fade.value;
     message.setColor(adjustColor);
+
+    float scaleFactor = GraphicsManager::getInstance()->scale * (fade.value/255.0f / 4.0f + 0.75f);
+    message.setScale(sf::Vector2f(scaleFactor, scaleFactor));
 	GraphicsManager::getInstance()->window.draw(message);
 }
