@@ -2,18 +2,34 @@
 #include "InputManager.hpp"
 #include "SoundManager.h"
 #include <sstream>
-//#include "Animate.h"
+#include "Animate.h"
 #include <vector>
 NetworkedSinglePlayer::NetworkedSinglePlayer()
 	: pressed(false), pressed2(false), reset(false),
-	username(new TextBox("SDFSIDUFHSLIEUFHSLIUEFHSLEIUFHSLIEUFHSILEUFHSLIEUFHSLIEUFHSLEIUFHSILEUFHSLIEFUH",
-	0,
-	0,
+	highScore(new TextBox("Player Score: ",
+	410.0f,
+	-380.0f,
+	600.0f)),
+	score(new TextBox("Score goes here",
+	480.0f,
+	-380.0f,
+	600.0f)),
+	username(new TextBox("Username: ",
+	-665.0f,
+	-380.0f,
+	600.0f)),
+	name(new TextBox("Player name goes here",
+	-590.0f,
+	-380.0f,
 	600.0f))
 {
 	initGame();
+	UIElements.push_back(highScore);
+	UIElements.push_back(score);
 	UIElements.push_back(username);
+	UIElements.push_back(name);
 	swapSound.setBuffer(*SoundManager::getInstance().getSound("heya"));
+	
 }
 
 
@@ -23,11 +39,7 @@ NetworkedSinglePlayer::~NetworkedSinglePlayer()
 
 void NetworkedSinglePlayer::initGame()
 {
-	std::string scoreString;
-	int Number = (int)gso.score;
-	scoreString = static_cast<std::ostringstream*>(&(std::ostringstream() << Number))->str();
-	username->message.setString(scoreString);
-
+	name->message.setString(ClientManager::getInstance().player.username);
 	winX = GraphicsManager::getInstance()->window.getSize().x;
 	winY = GraphicsManager::getInstance()->window.getSize().y;
 	//fill in initial board
@@ -65,7 +77,11 @@ void NetworkedSinglePlayer::initGame()
 }
 void NetworkedSinglePlayer::update()
 {
-	
+	//takes care of displaying the score. 
+	std::string scoreString;
+	int Number = (int)gso.score;
+	scoreString = static_cast<std::ostringstream*>(&(std::ostringstream() << Number))->str();
+	score->message.setString(scoreString);
 	Screen::update();
 	if (reset)
 	{
@@ -320,7 +336,7 @@ void NetworkedSinglePlayer::update()
 
 void NetworkedSinglePlayer::draw()
 {
-	Screen::draw();
+
 	GraphicsManager::getInstance()->window.draw(rec);
 	for (int i = 0; i < GameStateObject::boardHeight; i++)
 	{
@@ -335,4 +351,9 @@ void NetworkedSinglePlayer::draw()
 	GraphicsManager::getInstance()->window.draw(ch->getRightCursor()); //draws right cursor
 	GraphicsManager::getInstance()->window.draw(ch->getTopCursor()); //draws top cursor
 	GraphicsManager::getInstance()->window.draw(ch->getBottomCursor()); //draws bottom cursor
+	highScore->message.setColor(sf::Color::Black);
+	score->message.setColor(sf::Color::Black);
+	username->message.setColor(sf::Color::Black);
+	name->message.setColor(sf::Color::Black);
+	Screen::draw();
 }

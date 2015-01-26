@@ -37,5 +37,6 @@ private:
 	TextBox* username;
 	TextBox* score;
 	TextBox* highScore;
+	TextBox* name;
 };
 
