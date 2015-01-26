@@ -26,6 +26,7 @@ GameLogic::GameLogic(){
 void GameLogic::ResetGame()
 {
 	gso =  GameStateObject();
+	GameLogic::InitialBoardPopulation();
 	totalRowInsertionTime = 610;
 }
 
@@ -404,7 +405,7 @@ bool GameLogic::ProcessMessage(sf::Packet toProcess){
 		//so it should be public?
 		//maybe
 		//unless threre's a better way to do it
-		
+		GameLogic::ResetGame();
 		if (isGameOver == true){
 			gameHasStarted = true;
 			InitialBoardPopulation();

@@ -65,6 +65,7 @@ void NetworkManager::update()
             {
                 case PacketDecode::PACKET_LOGIN:
                 {
+					gameHandler.ResetGame();
                     std::string user;
                     std::string pass;
                     packet >> user 
@@ -173,9 +174,9 @@ void NetworkManager::update()
 					update << PacketDecode::PACKET_USERINFOUPDATE;
 					update << DatabaseManager::getInstance().getUserInfo(player.playerInfo.username);
 					player.playerSocket->send(update);
-					gameHandler.ResetGame();
 				}
 				player.playerSocket->send(lost);
+				gameHandler.ResetGame();
 				std::cout << "gameOver Sent \n";
 				
 			}
