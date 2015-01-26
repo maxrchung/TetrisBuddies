@@ -58,7 +58,8 @@ void ScreenManager::update()
     // Loops backwards so we can check updates for the top screens first
     for(int i = currentScreens.size() - 1; i >= 0; i--)
     {
-        if(currentScreens[i]->fade.state == FadeStates::FADED_IN)
+        // Only update the scree if the fade state is faded in or fading in
+        if(currentScreens[i]->fade.state == FadeStates::FADED_IN || currentScreens[i]->fade.state == FadeStates::FADING_IN)
             currentScreens[i]->update();
         // Sets index of fade out
         else if(currentScreens[i]->fade.state == FadeStates::FADED_OUT)

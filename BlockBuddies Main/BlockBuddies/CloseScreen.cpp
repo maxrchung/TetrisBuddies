@@ -107,7 +107,8 @@ void CloseScreen::draw()
     // and the layers before it
     sf::RectangleShape darken(sf::Vector2f((float)GraphicsManager::getInstance()->window.getSize().x,
                                            (float)GraphicsManager::getInstance()->window.getSize().y));
-    darken.setFillColor(sf::Color(0, 0, 0, fade.value));
+    darken.setFillColor(sf::Color(0, 0, 0, fade.value/1.25f));
+
     GraphicsManager::getInstance()->window.draw(darken);
     Screen::draw();
 }

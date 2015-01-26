@@ -2,7 +2,7 @@
 #include "InputManager.hpp"
 #include "SoundManager.h"
 #include <sstream>
-#include "Animate.h"
+//#include "Animate.h"
 #include <vector>
 NetworkedSinglePlayer::NetworkedSinglePlayer()
 	: pressed(false), pressed2(false), reset(false),
@@ -14,7 +14,6 @@ NetworkedSinglePlayer::NetworkedSinglePlayer()
 	initGame();
 	UIElements.push_back(username);
 	swapSound.setBuffer(*SoundManager::getInstance().getSound("heya"));
-	
 }
 
 
