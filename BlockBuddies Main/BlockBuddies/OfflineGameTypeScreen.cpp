@@ -57,7 +57,6 @@ void OfflineGameTypeScreen::update()
     {
         ScreenManager::getInstance()->switchScreen(home->toScreen);
     }
-
     
     else if (gameType->isActivated ||
              (InputManager::getInstance()->enter && gameType->isSelected))

@@ -95,36 +95,43 @@ void ScreenManager::draw()
 
 void ScreenManager::switchScreen(const Screens toScreen)
 {	
-    screens[toScreen]->fade.state = FadeStates::FADING_IN;
 
-    // Add to the front, as the back will disappear
-    currentScreens.push_front(screens[toScreen]);
-
+    int removeIndex = -1;
+    int counter = -1;
     // Deselects and deactivate any selected elements before going to a new screen
     for(auto& screen : currentScreens)
     {
+        counter++;
         screen->deselect();
         screen->deactivate();
 
         // Start fading out
-        if(screen->fade.state == FadeStates::FADED_IN)
-            screen->fade.state = FadeStates::FADING_OUT;
+        screen->fade.state = FadeStates::FADING_OUT;
+
+        if(screen == screens[toScreen])
+            removeIndex = counter;
     }
+
+    if(removeIndex != -1)
+        currentScreens.erase(currentScreens.begin() + removeIndex);
+
+    // Add to the front, as the back will disappear
+    currentScreens.push_front(screens[toScreen]);
+    currentScreens[0]->fade.state = FadeStates::FADING_IN;
 }
 
 // For adding a notification screen or a close screen on top of the
 // current one
 void ScreenManager::addScreen(const Screens toScreen)
 {
-    screens[toScreen]->fade.state = FadeStates::FADING_IN;
-
-    currentScreens.push_back(screens[toScreen]);
-
     for(auto& screen : currentScreens)
     {
         screen->deselect();
         screen->deactivate();
     }
+
+    currentScreens.push_back(screens[toScreen]);
+    currentScreens[currentScreens.size() - 1]->fade.state = FadeStates::FADING_IN;
 }
 
 void ScreenManager::shake(float seconds)
