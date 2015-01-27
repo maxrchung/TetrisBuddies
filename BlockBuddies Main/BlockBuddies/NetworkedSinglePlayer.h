@@ -8,6 +8,12 @@
 #include "UIElement.hpp"
 #include "TextBox.hpp"
 
+#include <vector>
+#include <tuple>
+#include <iostream>
+
+
+
 class NetworkedSinglePlayer : public Screen
 {
 public:
@@ -17,7 +23,18 @@ public:
 	void draw();
 	sf::RectangleShape blocks[GameStateObject::boardHeight][GameStateObject::boardWidth];
 
+	
+
 private:
+
+	typedef std::tuple<int, int> blocksWT;
+	std::vector <blocksWT> blockToCheck;
+	sf::Color first;
+	sf::Color second;
+	int dur = 400;
+	sf::Clock clocks[20][16];
+	unsigned index = 0;
+	bool remove = false;
 	
 	CursorHandler *ch;
 	bool pressed, pressed2;

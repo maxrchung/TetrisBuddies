@@ -203,52 +203,16 @@ void NetworkedSinglePlayer::update()
 
 				int y = ch->getCursorY();
 				int x = ch->getCursorX();
-
+				
 				//animate
-
-				sf::Color first = blocks[y][x].getFillColor();
-				sf::Color second = blocks[y][x - 1].getFillColor();
-
 				sf::Clock fadeCalc;
-				int dur = 300;
-				//start color + ((end color - start color) * (elapsed time / total time))
-				float alpha;
-				float temp = 255;
-				fadeCalc.restart();
-				bool switched = false;
-				while (fadeCalc.getElapsedTime().asMilliseconds() <= dur)
-				{
-					alpha = temp + (0 - temp) * ((float)fadeCalc.getElapsedTime().asMilliseconds() / (float)dur);
-					temp = alpha;
+				clocks[y][x].restart();
+				blockToCheck.push_back(blocksWT(x, y));
+				first = blocks[y][x].getFillColor();
+				second = blocks[y][x - 1].getFillColor();
 
-					if (first.a > 40)
-					{
-						if (first.a)
-							first.a = alpha;
-						second.a = alpha;
-						blocks[y][x].setFillColor(first);
-						blocks[y][x - 1].setFillColor(second);
-						NetworkedSinglePlayer::draw();
-						GraphicsManager::getInstance()->window.draw(blocks[y][x]);
-						GraphicsManager::getInstance()->window.draw(blocks[y][x - 1]);
-					}
-					else if (fadeCalc.getElapsedTime().asMilliseconds() <= dur / 2)
-						switched = true;
-						
-					if (switched)
-					{
-
-						first.a += alpha + 10;
-						second.a += alpha;
-						blocks[y][x].setFillColor(second);
-						blocks[y][x - 1].setFillColor(first);
-						NetworkedSinglePlayer::draw();
-						GraphicsManager::getInstance()->window.draw(blocks[y][x]);
-						GraphicsManager::getInstance()->window.draw(blocks[y][x - 1]);
-					}
-					
-					
-			}
+				
+				
 				pressed2 = true;
 			}
 		}
@@ -338,6 +302,44 @@ void NetworkedSinglePlayer::draw()
 {
 
 	GraphicsManager::getInstance()->window.draw(rec);
+	float alpha;
+	int counter = 0;
+	for (blocksWT check : blockToCheck)
+	{
+		int x = std::get<0>(check);
+		int y = std::get<1>(check);
+		
+		first = blocks[y][x].getFillColor();
+		second = blocks[y][x - 1].getFillColor();
+
+		if (clocks[y][x].getElapsedTime().asMilliseconds() <= dur)
+		{
+			alpha = (255 + (0 - 255) * ((float)clocks[y][x].getElapsedTime().asMilliseconds() / (float)dur));
+			second.a = alpha;
+			first.a = alpha;
+			blocks[y][x].setFillColor(first);
+			blocks[y][x - 1].setFillColor(second);	 
+		}
+		else
+		{
+			first.a = 255;
+			second.a = 255;
+			blocks[y][x].setFillColor(second);
+			blocks[y][x - 1].setFillColor(first);
+			remove = true;
+			index = counter;
+		}
+		counter++;
+	}
+
+	if (remove)
+	{
+		int d = index;
+		blockToCheck.erase(blockToCheck.begin() + index);
+		remove = false;
+	}
+
+
 	for (int i = 0; i < GameStateObject::boardHeight; i++)
 	{
 		for (int j = 0; j < GameStateObject::boardWidth; j++)
