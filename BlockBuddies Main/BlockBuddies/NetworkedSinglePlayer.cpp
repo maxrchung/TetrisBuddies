@@ -2,7 +2,7 @@
 #include "InputManager.hpp"
 #include "SoundManager.h"
 #include <sstream>
-#include "Animate.h"
+//#include "Animate.h"
 #include <vector>
 NetworkedSinglePlayer::NetworkedSinglePlayer()
 	: pressed(false), pressed2(false), reset(false),
