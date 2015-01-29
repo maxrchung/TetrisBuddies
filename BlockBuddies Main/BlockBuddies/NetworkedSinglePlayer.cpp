@@ -65,6 +65,7 @@ void NetworkedSinglePlayer::initGame()
 	{
 		for (int j = 0; j < gameScreenWidth; j += blockSizeX)
 		{
+			
 			sf::RectangleShape shape(sf::Vector2f(blockSizeX, blockSizeY));
 			shape.setPosition(j + (winX / 2 - gameScreenWidth / 2), i - (winY / 2 - gameScreenHeight / 2) - blockSizeX); //puts it in the middle of the screen
 			shape.setFillColor(sf::Color::Transparent); //transparent blocks to appear as empty space
@@ -226,34 +227,6 @@ void NetworkedSinglePlayer::update()
 				if (swapSound.getStatus() != swapSound.Playing)
 					swapSound.play();
 
-				//animate
-				/*int y = ch->getCursorY();
-				int x = ch->getCursorX();
-
-				sf::Color first = blocks[y][x].getFillColor();
-				sf::Color second = blocks[y][x + 1].getFillColor();
-
-				sf::Clock fadeCalc;
-				int dur = 300;
-				//start color + ((end color - start color) * (elapsed time / total time))
-				float alpha;
-				int counter = 1;
-				fadeCalc.restart();
-				bool switched = false;
-				blocks[y][x].setPosition(blocks[y][x].getPosition().x + 25, blocks[y][x].getPosition().y);
-				GraphicsManager::getInstance()->window.draw(blocks[y][x]);
-				while (fadeCalc.getElapsedTime().asMilliseconds() <= dur)
-				{
-					if (fadeCalc.getElapsedTime().asMilliseconds() > 60 * counter)
-					{
-						counter++;
-						blocks[y][x + 1].setPosition(blocks[y][x + 1].getPosition().x - 5, blocks[y][x + 1].getPosition().y);
-						GraphicsManager::getInstance()->window.draw(blocks[y][x + 1]);
-					}
-				}
-
-				blocks[y][x + 1].setPosition(blocks[y][x].getPosition().x - 25, blocks[y][x + 1].getPosition().y);
-				*/
 			}
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) //swaps the main block with the top block
@@ -347,6 +320,16 @@ void NetworkedSinglePlayer::draw()
 			GraphicsManager::getInstance()->window.draw(blocks[i][j]);
 		}
 	}
+
+	/*blockAnimate animate;
+	for (auto draw: animate.blocks)
+	{
+		if (draw.getFillColor().a != 0)
+		{
+			
+		}
+	}
+	*/
 
 	GraphicsManager::getInstance()->window.draw(ch->getMainCursor()); //draws main cursor
 	GraphicsManager::getInstance()->window.draw(ch->getLeftCursor()); //draws left cursor
