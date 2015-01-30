@@ -99,6 +99,10 @@ void Button::draw()
     label.setColor(labelColor);
     label.setScale(sf::Vector2f(scaleFactor, scaleFactor));
 
+    float fontSize;
+    fontSize = scaleFactor * GraphicsManager::getInstance()->labelSize;
+    label.setCharacterSize(fontSize);
+
 	GraphicsManager::getInstance()->window.draw(label);
 }
 

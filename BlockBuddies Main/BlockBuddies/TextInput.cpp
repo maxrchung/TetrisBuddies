@@ -471,6 +471,10 @@ void TextInput::draw()
         adjustColor.a = fade.value;
         displayedInput.setColor(adjustColor);
         displayedInput.setScale(sf::Vector2f(scaleFactor, scaleFactor));
+
+        float fontSize = scaleFactor * GraphicsManager::getInstance()->messageSize;
+        displayedInput.setCharacterSize(fontSize);
+
         GraphicsManager::getInstance()->window.draw(displayedInput);
 
         inputCursor.boundingRect.setFillColor(sf::Color(inputCursor.boundingRect.getFillColor().r,

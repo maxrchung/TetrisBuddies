@@ -69,10 +69,13 @@ void Screen::update()
 		// element as selected, depending on whether we do tab or shift-tab
 		if (!selected)
 		{
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
-				selectables[selectables.size() - 1]->isSelected = true;
-			else
-				selectables[0]->isSelected = true;
+            if(!selectables.empty())
+            {
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+                    selectables[selectables.size() - 1]->isSelected = true;
+                else
+                    selectables[0]->isSelected = true;
+            }
 		}
 	}
 

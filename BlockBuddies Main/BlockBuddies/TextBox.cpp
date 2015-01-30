@@ -12,6 +12,8 @@ TextBox::TextBox(char* message,
 					  GraphicsManager::getInstance()->messageSize)),
 	 boundingWidth(width)
 {
+    this->isTitle = isTitle;
+
 	// The isTitle parameter indicates whether or not the textbox is a larger title
 	// e.g. "Login" for the LoginScreen, or just a normal instructions e.g. "Enter credentials below"
 	// Right now, they are only differentiated by two different font sizes
@@ -162,5 +164,13 @@ void TextBox::draw()
 
     float scaleFactor = GraphicsManager::getInstance()->scale * (fade.value/255.0f / 4.0f + 0.75f);
     message.setScale(sf::Vector2f(scaleFactor, scaleFactor));
+
+    float fontSize;
+    if(isTitle)
+        fontSize = scaleFactor * GraphicsManager::getInstance()->titleSize;
+    else
+        fontSize = scaleFactor * GraphicsManager::getInstance()->messageSize;
+    message.setCharacterSize(fontSize);
+
 	GraphicsManager::getInstance()->window.draw(message);
 }

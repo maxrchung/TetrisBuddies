@@ -46,6 +46,8 @@ private:
 	// Target position is used in case we need to reposition the text
 	// e.g. when a status is altered
 	sf::Vector2f targetPosition;
+
+    bool isTitle;
 };
 
 #endif TEXTBOX_HPP
