@@ -30,7 +30,11 @@ sf::Packet ClientMessages::RequestMultiplayer(){
 
 //pass it a packet full of game state data, and decode it into a passed in GameStateObject
 void ClientMessages::DecodeGameState(sf::Packet& decodeMe, GameStateObject& gso){
+	
+	decodeMe >> gso;
 
+
+	/*
 	sf::Uint32 sc;
 	decodeMe >> sc;
 	gso.score = sc;
@@ -52,6 +56,7 @@ void ClientMessages::DecodeGameState(sf::Packet& decodeMe, GameStateObject& gso)
 			gso.gameBoard[rowNum][colNum] = square;
 		}
 	}
+	*/
 }
 
 

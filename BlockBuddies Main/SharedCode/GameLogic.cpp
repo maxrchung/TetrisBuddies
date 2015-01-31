@@ -98,6 +98,7 @@ void GameLogic::InitialBoardPopulation(){
 
 
 	gso.score = 0;
+	gso.newRowActive = false;
 
 	PopulateTempRow();
 }
@@ -423,6 +424,9 @@ bool GameLogic::ProcessMessage(sf::Packet toProcess){
 
 void GameLogic::GameTick(){
 
+	gso.newRowActive = false;
+	gso.frameNum++;
+
 	//if this is true, put the game state as a message to the client
 	bool gameStateChanged = false;
 
@@ -461,6 +465,7 @@ void GameLogic::GameTick(){
 
 			//reset the row insertion timer
 
+			gso.newRowActive = true;
 			rowInsertionTimeLeft = totalRowInsertionTime;
 			sendNewRow = true;
 			gameStateChanged = true;
@@ -475,7 +480,10 @@ void GameLogic::GameTick(){
 
 		//outgoingMessages.push(GSPacket());
 		if (gameStateChanged){
-			outgoingMessages.push(GSPacket());
+			gso.PrintToFile();
+			sf::Packet p;
+			p << gso;
+			outgoingMessages.push(p);
 		}
 }
 

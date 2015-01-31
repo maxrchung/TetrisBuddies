@@ -1,13 +1,16 @@
 #ifndef GAMESTATEOBJECT_HPP
 #define GAMESTATEOBJECT_HPP
 
+#include "TimedPiece.h"
 #include <SFML/Network.hpp>
 #include <iostream>
+#include "GameTimedEvent.h"
+#include <fstream>
 //Network.hpp so it can make itself into a packet
 //iostream so we can print out the game state to make sure it looks correct
-
-
-
+//utility so we can use pair
+//GameTimedEvent so we can keep track of what blocks are doing what
+//fstream to output to a file
 
 
 
@@ -21,7 +24,9 @@ add something to indicate a new line has been inserted? (maybe a bool newLineAct
 add something to track falling blocks
 add something to track clearing blocks
 add something to track the cursor position (used only for multiplayer animation)
-rework the whole game state packet thing so we don't have all the weird encoding and decoding (it works fine now, but it makes changing it harder)
+add the pause for the row insertion/scroll
+rework the whole game state packet thing so we don't have all the weird encoding and decoding (it works fine before adding stuff to the state, but it makes changing it harder)
+
 
 */
 
@@ -31,9 +36,13 @@ class GameStateObject{
 
 public:
 	GameStateObject();
+
 	//couts the contents of the board
 	void Print();
 	
+	//Outputs the game state to a file
+	void PrintToFile();
+
 	//returns the whole packet of the gameState 
 	sf::Packet GSPacket() const; 
 
@@ -47,12 +56,41 @@ public:
 
 	sf::Uint32 score;
 
+
+
+///// NEW STUFF:
+
+
+	//cursor item here
+	//first = rowNum
+	//second = colNum
+	std::pair<int, int> cursorPos;
+
+	//frame number here
+	sf::Uint32 frameNum;
+
+	//timestamp here
+	int timestamp;
+	//no idea if this is right. we might need to use something else for the timestamp 
+
+	//row insertion pause here
+	int rowInsertionPause;
+	//this won't be used
+
+	//falling blocks here
+	std::vector<TimedPiece> fallingBlocks;
+
+	//clearing blocks here
+	std::vector<TimedPiece> clearingBlocks;
+
+	bool newRowActive; 
+	//how should this work? I don't want to have to reset it every single time 
+
 	GameStateObject& operator=(GameStateObject& gso);
 };
 
-
 sf::Packet& operator <<(sf::Packet& packet, const GameStateObject& gso);
-
 sf::Packet& operator >>(sf::Packet& packet, GameStateObject& gso);
+
 
 #endif
