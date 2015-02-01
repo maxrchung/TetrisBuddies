@@ -50,12 +50,13 @@ void NetworkedSinglePlayer::initGame()
 
 	//draws a large rectangle around the game screen
 	gameScreenHeight = blockSizeX * 20;
+	int offset = winY - gameScreenHeight;
 	gameScreenWidth = blockSizeX * 16;
 
-	ch = new CursorHandler(gameScreenWidth, gameScreenHeight, winX, winY, blockSizeX, 0); //5 is the offset, dunno why yet
-	rec.setSize(sf::Vector2f(gameScreenWidth, gameScreenHeight));
+	ch = new CursorHandler(gameScreenWidth, gameScreenHeight, winX, winY, blockSizeX, -offset); //5 is the offset, dunno why yet
+	rec.setSize(sf::Vector2f(gameScreenWidth, gameScreenHeight - offset));
 	rec.setFillColor(sf::Color::Transparent);
-	rec.setPosition((winX / 2) - gameScreenWidth / 2, winY / 2 - gameScreenHeight / 2);
+	rec.setPosition((winX / 2) - gameScreenWidth / 2, (winY / 2 - gameScreenHeight / 2));
 	rec.setOutlineThickness(blockSizeX);
 	rec.setOutlineColor(sf::Color::Black);
 	
