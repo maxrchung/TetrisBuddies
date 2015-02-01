@@ -237,6 +237,13 @@ void ClientManager::requestMultiplayerGame()
 	socket.send(toSend);
 }
 
+void ClientManager::requestNewRow(){
+	sf::Packet toSend;
+	toSend = messageMaker.NewRowPacket();
+	socket.send(toSend);
+
+}
+
 void ClientManager::requestSwap(sf::Uint8 p1row, sf::Uint8 p1col, sf::Uint8 p2row, sf::Uint8 p2col)
 {
 	sf::Packet toSend;
@@ -244,6 +251,8 @@ void ClientManager::requestSwap(sf::Uint8 p1row, sf::Uint8 p1col, sf::Uint8 p2ro
 	socket.send(toSend);
 
 }
+
+
 
 void ClientManager::messageWait()
 {	

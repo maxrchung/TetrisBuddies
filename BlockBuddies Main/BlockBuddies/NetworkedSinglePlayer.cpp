@@ -252,6 +252,13 @@ void NetworkedSinglePlayer::update()
 					swapSound.play();
 			}
 		}
+
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
+			ClientManager::getInstance().requestNewRow();
+			pressed2 = true;
+
+		}
+
 		else
 			pressed2 = false; //cannot hold swap button to keep swapping
 
@@ -274,6 +281,14 @@ void NetworkedSinglePlayer::update()
 
 void NetworkedSinglePlayer::draw()
 {
+
+	for (int i = 0; i < GameStateObject::boardHeight; i++)
+	{
+		for (int j = 0; j < GameStateObject::boardWidth; j++)
+		{
+			GraphicsManager::getInstance()->window.draw(blocks[i][j]);
+		}
+	}
 
 	GraphicsManager::getInstance()->window.draw(rec);
 	float alpha;
@@ -314,13 +329,7 @@ void NetworkedSinglePlayer::draw()
 	}
 
 
-	for (int i = 0; i < GameStateObject::boardHeight; i++)
-	{
-		for (int j = 0; j < GameStateObject::boardWidth; j++)
-		{
-			GraphicsManager::getInstance()->window.draw(blocks[i][j]);
-		}
-	}
+
 
 	/*blockAnimate animate;
 	for (auto draw: animate.blocks)

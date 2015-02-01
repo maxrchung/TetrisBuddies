@@ -92,7 +92,8 @@ void GameStateObject::PrintToFile(){
 
 	debugFile.open("debugOutput.txt", std::ios::app);
 
-	debugFile << "********************START OF NEW STATE*************************************\n" << std::endl;
+	debugFile << "********************START OF NEW STATE*************************************" << std::endl;
+	debugFile << "Frame Number: " << frameNum << std::endl;
 
 	//output rows, top to bottom
 	for (int rowNum = boardHeight - 1; rowNum > -1; rowNum--){
@@ -125,7 +126,6 @@ void GameStateObject::PrintToFile(){
 	//*********
 	//print the rest of the elements that will be added to the state 
 	debugFile << "Cursor position (row, col): " << cursorPos.first << "," << cursorPos.second << std::endl;
-	debugFile << "Frame Number: " << frameNum << std::endl;
 	debugFile << "Timestamp: " << timestamp << std::endl;
 	debugFile << "Row Insertion Pause: " << rowInsertionPause << std::endl;
 	debugFile << "New row active? " << newRowActive << std::endl;

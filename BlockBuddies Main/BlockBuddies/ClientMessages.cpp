@@ -33,6 +33,7 @@ void ClientMessages::DecodeGameState(sf::Packet& decodeMe, GameStateObject& gso)
 	
 	decodeMe >> gso;
 
+	gso.PrintToFile();
 
 	/*
 	sf::Uint32 sc;
