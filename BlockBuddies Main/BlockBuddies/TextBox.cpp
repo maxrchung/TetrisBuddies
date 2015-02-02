@@ -1,5 +1,6 @@
 #include "TextBox.hpp"
 #include "GraphicsManager.hpp"
+#include <iostream>
 
 TextBox::TextBox(char* message,
                  float posX,
@@ -162,15 +163,8 @@ void TextBox::draw()
     adjustColor.a = fade.value;
     message.setColor(adjustColor);
 
-    float scaleFactor = GraphicsManager::getInstance()->scale * (fade.value/255.0f / 4.0f + 0.75f);
-    message.setScale(sf::Vector2f(scaleFactor, scaleFactor));
+    float scaleFade = fade.value/255.0f / 4.0f + 0.75f;
+    message.setScale(sf::Vector2f(scaleFade, scaleFade));
 
-    float fontSize;
-    if(isTitle)
-        fontSize = scaleFactor * GraphicsManager::getInstance()->titleSize;
-    else
-        fontSize = scaleFactor * GraphicsManager::getInstance()->messageSize;
-    message.setCharacterSize(fontSize);
-
-	GraphicsManager::getInstance()->window.draw(message);
+    GraphicsManager::getInstance()->window.draw(message);
 }

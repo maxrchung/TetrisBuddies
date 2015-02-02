@@ -277,18 +277,25 @@ void TextInput::update()
                 if(inputIndex > -1)
                     grow = inputString[inputIndex];
                 checkLength.setString(grow);
-                while(checkLength.getGlobalBounds().width < boundingRect.getGlobalBounds().width - 10.0f)
+                bool modded = true;
+                while(checkLength.getGlobalBounds().width < boundingRect.getGlobalBounds().width - 6.0f)
                 {
+                    if(modded)
+                    {
+                        modded = false;
+                        grow.insert(0, sf::String("..."));
+                    }
+                        
                     // We set this here because the while statement checks if the NEXT character
                     // addition will exceed the length
                     displayedInput = checkLength;
 
                     // Make sure we don't have any negative indicies
-                    if(--inputIndex <= 0)
+                    if(--inputIndex < 0)
                         break;
 
                     // Insert a new character in front
-                    grow.insert(0, inputString[inputIndex]);
+                    grow.insert(3, inputString[inputIndex]);
                     checkLength.setString(grow);
                 }
 
@@ -359,7 +366,7 @@ void TextInput::update()
                 checkLength.setString(grow);
 
                 // Add asterisks until the input fits
-                while(checkLength.getGlobalBounds().width < boundingRect.getGlobalBounds().width - 10.0f)
+                while(checkLength.getGlobalBounds().width < boundingRect.getGlobalBounds().width - 6.0f)
                 {
                     // We set this here because the while statement checks if the NEXT character
                     // addition will exceed the length
@@ -470,10 +477,9 @@ void TextInput::draw()
         adjustColor = displayedInput.getColor();
         adjustColor.a = fade.value;
         displayedInput.setColor(adjustColor);
-        displayedInput.setScale(sf::Vector2f(scaleFactor, scaleFactor));
-
-        float fontSize = scaleFactor * GraphicsManager::getInstance()->messageSize;
-        displayedInput.setCharacterSize(fontSize);
+        
+        float scaleFade = fade.value / 255.0f / 4.0f + 0.75f;
+        displayedInput.setScale(sf::Vector2f(scaleFade, scaleFade));
 
         GraphicsManager::getInstance()->window.draw(displayedInput);
 
