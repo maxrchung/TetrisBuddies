@@ -1,8 +1,8 @@
 #include "NetworkedSinglePlayer.h"
 #include "InputManager.hpp"
 #include "SoundManager.h"
+#include "AnimationManager.hpp"
 #include <sstream>
-//#include "Animate.h"
 #include <vector>
 NetworkedSinglePlayer::NetworkedSinglePlayer()
 	: pressed(false), pressed2(false), reset(false),
@@ -97,12 +97,6 @@ void NetworkedSinglePlayer::update()
 		{
 			gso = ClientManager::getInstance().currentGSO;
 			ClientManager::getInstance().isUpdated = false;
-
-			if (gso.newRowActive){
-				ch->Up(sf::Keyboard::Key::Up);
-			}
-
-
 			int color;
 			gso.Print();
 			std::cout << "changing it on the screen now";
@@ -113,38 +107,64 @@ void NetworkedSinglePlayer::update()
 				for (int j = 0; j < gso.boardWidth; j++)
 				{
 					color = gso.gameBoard[i][j];
-
+					sf::Color c(0, 0, 0, 200);
 					switch (color)
 					{
 						//if its a 0 its empty?
 					case 0:
 					{
 						blocks[i][j].setFillColor(sf::Color::Transparent);
+						blocks[i][j].setOutlineThickness(-2);
+						blocks[i][j].setOutlineColor(sf::Color::Transparent);
 						break;
 					}
 					case 1:
 					{
-						blocks[i][j].setFillColor(sf::Color::Blue);
+						c.b = 128;
+						blocks[i][j].setFillColor(c);
+						c.a = 255;
+						blocks[i][j].setOutlineThickness(-2);
+						blocks[i][j].setOutlineColor(c);
 						break;
 					}
 					case 2:
 					{
-						blocks[i][j].setFillColor(sf::Color::Red);
+						c.r = 255;
+						blocks[i][j].setFillColor(c);
+						c.a = 255;
+						blocks[i][j].setOutlineThickness(-2);
+						blocks[i][j].setOutlineColor(c);
 						break;
 					}
 					case 3:
 					{
-						blocks[i][j].setFillColor(sf::Color::Yellow);
+						c.r = 255;
+						c.g = 140;
+						blocks[i][j].setFillColor(c);
+						c.a = 255;
+						blocks[i][j].setOutlineThickness(-2);
+						blocks[i][j].setOutlineColor(c);
 						break;
 					}
 					case 4:
 					{
-						blocks[i][j].setFillColor(sf::Color::Magenta);
+						c.r = 148;
+						c.b = 211;
+						blocks[i][j].setFillColor(c);
+						c.a = 255;
+						blocks[i][j].setOutlineThickness(-2);
+						blocks[i][j].setOutlineColor(c);
 						break;
 					}
 					case 5:
 					{
-						blocks[i][j].setFillColor(sf::Color::Green);
+						c.r = 50;
+						c.g = 205;
+						c.b = 50;
+						blocks[i][j].setFillColor(c);
+						c.a = 255;
+						blocks[i][j].setOutlineThickness(-2);
+						blocks[i][j].setOutlineColor(c);
 						break;
 					}
 					default:
@@ -202,7 +222,7 @@ void NetworkedSinglePlayer::update()
 		//keypress for block switching
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) //swaps the main block with the left block
 		{
-			if (pressed2 == false)
+			if (pressed2 == false && ch->getCursorX() > 0)//cant switch if left side off screen
 			{
 				ClientManager::getInstance().requestSwap(ch->getCursorY(), ch->getCursorX(), ch->getCursorY(), ch->getCursorX() - 1);
 				if (swapSound.getStatus() != swapSound.Playing)
@@ -212,21 +232,13 @@ void NetworkedSinglePlayer::update()
 				int y = ch->getCursorY();
 				int x = ch->getCursorX();
 				
-				//animate
-				sf::Clock fadeCalc;
-				clocks[y][x].restart();
-				blockToCheck.push_back(blocksWT(x, y));
-				first = blocks[y][x].getFillColor();
-				second = blocks[y][x - 1].getFillColor();
-
-				
-				
+				AnimationManager::getInstance()->add(blocks[y][x], blocks[y][x - 1]);
 				pressed2 = true;
 			}
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) //swaps the main block with the right block
 		{
-			if (pressed2 == false)
+			if (pressed2 == false && ch->getCursorX() < 15)//cant switch if right block is off screen
 			{
 				ClientManager::getInstance().requestSwap(ch->getCursorY(), ch->getCursorX(), ch->getCursorY(), ch->getCursorX() + 1);
 				pressed2 = true;
@@ -234,37 +246,47 @@ void NetworkedSinglePlayer::update()
 				if (swapSound.getStatus() != swapSound.Playing)
 					swapSound.play();
 
+				int y = ch->getCursorY();
+				int x = ch->getCursorX();
+
+				AnimationManager::getInstance()->add(blocks[y][x], blocks[y][x + 1]);
+
 			}
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) //swaps the main block with the top block
 		{
-			if (pressed2 == false)
+			if (pressed2 == false && ch->getCursorY() < 19) // cant switch if top block is offscreen
 			{
 				ClientManager::getInstance().requestSwap(ch->getCursorY(), ch->getCursorX(), ch->getCursorY() + 1, ch->getCursorX());
 				pressed2 = true;
 				ScreenManager::getInstance()->shake(.5);
 				if (swapSound.getStatus() != swapSound.Playing)
 					swapSound.play();
+				int y = ch->getCursorY();
+				int x = ch->getCursorX();
+
+				AnimationManager::getInstance()->add(blocks[y][x], blocks[y+1][x]);
 			}
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) //swaps the main block with the bottom block
 		{
-			if (pressed2 == false)
+			if (pressed2 == false && ch->getCursorY() > 0)//cant switch if bottom block is off screen
 			{
 				ClientManager::getInstance().requestSwap(ch->getCursorY(), ch->getCursorX(), ch->getCursorY() - 1, ch->getCursorX());
 				pressed2 = true;
 				ScreenManager::getInstance()->shake(.5);
 				if (swapSound.getStatus() != swapSound.Playing)
 					swapSound.play();
-			}
-		}
+				int y = ch->getCursorY();
+				int x = ch->getCursorX();
 
+				AnimationManager::getInstance()->add(blocks[y][x], blocks[y-1][x]);
+			}
+		}	
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
 			ClientManager::getInstance().requestNewRow();
 			pressed2 = true;
-
 		}
-
 		else
 			pressed2 = false; //cannot hold swap button to keep swapping
 
@@ -287,6 +309,9 @@ void NetworkedSinglePlayer::update()
 
 void NetworkedSinglePlayer::draw()
 {
+	Screen::draw();
+
+	GraphicsManager::getInstance()->window.draw(rec);
 
 	for (int i = 0; i < GameStateObject::boardHeight; i++)
 	{
@@ -296,56 +321,7 @@ void NetworkedSinglePlayer::draw()
 		}
 	}
 
-	GraphicsManager::getInstance()->window.draw(rec);
-	float alpha;
-	int counter = 0;
-	for (blocksWT check : blockToCheck)
-	{
-		int x = std::get<0>(check);
-		int y = std::get<1>(check);
-		
-		first = blocks[y][x].getFillColor();
-		second = blocks[y][x - 1].getFillColor();
-
-		if (clocks[y][x].getElapsedTime().asMilliseconds() <= dur)
-		{
-			alpha = (255 + (0 - 255) * ((float)clocks[y][x].getElapsedTime().asMilliseconds() / (float)dur));
-			second.a = alpha;
-			first.a = alpha;
-			blocks[y][x].setFillColor(first);
-			blocks[y][x - 1].setFillColor(second);	 
-		}
-		else
-		{
-			first.a = 255;
-			second.a = 255;
-			blocks[y][x].setFillColor(second);
-			blocks[y][x - 1].setFillColor(first);
-			remove = true;
-			index = counter;
-		}
-		counter++;
-	}
-
-	if (remove)
-	{
-		int d = index;
-		blockToCheck.erase(blockToCheck.begin() + index);
-		remove = false;
-	}
-
-
-
-
-	/*blockAnimate animate;
-	for (auto draw: animate.blocks)
-	{
-		if (draw.getFillColor().a != 0)
-		{
-			
-		}
-	}
-	*/
+	AnimationManager::getInstance()->update();
 
 	GraphicsManager::getInstance()->window.draw(ch->getMainCursor()); //draws main cursor
 	GraphicsManager::getInstance()->window.draw(ch->getLeftCursor()); //draws left cursor
@@ -356,5 +332,5 @@ void NetworkedSinglePlayer::draw()
 	score->message.setColor(sf::Color::Black);
 	username->message.setColor(sf::Color::Black);
 	name->message.setColor(sf::Color::Black);
-	Screen::draw();
+
 }
