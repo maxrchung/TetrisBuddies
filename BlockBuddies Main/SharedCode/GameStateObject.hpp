@@ -43,9 +43,6 @@ public:
 	//Outputs the game state to a file
 	void PrintToFile();
 
-	//returns the whole packet of the gameState 
-	sf::Packet GSPacket() const; 
-
 	//default Tetris Attack values: 12 rows, 6 cols
 	static const int boardHeight = 20;
 	static const int boardWidth = 16;

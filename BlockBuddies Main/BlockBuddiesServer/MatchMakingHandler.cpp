@@ -57,8 +57,7 @@ void MatchMakingHandler::update()
 			activeGames.erase(it++);
 		}
 
-		(*it)->player1->playerSocket->send((*it)->playerOneGame.GSPacket());
-		(*it)->player2->playerSocket->send((*it)->playerTwoGame.GSPacket());
+
 
 	}
 

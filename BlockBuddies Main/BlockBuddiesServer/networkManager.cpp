@@ -193,7 +193,7 @@ void NetworkManager::update()
 			{
 				gameHandler.GameTick();
 				if (gameHandler.sendNewRow)
-					player.playerSocket->send(gameHandler.GSPacket());
+					//player.playerSocket->send(gameHandler.GSPacket());
 				gameHandler.sendNewRow = false;
 				tick = sf::Time::Zero;
 			}

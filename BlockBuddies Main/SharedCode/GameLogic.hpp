@@ -26,7 +26,6 @@ public:
 	void PrintBlocksMarkedForDeletion() const;
 	void PrintBTCFM() const;
 	bool IsGameOver() const { return isGameOver; }
-	sf::Packet GSPacket() const;
 	void ResetGame();
 	//used whenever a message needs to be passed into this game. Puts the message in the message queue 
 	bool ReceiveMessage(sf::Packet incomingMessage);
