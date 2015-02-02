@@ -92,7 +92,19 @@ void GameStateObject::PrintToFile(){
 
 	debugFile.open("debugOutput.txt", std::ios::app);
 
-	debugFile << "********************START OF NEW STATE*************************************\n" << std::endl;
+	debugFile << "********************START OF NEW STATE*************************************" << std::endl;
+	debugFile << "Player score: " << score << std::endl;
+	debugFile << "Cursor position (row, col): " << cursorPos.first << "," << cursorPos.second << std::endl;
+	debugFile << "Frame Number: " << frameNum << std::endl;
+	debugFile << "Timestamp: " << timestamp << std::endl;
+	debugFile << "Row Insertion Pause: " << rowInsertionPause << std::endl;
+	debugFile << "New row active? " << newRowActive << std::endl;
+
+	debugFile << "Temp :| ";
+	for (int colNum = 0; colNum < boardWidth; colNum++){
+		debugFile << tempRow[colNum] << " ";
+	}
+	debugFile << "|" << std::endl;
 
 	//output rows, top to bottom
 	for (int rowNum = boardHeight - 1; rowNum > -1; rowNum--){
@@ -114,21 +126,13 @@ void GameStateObject::PrintToFile(){
 	}
 	debugFile << std::endl;
 
-	debugFile << "Player score: " << score << std::endl;
 
-	debugFile << "Temp :| ";
-	for (int colNum = 0; colNum < boardWidth; colNum++){
-		debugFile << tempRow[colNum] << " ";
-	}
-	debugFile << "|" << std::endl;
+
+
 
 	//*********
 	//print the rest of the elements that will be added to the state 
-	debugFile << "Cursor position (row, col): " << cursorPos.first << "," << cursorPos.second << std::endl;
-	debugFile << "Frame Number: " << frameNum << std::endl;
-	debugFile << "Timestamp: " << timestamp << std::endl;
-	debugFile << "Row Insertion Pause: " << rowInsertionPause << std::endl;
-	debugFile << "New row active? " << newRowActive << std::endl;
+
 	debugFile << "Size of FallingBlocks: " << fallingBlocks.size() << std::endl;
 
 
@@ -185,93 +189,6 @@ sf::Packet& operator <<(sf::Packet& packet, const TimedPiece& tp){ return packet
 
 sf::Packet& operator >>(sf::Packet& packet, TimedPiece& tp){ return packet >> tp.blockNum.first >> tp.blockNum.second >> tp.duration; }
 
-//change this to work with the new GSO
-sf::Packet GameStateObject::GSPacket() const{
-
-	sf::Packet gameStatePacket;
-
-	//just call the << operator here instead of all this stuff
-
-	/*
-
-	//format:
-	//uint8: command
-	//uint32: score
-	//uint8 first row: temp row
-	//uint8 the rest: board
-	
-	
-	sf::Packet gameStatePacket;
-	gameStatePacket << PacketDecode::PACKET_GAMESTATE;
-	gameStatePacket << score;
-
-
-
-	//  int, int = cursor row, cursor col
-	//	sf::Uint32 = frame number
-	//	sf::Time timestamp;
-	//  int row insertion pause
-	//	bool new row active
-
-
-
-
-
-
-
-
-
-	//set to 10 so we can see if the value doesn't get assigned
-	sf::Uint8 square = 10;
-	
-	//insert the temp row
-	for (int colNum = 0; colNum < boardWidth; colNum++){
-		square = tempRow[colNum];
-		gameStatePacket << square;
-	}
-
-
-
-	//put the contents of the entire board into a single packet
-	//bottom to top, left to right
-	
-	for (int rowNum = 0; rowNum < boardHeight; rowNum++) {
-		for (int colNum = 0; colNum < boardWidth; colNum++)
-		{
-			square = gameBoard[rowNum][colNum];
-			//std::cout << "Square value: " << (int)square << std::endl;
-			gameStatePacket << square;
-		}
-	}
-
-	/*
-
-	gameStatePacket >> gameStateCommand;
-	sf::Uint8 decoded;
-	for (int rowNum = 0; rowNum < boardHeight; rowNum++) {
-		for (int colNum = 0; colNum < boardWidth; colNum++)
-		{
-
-			gameStatePacket >> decoded;
-			std::cout << "(in GSO::GSPacket)Decoded value: " << (int)decoded << std::endl;
-			//gameStatePacket << square;
-		}
-	}
-	*/
-
-
-	//byte: sizeOf(fallingBlocks)
-	//until sizeOf is done: entries in the vector
-	//	
-	//
-	//byte: sizeOf(clearingBlocks)
-	//until sizeOf is done: entries in the vector
-
-
-
-
-	return gameStatePacket;
-}
 
 
 //change this to work with the new GSO
@@ -435,125 +352,5 @@ sf::Packet& operator >>(sf::Packet& packet, GameStateObject& gso)
 		gso.clearingBlocks.push_back(x);
 	}
 
-
 	return packet;
-
 }
-
-
-//sf::Packet GameStateObject::GSPacket() const{
-//
-//	//format:
-//	//uint8: command
-//	//uint32: score
-//	//uint8 first row: temp row
-//	//uint8 the rest: board
-//
-//
-//	sf::Packet gameStatePacket;
-//	gameStatePacket << PacketDecode::PACKET_GAMESTATE;
-//	gameStatePacket << score;
-//
-//	//set to 10 so we can see if the value doesn't get assigned
-//	sf::Uint8 square = 10;
-//
-//	//insert the temp row
-//	for (int colNum = 0; colNum < boardWidth; colNum++){
-//		square = tempRow[colNum];
-//		gameStatePacket << square;
-//	}
-//
-//
-//
-//	//put the contents of the entire board into a single packet
-//	//bottom to top, left to right
-//
-//	for (int rowNum = 0; rowNum < boardHeight; rowNum++) {
-//		for (int colNum = 0; colNum < boardWidth; colNum++)
-//		{
-//			square = gameBoard[rowNum][colNum];
-//			//std::cout << "Square value: " << (int)square << std::endl;
-//			gameStatePacket << square;
-//		}
-//	}
-//
-//	/*
-//
-//	gameStatePacket >> gameStateCommand;
-//	sf::Uint8 decoded;
-//	for (int rowNum = 0; rowNum < boardHeight; rowNum++) {
-//	for (int colNum = 0; colNum < boardWidth; colNum++)
-//	{
-//
-//	gameStatePacket >> decoded;
-//	std::cout << "(in GSO::GSPacket)Decoded value: " << (int)decoded << std::endl;
-//	//gameStatePacket << square;
-//	}
-//	}
-//	*/
-//
-//	return gameStatePacket;
-//}
-
-//GameStateObject& GameStateObject::operator=(GameStateObject& rhs)
-//{
-//	score = rhs.score;
-//
-//	for (int colNum = 0; colNum < boardWidth; colNum++){
-//		tempRow[colNum] = rhs.tempRow[colNum];
-//	}
-//
-//	for (int rowNum = 0; rowNum < rhs.boardHeight; rowNum++) {
-//		for (int colNum = 0; colNum < rhs.boardWidth; colNum++)
-//		{
-//			gameBoard[rowNum][colNum] = rhs.gameBoard[rowNum][colNum];
-//		}
-//	}
-//
-//	return *this;
-//}
-//
-//sf::Packet& operator <<(sf::Packet& packet, const GameStateObject& gso)
-//{
-//	packet << gso.score;
-//	int square = 10;
-//
-//	//insert the temp row
-//	for (int colNum = 0; colNum < gso.boardWidth; colNum++){
-//		square = gso.tempRow[colNum];
-//		packet << square;
-//	}
-//
-//
-//	//put the contents of the entire board into a single packet
-//	//bottom to top, left to right
-//
-//	for (int rowNum = 0; rowNum < gso.boardHeight; rowNum++) {
-//		for (int colNum = 0; colNum < gso.boardWidth; colNum++)
-//		{
-//			square = gso.gameBoard[rowNum][colNum];
-//			//std::cout << "Square value: " << (int)square << std::endl;
-//			packet << square;
-//		}
-//	}
-//	return packet;
-//}
-//
-//sf::Packet& operator >>(sf::Packet& packet, GameStateObject& gso)
-//{
-//	packet >> gso.score;
-//
-//	//insert the temp row
-//	for (int colNum = 0; colNum < gso.boardWidth; colNum++){
-//		packet >> gso.tempRow[colNum];
-//	}
-//
-//	for (int rowNum = 0; rowNum < gso.boardHeight; rowNum++) {
-//		for (int colNum = 0; colNum < gso.boardWidth; colNum++)
-//		{
-//			packet >> gso.gameBoard[rowNum][colNum];
-//		}
-//	}
-//	return packet;
-//
-//}

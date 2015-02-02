@@ -478,9 +478,9 @@ void GameLogic::GameTick(){
 
 		//queue = FIFO, so make sure you're adding the packets in the correct order
 
-		//outgoingMessages.push(GSPacket());
+
 		if (gameStateChanged){
-			gso.PrintToFile();
+			//gso.PrintToFile();
 			sf::Packet p;
 			p << gso;
 			outgoingMessages.push(p);
@@ -528,12 +528,3 @@ bool GameLogic::InsertRowAt(int insertOnRowNum, std::array<int, 7> rowToInsert){
 	return true;
 }
 
-//Decoded here, the packet is correct
-sf::Packet GameLogic::GSPacket() const{
-	
-	sf::Packet gameStatePacket;
-	gameStatePacket << PacketDecode::PACKET_GAMESTATE;
-	gameStatePacket << gso;
-	//return gso.GSPacket(); 
-	return gameStatePacket;
-}
