@@ -97,6 +97,12 @@ void NetworkedSinglePlayer::update()
 		{
 			gso = ClientManager::getInstance().currentGSO;
 			ClientManager::getInstance().isUpdated = false;
+
+			if (gso.newRowActive){
+				ch->Up(sf::Keyboard::Key::Up);
+
+			}
+
 			int color;
 			gso.Print();
 			std::cout << "changing it on the screen now";
