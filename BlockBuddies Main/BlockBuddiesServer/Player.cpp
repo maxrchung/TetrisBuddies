@@ -11,6 +11,7 @@ Player::Player()
 Player::Player(sf::TcpSocket* userSocket)
     :playerSocket(userSocket)
 {
+	myAddress = (*userSocket).getRemoteAddress();
 }
 
 Player::~Player()

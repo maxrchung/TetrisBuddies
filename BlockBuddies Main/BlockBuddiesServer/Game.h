@@ -7,12 +7,13 @@
 class Game
 {
 public:
-	Game();
+
+	Game(int numberOfPlayers);
 	~Game();
 
 	Player* player1;
 	Player* player2;
-	int GameID;
+	int playerCount;
 	bool gameOver;
 	GameLogic playerOneGame;
 	GameLogic playerTwoGame;

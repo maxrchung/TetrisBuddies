@@ -50,6 +50,7 @@ void NetworkManager::update()
             queueAccess.lock();
             player.receivedPackets.pop();
             queueAccess.unlock();
+			
 			sf::Packet notPopped;
 			notPopped = packet;
 
@@ -65,7 +66,7 @@ void NetworkManager::update()
             {
                 case PacketDecode::PACKET_LOGIN:
                 {
-					gameHandler.ResetGame();
+					//gameHandler.ResetGame();
                     std::string user;
                     std::string pass;
                     packet >> user 
@@ -143,47 +144,63 @@ void NetworkManager::update()
 
 				case PacketDecode::PACKET_MULTIPLAYERQUEUE:
 				{
-					matches.activePlayers.push(player);
-					matches.checkForMatches();
-				}
+					multiplayer.activePlayers.push(player);
+					multiplayer.checkForMatches();
+				} 
 
 				default:
 				{
-					gameHandler.ReceiveMessage(notPopped);
-					gameHandler.GameTick();
+					if (!singlePlayer.singlePlayer.count(player.myAddress))
+						singlePlayer.makeGame(player);
 
-					while(!gameHandler.outgoingMessages.empty())
-					{
-						sf::Packet toSend = gameHandler.outgoingMessages.front();
-						gameHandler.outgoingMessages.pop();
-						player.playerSocket->send(toSend);
-					}
+					singlePlayer.addMessage(notPopped, player.myAddress);
+					//gameHandler.ReceiveMessage(notPopped);
+					//gameHandler.GameTick();
+
+					//!gameHandler.outgoingMessages.empty()
+					//This might need to be changed to allow only one message per tick.
+					
 					break;
 				}
             }
 
+			if (singlePlayer.singlePlayer.count(player.myAddress))
+			{ 
 
-			if (gameHandler.gameHasStarted && gameHandler.IsGameOver())
+			if (singlePlayer.singlePlayer.at(player.myAddress)->playerOneGame.gameHasStarted && singlePlayer.singlePlayer.at(player.myAddress)->playerOneGame.IsGameOver())
 			{
 				sf::Packet lost;
 				lost << PacketDecode::PACKET_GAMEOVER;
-				if (player.playerInfo.highScore < gameHandler.GetScore())
+				if (player.playerInfo.highScore < singlePlayer.singlePlayer.at(player.myAddress)->playerOneGame.GetScore())
 				{
-					DatabaseManager::getInstance().updateNewHighScore(player.playerInfo.username, gameHandler.GetScore());
+					DatabaseManager::getInstance().updateNewHighScore(player.playerInfo.username, singlePlayer.singlePlayer.at(player.myAddress)->playerOneGame.GetScore());
 					sf::Packet update;
 					update << PacketDecode::PACKET_USERINFOUPDATE;
 					update << DatabaseManager::getInstance().getUserInfo(player.playerInfo.username);
 					player.playerSocket->send(update);
 				}
 				player.playerSocket->send(lost);
-				gameHandler.ResetGame();
+				singlePlayer.singlePlayer.at(player.myAddress)->playerOneGame.ResetGame();
 				std::cout << "gameOver Sent \n";
 				
+		}
+		}
+
+			if (singlePlayer.singlePlayer.size() >= 1)
+			{
+				singlePlayer.update();
+				while (!singlePlayer.singlePlayer.at(player.myAddress)->playerOneGame.outgoingMessages.empty())
+				{
+					sf::Packet toSend = singlePlayer.singlePlayer.at(player.myAddress)->playerOneGame.outgoingMessages.front();
+					singlePlayer.singlePlayer.at(player.myAddress)->playerOneGame.outgoingMessages.pop();
+					player.playerSocket->send(toSend);
+				}
+
 			}
 
-        }
+       }
 
-		if (!gameHandler.IsGameOver())
+		if (singlePlayer.singlePlayer.count(player.myAddress) && !singlePlayer.singlePlayer.at(player.myAddress)->playerOneGame.IsGameOver())
 		{
 			if (tick.asMilliseconds() < 10)
 			{
@@ -191,10 +208,7 @@ void NetworkManager::update()
 			}
 			else
 			{
-				gameHandler.GameTick();
-				if (gameHandler.sendNewRow)
-					//player.playerSocket->send(gameHandler.GSPacket());
-				gameHandler.sendNewRow = false;
+				singlePlayer.singlePlayer.at(player.myAddress)->playerOneGame.GameTick();
 				tick = sf::Time::Zero;
 			}
 
@@ -231,8 +245,9 @@ void NetworkManager::update()
             player.playerSocket->send(packet);
         }
     }
-	//Run matchmaking
-	//matches.update();
+
+
+	
 }
 
 // Checks for conneciton requests and incoming messages
