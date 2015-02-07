@@ -50,11 +50,10 @@ void ClientManager::update()
         receivedPackets.pop();
         queueAccess.unlock();
 
-
         /*PacketDecode decode;
         int decodeIndex;
         packet >> decodeIndex;
-        decode = PacketDecode(decodeIndex);
+        decode = PacketDecode(decodeIndex); 
 		*/
 
         // There are no packets that are currently handled in this function 
@@ -223,6 +222,42 @@ bool ClientManager::registerUser(std::string username, std::string password)
 		return false;
 }
 
+void ClientManager::joinQueue()
+{
+    sf::Packet joinPacket;
+    joinPacket << PacketDecode::PACKET_JOINQUEUE;
+	socket.send(joinPacket);
+
+    std::cout << "Sending joinQueue packet" << std::endl;
+}
+
+void ClientManager::leaveQueue()
+{
+    sf::Packet leavePacket;
+    leavePacket << PacketDecode::PACKET_LEAVEQUEUE;
+	socket.send(leavePacket);
+
+    std::cout << "Sending leaveQueue packet" << std::endl;
+}
+
+void ClientManager::acceptGame()
+{
+    sf::Packet acceptPacket;
+    acceptPacket << PacketDecode::PACKET_ACCEPTGAME;
+	socket.send(acceptPacket);
+
+    std::cout << "Sending acceptGame packet" << std::endl;
+}
+
+void ClientManager::rejectGame()
+{
+    sf::Packet rejectPacket;
+    rejectPacket << PacketDecode::PACKET_REJECTGAME;
+	socket.send(rejectPacket);
+
+    std::cout << "Sending rejectGame packet" << std::endl;
+}
+
 void ClientManager::requestStartGame()
 {
 	sf::Packet toSend;
@@ -241,7 +276,6 @@ void ClientManager::requestNewRow(){
 	sf::Packet toSend;
 	toSend = messageMaker.NewRowPacket();
 	socket.send(toSend);
-
 }
 
 void ClientManager::requestSwap(sf::Uint8 p1row, sf::Uint8 p1col, sf::Uint8 p2row, sf::Uint8 p2col)

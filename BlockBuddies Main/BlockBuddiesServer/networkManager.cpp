@@ -122,6 +122,30 @@ void NetworkManager::update()
                     break;
                 }
 
+                case PacketDecode::PACKET_JOINQUEUE:
+                {
+
+                    break;
+                }
+
+                case PacketDecode::PACKET_LEAVEQUEUE:
+                {
+
+                    break;
+                }
+
+                case PacketDecode::PACKET_ACCEPTGAME:
+                {
+
+                    break;
+                }
+
+                case PacketDecode::PACKET_REJECTGAME:
+                {
+
+                    break;
+                }
+
                 case PacketDecode::PACKET_DISCONNECT:
                 {
                     sf::Packet answer;

@@ -12,7 +12,6 @@ MatchMakingHandler::~MatchMakingHandler()
 
 }
 
-
 void MatchMakingHandler::checkForMatches()
 {
 	if (activePlayers.size() >= 2)
@@ -22,8 +21,7 @@ void MatchMakingHandler::checkForMatches()
 		activePlayers.pop();
 		activePlayers.pop();
 		makeGame(p1, p2);
-
-	}
+    }
 }
 
 void MatchMakingHandler::makeGame(Player p1, Player p2)

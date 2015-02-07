@@ -24,6 +24,10 @@ public:
 
 	void messageWait();
 	bool loginUser(std::string username, std::string password);
+    void joinQueue();
+    void leaveQueue();
+    void acceptGame();
+    void rejectGame();
 	void requestNewRow();
 	void requestStartGame();
 	void requestMultiplayerGame();
