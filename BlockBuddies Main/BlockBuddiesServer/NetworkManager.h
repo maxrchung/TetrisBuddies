@@ -11,6 +11,7 @@
 #include "GameLogic.hpp"
 #include "Game.h"
 #include "MatchMakingHandler.h"
+#include "SinglePlayerHandler.h"
 #include <algorithm>
 
 //The following code will create a thread for checking connections
@@ -37,6 +38,7 @@ public:
 	sf::Time tick;
 	bool running = true;
 	MatchMakingHandler multiplayer;
+    SinglePlayerHandler singlePlayer;
 
 private:
     std::mutex queueAccess;

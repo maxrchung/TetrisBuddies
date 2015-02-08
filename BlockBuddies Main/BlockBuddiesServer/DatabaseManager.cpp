@@ -4,14 +4,17 @@
 bool DatabaseManager::open()
 {
 	if (sqlite3_open(dbname.c_str(), &database) == SQLITE_OK)
+	{
+		std::cout << "database accessed" << std::endl;
 		return true;
-
+	}
 	return false;
 }
 //closes database
 void DatabaseManager::close()
 {
-	sqlite3_close(database);
+	sqlite3_close_v2(database);
+	std::cout << "database closed" << std::endl;
 }
 
 //checks to see if username already exist before inserting a new user with provided
@@ -130,22 +133,25 @@ bool DatabaseManager::loginUser(std::string username, std::string password)
 				int i = sqlite3_column_int(stmt, 0);
 				if ( i == 1)
 				{
+					sqlite3_finalize(stmt);
 					close();
 					return true;
 				}
 				else
 				{
+					sqlite3_finalize(stmt);
 					close();
 					return false;
 				}
 			}
+			sqlite3_finalize(stmt);
 		}
 		close();
 	}
 	else
 	{
 		//couldn't open db
-		
+		close();
 		return false;
 	}
 	return false;
@@ -220,6 +226,7 @@ UserInfo DatabaseManager::getUserInfo(std::string username)
 		close();
 	}
 	//return a userinfo class for the user based on username
+	close();
 	return UserInfo();
 }
 
@@ -336,7 +343,7 @@ bool DatabaseManager::updateNewHighScore(std::string username, int newScore)
 		char *szSQL; // actual raw sql
 		//updates with a new highscore	
 		szSQL = "UPDATE user SET highscore = ? WHERE username = ?;";
-		
+		sqlite3_busy_timeout(database, 1000);
 		int rc = sqlite3_prepare_v2(database, szSQL, strlen(szSQL), &stmt, &pzTest);
 		if (rc == SQLITE_OK)
 		{
@@ -345,7 +352,18 @@ bool DatabaseManager::updateNewHighScore(std::string username, int newScore)
 			int result = sqlite3_step(stmt);
 			sqlite3_finalize(stmt);
 			close();
-			return true;
+			if (result == SQLITE_OK)
+			{
+				return true;
+			}
+			else if (result == SQLITE_DONE)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 		close();
 	}

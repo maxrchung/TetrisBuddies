@@ -87,7 +87,7 @@ void CursorHandler::Up(sf::Keyboard::Key U)
 
 void CursorHandler::Down(sf::Keyboard::Key D)
 {
-	if (mainSquare.getPosition().y < yBoundary+screenHeight)
+	if (mainSquare.getPosition().y < yBoundary+screenHeight && originY > 0)
 	{
 		originY--;
 		mainSquare.setPosition(mainSquare.getPosition().x, mainSquare.getPosition().y + blockSize);

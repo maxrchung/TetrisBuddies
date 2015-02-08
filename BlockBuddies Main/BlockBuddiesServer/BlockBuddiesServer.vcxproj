@@ -30,6 +30,7 @@
     <ClCompile Include="Messenger.cpp" />
     <ClCompile Include="NetworkManager.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="SinglePlayerHandler.cpp" />
     <ClCompile Include="sqlite3.c" />
   </ItemGroup>
   <ItemGroup>
@@ -45,6 +46,7 @@
     <ClInclude Include="Messenger.h" />
     <ClInclude Include="NetworkManager.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="SinglePlayerHandler.h" />
     <ClInclude Include="sqlite3.h" />
   </ItemGroup>
   <ItemGroup>
