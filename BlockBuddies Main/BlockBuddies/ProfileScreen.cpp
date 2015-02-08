@@ -127,14 +127,13 @@ void ProfileScreen::reload()
 		gpTag->message.setString(std::to_string(ClientManager::getInstance().player.gamesPlayed));
 		gwTag->message.setString(std::to_string(ClientManager::getInstance().player.gamesPlayed));
 		wpTag->message.setString(std::to_string(ClientManager::getInstance().player.winPercentage));
-		//ClientManager::getInstance().requestMultiplayerGame();
-		needsUpdate = false;
+		
 }
 
 
 void ProfileScreen::update()
 {
-	if (needsUpdate == true || ClientManager::getInstance().infoUpdate)
+	if (ClientManager::getInstance().infoUpdate)
 	{
 		reload();
 		ClientManager::getInstance().infoUpdate = false;
