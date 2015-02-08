@@ -31,6 +31,7 @@ enum Screens
     OFFLINECLOSE,
     MULTIPLAYER,
 	ONLINESINGLE,
+    QUEUE,
     NONE
 };
 
@@ -39,8 +40,9 @@ class Screen
 {
 public:
     Screen();
-	virtual void update() = 0;
-	virtual void draw() = 0;
+	virtual void update();
+	virtual void draw();
+    virtual void reload();
     void deselect();
     void deactivate();
     Button* close;

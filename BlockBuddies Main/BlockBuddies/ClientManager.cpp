@@ -227,6 +227,7 @@ void ClientManager::joinQueue()
     sf::Packet joinPacket;
     joinPacket << PacketDecode::PACKET_JOINQUEUE;
 	socket.send(joinPacket);
+    
 
     std::cout << "Sending joinQueue packet" << std::endl;
 }
@@ -238,24 +239,6 @@ void ClientManager::leaveQueue()
 	socket.send(leavePacket);
 
     std::cout << "Sending leaveQueue packet" << std::endl;
-}
-
-void ClientManager::acceptGame()
-{
-    sf::Packet acceptPacket;
-    acceptPacket << PacketDecode::PACKET_ACCEPTGAME;
-	socket.send(acceptPacket);
-
-    std::cout << "Sending acceptGame packet" << std::endl;
-}
-
-void ClientManager::rejectGame()
-{
-    sf::Packet rejectPacket;
-    rejectPacket << PacketDecode::PACKET_REJECTGAME;
-	socket.send(rejectPacket);
-
-    std::cout << "Sending rejectGame packet" << std::endl;
 }
 
 void ClientManager::requestStartGame()

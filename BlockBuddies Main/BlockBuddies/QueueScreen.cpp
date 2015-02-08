@@ -1,4 +1,4 @@
-#include "CloseScreen.hpp"
+#include "QueueScreen.hpp"
 #include "ScreenManager.hpp"
 #include "InputManager.hpp"
 #include "Game.hpp"
@@ -6,11 +6,11 @@
 #include "LoginScreen.hpp"
 #include "BlockShowerManager.hpp"
 
-CloseScreen::CloseScreen()
-    :backSection(new Section(0.0f,
-	                         0.0f,
-						     420.0f,
-						     420.0f,
+QueueScreen::QueueScreen()
+	:backSection(new Section(0.0f,
+                             0.0f,
+                             420.0f,
+                             420.0f,
                              GraphicsManager::getInstance()->buttonColor)),
 
      section(new Section(0.0f,
@@ -18,7 +18,7 @@ CloseScreen::CloseScreen()
 						 400.0f,
 						 400.0f)),
 
-     title(new TextBox("QUIT",
+     title(new TextBox("QUEUE",
 	                   0.0f,
 					   -133.33f,
 					   300.0f,
@@ -27,29 +27,15 @@ CloseScreen::CloseScreen()
 					   // Parameter tells the constructor that it is a title
 					   true)),
 
-	 status(new TextBox("Are you sure you want to exit?",
+	 status(new TextBox("Looking for game",
 	                    0.0f,
 						-58.33f,
 						300.0f)),
 
-	 login(new Button(Screens::LOGIN,
-		              "Logout",
-                      0.0f,
-                      0.0f,
-                      150.0f,
-                      50.0f)),
-
-     exit(new Button(Screens::NONE,
-                     "Exit",
-                     0.0f,
-                     75.0f,
-                     150.0f,
-                     50.0f)),
-
      cancel(new Button(Screens::NONE,
                        "Cancel",
                        0.0f,
-                       150.0f,
+                       75.0f,
                        150.0f,
                        50.0f))
 {
@@ -61,47 +47,41 @@ CloseScreen::CloseScreen()
     UIElements.push_back(section);
     UIElements.push_back(title);
     UIElements.push_back(status);
-    UIElements.push_back(login);
-    UIElements.push_back(exit);
     UIElements.push_back(cancel);
 
-    selectables = { login,
-                    exit,
-                    cancel };
+    selectables = { cancel };
 }
 
-void CloseScreen::update()
+void QueueScreen::update()
 {
     Screen::update();
 
-    if (login->isActivated ||
-        (InputManager::getInstance()->enter && login->isSelected))
+    if(loadingTimer.getElapsedTime().asSeconds() > 1)
     {
-        ScreenManager::getInstance()->switchScreen(login->toScreen);
-        dynamic_cast<LoginScreen*>(ScreenManager::getInstance()->currentScreens[0])->status->message.setString("Enter username and password");
-        ClientManager::getInstance().closeConnection();
-        BlockShowerManager::getInstance()->fade.state = FadeStates::FADING_IN;
-        InputManager::getInstance()->resetInput();
+        loadingTimer.restart();
+        ellipsesCounter += reverse;
+        if(ellipsesCounter > 2 && reverse > 0)
+            reverse *= -1;
+        else if(ellipsesCounter < 1 && reverse < 0)
+            reverse *= -1;
+        sf::String ellipses = sf::String("");
+        for(int i = 0; i < ellipsesCounter; i++)
+            ellipses += ".";
+        status->message.setString("Looking for game" + ellipses);
     }
 
-    else if (exit->isActivated ||
-             (InputManager::getInstance()->enter && exit->isSelected))
-    {
-        ScreenManager::getInstance()->closeGame();
-        InputManager::getInstance()->resetInput();
-    }
-
-    else if (cancel->isActivated ||
+    if (cancel->isActivated ||
              (InputManager::getInstance()->enter && cancel->isSelected) ||
              InputManager::getInstance()->escape)
     {
         fade.state = FadeStates::FADING_OUT;
         InputManager::getInstance()->resetInput();
+        ClientManager::getInstance().leaveQueue();
         return;
     }
 }
 
-void CloseScreen::draw()
+void QueueScreen::draw()
 {
     // Used to provide a darkening layer between the last layer
     // and the layers before it
@@ -111,4 +91,12 @@ void CloseScreen::draw()
     GraphicsManager::getInstance()->window.draw(darken);
 
     Screen::draw();
+}
+
+void QueueScreen::reload()
+{
+    loadingTimer.restart();
+    ellipsesCounter = 0;
+    status->message.setString("Looking for game");
+    reverse = 1;
 }

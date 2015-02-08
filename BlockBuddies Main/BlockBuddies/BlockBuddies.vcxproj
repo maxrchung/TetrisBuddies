@@ -40,6 +40,7 @@
     <ClInclude Include="OfflineHomeScreen.hpp" />
     <ClInclude Include="OfflineResultScreen.hpp" />
     <ClInclude Include="ProfileScreen.hpp" />
+    <ClInclude Include="QueueScreen.hpp" />
     <ClInclude Include="RegisterScreen.hpp" />
     <ClInclude Include="ResultScreen.hpp" />
     <ClInclude Include="Screen.hpp" />
@@ -82,6 +83,7 @@
     <ClCompile Include="OfflineHomeScreen.cpp" />
     <ClCompile Include="OfflineResultScreen.cpp" />
     <ClCompile Include="ProfileScreen.cpp" />
+    <ClCompile Include="QueueScreen.cpp" />
     <ClCompile Include="RegisterScreen.cpp" />
     <ClCompile Include="ResultScreen.cpp" />
     <ClCompile Include="Screen.cpp" />

@@ -1,5 +1,4 @@
 #pragma once
-
 #include <string>
 #include <vector>
 #include <SFML/Network.hpp>
@@ -12,6 +11,8 @@
 #include "GameLogic.hpp"
 #include "Game.h"
 #include "MatchMakingHandler.h"
+#include <algorithm>
+
 //The following code will create a thread for checking connections
 //This will also work if you have any class and you replace everything with your input.
 
@@ -35,7 +36,7 @@ public:
 	sf::Clock clock;
 	sf::Time tick;
 	bool running = true;
-	MatchMakingHandler matches;
+	MatchMakingHandler multiplayer;
 
 private:
     std::mutex queueAccess;

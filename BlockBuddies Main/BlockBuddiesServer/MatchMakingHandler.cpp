@@ -1,6 +1,7 @@
 #include "MatchMakingHandler.h"
 
-std::list<Game*> MatchMakingHandler::activeGames;
+//Do this if you have a static object
+//std::list<Game*> MatchMakingHandler::activeGames;
 
 MatchMakingHandler::MatchMakingHandler()
 {
@@ -12,51 +13,41 @@ MatchMakingHandler::~MatchMakingHandler()
 
 }
 
+void MatchMakingHandler::addMessage(sf::Packet addMe , sf::IpAddress myAddress)
+{
+	if (multiPlayerGames.at(myAddress)->player1->myAddress == myAddress)
+		multiPlayerGames.at(myAddress)->packetQueue1.push(&addMe);
+	else if (multiPlayerGames.at(myAddress)->player2->myAddress == myAddress)
+		multiPlayerGames.at(myAddress)->packetQueue2.push(&addMe);
+}
+
+
 void MatchMakingHandler::checkForMatches()
 {
-	if (activePlayers.size() >= 2)
-	{
-		Player p1 = activePlayers.front();
-		Player p2 = activePlayers.front();
-		activePlayers.pop();
-		activePlayers.pop();
-		makeGame(p1, p2);
+    if (activePlayers.size() >= 2)
+    {
+        makeGame(activePlayers[0], activePlayers[1]);
+        activePlayers.pop_front();
+        activePlayers.pop_front();
     }
 }
 
 void MatchMakingHandler::makeGame(Player p1, Player p2)
 {
-	Game* nGame = new Game();
+	Game* nGame = new Game(2);
 	nGame->player1 = &p1;
 	nGame->player2 = &p2;
-	activeGames.push_back(nGame);
+	multiPlayerGames.insert(std::pair<sf::IpAddress, Game*>(p1.myAddress, nGame));
+	multiPlayerGames.insert(std::pair<sf::IpAddress, Game*>(p2.myAddress, nGame));
+    gameList.push_back(nGame);
 }
 
 void MatchMakingHandler::update()
 {
-	for (std::list<Game*>::iterator it = activeGames.begin(); it != activeGames.end(); ++it)
+	//Run the game tick
+	for (auto game: gameList)
 	{
-
-		(*it)->runGame();
-		if ((*it)->playerOneGame.IsGameOver() )
-		{
-			//send game over then remove from list
-			sf::Packet lost;
-			lost << PacketDecode::PACKET_GAMEOVER;
-			(*it)->player1->playerSocket->send(lost);
-			activeGames.erase(it++);
-
-		}
-		else if ((*it)->playerTwoGame.IsGameOver())
-		{
-			sf::Packet lost;
-			lost << PacketDecode::PACKET_GAMEOVER;
-			(*it)->player1->playerSocket->send(lost);
-			activeGames.erase(it++);
-		}
-
-
-
+		game->playerOneGame.GameTick();
+		game->playerTwoGame.GameTick();
 	}
-
 }

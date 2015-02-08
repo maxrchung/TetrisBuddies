@@ -45,8 +45,8 @@ GameTypeScreen::GameTypeScreen()
                      150.0f,
                      50.0f)),
      
-     multiplayer(new Button(Screens::MULTIPLAYER,
-                            "Multiplayer",
+     multiplayer(new Button(Screens::QUEUE,
+                            "Join Queue",
                             0.0f,
                             37.5f,
                             150.0f,
@@ -102,8 +102,8 @@ void GameTypeScreen::update()
     else if (multiplayer->isActivated ||
              (InputManager::getInstance()->enter && multiplayer->isSelected))
     {
-        ClientManager::getInstance().join
-        ScreenManager::getInstance()->switchScreen(game->toScreen);
+        ClientManager::getInstance().joinQueue();
+        ScreenManager::getInstance()->addScreen(multiplayer->toScreen);
     }
 }
 

@@ -1,13 +1,18 @@
 #include "Game.h"
 #include <time.h>
-Game::Game()
+Game::Game(int numberOfPlayers)
+	:playerCount(numberOfPlayers)
 {
+	if (playerCount == 1)
 	player1 = nullptr;
-	player2 = nullptr;
-	GameID = (int)time(NULL);
+	else
+	{
+		player2 = nullptr;
+		player1 = nullptr;
+	}
 	gameOver = false;
 
-
+	//Where am I assingend? Look that up
 }
 
 Game::~Game()
@@ -16,6 +21,11 @@ Game::~Game()
 
 void Game::runGame()
 {
-	playerOneGame.GameTick();
-	playerTwoGame.GameTick();
+	if (playerCount == 1)
+		playerOneGame.GameTick();
+	else
+	{
+		playerOneGame.GameTick();
+		playerTwoGame.GameTick();
+	}
 }

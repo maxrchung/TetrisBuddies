@@ -14,6 +14,7 @@
 #include "OfflineCloseScreen.hpp"
 #include "MultiplayerScreen.hpp"
 #include "NetworkedSinglePlayer.h"
+#include "QueueScreen.hpp"
 #include "Game.hpp"
 
 ScreenManager* ScreenManager::instance;
@@ -42,7 +43,8 @@ void ScreenManager::init()
                                              { Screens::CLOSE, new CloseScreen() },
                                              { Screens::OFFLINECLOSE, new OfflineCloseScreen() },
                                              { Screens::MULTIPLAYER, new MultiplayerScreen() },
-											 { Screens::ONLINESINGLE, new NetworkedSinglePlayer()}
+											 { Screens::ONLINESINGLE, new NetworkedSinglePlayer() },
+                                             { Screens::QUEUE, new QueueScreen() },
 	                                     };
 
 	// Set this to something else if you want to start on a specific screen
@@ -98,7 +100,6 @@ void ScreenManager::draw()
 
 void ScreenManager::switchScreen(const Screens toScreen)
 {	
-
     int removeIndex = -1;
     int counter = -1;
     // Deselects and deactivate any selected elements before going to a new screen
@@ -121,6 +122,8 @@ void ScreenManager::switchScreen(const Screens toScreen)
     // Add to the front, as the back will disappear
     currentScreens.push_front(screens[toScreen]);
     currentScreens[0]->fade.state = FadeStates::FADING_IN;
+
+    currentScreens[0]->reload();
 }
 
 // For adding a notification screen or a close screen on top of the
@@ -134,6 +137,7 @@ void ScreenManager::addScreen(const Screens toScreen)
     }
 
     currentScreens.push_back(screens[toScreen]);
+    screens[toScreen]->reload();
     currentScreens[currentScreens.size() - 1]->fade.state = FadeStates::FADING_IN;
 }
 

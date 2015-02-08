@@ -19,10 +19,10 @@ public:
             sf::Color color = GraphicsManager::getInstance()->sectionColor);
 	void update();
 	void draw();
+	sf::RectangleShape boundingRect;
 
 private:
     sf::Color color;
-	sf::RectangleShape boundingRect;
 };
 
 #endif//SECTION_HPP

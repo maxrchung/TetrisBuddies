@@ -109,8 +109,15 @@ void Screen::draw()
     {
         // Not sure if this is the best way to handle fade, but I think it'll suffice
         UIElement->fade = fade;
-        UIElement->draw();
+        if(UIElement->isDisplayed) // Avoid drawing the close X in the corner
+            UIElement->draw();
     }
+}
+
+// Does nothing since the basic screen does nothing
+void Screen::reload()
+{
+
 }
 
 // Deselects all the selectables

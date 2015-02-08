@@ -14,6 +14,7 @@ public:
     std::queue<sf::Packet> receivedPackets;
 
     sf::Clock receiveAliveTimer;
+	sf::IpAddress myAddress;
     // Server automatically removes the player after
     // some time limit
     static int receiveAliveLimit;

@@ -5,7 +5,6 @@
 #include <iostream>
 #include "MessageType.h"
 
-
 NetworkManager* NetworkManager::instance;
 
 NetworkManager* NetworkManager::getInstance()
@@ -18,6 +17,7 @@ NetworkManager* NetworkManager::getInstance()
 void NetworkManager::init()
 {
     messageThread = std::thread(&NetworkManager::checkForConnections, this);
+    multiplayer = MatchMakingHandler();
 }
 
 void NetworkManager::newHighScore(int newScore, std::string username)
@@ -50,6 +50,7 @@ void NetworkManager::update()
             queueAccess.lock();
             player.receivedPackets.pop();
             queueAccess.unlock();
+			
 			sf::Packet notPopped;
 			notPopped = packet;
 
@@ -65,7 +66,7 @@ void NetworkManager::update()
             {
                 case PacketDecode::PACKET_LOGIN:
                 {
-					gameHandler.ResetGame();
+					//gameHandler.ResetGame();
                     std::string user;
                     std::string pass;
                     packet >> user 
@@ -122,27 +123,31 @@ void NetworkManager::update()
                     break;
                 }
 
-                case PacketDecode::PACKET_JOINQUEUE:
-                {
+                // A player is ready to join the queue
+				case PacketDecode::PACKET_JOINQUEUE:
+				{
+					multiplayer.activePlayers.push_back(player);
+					multiplayer.checkForMatches();
 
+                    std::cout << "Received packet join queue" << std::endl;
                     break;
-                }
+				}
 
                 case PacketDecode::PACKET_LEAVEQUEUE:
                 {
+                    int toRemove = -1;
+                    for(int i = 0; i < (int) multiplayer.activePlayers.size(); i++)
+                    {
+                        if(multiplayer.activePlayers[i].myAddress == player.myAddress)
+                        {
+                            toRemove = i;
+                        }
+                    }
 
-                    break;
-                }
+                    if(toRemove != -1)
+                        multiplayer.activePlayers.erase(multiplayer.activePlayers.begin() + toRemove);
 
-                case PacketDecode::PACKET_ACCEPTGAME:
-                {
-
-                    break;
-                }
-
-                case PacketDecode::PACKET_REJECTGAME:
-                {
-
+                    std::cout << "Received packet leave queue" << std::endl;
                     break;
                 }
 
@@ -164,70 +169,12 @@ void NetworkManager::update()
 
                     break;
                 }
-
-				case PacketDecode::PACKET_MULTIPLAYERQUEUE:
-				{
-					matches.activePlayers.push(player);
-					matches.checkForMatches();
-				}
-
-				default:
-				{
-					gameHandler.ReceiveMessage(notPopped);
-					gameHandler.GameTick();
-
-					while(!gameHandler.outgoingMessages.empty())
-					{
-						sf::Packet toSend = gameHandler.outgoingMessages.front();
-						gameHandler.outgoingMessages.pop();
-						player.playerSocket->send(toSend);
-					}
-					break;
-				}
             }
+       }
 
-
-			if (gameHandler.gameHasStarted && gameHandler.IsGameOver())
-			{
-				sf::Packet lost;
-				lost << PacketDecode::PACKET_GAMEOVER;
-				if (player.playerInfo.highScore < gameHandler.GetScore())
-				{
-					DatabaseManager::getInstance().updateNewHighScore(player.playerInfo.username, gameHandler.GetScore());
-					sf::Packet update;
-					update << PacketDecode::PACKET_USERINFOUPDATE;
-					update << DatabaseManager::getInstance().getUserInfo(player.playerInfo.username);
-					player.playerSocket->send(update);
-				}
-				player.playerSocket->send(lost);
-				gameHandler.ResetGame();
-				std::cout << "gameOver Sent \n";
-				
-			}
-
-        }
-
-		if (!gameHandler.IsGameOver())
-		{
-			if (tick.asMilliseconds() < 10)
-			{
-				tick += clock.getElapsedTime();
-			}
-			else
-			{
-				gameHandler.GameTick();
-				if (gameHandler.sendNewRow)
-					//player.playerSocket->send(gameHandler.GSPacket());
-				gameHandler.sendNewRow = false;
-				tick = sf::Time::Zero;
-			}
-
-			clock.restart();
-		}
-
-		// Remove player if he has not responded
-		if(player.receiveAliveTimer.getElapsedTime().asSeconds() > Player::receiveAliveLimit)
-            toDisconnect = &player;
+       // Remove player if he has not responded
+       if (player.receiveAliveTimer.getElapsedTime().asSeconds() > Player::receiveAliveLimit)
+           toDisconnect = &player;
     }
 
     // Disconnect afterwards so we don't run into iterating problems
@@ -255,8 +202,8 @@ void NetworkManager::update()
             player.playerSocket->send(packet);
         }
     }
-	//Run matchmaking
-	//matches.update();
+
+    multiplayer.update();
 }
 
 // Checks for conneciton requests and incoming messages
