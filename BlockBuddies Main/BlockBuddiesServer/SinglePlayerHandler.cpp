@@ -22,10 +22,11 @@ void SinglePlayerHandler::removePlayers()
 	removeMe.clear();
 }
 
-void SinglePlayerHandler::makeGame(Player p1)
+void SinglePlayerHandler::makeGame(Player &p1)
 {
 	Game* nGame = new Game(1);
 	nGame->player1 = &p1;
+	nGame->playerOneGame.gameHasStarted = true;
 	singlePlayer.insert(std::pair<sf::IpAddress, Game*>(p1.myAddress, nGame));
 }
 

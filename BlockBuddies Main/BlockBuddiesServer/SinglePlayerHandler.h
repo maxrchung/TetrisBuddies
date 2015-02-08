@@ -22,7 +22,7 @@ public:
 	void sendMessages();
 	void removePlayers();
 	void addMessage(sf::Packet message, sf::IpAddress);
-	void makeGame(Player p1);
+	void makeGame(Player &p1);
 	void update();
 
 };

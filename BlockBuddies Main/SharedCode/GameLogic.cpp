@@ -483,6 +483,11 @@ void GameLogic::GameTick(){
 		if (gameStateChanged){
 			//gso.PrintToFile();
 			sf::Packet p;
+			if (outgoingMessages.size() >= 1)
+			{
+				std::queue<sf::Packet> swap;
+				std::swap(outgoingMessages, swap);
+			}
 			p << gso;
 			outgoingMessages.push(p);
 		}
