@@ -22,13 +22,13 @@ void NetworkManager::init()
 
 void NetworkManager::newHighScore(int newScore, std::string username)
 {
-	DatabaseManager::getInstance().updateNewHighScore(username,newScore);
+	//DatabaseManager::getInstance().updateNewHighScore(username,newScore);
 }
 
 //Used to indicate a loss or a win by passing true or false
 void NetworkManager::addWin(std::string username, bool win)
 {
-	DatabaseManager::getInstance().updateUserGames(username, win);
+	//DatabaseManager::getInstance().updateUserGames(username, win);
 }
 
 
@@ -71,6 +71,7 @@ void NetworkManager::update()
                     std::string pass;
                     packet >> user 
                            >> pass;
+					databaseAccess.lock();
                     if (DatabaseManager::getInstance().loginUser(user, pass))
                     {
                         UserInfo userInfo = DatabaseManager::getInstance().getUserInfo(user);
@@ -89,6 +90,7 @@ void NetworkManager::update()
                         player.playerSocket->send(answer);
                         std::cout << "Sent login packet reject" << std::endl;
                     }
+					databaseAccess.unlock();
                     break;
                 }
 
@@ -101,6 +103,7 @@ void NetworkManager::update()
 
                     // Returns true if a user can be registered
                     // else returns false if the account already exists
+					databaseAccess.lock();
                     if (DatabaseManager::getInstance().registerUser(user, pass))
                     {
                         int i = 1;
@@ -120,6 +123,7 @@ void NetworkManager::update()
 
                         std::cout << "Sent packet register reject" << std::endl;
                     }
+					databaseAccess.unlock();
                     break;
                 }
 
@@ -167,23 +171,43 @@ void NetworkManager::update()
 			if (singlePlayer.singlePlayer.count(player.myAddress))
 			{ 
 
-			if (singlePlayer.singlePlayer.at(player.myAddress)->playerOneGame.gameHasStarted && singlePlayer.singlePlayer.at(player.myAddress)->playerOneGame.IsGameOver())
+			if (singlePlayer.singlePlayer.at(player.myAddress)->playerOneGame.gameHasStarted && singlePlayer.singlePlayer.at(player.myAddress)->playerOneGame.isGameOver)
 			{
 				sf::Packet lost;
 				lost << PacketDecode::PACKET_GAMEOVER;
+				int result;
 				if (player.playerInfo.highScore < singlePlayer.singlePlayer.at(player.myAddress)->playerOneGame.GetScore())
 				{
-					DatabaseManager::getInstance().updateNewHighScore(player.playerInfo.username, singlePlayer.singlePlayer.at(player.myAddress)->playerOneGame.GetScore());
+					databaseAccess.lock();
+					bool works = false;
+					while (!works)
+					{
+						works = DatabaseManager::getInstance().updateNewHighScore(player.playerInfo.username, singlePlayer.singlePlayer.at(player.myAddress)->playerOneGame.GetScore());
+						if (works == false)
+						{
+							std::chrono::milliseconds dura(2000);
+							std::this_thread::sleep_for(dura);
+						}
+					}
+					databaseAccess.unlock();
+
 					sf::Packet update;
+
+					databaseAccess.lock();
 					update << PacketDecode::PACKET_USERINFOUPDATE;
 					update << DatabaseManager::getInstance().getUserInfo(player.playerInfo.username);
+					databaseAccess.unlock();
+
 					player.playerSocket->send(update);
+					std::cout << "/////////////////////////////////////////////////////////////////////////////"
+						<< "\ngameOver Sent \n";
 				}
 				player.playerSocket->send(lost);
 				singlePlayer.singlePlayer.at(player.myAddress)->playerOneGame.ResetGame();
-				std::cout << "gameOver Sent \n";
+				std::cout << "/////////////////////////////////////////////////////////////////////////////"
+					<<"\ngameOver Sent \n";
 				
-		}
+			}
 		}
 
 			if (singlePlayer.singlePlayer.size() >= 1)

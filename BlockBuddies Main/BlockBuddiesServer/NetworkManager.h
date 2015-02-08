@@ -42,6 +42,7 @@ public:
 
 private:
     std::mutex queueAccess;
+	std::mutex databaseAccess;
     sf::SocketSelector connections;
 	sf::TcpListener listener;
     std::thread messageThread;

@@ -45,7 +45,7 @@ public:
 	//bool PopulateTempRow();
 	bool gameHasStarted;
 	bool sendNewRow;
-
+	bool isGameOver;
 	//returns the player's score
 	int GetScore() { return gso.score; }
 
@@ -55,7 +55,7 @@ private:
 
 	//holds the array that keeps track of the board, as well as the player's score
 	GameStateObject gso;
-	bool isGameOver;
+	
 
 	//the number of colors that will be used in the game.
 	//TA values: easy = 4, normal/hard = 5, multiplayer = 6 (gray blocks that make garbage)

@@ -39,6 +39,7 @@ bool GameLogic::ReceiveMessage(sf::Packet incomingMessage){
 void GameLogic::InitialBoardPopulation(){
 
 	isGameOver = false;
+	gameHasStarted = true;
 
 	//also set the difficulty and whatnot here
 	//right now this is already set in the constructor, but it's here so we can change it if necessary
@@ -125,7 +126,7 @@ bool GameLogic::InsertBottomRow(){
 	for (int colNum = 0; colNum < gso.boardWidth; colNum++){
 		if (gso.gameBoard[gso.boardHeight - 1][colNum] != 0) { 
 			isGameOver = true; 
-			outgoingMessages.push(GameOverPacket());
+			//outgoingMessages.push(GameOverPacket());
 			return true; }
 	}
 
