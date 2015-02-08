@@ -6,6 +6,7 @@
 #include <iostream>
 #include "GameTimedEvent.h"
 #include <fstream>
+#include <stdio.h>
 //Network.hpp so it can make itself into a packet
 //iostream so we can print out the game state to make sure it looks correct
 //utility so we can use pair

@@ -15,6 +15,7 @@ public:
     void update();
 	void draw();
     void reload();
+    void foundGame();
 
 private:
     Section* backSection;
@@ -27,6 +28,8 @@ private:
     sf::Clock loadingTimer;
     int ellipsesCounter = 0;
     int reverse = 1;
+    sf::Clock foundTimer;
+    bool loadingGame = false;
 };
 
 #endif//QUEUESCREEN_HPP

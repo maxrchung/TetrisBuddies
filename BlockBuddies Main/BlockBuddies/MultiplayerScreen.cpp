@@ -1,4 +1,5 @@
 #include "MultiplayerScreen.hpp"
+#include "BlockShowerManager.hpp"
 
 MultiplayerScreen::MultiplayerScreen()
 	:blockSwitch(false)
@@ -81,6 +82,7 @@ void MultiplayerScreen::update()
 	else
 		blockSwitch = false; //cannot hold swap button to keep swapping
 
+    Screen::update();
 }
 
 void MultiplayerScreen::draw()
@@ -109,4 +111,11 @@ void MultiplayerScreen::draw()
 	GraphicsManager::getInstance()->window.draw(ch->getRightCursor()); //draws right cursor
 	GraphicsManager::getInstance()->window.draw(ch->getTopCursor()); //draws top cursor
 	GraphicsManager::getInstance()->window.draw(ch->getBottomCursor()); //draws bottom cursor
+
+    Screen::draw();
+}
+
+void MultiplayerScreen::reload()
+{
+    BlockShowerManager::getInstance()->fade.state = FadeStates::FADING_OUT;
 }

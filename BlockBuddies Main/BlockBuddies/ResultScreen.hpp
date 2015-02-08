@@ -12,6 +12,7 @@ class ResultScreen : public Screen
 		ResultScreen();
 		void update();
 		void draw();
+        void reload();
 	private:
         Section* backSection;
         Section* section;
@@ -22,5 +23,6 @@ class ResultScreen : public Screen
         Button* home;
         Button* game;
 		std::string scoreString;
+		bool updated;
 };
 #endif REULSTSCREEN_HPP //ResultScreen.hpp

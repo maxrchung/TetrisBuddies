@@ -56,28 +56,41 @@ void QueueScreen::update()
 {
     Screen::update();
 
-    if(loadingTimer.getElapsedTime().asSeconds() > 1)
+    if(loadingGame)
     {
-        loadingTimer.restart();
-        ellipsesCounter += reverse;
-        if(ellipsesCounter > 2 && reverse > 0)
-            reverse *= -1;
-        else if(ellipsesCounter < 1 && reverse < 0)
-            reverse *= -1;
-        sf::String ellipses = sf::String("");
-        for(int i = 0; i < ellipsesCounter; i++)
-            ellipses += ".";
-        status->message.setString("Looking for game" + ellipses);
+        if (foundTimer.getElapsedTime().asSeconds() > 3)
+        {
+            fade.state = FadeStates::FADING_OUT;
+            ScreenManager::getInstance()->switchScreen(Screens::MULTIPLAYER);
+            BlockShowerManager::getInstance()->fade.state = FadeStates::FADING_OUT;
+        }
     }
 
-    if (cancel->isActivated ||
-             (InputManager::getInstance()->enter && cancel->isSelected) ||
-             InputManager::getInstance()->escape)
+    else
     {
-        fade.state = FadeStates::FADING_OUT;
-        InputManager::getInstance()->resetInput();
-        ClientManager::getInstance().leaveQueue();
-        return;
+        if (loadingTimer.getElapsedTime().asSeconds() > 1)
+        {
+            loadingTimer.restart();
+            ellipsesCounter += reverse;
+            if (ellipsesCounter > 2 && reverse > 0)
+                reverse *= -1;
+            else if (ellipsesCounter < 1 && reverse < 0)
+                reverse *= -1;
+            sf::String ellipses = sf::String("");
+            for (int i = 0; i < ellipsesCounter; i++)
+                ellipses += ".";
+            status->message.setString("Looking for game" + ellipses);
+        }
+
+        if (cancel->isActivated ||
+            (InputManager::getInstance()->enter && cancel->isSelected) ||
+            InputManager::getInstance()->escape)
+        {
+            fade.state = FadeStates::FADING_OUT;
+            InputManager::getInstance()->resetInput();
+            ClientManager::getInstance().leaveQueue();
+            return;
+        }
     }
 }
 
@@ -99,4 +112,18 @@ void QueueScreen::reload()
     ellipsesCounter = 0;
     status->message.setString("Looking for game");
     reverse = 1;
+
+    // Sends the server a message to join queue
+    ClientManager::getInstance().joinQueue();
+    loadingGame = false;
+    cancel->isDisplayed = true;
+}
+
+void QueueScreen::foundGame()
+{
+    status->message.setString("Game found!");
+    loadingGame = true;
+    foundTimer.restart();
+    deselect();
+    cancel->isDisplayed = false;
 }

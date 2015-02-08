@@ -193,3 +193,8 @@ void LoginScreen::draw()
 {
     Screen::draw();
 }
+
+void LoginScreen::reload()
+{
+    status->message.setString("Enter username and password");
+}

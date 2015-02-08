@@ -24,6 +24,9 @@ public:
 
     // Determines whether to display the element or not
     bool isDisplayed = true;
+
+    // Determines whether to update the element or not
+    bool isUpdatable = true;
 };
 
 #endif//UIELEMENT_HPP

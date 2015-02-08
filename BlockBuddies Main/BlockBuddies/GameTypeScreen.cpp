@@ -92,8 +92,6 @@ void GameTypeScreen::update()
     else if (game->isActivated ||
              (InputManager::getInstance()->enter && game->isSelected))
 	{
-        BlockShowerManager::getInstance()->fade.state = FadeStates::FADING_OUT;
-
 		SoundManager::getInstance().playMusic("Sounds/Slamtris.ogg");
 		ClientManager::getInstance().requestStartGame();
         ScreenManager::getInstance()->switchScreen(game->toScreen);
@@ -102,7 +100,6 @@ void GameTypeScreen::update()
     else if (multiplayer->isActivated ||
              (InputManager::getInstance()->enter && multiplayer->isSelected))
     {
-        ClientManager::getInstance().joinQueue();
         ScreenManager::getInstance()->addScreen(multiplayer->toScreen);
     }
 }

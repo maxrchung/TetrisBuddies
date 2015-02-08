@@ -68,6 +68,7 @@ ResultScreen::ResultScreen()
 	scoreString = "5000";
     selectables = { game,
                     home };
+	updated = false;
 }
 
 void ResultScreen::update()
@@ -83,18 +84,29 @@ void ResultScreen::update()
     else if (game->isActivated ||
              (InputManager::getInstance()->enter && game->isSelected))
     {
-        BlockShowerManager::getInstance()->fade.state = FadeStates::FADING_OUT;
 		ClientManager::getInstance().requestStartGame();
 		SoundManager::getInstance().playMusic("Sounds/Slamtris.ogg");
         ScreenManager::getInstance()->switchScreen(game->toScreen);
 	}
-
-	int Number = (int)ClientManager::getInstance().currentGSO.score;
-	scoreString = static_cast<std::ostringstream*>(&(std::ostringstream() << Number))->str();
-	score->message.setString(scoreString);
+	if (ClientManager::getInstance().gameOver && updated == false)
+	{
+		int Number = (int)ClientManager::getInstance().currentGSO.score;
+		scoreString = static_cast<std::ostringstream*>(&(std::ostringstream() << Number))->str();
+		score->message.setString(scoreString);
+		updated = true;
+	}
+	else if (!ClientManager::getInstance().gameOver)
+	{
+		updated = false;
+	}
 }
 
 void ResultScreen::draw()
 {
     Screen::draw();
+}
+
+void ResultScreen::reload()
+{
+    BlockShowerManager::getInstance()->fade.state = FadeStates::FADING_IN;
 }

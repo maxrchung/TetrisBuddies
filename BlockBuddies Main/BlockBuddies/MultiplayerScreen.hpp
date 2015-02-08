@@ -11,6 +11,7 @@ public:
 	MultiplayerScreen();
 	void update();
 	void draw();
+    void reload();
 private:
 	CursorHandler *ch;
 	sf::RectangleShape p1Blocks[20][16];
