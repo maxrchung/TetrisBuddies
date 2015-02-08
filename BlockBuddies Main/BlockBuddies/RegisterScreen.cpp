@@ -151,3 +151,8 @@ void RegisterScreen::draw()
 {
     Screen::draw();
 }
+
+void RegisterScreen::reload()
+{
+    status->message.setString("Enter username once and password twice to register an account");
+}

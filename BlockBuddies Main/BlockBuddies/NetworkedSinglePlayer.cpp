@@ -4,6 +4,8 @@
 #include "AnimationManager.hpp"
 #include <sstream>
 #include <vector>
+#include "BlockShowerManager.hpp"
+
 NetworkedSinglePlayer::NetworkedSinglePlayer()
 	: pressed(false), pressed2(false), reset(false),
 	highScore(new TextBox("Player Score: ",
@@ -311,6 +313,8 @@ void NetworkedSinglePlayer::update()
 
 		
 	}
+
+    Screen::update();
 }
 
 void NetworkedSinglePlayer::draw()
@@ -339,4 +343,10 @@ void NetworkedSinglePlayer::draw()
 	username->message.setColor(sf::Color::Black);
 	name->message.setColor(sf::Color::Black);
 
+}
+
+
+void NetworkedSinglePlayer::reload()
+{
+    BlockShowerManager::getInstance()->fade.state = FadeStates::FADING_OUT;
 }

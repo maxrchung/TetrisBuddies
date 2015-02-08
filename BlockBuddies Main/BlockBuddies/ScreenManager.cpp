@@ -122,7 +122,6 @@ void ScreenManager::switchScreen(const Screens toScreen)
     // Add to the front, as the back will disappear
     currentScreens.push_front(screens[toScreen]);
     currentScreens[0]->fade.state = FadeStates::FADING_IN;
-
     currentScreens[0]->reload();
 }
 

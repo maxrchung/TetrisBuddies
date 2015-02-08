@@ -5,6 +5,8 @@
 #include "ScreenManager.hpp"
 #include "LoginScreen.hpp"
 #include "Game.hpp"
+#include "QueueScreen.hpp"
+#include "BlockShowerManager.hpp"
 //Connects to the server socket
 //Currently connects on the local machine only
 
@@ -87,7 +89,7 @@ void ClientManager::update()
 
             case PacketDecode::PACKET_FOUNDGAME:
             {
-                ScreenManager::getInstance()->switchScreen(Screens::MULTIPLAYER);
+                ((QueueScreen*)ScreenManager::getInstance()->currentScreens.back())->foundGame();
                 std::cout << "Receive found game packet" << std::endl;
             }
 
@@ -133,11 +135,10 @@ void ClientManager::update()
     if(receiveAliveTimer.getElapsedTime().asSeconds() > receiveAliveLimit)
     {
         std::cout << "No response from server, disconnecting" << std::endl;
-        ScreenManager::getInstance()->switchScreen(Screens::LOGIN);
 
-        // Some funky casting to write message onto LoginScreen's status.
-        // Most likely we'll remove this and replace the connection lost 
-        // notification with a popup window
+        ScreenManager::getInstance()->switchScreen(Screens::LOGIN);
+        BlockShowerManager::getInstance()->fade.state = FadeStates::FADING_IN;
+
         dynamic_cast<LoginScreen*>((ScreenManager::getInstance()->currentScreens)[0])->status->message.setString("Lost connection with server");
 
         ClientManager::getInstance().closeConnection();

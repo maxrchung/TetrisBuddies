@@ -30,8 +30,8 @@ public:
     std::deque<Screen*> currentScreens;
 
 	//allow the screen to shakeit
-
 	void shake(float);
+
 private:
     // All the Screens are created beforehand so they don't have to be reinstantiated every single time
     std::map <Screens, Screen*> screens;

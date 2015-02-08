@@ -83,7 +83,6 @@ void ResultScreen::update()
     else if (game->isActivated ||
              (InputManager::getInstance()->enter && game->isSelected))
     {
-        BlockShowerManager::getInstance()->fade.state = FadeStates::FADING_OUT;
 		ClientManager::getInstance().requestStartGame();
 		SoundManager::getInstance().playMusic("Sounds/Slamtris.ogg");
         ScreenManager::getInstance()->switchScreen(game->toScreen);
@@ -97,4 +96,9 @@ void ResultScreen::update()
 void ResultScreen::draw()
 {
     Screen::draw();
+}
+
+void ResultScreen::reload()
+{
+    BlockShowerManager::getInstance()->fade.state = FadeStates::FADING_IN;
 }

@@ -88,7 +88,7 @@ void Screen::update()
     // Updates all the UIelements
     for(auto& a : UIElements)
     {
-        if(a->isDisplayed)
+        if(a->isDisplayed && a->isUpdatable)
         {
             a->update();
         }
@@ -151,6 +151,5 @@ void Screen::deactivate()
                 textInput->inputCursor.index = -1;
             }
         }
-
     }
 }

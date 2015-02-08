@@ -21,6 +21,7 @@ public:
 	~NetworkedSinglePlayer();
 	void update();
 	void draw();
+    void reload();
 	sf::RectangleShape blocks[GameStateObject::boardHeight][GameStateObject::boardWidth];
 
 	

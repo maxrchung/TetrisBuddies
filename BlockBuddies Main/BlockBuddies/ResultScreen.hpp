@@ -12,6 +12,7 @@ class ResultScreen : public Screen
 		ResultScreen();
 		void update();
 		void draw();
+        void reload();
 	private:
         Section* backSection;
         Section* section;
