@@ -13,6 +13,7 @@
 #include "MatchMakingHandler.h"
 #include "SinglePlayerHandler.h"
 #include <algorithm>
+#include "DatabaseManager.h"
 
 //The following code will create a thread for checking connections
 //This will also work if you have any class and you replace everything with your input.
@@ -42,6 +43,7 @@ public:
 
 private:
     std::mutex queueAccess;
+	std::mutex databaseAccess;
     sf::SocketSelector connections;
 	sf::TcpListener listener;
     std::thread messageThread;

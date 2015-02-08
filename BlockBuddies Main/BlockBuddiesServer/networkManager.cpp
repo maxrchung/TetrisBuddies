@@ -1,5 +1,4 @@
 #include "NetworkManager.h"
-#include "DatabaseManager.h"
 #include "Player.h"
 #include "UserInfo.h"
 #include <iostream>
@@ -22,7 +21,18 @@ void NetworkManager::init()
 
 void NetworkManager::newHighScore(int newScore, std::string username)
 {
-	DatabaseManager::getInstance().updateNewHighScore(username,newScore);
+	databaseAccess.lock();
+	bool works = false;
+	while (!works)
+	{
+		works = DatabaseManager::getInstance().updateNewHighScore(username, newScore);
+		if (works == false)
+		{
+			std::chrono::milliseconds dura(2000);
+			std::this_thread::sleep_for(dura);
+			}
+		}
+	databaseAccess.unlock();
 }
 
 //Used to indicate a loss or a win by passing true or false
@@ -67,11 +77,12 @@ void NetworkManager::update()
             {
                 case PacketDecode::PACKET_LOGIN:
                 {
-					//gameHandler.ResetGame();
+					
                     std::string user;
                     std::string pass;
                     packet >> user 
                            >> pass;
+					databaseAccess.lock();
                     if (DatabaseManager::getInstance().loginUser(user, pass))
                     {
                         UserInfo userInfo = DatabaseManager::getInstance().getUserInfo(user);
@@ -90,6 +101,8 @@ void NetworkManager::update()
                         player.playerSocket->send(answer);
                         std::cout << "Sent login packet reject" << std::endl;
                     }
+					databaseAccess.unlock();
+
                     break;
                 }
 
@@ -102,6 +115,7 @@ void NetworkManager::update()
 
                     // Returns true if a user can be registered
                     // else returns false if the account already exists
+					databaseAccess.lock();
                     if (DatabaseManager::getInstance().registerUser(user, pass))
                     {
                         int i = 1;
@@ -120,7 +134,8 @@ void NetworkManager::update()
                         player.playerSocket->send(answer);
 
                         std::cout << "Sent packet register reject" << std::endl;
-                    }
+					}
+					databaseAccess.unlock();
                     break;
                 }
 
