@@ -88,17 +88,12 @@ void ResultScreen::update()
 		SoundManager::getInstance().playMusic("Sounds/Slamtris.ogg");
         ScreenManager::getInstance()->switchScreen(game->toScreen);
 	}
-	if (ClientManager::getInstance().gameOver && updated == false)
-	{
-		int Number = (int)ClientManager::getInstance().currentGSO.score;
+	
+		int Number = ClientManager::getInstance().lastScore;
 		scoreString = static_cast<std::ostringstream*>(&(std::ostringstream() << Number))->str();
 		score->message.setString(scoreString);
 		updated = true;
-	}
-	else if (!ClientManager::getInstance().gameOver)
-	{
-		updated = false;
-	}
+	
 }
 
 void ResultScreen::draw()

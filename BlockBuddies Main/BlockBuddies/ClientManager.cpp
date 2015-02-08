@@ -96,6 +96,8 @@ void ClientManager::update()
 			case PacketDecode::PACKET_GAMEOVER:
 			{
 				gameOver = true;
+				lastScore = currentGSO.score;
+				currentGSO = GameStateObject();
 				std::cout << "game Over \n";
 			}
 			case PacketDecode::PACKET_USERINFOUPDATE:

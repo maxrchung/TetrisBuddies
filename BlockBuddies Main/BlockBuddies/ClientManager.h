@@ -40,6 +40,7 @@ public:
 	ClientMessages messageMaker;
 	UserInfo player;
 	GameStateObject currentGSO;
+	int lastScore;
 	bool isUpdated;
 	bool infoUpdate;
 	void update();
