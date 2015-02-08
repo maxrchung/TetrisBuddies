@@ -255,6 +255,7 @@ void ClientManager::requestStartGame()
 {
 	sf::Packet toSend;
 	toSend = messageMaker.StartPacket();
+	gameOver = false;
 	socket.send(toSend);
 }
 

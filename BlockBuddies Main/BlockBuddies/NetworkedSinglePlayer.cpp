@@ -303,8 +303,6 @@ void NetworkedSinglePlayer::update()
 	else
 	{
 		SoundManager::getInstance().playMusic("Sounds/Slamstorm.ogg");
-		ClientManager::getInstance().gameOver = false;
-		
 		reset = true;
 		if (ClientManager::getInstance().isConnected)
 			ScreenManager::getInstance()->switchScreen(RESULT);

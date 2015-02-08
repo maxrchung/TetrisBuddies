@@ -23,5 +23,6 @@ class ResultScreen : public Screen
         Button* home;
         Button* game;
 		std::string scoreString;
+		bool updated;
 };
 #endif REULSTSCREEN_HPP //ResultScreen.hpp
