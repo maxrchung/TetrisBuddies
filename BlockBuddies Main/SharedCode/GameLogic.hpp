@@ -42,6 +42,10 @@ public:
 	bool SwapPieces(int row1Num, int col1Num, int row2Num, int col2Num);
 	bool ProcessBTCFM();
 	bool ClearMatches();
+
+	//checks the entire board for matches
+	bool CheckAllBlocksForMatches();
+
 	//bool PopulateTempRow();
 	bool gameHasStarted;
 	bool sendNewRow;

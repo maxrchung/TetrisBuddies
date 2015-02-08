@@ -3,6 +3,8 @@
 
 GameStateObject::GameStateObject(){
 	
+	remove("debugOutput.txt");
+
 	score = 0;
 
 	

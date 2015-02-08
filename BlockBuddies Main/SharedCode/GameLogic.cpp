@@ -14,7 +14,7 @@ GameLogic::GameLogic(){
 	gameHasStarted = false;
 
 	//I don't know what a good value for this is.  We can play with it and find out what works.  Also, it will have to decrease as the game goes on. Based on score, maybe? Or game time? Or level?
-	totalRowInsertionTime = 610;
+	totalRowInsertionTime = 1200;
 	rowInsertionTimeLeft = totalRowInsertionTime;
 
 	blocksMarkedForDeletion.clear();
@@ -27,13 +27,14 @@ void GameLogic::ResetGame()
 {
 	gso =  GameStateObject();
 	GameLogic::InitialBoardPopulation();
-	totalRowInsertionTime = 610;
+	totalRowInsertionTime = 1200;
 }
 
 bool GameLogic::ReceiveMessage(sf::Packet incomingMessage){
 	messagesToDecode.push(incomingMessage);
 	return true;
 }
+
 
 
 void GameLogic::InitialBoardPopulation(){
@@ -55,7 +56,7 @@ void GameLogic::InitialBoardPopulation(){
 			gso.gameBoard[rowNum][colNum] = 0;
 		}
 	}
-	
+
 	//randomly fill most of the board with blocks.
 	for (int rowNum = 0; rowNum < initHeight; rowNum++) {
 		for (int colNum = 0; colNum < gso.boardWidth; colNum++) {
@@ -80,7 +81,9 @@ void GameLogic::InitialBoardPopulation(){
 
 
 
-	//right now, they don't get refilled. they're just gone
+
+	//I think this works correctly now
+	bool allBlocksFilled = false;
 	do{
 		for (int rowNum = 0; rowNum < initHeight; rowNum++) {
 			for (int colNum = 0; colNum < gso.boardWidth; colNum++) {
@@ -88,13 +91,23 @@ void GameLogic::InitialBoardPopulation(){
 			}
 		}
 
-		//gso.Print();
-
-		//PrintBlocksMarkedForDeletion();
+		if (blocksMarkedForDeletion.size() == 0){
+			allBlocksFilled = true;
+		}
 
 		ClearMatches();
-		ApplyGravity();
-	} while (!blocksMarkedForDeletion.empty());
+
+
+		for (int rowNum = 0; rowNum < initHeight; rowNum++) {
+			for (int colNum = 0; colNum < gso.boardWidth; colNum++) {
+				if (gso.gameBoard[rowNum][colNum] == 0){
+					gso.gameBoard[rowNum][colNum] = (rand() % numColors) + 1;
+				}
+			}
+		}
+
+
+	} while (!allBlocksFilled);
 
 
 	gso.score = 0;
@@ -102,6 +115,8 @@ void GameLogic::InitialBoardPopulation(){
 
 	PopulateTempRow();
 }
+
+
 
 
 bool GameLogic::PopulateTempRow(){
@@ -158,50 +173,65 @@ bool GameLogic::InsertBottomRow(){
 }
 
 
+
 //ApplyGravity moves all blocks down until they rest on either another block or the bottom row
 //it also adds every block that moved to BTCFM
+
+//change it so:
+//every block only moves once per call
+//only blocks that stopped moving are checked for matches
 bool GameLogic::ApplyGravity(){
 
-	bool blockMoved;
 
 
+	bool blockMoved = false;
 
 	//for every piece on the board, starting at row 1
 	for (int rowNum = 1; rowNum < gso.boardHeight; rowNum++){
 		for (int colNum = 0; colNum < gso.boardWidth; colNum++){
-			
-			blockMoved = false;
+
+
 
 			int currentBlockRow = rowNum;
-			//std::cout << "Checking: " << currentBlockRow << colNum << std::endl;
 
-			//while the current block exists and has nothing directly below it, and the row below it is in bounds (as in, not trying to insert into row -1)
-			while ((gso.gameBoard[currentBlockRow][colNum] > 0) && (gso.gameBoard[currentBlockRow - 1][colNum] == 0) && (currentBlockRow > 0) ){
+			//this is to check if a block moved on this row.
+			//if it did
+			bool currentRowMoved = false;
+
+
+			//if the current block exists and has nothing directly below it, and the row below it is in bounds (as in, not trying to insert into row -1)
+			if ((gso.gameBoard[currentBlockRow][colNum] > 0) && (gso.gameBoard[currentBlockRow - 1][colNum] == 0) && (currentBlockRow > 0)){
+
 				blockMoved = true;
-				//std::cout << "Moving " << currentBlockRow << colNum << std::endl;
-					//the empty space below is set to the current block
-					gso.gameBoard[currentBlockRow - 1][colNum] = gso.gameBoard[currentBlockRow][colNum];
+				currentRowMoved = true;
 
-					//the current block is set to empty
-					gso.gameBoard[currentBlockRow][colNum] = 0;
+				//the empty space below is set to the current block
+				gso.gameBoard[currentBlockRow - 1][colNum] = gso.gameBoard[currentBlockRow][colNum];
 
-					//check the block below
-					currentBlockRow--;
+				//the current block is set to empty
+				gso.gameBoard[currentBlockRow][colNum] = 0;
+
+
+				//if it's on the bottom row, or the block below isn't empty, that means this block just hit bottom
+				//so add it to BTCFM
+				//(currentBlockRow is the one it's CHECKING. It starts at 1, and the row below that is 0.  So it SHOULD be if (currentblockrow - 1 == 0) )
+				if ((currentBlockRow == 1) || ((currentBlockRow > 0) && (gso.gameBoard[currentBlockRow - 2][colNum] != 0))){
+					blocksToCheckForMatches.insert(std::make_pair(currentBlockRow, colNum));
+				}
+
+				//check the block below
+				//currentBlockRow--;
 			}
 
-			//need to save each block's final position so we can add it to the CheckBlockForMatches set
-			if (blockMoved){
-				blocksToCheckForMatches.insert(std::make_pair(currentBlockRow, colNum));
-			}
+
 
 			//gso.Print();
 			//std::cin.get();
 		}
 	}
 
-	return true;
+	return blockMoved;
 }
-
 
 //swapping pieces applies gravity
 bool GameLogic::SwapPieces(int row1Num, int col1Num, int row2Num, int col2Num){
@@ -246,6 +276,22 @@ bool GameLogic::ProcessBTCFM(){
 	
 	return true;
 }
+
+
+//checks the entire board for matches
+bool GameLogic::CheckAllBlocksForMatches(){
+
+	for (int row = 0; row < gso.boardHeight; row++){
+		for (int col = 0; col < gso.boardWidth; col++){
+			CheckBlockForMatches(row, col);
+		}
+	}
+
+	//if (blocksToCheckForMatches.size() == 0){return false;}
+	//else { return true; }
+	return true;
+}
+
 
 //CheckBlockForMatches takes in a block and adds any matches it finds to BMFD
 //it also updates the player's score
@@ -432,11 +478,17 @@ void GameLogic::GameTick(){
 
 		//reduce timers (pauses for clear timers, time to insert new row)
 		rowInsertionTimeLeft --;
+
 		//while messageQueue isn't empty
 		while ( !messagesToDecode.empty())
 		{
 			ProcessMessage(messagesToDecode.front());
 			messagesToDecode.pop();
+			gameStateChanged = true;
+		}
+
+
+		if (ApplyGravity()){
 			gameStateChanged = true;
 		}
 
@@ -449,6 +501,9 @@ void GameLogic::GameTick(){
 					//swap pieces
 
 		ProcessBTCFM();
+		//this isn't a good idea; this way blocks might still be matched while they're falling
+		//CheckAllBlocksForMatches();
+
 		if (ClearMatches()){
 			gameStateChanged = true;
 		}
@@ -459,7 +514,7 @@ void GameLogic::GameTick(){
 
 			InsertBottomRow();
 
-			//reduces the total row insertion time whenver a new row is inserted
+			//reduces the total row insertion time whenever a new row is inserted
 			if (totalRowInsertionTime > 20){
 				totalRowInsertionTime -= 20;
 			}
