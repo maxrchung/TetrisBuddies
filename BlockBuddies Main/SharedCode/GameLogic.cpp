@@ -432,7 +432,6 @@ void GameLogic::GameTick(){
 
 		//reduce timers (pauses for clear timers, time to insert new row)
 		rowInsertionTimeLeft --;
-
 		//while messageQueue isn't empty
 		while ( !messagesToDecode.empty())
 		{
@@ -457,7 +456,7 @@ void GameLogic::GameTick(){
 		std::cout << "Row insertion time:  " << rowInsertionTimeLeft << std::endl;
 		//if the insert new row timer is 0;
 		if (rowInsertionTimeLeft == 0){
-			std::cout << "ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg" << std::endl;
+
 			InsertBottomRow();
 
 			//reduces the total row insertion time whenver a new row is inserted

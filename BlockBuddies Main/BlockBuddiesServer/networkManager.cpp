@@ -189,11 +189,20 @@ void NetworkManager::update()
 				}
             }
        }
+
+	   if (tick.asSeconds() < 1)
+	   {
+		   tick += clock.getElapsedTime();
+	   }
+	   else
+	   {
+		   singlePlayer.update();
+		   tick = sf::Time::Zero;
+		   clock.restart();
+	   }
        
-		singlePlayer.update();
        if (singlePlayer.singlePlayer.size() >= 1)
        {
-           singlePlayer.update();
            while (!singlePlayer.singlePlayer.at(player.myAddress)->playerOneGame.outgoingMessages.empty())
            {
                sf::Packet toSend = singlePlayer.singlePlayer.at(player.myAddress)->playerOneGame.outgoingMessages.front();
@@ -201,6 +210,8 @@ void NetworkManager::update()
                player.playerSocket->send(toSend);
            }
        }
+
+
 
        // Remove player if he has not responded
        if (player.receiveAliveTimer.getElapsedTime().asSeconds() > Player::receiveAliveLimit)
