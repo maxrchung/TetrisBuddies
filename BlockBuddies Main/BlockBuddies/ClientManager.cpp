@@ -64,8 +64,10 @@ void ClientManager::update()
         // We will, however, most likely need this section for things that 
         // require constant updates, such as game updates
 		int code;
-		packet >> code; 
-		std::cout << "its a packet with code :" << code << std::endl;
+        packet >> code;
+        std::cout << std::endl;
+        std::cout << "Send check alive packet" << std::endl;
+
 		switch (code)
 		{
 			case PacketDecode::PACKET_GAMESTATE:
@@ -79,8 +81,14 @@ void ClientManager::update()
             case PacketDecode::PACKET_CHECKALIVE:
             {
                 receiveAliveTimer.restart();
-               // std::cout << "Receive check alive packet" << std::endl;
+                std::cout << "Receive check alive packet" << std::endl;
                 break;
+            }
+
+            case PacketDecode::PACKET_FOUNDGAME:
+            {
+                ScreenManager::getInstance()->switchScreen(Screens::MULTIPLAYER);
+                std::cout << "Receive found game packet" << std::endl;
             }
 
 			case PacketDecode::PACKET_GAMEOVER:
@@ -118,7 +126,7 @@ void ClientManager::update()
         checkAlive << PacketDecode::PACKET_CHECKALIVE;
 
         socket.send(checkAlive);
-      //  std::cout << "Send check alive packet" << std::endl;
+        std::cout << "Send check alive packet" << std::endl;
     }
 
     // Disconnects if no response from server
@@ -285,7 +293,6 @@ void ClientManager::messageWait()
             queueAccess.lock();
             receivedPackets.push(packet);
             queueAccess.unlock();
-			std::cout << "packet came in \n";
 		}
 	}
 }

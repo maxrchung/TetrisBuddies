@@ -54,6 +54,7 @@ void NetworkManager::update()
 			sf::Packet notPopped;
 			notPopped = packet;
 
+            std::cout << std::endl;
             std::cout << "Popped off packet" << std::endl;
 
             PacketDecode decode;
@@ -130,6 +131,9 @@ void NetworkManager::update()
 					multiplayer.checkForMatches();
 
                     std::cout << "Received packet join queue" << std::endl;
+                    std::cout << "activePlayers" << std::endl;
+                    for(int i = 0; i < multiplayer.activePlayers.size(); i++)
+                        std::cout << multiplayer.activePlayers[i].myAddress << std::endl;
                     break;
 				}
 
@@ -138,6 +142,7 @@ void NetworkManager::update()
                     int toRemove = -1;
                     for(int i = 0; i < (int) multiplayer.activePlayers.size(); i++)
                     {
+                        // Removes the player from the queue by looping and matching IP addresses
                         if(multiplayer.activePlayers[i].myAddress == player.myAddress)
                         {
                             toRemove = i;
@@ -146,6 +151,10 @@ void NetworkManager::update()
 
                     if(toRemove != -1)
                         multiplayer.activePlayers.erase(multiplayer.activePlayers.begin() + toRemove);
+
+                    std::cout << "activePlayers" << std::endl;
+                    for(int i = 0; i < multiplayer.activePlayers.size(); i++)
+                        std::cout << multiplayer.activePlayers[i].myAddress << std::endl;
 
                     std::cout << "Received packet leave queue" << std::endl;
                     break;

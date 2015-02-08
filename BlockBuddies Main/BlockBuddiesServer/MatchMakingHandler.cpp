@@ -40,6 +40,11 @@ void MatchMakingHandler::makeGame(Player p1, Player p2)
 	multiPlayerGames.insert(std::pair<sf::IpAddress, Game*>(p1.myAddress, nGame));
 	multiPlayerGames.insert(std::pair<sf::IpAddress, Game*>(p2.myAddress, nGame));
     gameList.push_back(nGame);
+    sf::Packet foundGame;
+    foundGame << PacketDecode::PACKET_FOUNDGAME;
+    p1.playerSocket->send(foundGame);
+    p2.playerSocket->send(foundGame);
+    std::cout << "Sent found game packet" << std::endl;
 }
 
 void MatchMakingHandler::update()
