@@ -106,9 +106,9 @@ void NetworkedSinglePlayer::update()
 			}
 
 			int color;
-			gso.Print();
-			std::cout << "changing it on the screen now";
-			gso.Print();
+			//gso.Print();
+			//std::cout << "changing it on the screen now";
+			//gso.Print();
 			//take this new gso and apply it to our board
 			for (int i = 0; i < gso.boardHeight; i++)
 			{
