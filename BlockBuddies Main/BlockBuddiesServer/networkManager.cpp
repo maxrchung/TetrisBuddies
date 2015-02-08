@@ -162,6 +162,7 @@ void NetworkManager::update()
 
 			singlePlayer.update();
 			//Send out messages. 
+			//I added this.
 			if (singlePlayer.singlePlayer.size() >= 1)
 			{
 				singlePlayer.update();

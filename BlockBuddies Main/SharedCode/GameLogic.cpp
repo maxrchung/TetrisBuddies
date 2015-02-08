@@ -431,7 +431,7 @@ void GameLogic::GameTick(){
 	bool gameStateChanged = false;
 
 		//reduce timers (pauses for clear timers, time to insert new row)
-		rowInsertionTimeLeft -= 50;
+		rowInsertionTimeLeft -= 90;
 
 		//while messageQueue isn't empty
 		while ( !messagesToDecode.empty())
