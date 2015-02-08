@@ -184,6 +184,7 @@ bool ClientManager::loginUser(std::string username , std::string password)
 	{
         // See UserInfo's >> overload
 		result >> player;
+		infoUpdate = true;
 		return true;
 	}
     else

@@ -178,7 +178,6 @@ void NetworkManager::update()
 
                     break;
                 }
-
                 default:
                 {
 					if (!singlePlayer.singlePlayer.count(player.myAddress))
@@ -196,27 +195,7 @@ void NetworkManager::update()
             }
        }
        
-
-       if (singlePlayer.singlePlayer.count(player.myAddress))
-       {
-			if (singlePlayer.singlePlayer.at(player.myAddress)->playerOneGame.gameHasStarted && singlePlayer.singlePlayer.at(player.myAddress)->playerOneGame.IsGameOver())
-			{
-				sf::Packet lost;
-				lost << PacketDecode::PACKET_GAMEOVER;
-				if (player.playerInfo.highScore < singlePlayer.singlePlayer.at(player.myAddress)->playerOneGame.GetScore())
-				{
-					DatabaseManager::getInstance().updateNewHighScore(player.playerInfo.username, singlePlayer.singlePlayer.at(player.myAddress)->playerOneGame.GetScore());
-					sf::Packet update;
-					update << PacketDecode::PACKET_USERINFOUPDATE;
-					update << DatabaseManager::getInstance().getUserInfo(player.playerInfo.username);
-					player.playerSocket->send(update);
-				}
-				player.playerSocket->send(lost);
-				singlePlayer.singlePlayer.at(player.myAddress)->playerOneGame.ResetGame();
-				std::cout << "gameOver Sent \n";
-            }
-       }
-
+		singlePlayer.update();
        if (singlePlayer.singlePlayer.size() >= 1)
        {
            singlePlayer.update();
@@ -226,21 +205,6 @@ void NetworkManager::update()
                singlePlayer.singlePlayer.at(player.myAddress)->playerOneGame.outgoingMessages.pop();
                player.playerSocket->send(toSend);
            }
-       }
-
-       if (singlePlayer.singlePlayer.count(player.myAddress) && !singlePlayer.singlePlayer.at(player.myAddress)->playerOneGame.IsGameOver())
-       {
-           if (tick.asMilliseconds() < 10)
-           {
-               tick += clock.getElapsedTime();
-           }
-           else
-           {
-               singlePlayer.singlePlayer.at(player.myAddress)->playerOneGame.GameTick();
-               tick = sf::Time::Zero;
-           }
-           
-           clock.restart();
        }
 
        // Remove player if he has not responded
