@@ -184,11 +184,6 @@ void NetworkManager::update()
 						singlePlayer.makeGame(player);
 
 					singlePlayer.addMessage(notPopped, player.myAddress);
-					//gameHandler.ReceiveMessage(notPopped);
-					//gameHandler.GameTick();
-
-					//!gameHandler.outgoingMessages.empty()
-					//This might need to be changed to allow only one message per tick.
 					
 					break;
 				}
