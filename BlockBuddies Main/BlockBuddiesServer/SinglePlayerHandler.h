@@ -18,6 +18,7 @@ public:
 	std::map<sf::IpAddress, Game*> singlePlayer;
 	
 	std::vector<sf::IpAddress> toErase;
+	bool isInGame(sf::IpAddress);
 	bool gameGoing = false;
 	void sendMessages();
 	void removePlayers();

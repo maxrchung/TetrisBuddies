@@ -22,6 +22,11 @@ void SinglePlayerHandler::removePlayers()
 	removeMe.clear();
 }
 
+bool SinglePlayerHandler::isInGame(sf::IpAddress lookUp)
+{
+	return singlePlayer.count(lookUp);
+}
+
 void SinglePlayerHandler::makeGame(Player &p1)
 {
 	Game* nGame = new Game(1);
@@ -32,7 +37,6 @@ void SinglePlayerHandler::makeGame(Player &p1)
 
 void SinglePlayerHandler::addMessage(sf::Packet addMe, sf::IpAddress myAddress)
 {
-	//singlePlayer.at(myAddress)->packetQueue1.push(&addMe);
 	singlePlayer.at(myAddress)->playerOneGame.ReceiveMessage(addMe);
 }
 

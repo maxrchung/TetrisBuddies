@@ -198,8 +198,10 @@ void NetworkManager::update()
 					if (!singlePlayer.singlePlayer.count(player.myAddress))
 						singlePlayer.makeGame(player);
 
-					singlePlayer.addMessage(notPopped, player.myAddress);
-					
+					if (singlePlayer.isInGame(player.myAddress))
+						singlePlayer.addMessage(notPopped, player.myAddress);
+					else
+						multiplayer.addMessage(notPopped, player.myAddress);
 					break;
 				}
             }
