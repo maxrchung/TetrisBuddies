@@ -29,8 +29,11 @@ CloseScreen::CloseScreen()
 
 	 status(new TextBox("Are you sure you want to exit?",
 	                    0.0f,
-						-58.33f,
-						300.0f)),
+						-66.5f,
+						300.0f,
+                        Alignments::CENTER,
+                        false,
+                        true)),
 
 	 login(new Button(Screens::LOGIN,
 		              "Logout",
@@ -78,7 +81,6 @@ void CloseScreen::update()
         (InputManager::getInstance()->enter && login->isSelected))
     {
         ScreenManager::getInstance()->switchScreen(login->toScreen);
-        dynamic_cast<LoginScreen*>(ScreenManager::getInstance()->currentScreens[0])->status->message.setString("Enter username and password");
         ClientManager::getInstance().closeConnection();
         BlockShowerManager::getInstance()->fade.state = FadeStates::FADING_IN;
         InputManager::getInstance()->resetInput();
@@ -111,4 +113,12 @@ void CloseScreen::draw()
     GraphicsManager::getInstance()->window.draw(darken);
 
     Screen::draw();
+}
+
+void CloseScreen::reload()
+{
+    login->label.setString("Logout");
+    login->label.setOrigin(GraphicsManager::getInstance()->getCenter(login->label));
+    login->label.setPosition(sf::Vector2f(GraphicsManager::getInstance()->window.getSize().x / 2.0f,
+                                               GraphicsManager::getInstance()->window.getSize().y / 2.0f));
 }

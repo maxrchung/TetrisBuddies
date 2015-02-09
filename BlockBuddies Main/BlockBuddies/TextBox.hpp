@@ -20,14 +20,16 @@ public:
 			Alignments textAlignment = Alignments::CENTER,
 			// Denotes whether to use a larger font to
 			// indicate that this is a title
-			bool isTitle = false);
+			bool isTitle = false,
+            bool borderOutline = false);
 
 	TextBox(std::string message,
 		float posX,
 		float posY,
 		float width,
 		Alignments textAlignment = Alignments::CENTER,
-		bool isTitle = false);
+		bool isTitle = false,
+        bool borderOutline = false);
 
 	void update();
 	void draw();
@@ -48,6 +50,7 @@ private:
 	sf::Vector2f targetPosition;
 
     bool isTitle;
+    bool borderOutline;
 };
 
 #endif TEXTBOX_HPP

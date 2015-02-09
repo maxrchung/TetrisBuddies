@@ -28,8 +28,11 @@ OfflineCloseScreen::OfflineCloseScreen()
 
 	 status(new TextBox("Are you sure you want to exit?",
 	                    0.0f,
-						-58.33f,
-						300.0f)),
+						-66.5f,
+						300.0f,
+                        Alignments::CENTER,
+                        false,
+                        true)),
 
 	 login(new Button(Screens::LOGIN,
 		              "Login",

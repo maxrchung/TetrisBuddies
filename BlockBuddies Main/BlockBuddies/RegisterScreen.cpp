@@ -27,10 +27,13 @@ RegisterScreen::RegisterScreen()
 					   Alignments::CENTER,
 					   true)),
 
-     status(new TextBox("Enter username once and password twice to register an account",
+     status(new TextBox("Enter username once and password twice to register an account.",
 	                    0.0f,
 						-125.0f,
-						300.0f)),
+						300.0f,
+                        Alignments::CENTER,
+                        false,
+                        true)),
 
      usernameTag(new TextBox("Username: ",
 	                         -140.0f,
@@ -135,10 +138,14 @@ void RegisterScreen::update()
                 ScreenManager::getInstance()->switchScreen(home->toScreen);
             }
             else
-                status->message.setString("Username taken");
+            {
+                ScreenManager::getInstance()->addScreen(Screens::NOTIFICATION, "This username has already been taken.");
+            }
         }
         else
-            status->message.setString("Passwords do not match");
+        {
+            ScreenManager::getInstance()->addScreen(Screens::NOTIFICATION, "The passwords do not match.");
+        }
     }
     else if (login->isActivated ||
              (InputManager::getInstance()->enter && login->isSelected))
@@ -150,9 +157,4 @@ void RegisterScreen::update()
 void RegisterScreen::draw()
 {
     Screen::draw();
-}
-
-void RegisterScreen::reload()
-{
-    status->message.setString("Enter username once and password twice to register an account");
 }

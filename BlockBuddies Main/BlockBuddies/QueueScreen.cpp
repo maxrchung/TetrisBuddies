@@ -29,8 +29,11 @@ QueueScreen::QueueScreen()
 
 	 status(new TextBox("Looking for game",
 	                    0.0f,
-						-58.33f,
-						300.0f)),
+						-30.0f,
+						300.0f,
+                        Alignments::CENTER,
+                        false,
+                        true)),
 
      cancel(new Button(Screens::NONE,
                        "Cancel",

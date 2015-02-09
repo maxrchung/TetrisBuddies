@@ -35,6 +35,7 @@
     <ClInclude Include="LoginScreen.hpp" />
     <ClInclude Include="MultiplayerScreen.hpp" />
     <ClInclude Include="NetworkedSinglePlayer.h" />
+    <ClInclude Include="NotificationScreen.hpp" />
     <ClInclude Include="OfflineCloseScreen.hpp" />
     <ClInclude Include="OfflineGameTypeScreen.hpp" />
     <ClInclude Include="OfflineHomeScreen.hpp" />
@@ -78,6 +79,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MultiplayerScreen.cpp" />
     <ClCompile Include="NetworkedSinglePlayer.cpp" />
+    <ClCompile Include="NotificationScreen.cpp" />
     <ClCompile Include="OfflineCloseScreen.cpp" />
     <ClCompile Include="OfflineGameTypeScreen.cpp" />
     <ClCompile Include="OfflineHomeScreen.cpp" />

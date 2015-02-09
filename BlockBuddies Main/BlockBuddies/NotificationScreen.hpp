@@ -1,5 +1,5 @@
-#ifndef CLOSESCREEN_HPP
-#define CLOSESCREEN_HPP
+#ifndef NOTIFICATIONSCREEN_HPP
+#define NOTIFICATIONSCREEN_HPP
 
 #include "Screen.hpp"
 #include "Button.hpp"
@@ -7,26 +7,23 @@
 #include "Section.hpp"
 
 // Screen to login with account
-class CloseScreen : public Screen
+class NotificationScreen : public Screen
 {
 public:
-	CloseScreen();
+	NotificationScreen();
 
     void update();
 	void draw();
-    void reload();
 
-	Button* login;
+	TextBox* status;
 
 private:
     Section* backSection;
 	// All the various parts we create
 	Section* section;
 	TextBox* title;
-	TextBox* status;
 
-    Button* exit;
-    Button* cancel;
+    Button* back;
 };
 
-#endif//CLOSESCREEN_HPP
+#endif//NOTIFICATIONSCREEN_HPP

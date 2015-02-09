@@ -7,11 +7,13 @@ TextBox::TextBox(char* message,
 				 float posY,
 				 float width,
 				 Alignments textAlignment,
-				 bool isTitle)
+				 bool isTitle,
+                 bool borderOutline)
     :message(sf::Text(message,
                       GraphicsManager::getInstance()->messageFont,
 					  GraphicsManager::getInstance()->messageSize)),
-	 boundingWidth(width)
+	 boundingWidth(width * GraphicsManager::getInstance()->scale),
+     borderOutline(borderOutline)
 {
     this->isTitle = isTitle;
 
@@ -53,11 +55,13 @@ TextBox::TextBox(std::string message,
 	float posY,
 	float width,
 	Alignments textAlignment,
-	bool isTitle)
+	bool isTitle,
+    bool borderOutline)
 	:message(sf::Text(message,
-	GraphicsManager::getInstance()->messageFont,
+    GraphicsManager::getInstance()->messageFont,
 	GraphicsManager::getInstance()->messageSize)),
-	boundingWidth(width)
+	boundingWidth(width * GraphicsManager::getInstance()->scale),
+    borderOutline(borderOutline)
 {
 	// The isTitle parameter indicates whether or not the textbox is a larger title
 	// e.g. "Login" for the LoginScreen, or just a normal instructions e.g. "Enter credentials below"
@@ -126,7 +130,7 @@ void TextBox::textWrap()
 							checkReturn.insert(j + 1, "\n"); // +1 to go after the designated point
 							this->message.setString(checkReturn);
 							checkBound.setString("");
-							i++; // Add 1 to i so we don't reread the same letter we had before
+							i = j + 1;
 							break;
 						}
 					}
@@ -162,6 +166,22 @@ void TextBox::draw()
     sf::Color adjustColor = message.getColor();
     adjustColor.a = fade.value;
     message.setColor(adjustColor);
+
+    if(borderOutline)
+    {
+        sf::FloatRect messageRect = message.getGlobalBounds();
+        sf::RectangleShape border = sf::RectangleShape(sf::Vector2f(messageRect.width + 20 * GraphicsManager::getInstance()->scale, 
+                                                                    messageRect.height + 20 * GraphicsManager::getInstance()->scale));
+        border.setPosition(messageRect.left - 10 * GraphicsManager::getInstance()->scale, 
+                           messageRect.top - 10 * GraphicsManager::getInstance()->scale);
+        adjustColor = GraphicsManager::getInstance()->buttonColor;
+        adjustColor.a = fade.value;
+        border.setOutlineColor(adjustColor);
+        border.setOutlineThickness(2);
+        border.setFillColor(sf::Color::Transparent);
+
+        GraphicsManager::getInstance()->window.draw(border);
+    }
 
     float scaleFade = fade.value/255.0f / 4.0f + 0.75f;
     message.setScale(sf::Vector2f(scaleFade, scaleFade));

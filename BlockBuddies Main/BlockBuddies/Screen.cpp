@@ -5,6 +5,9 @@
 #include "ClientManager.h"
 #include "TextInput.hpp"
 #include "Section.hpp"
+#include "RegisterScreen.hpp"
+#include "LoginScreen.hpp"
+#include "CloseScreen.hpp"
 
 Screen::Screen()
     :close(new Button(Screens::CLOSE,
@@ -15,7 +18,8 @@ Screen::Screen()
                       30.0f))
 {
     fade = Fade();
-    UIElements.push_back(close);
+    close->fade.value = 255;
+    close->fade.state = FadeStates::FADED_IN;
 }
 
 // Updates selectables and UIElements
@@ -24,8 +28,22 @@ void Screen::update()
     if (close->isActivated)
     {
         close->isActivated = false;
+        
+        RegisterScreen* registerCheck = dynamic_cast<RegisterScreen*>(this);
+        LoginScreen* loginCheck = dynamic_cast<LoginScreen*>(this);
+
         if(ClientManager::getInstance().isConnected)
+        {
             ScreenManager::getInstance()->addScreen(close->toScreen);
+            if(registerCheck || loginCheck)
+            {
+                sf::Text& alter = ((CloseScreen*)ScreenManager::getInstance()->currentScreens.back())->login->label;
+                alter.setString("Login");
+                alter.setOrigin(GraphicsManager::getInstance()->getCenter(alter));
+                alter.setPosition(sf::Vector2f(GraphicsManager::getInstance()->window.getSize().x / 2.0f,
+                                               GraphicsManager::getInstance()->window.getSize().y / 2.0f));
+            }
+        }
         else
             ScreenManager::getInstance()->addScreen(Screens::OFFLINECLOSE);
     }
@@ -93,6 +111,8 @@ void Screen::update()
             a->update();
         }
     }
+
+    close->update();
 }
 
 void Screen::draw()
@@ -112,6 +132,7 @@ void Screen::draw()
         if(UIElement->isDisplayed) // Avoid drawing the close X in the corner
             UIElement->draw();
     }
+    close->draw();
 }
 
 // Does nothing since the basic screen does nothing

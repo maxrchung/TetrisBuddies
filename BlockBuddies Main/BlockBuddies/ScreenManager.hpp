@@ -16,7 +16,7 @@ public:
     void update();
     void draw();
     void switchScreen(const Screens toScreen);
-    void addScreen(const Screens toScreen);
+    void addScreen(const Screens toScreen, const sf::String notificationMessage = sf::String(""));
     void popScreen();
     void closeGame();
 

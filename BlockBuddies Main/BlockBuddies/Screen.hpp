@@ -32,6 +32,7 @@ enum Screens
     MULTIPLAYER,
 	ONLINESINGLE,
     QUEUE,
+    NOTIFICATION,
     NONE
 };
 

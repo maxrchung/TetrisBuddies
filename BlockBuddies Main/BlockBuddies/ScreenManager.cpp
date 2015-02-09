@@ -16,6 +16,7 @@
 #include "NetworkedSinglePlayer.h"
 #include "QueueScreen.hpp"
 #include "Game.hpp"
+#include "NotificationScreen.hpp"
 
 ScreenManager* ScreenManager::instance;
 
@@ -45,6 +46,7 @@ void ScreenManager::init()
                                              { Screens::MULTIPLAYER, new MultiplayerScreen() },
 											 { Screens::ONLINESINGLE, new NetworkedSinglePlayer() },
                                              { Screens::QUEUE, new QueueScreen() },
+                                             { Screens::NOTIFICATION, new NotificationScreen() },
 	                                     };
 
 	// Set this to something else if you want to start on a specific screen
@@ -127,7 +129,7 @@ void ScreenManager::switchScreen(const Screens toScreen)
 
 // For adding a notification screen or a close screen on top of the
 // current one
-void ScreenManager::addScreen(const Screens toScreen)
+void ScreenManager::addScreen(const Screens toScreen, const sf::String notificationMessage)
 {
     for(auto& screen : currentScreens)
     {
@@ -138,6 +140,11 @@ void ScreenManager::addScreen(const Screens toScreen)
     currentScreens.push_back(screens[toScreen]);
     screens[toScreen]->reload();
     currentScreens[currentScreens.size() - 1]->fade.state = FadeStates::FADING_IN;
+    // Add a notification message if we are given one through the parameter
+    if(!notificationMessage.isEmpty())
+    {
+        ((NotificationScreen*) currentScreens.back())->status->message.setString(notificationMessage);
+    }
 }
 
 void ScreenManager::shake(float seconds)

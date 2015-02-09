@@ -3,6 +3,7 @@
 #include "InputManager.hpp"
 #include "ClientManager.h"
 #include "SoundManager.h"
+#include "NotificationScreen.hpp"
 LoginScreen::LoginScreen()
     :backSection(new Section(0.0f,
                              0.0f,
@@ -15,7 +16,7 @@ LoginScreen::LoginScreen()
 						 400.0f,
 						 600.0f)),
                          
-     title(new TextBox("LOGIN",
+     title(new TextBox("BLOCK BUDDIES",
 	                   0.0f,
 					   -200.0f,
 					   300.0f,
@@ -24,10 +25,13 @@ LoginScreen::LoginScreen()
 					   // Parameter tells the constructor that it is a title
 					   true)),
 
-	 status(new TextBox("Enter username and password ",
+	 status(new TextBox("Welcome to the game! Enter your username and password to login. Press register to create a new account, or press offline mode to play an offline game.",
 	                    0.0f,
-						-125.0f,
-						300.0f)),
+						-110.0f,
+						300.0f,
+                        Alignments::CENTER,
+                        false,
+                        true)),
 
      usernameTag(new TextBox("Username: ",
 		                     -140.0f,
@@ -131,7 +135,7 @@ void LoginScreen::update()
         {
 			if (!ClientManager::getInstance().initConnection(sf::IpAddress::getLocalAddress(), 5000))
 			{
-				status->message.setString("Connection failed");
+                ScreenManager::getInstance()->addScreen(Screens::NOTIFICATION, "Failed to connect with server. The server may be down, or you may not be connected to the Internet.");
 				if (sound.getStatus() != sound.Playing)
 					sound.play();
 			}
@@ -151,8 +155,8 @@ void LoginScreen::update()
                 //play sounds then change strings
 				if (sound.getStatus() != sound.Playing)
 					sound.play();
-                
-                status->message.setString("Wrong username or password");
+
+                ScreenManager::getInstance()->addScreen(Screens::NOTIFICATION, "Wrong username or password combination");
             }
         }
     }
@@ -164,10 +168,16 @@ void LoginScreen::update()
         {
 			if (!ClientManager::getInstance().initConnection(sf::IpAddress::getLocalAddress(), 5000))
 			{
-				status->message.setString("Connection failed");
+                ScreenManager::getInstance()->addScreen(Screens::NOTIFICATION, "Failed to connect with server. The server may be down, or you may not be connected to the Internet.");
 				if (sound.getStatus() != sound.Playing)
 					sound.play();
 			}
+            else
+            {
+                //play sound then switch screen
+                sound.play();
+                ScreenManager::getInstance()->switchScreen(signup->toScreen);
+            }
         }
 				
         else
@@ -192,9 +202,4 @@ void LoginScreen::update()
 void LoginScreen::draw()
 {
     Screen::draw();
-}
-
-void LoginScreen::reload()
-{
-    status->message.setString("Enter username and password");
 }

@@ -14,7 +14,6 @@ public:
 	RegisterScreen();
 	void update();
 	void draw();
-    void reload();
 
 private:
     Section* backSection;

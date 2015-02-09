@@ -138,8 +138,8 @@ void ClientManager::update()
 
         ScreenManager::getInstance()->switchScreen(Screens::LOGIN);
         BlockShowerManager::getInstance()->fade.state = FadeStates::FADING_IN;
+        ScreenManager::getInstance()->addScreen(Screens::NOTIFICATION, "The game lost connection with the server. The server may be down or your connection may have dropped.");
 
-        dynamic_cast<LoginScreen*>((ScreenManager::getInstance()->currentScreens)[0])->status->message.setString("Lost connection with server");
 
         ClientManager::getInstance().closeConnection();
     }
