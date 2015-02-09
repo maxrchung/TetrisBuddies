@@ -104,85 +104,7 @@ void NetworkedSinglePlayer::update()
 				ch->Up(sf::Keyboard::Key::Up);
 
 			}
-
-			int color;
-			//gso.Print();
-			//std::cout << "changing it on the screen now";
-			//gso.Print();
-			//take this new gso and apply it to our board
-			for (int i = 0; i < gso.boardHeight; i++)
-			{
-				for (int j = 0; j < gso.boardWidth; j++)
-				{
-					color = gso.gameBoard[i][j];
-					sf::Color c(0, 0, 0, 200);
-					switch (color)
-					{
-						//if its a 0 its empty?
-					case 0:
-					{
-						blocks[i][j].setFillColor(sf::Color::Transparent);
-						blocks[i][j].setOutlineThickness(-2);
-						blocks[i][j].setOutlineColor(sf::Color::Transparent);
-						break;
-					}
-					case 1:
-					{
-						c.b = 128;
-						blocks[i][j].setFillColor(c);
-						c.a = 255;
-						blocks[i][j].setOutlineThickness(-2);
-						blocks[i][j].setOutlineColor(c);
-						break;
-					}
-					case 2:
-					{
-						c.r = 255;
-						blocks[i][j].setFillColor(c);
-						c.a = 255;
-						blocks[i][j].setOutlineThickness(-2);
-						blocks[i][j].setOutlineColor(c);
-						break;
-					}
-					case 3:
-					{
-						c.r = 255;
-						c.g = 140;
-						blocks[i][j].setFillColor(c);
-						c.a = 255;
-						blocks[i][j].setOutlineThickness(-2);
-						blocks[i][j].setOutlineColor(c);
-						break;
-					}
-					case 4:
-					{
-						c.r = 148;
-						c.b = 211;
-						blocks[i][j].setFillColor(c);
-						c.a = 255;
-						blocks[i][j].setOutlineThickness(-2);
-						blocks[i][j].setOutlineColor(c);
-						break;
-					}
-					case 5:
-					{
-						c.r = 50;
-						c.g = 205;
-						c.b = 50;
-						blocks[i][j].setFillColor(c);
-						c.a = 255;
-						blocks[i][j].setOutlineThickness(-2);
-						blocks[i][j].setOutlineColor(c);
-						break;
-					}
-					default:
-					{
-						blocks[i][j].setFillColor(sf::Color::Black);
-						break;
-					}
-					}
-				}
-			}
+			updateBlocks();
 
 		}
 
@@ -307,7 +229,11 @@ void NetworkedSinglePlayer::update()
 		SoundManager::getInstance().playMusic("Sounds/Slamstorm.ogg");
 		reset = true;
 		if (ClientManager::getInstance().isConnected)
+		{
+			gso = GameStateObject();
+			updateBlocks();
 			ScreenManager::getInstance()->switchScreen(RESULT);
+		}
 		else
 			ScreenManager::getInstance()->switchScreen(OFFLINERESULT);
 
@@ -316,7 +242,87 @@ void NetworkedSinglePlayer::update()
 
     Screen::update();
 }
-
+void NetworkedSinglePlayer::updateBlocks()
+{
+	int color;
+	//gso.Print();
+	//std::cout << "changing it on the screen now";
+	//gso.Print();
+	//take this new gso and apply it to our board
+	for (int i = 0; i < gso.boardHeight; i++)
+	{
+		for (int j = 0; j < gso.boardWidth; j++)
+		{
+			color = gso.gameBoard[i][j];
+			sf::Color c(0, 0, 0, 200);
+			switch (color)
+			{
+				//if its a 0 its empty?
+			case 0:
+			{
+				blocks[i][j].setFillColor(sf::Color::Transparent);
+				blocks[i][j].setOutlineThickness(-2);
+				blocks[i][j].setOutlineColor(sf::Color::Transparent);
+				break;
+			}
+			case 1:
+			{
+				c.b = 128;
+				blocks[i][j].setFillColor(c);
+				c.a = 255;
+				blocks[i][j].setOutlineThickness(-2);
+				blocks[i][j].setOutlineColor(c);
+				break;
+			}
+			case 2:
+			{
+				c.r = 255;
+				blocks[i][j].setFillColor(c);
+				c.a = 255;
+				blocks[i][j].setOutlineThickness(-2);
+				blocks[i][j].setOutlineColor(c);
+				break;
+			}
+			case 3:
+			{
+				c.r = 255;
+				c.g = 140;
+				blocks[i][j].setFillColor(c);
+				c.a = 255;
+				blocks[i][j].setOutlineThickness(-2);
+				blocks[i][j].setOutlineColor(c);
+				break;
+			}
+			case 4:
+			{
+				c.r = 148;
+				c.b = 211;
+				blocks[i][j].setFillColor(c);
+				c.a = 255;
+				blocks[i][j].setOutlineThickness(-2);
+				blocks[i][j].setOutlineColor(c);
+				break;
+			}
+			case 5:
+			{
+				c.r = 50;
+				c.g = 205;
+				c.b = 50;
+				blocks[i][j].setFillColor(c);
+				c.a = 255;
+				blocks[i][j].setOutlineThickness(-2);
+				blocks[i][j].setOutlineColor(c);
+				break;
+			}
+			default:
+			{
+				blocks[i][j].setFillColor(sf::Color::Black);
+				break;
+			}
+			}
+		}
+	}
+}
 void NetworkedSinglePlayer::draw()
 {
 	Screen::draw();

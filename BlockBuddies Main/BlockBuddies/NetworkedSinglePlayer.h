@@ -23,9 +23,7 @@ public:
 	void draw();
     void reload();
 	sf::RectangleShape blocks[GameStateObject::boardHeight][GameStateObject::boardWidth];
-
 	
-
 private:
 
 	typedef std::tuple<int, int> blocksWT;
@@ -50,6 +48,7 @@ private:
 	int blockSizeX;
 	int blockSizeY;
 	void initGame();
+	void updateBlocks();
 	bool reset;
 	sf::Sound swapSound;
 	TextBox* username;
