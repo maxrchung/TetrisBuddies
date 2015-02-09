@@ -98,6 +98,9 @@
     <ClInclude Include="SinglePlayerHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\SharedCode\TimedPiece.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="game.db" />

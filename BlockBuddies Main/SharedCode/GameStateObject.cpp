@@ -26,7 +26,6 @@ GameStateObject::GameStateObject(){
 	cursorPos.first = boardHeight / 2;
 	cursorPos.second = boardWidth / 2;
 	rowInsertionCountdown = 0;
-	fallingBlocks.clear();
 	clearingBlocks.clear();
 	newRowActive = false;
 }
@@ -64,22 +63,15 @@ void GameStateObject::Print(){
 	std::cout << "Timestamp: " << timestamp << std::endl;
 	std::cout << "Row Insertion Pause: " << rowInsertionCountdown << std::endl;
 	std::cout << "New row active? " << newRowActive << std::endl;
-	std::cout << "Size of FallingBlocks: " << fallingBlocks.size() << std::endl;
 
 
-	if (fallingBlocks.size() > 0){
-		std::cout << "Contents of FallingBlocks: \n";
-		for (int i = 0; i < fallingBlocks.size(); i++){
-			std::cout << "	Row " << fallingBlocks[i].blockNum.first << ", Col " << fallingBlocks[i].blockNum.second << ", duration: " << fallingBlocks[i].duration << std::endl;
-		}
-	}
 
 	//std::cout << "" << << std::endl;
 	std::cout << "Size of ClearingBlocks: " << clearingBlocks.size() << std::endl;
 	if (clearingBlocks.size() > 0){
 		std::cout << "Contents of ClearingBlocks: \n";
 		for (int i = 0; i < clearingBlocks.size(); i++){
-			std::cout << "	Row " << clearingBlocks[i].blockNum.first << ", Col " << clearingBlocks[i].blockNum.second << ", duration: " << clearingBlocks[i].duration << std::endl;
+			std::cout << "	Row " << clearingBlocks[i].first << ", Col " << clearingBlocks[i].second <<  std::endl;
 		}
 	}
 
@@ -135,22 +127,15 @@ void GameStateObject::PrintToFile(){
 	//*********
 	//print the rest of the elements that will be added to the state 
 
-	debugFile << "Size of FallingBlocks: " << fallingBlocks.size() << std::endl;
 
 
-	if (fallingBlocks.size() > 0){
-		debugFile << "Contents of FallingBlocks: \n";
-		for (int i = 0; i < fallingBlocks.size(); i++){
-			debugFile << "	Row " << fallingBlocks[i].blockNum.first << ", Col " << fallingBlocks[i].blockNum.second << ", duration: " << fallingBlocks[i].duration << std::endl;
-		}
-	}
 
 	//debugFile << "" << << std::endl;
 	debugFile << "Size of ClearingBlocks: " << clearingBlocks.size() << std::endl;
 	if (clearingBlocks.size() > 0){
 		debugFile << "Contents of ClearingBlocks: \n";
 		for (int i = 0; i < clearingBlocks.size(); i++){
-			debugFile << "	Row " << clearingBlocks[i].blockNum.first << ", Col " << clearingBlocks[i].blockNum.second << ", duration: " << clearingBlocks[i].duration << std::endl;
+			debugFile << "	Row " << clearingBlocks[i].first << ", Col " << clearingBlocks[i].second << ", duration: " << std::endl;
 		}
 	}
 
@@ -187,10 +172,9 @@ bool new row active
 
 */
 
-sf::Packet& operator <<(sf::Packet& packet, const TimedPiece& tp){ return packet << tp.blockNum.first << tp.blockNum.second << tp.duration; }
 
-sf::Packet& operator >>(sf::Packet& packet, TimedPiece& tp){ return packet >> tp.blockNum.first >> tp.blockNum.second >> tp.duration; }
-
+sf::Packet& operator <<(sf::Packet& packet, const std::pair<int, int>& tp){ return packet << tp.first << tp.second; }
+sf::Packet& operator >>(sf::Packet& packet, std::pair<int, int>& tp){ return packet >> tp.first >> tp.second; }
 
 
 //change this to work with the new GSO
@@ -214,7 +198,6 @@ GameStateObject& GameStateObject::operator=(GameStateObject& rhs)
 		}
 	}
 
-	fallingBlocks = rhs.fallingBlocks;
 	clearingBlocks = rhs.clearingBlocks;
 
 	return *this;
@@ -269,15 +252,6 @@ sf::Packet& operator <<(sf::Packet& packet, const GameStateObject& gso)
 	}
 
 
-	//sizeOf(fallingBlocks)
-	//until sizeOf is done: entries in the vector
-	int numFallingBlocks = gso.fallingBlocks.size();
-	packet << numFallingBlocks;
-
-	for (int i = 0; i < numFallingBlocks; i++){
-		packet << gso.fallingBlocks[i];
-	}
-
 
 	//sizeOf(clearingBlocks)
 	//until sizeOf is done: entries in the vector
@@ -286,6 +260,7 @@ sf::Packet& operator <<(sf::Packet& packet, const GameStateObject& gso)
 	for (int i = 0; i < numClearingBlocks; i++){
 		packet << gso.clearingBlocks[i];
 	}
+
 
 
 
@@ -323,6 +298,7 @@ sf::Packet& operator >>(sf::Packet& packet, GameStateObject& gso)
 		packet >> gso.tempRow[colNum];
 	}
 
+	//insert the game board
 	for (int rowNum = 0; rowNum < gso.boardHeight; rowNum++) {
 		for (int colNum = 0; colNum < gso.boardWidth; colNum++)
 		{
@@ -332,16 +308,8 @@ sf::Packet& operator >>(sf::Packet& packet, GameStateObject& gso)
 
 
 
-	//sizeOf(fallingBlocks)
-	//until sizeOf is done: entries in the vector
-	int numFallingBlocks;
-	TimedPiece x;
-	packet >> numFallingBlocks;
-	for (int i = 0; i < numFallingBlocks; i++){
-		//each one is an entry in the vector
-		packet >> x;
-		gso.fallingBlocks.push_back(x);
-	}
+
+	std::pair<int, int> x;
 
 
 	//sizeOf(clearingBlocks)

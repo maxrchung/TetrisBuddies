@@ -10,12 +10,11 @@ GameLogic::GameLogic(){
 
 	//this is set to true in InitalBoardPopulation(), which is what's run when the game starts for the first time
 	isGameOver = true;
-	sendNewRow = false;
 	gameHasStarted = false;
 
 	//I don't know what a good value for this is.  We can play with it and find out what works.  Also, it will have to decrease as the game goes on. Based on score, maybe? Or game time? Or level?
 	totalRowInsertionTime = 1200;
-	rowInsertionTimeLeft = totalRowInsertionTime;
+	gso.rowInsertionCountdown = totalRowInsertionTime;
 
 	blocksMarkedForDeletion.clear();
 	blocksToCheckForMatches.clear();
@@ -235,6 +234,41 @@ bool GameLogic::ApplyGravity(){
 	return blockMoved;
 }
 
+bool GameLogic::DecrementCounters(){
+
+	bool ret = false;
+
+	if (!fallingBlocks.empty()){
+		ret = true;
+		for (int i = 0; i < fallingBlocks.size(); i++){
+			fallingBlocks.at(i).duration--;
+		}
+	}
+
+
+	if (!swappingBlocks.empty()){
+		ret = true;
+		for (int i = 0; i < swappingBlocks.size(); i++){
+			swappingBlocks.at(i).duration--;
+		}
+	}
+
+
+	if (!gso.clearingBlocks.empty()){
+		ret = true;
+		for (int i = 0; i < gso.clearingBlocks.size(); i++){
+			destroyedBlocks.at(i).duration--;
+		}
+	}
+
+	return ret;
+}
+
+
+
+
+
+
 //swapping pieces applies gravity
 bool GameLogic::SwapPieces(int row1Num, int col1Num, int row2Num, int col2Num){
 
@@ -253,6 +287,8 @@ bool GameLogic::SwapPieces(int row1Num, int col1Num, int row2Num, int col2Num){
 
 	ApplyGravity();
 
+
+	//V------- Might need to re-examine this logic now that gravity has changed
 
 	//ApplyGravity automatically puts any block that moved into BTCFM
 	//Checking both blocks on the assumption neither of them fell. The two extra checks (if they did fall) are fine.
@@ -437,6 +473,9 @@ bool GameLogic::ProcessMessage(sf::Packet toProcess){
 		//put the pieces into a "swap" queue
 		//pause the row timer
 		//in the Tick(), it will be swapped when countdown = 0
+		swappingBlocks.push_back(TimedPiece{p1r, p1c, blockSwapTime});
+		swappingBlocks.push_back(TimedPiece{p2r, p2c, blockSwapTime});
+		//rowInsertionTimerRunning = false;
 
 		return true;
 	}
@@ -446,7 +485,7 @@ bool GameLogic::ProcessMessage(sf::Packet toProcess){
 		//std::cout << "Got 'Request New Row' command!" << std::endl;
 
 		//**set the row insertion time left to 0;
-		rowInsertionTimeLeft = 0;
+		gso.rowInsertionCountdown = 0;
 
 		//increases the total insertion time by 1, because it gets reduced by 1 in the Tick()
 		totalRowInsertionTime++;
@@ -488,9 +527,15 @@ void GameLogic::GameTick(){
 	bool gameStateChanged = false;
 
 	//reduce timers (pauses for swapping or clearing pieces)
-	if (rowInsertionTimerRunning){
-		rowInsertionTimeLeft--;
+	
+	//if (DecrementCounters()){ gameStateChanged = true; }
+	DecrementCounters();
+
+	if (rowInsertionTimerRunning) {
+		gso.rowInsertionCountdown--;
 	}
+
+	
 
 	//while messageQueue isn't empty
 	while (!messagesToDecode.empty())
@@ -521,9 +566,9 @@ void GameLogic::GameTick(){
 		gameStateChanged = true;
 	}
 
-	std::cout << "Row insertion time:  " << rowInsertionTimeLeft << std::endl;
+	std::cout << "Row insertion time:  " << gso.rowInsertionCountdown << std::endl;
 	//if the insert new row timer is 0;
-	if (rowInsertionTimeLeft == 0){
+	if (gso.rowInsertionCountdown == 0){
 
 		InsertBottomRow();
 
@@ -535,8 +580,7 @@ void GameLogic::GameTick(){
 		//reset the row insertion timer
 
 		gso.newRowActive = true;
-		rowInsertionTimeLeft = totalRowInsertionTime;
-		sendNewRow = true;
+		gso.rowInsertionCountdown = totalRowInsertionTime;
 		gameStateChanged = true;
 	}
 
@@ -601,4 +645,3 @@ bool GameLogic::InsertRowAt(int insertOnRowNum, std::array<int, 7> rowToInsert){
 	for (int j = 0; j < gso.boardWidth; j++){ gso.gameBoard[insertOnRowNum][j] = rowToInsert[j]; }
 	return true;
 }
-

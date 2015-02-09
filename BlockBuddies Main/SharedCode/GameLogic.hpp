@@ -14,6 +14,7 @@
 #include <string>
 #include "GameStateObject.hpp"
 #include "MessageType.h"
+#include "TimedPiece.h"
 
 class GameLogic{
 
@@ -48,7 +49,6 @@ public:
 
 	//bool PopulateTempRow();
 	bool gameHasStarted;
-	bool sendNewRow;
 	bool isGameOver;
 	//returns the player's score
 	int GetScore() { return gso.score; }
@@ -61,8 +61,13 @@ private:
 	const int blockClearTime = 2000;
 	const int blockFallTime = 50;
 	const int blockSwapTime = 300;
-
 	bool rowInsertionTimerRunning;
+	bool DecrementCounters();
+
+	std::vector<TimedPiece> fallingBlocks;
+	std::vector<TimedPiece> swappingBlocks;
+	std::vector<TimedPiece> destroyedBlocks;
+
 
 	//holds the array that keeps track of the board, as well as the player's score
 	GameStateObject gso;
@@ -78,7 +83,6 @@ private:
 	std::queue<sf::Packet> messagesToDecode;
 
 	int totalRowInsertionTime;
-	int rowInsertionTimeLeft;
 
 	//functions**********************************************
 	
