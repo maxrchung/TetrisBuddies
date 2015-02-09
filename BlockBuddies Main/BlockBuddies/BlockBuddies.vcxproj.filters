@@ -141,6 +141,9 @@
     <ClInclude Include="QueueScreen.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\SharedCode\TimedPiece.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="NotificationScreen.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>

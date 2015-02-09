@@ -15,6 +15,7 @@
     <ClInclude Include="..\SharedCode\GameStateObject.hpp" />
     <ClInclude Include="..\SharedCode\GameTimedEvent.h" />
     <ClInclude Include="..\SharedCode\MessageType.h" />
+    <ClInclude Include="..\SharedCode\TimedPiece.h" />
     <ClInclude Include="..\SharedCode\UserInfo.h" />
     <ClInclude Include="AnimationManager.hpp" />
     <ClInclude Include="BlockHandler.hpp" />

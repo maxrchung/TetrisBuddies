@@ -198,8 +198,10 @@ void NetworkManager::update()
 					if (!singlePlayer.singlePlayer.count(player.myAddress))
 						singlePlayer.makeGame(player);
 
-					singlePlayer.addMessage(notPopped, player.myAddress);
-					
+					if (singlePlayer.isInGame(player.myAddress))
+						singlePlayer.addMessage(notPopped, player.myAddress);
+					else
+						multiplayer.addMessage(notPopped, player.myAddress);
 					break;
 				}
             }
@@ -212,19 +214,15 @@ void NetworkManager::update()
 	   else
 	   {
 		   singlePlayer.update();
+		   multiplayer.update();
 		   tick = sf::Time::Zero;
 		   clock.restart();
 	   }
        
        if (singlePlayer.singlePlayer.size() >= 1)
-       {
-           while (!singlePlayer.singlePlayer.at(player.myAddress)->playerOneGame.outgoingMessages.empty())
-           {
-               sf::Packet toSend = singlePlayer.singlePlayer.at(player.myAddress)->playerOneGame.outgoingMessages.front();
-               singlePlayer.singlePlayer.at(player.myAddress)->playerOneGame.outgoingMessages.pop();
-               player.playerSocket->send(toSend);
-           }
-       }
+		   singlePlayer.sendMessages();
+	   if (multiplayer.multiPlayerGames.size() >= 1)
+		   multiplayer.sendMessages();
 
 
 

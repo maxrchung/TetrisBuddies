@@ -47,13 +47,13 @@ void NetworkedSinglePlayer::initGame()
 	//fill in initial board
 	int gridPosy = 0;
 	int gridPosx = 0;
-	blockSizeX = (int)(winY / 20);
-	blockSizeY = (int)(winY / 20);
+	blockSizeX = (int)(winY / gso.boardHeight);
+	blockSizeY = (int)(winY / gso.boardHeight);
 
 	//draws a large rectangle around the game screen
-	gameScreenHeight = blockSizeX * 20;
+	gameScreenHeight = blockSizeX * gso.boardHeight;
 	int offset = winY - gameScreenHeight;
-	gameScreenWidth = blockSizeX * 16;
+	gameScreenWidth = blockSizeX * gso.boardWidth;
 
 	ch = new CursorHandler(gameScreenWidth, gameScreenHeight, winX, winY, blockSizeX, -offset); //5 is the offset, dunno why yet
 	rec.setSize(sf::Vector2f(gameScreenWidth, gameScreenHeight - offset));
@@ -106,9 +106,9 @@ void NetworkedSinglePlayer::update()
 			}
 
 			int color;
-			gso.Print();
-			std::cout << "changing it on the screen now";
-			gso.Print();
+			//gso.Print();
+			//std::cout << "changing it on the screen now";
+			//gso.Print();
 			//take this new gso and apply it to our board
 			for (int i = 0; i < gso.boardHeight; i++)
 			{
@@ -292,8 +292,10 @@ void NetworkedSinglePlayer::update()
 			}
 		}	
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
+			if (pressed2 == false){
 			ClientManager::getInstance().requestNewRow();
 			pressed2 = true;
+			}
 		}
 		else
 			pressed2 = false; //cannot hold swap button to keep swapping

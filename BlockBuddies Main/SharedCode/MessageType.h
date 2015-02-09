@@ -38,8 +38,9 @@ enum PacketDecode
     //16
     PACKET_LEAVEQUEUE,
     //17
-    PACKET_FOUNDGAME // Server tells Client that game has been found
-	
+    PACKET_FOUNDGAME, // Server tells Client that game has been found
+	//18
+	PACKET_WINNER
 
 };
 

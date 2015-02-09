@@ -22,16 +22,21 @@ void SinglePlayerHandler::removePlayers()
 	removeMe.clear();
 }
 
-void SinglePlayerHandler::makeGame(Player p1)
+bool SinglePlayerHandler::isInGame(sf::IpAddress lookUp)
+{
+	return singlePlayer.count(lookUp);
+}
+
+void SinglePlayerHandler::makeGame(Player &p1)
 {
 	Game* nGame = new Game(1);
 	nGame->player1 = &p1;
+	nGame->playerOneGame.gameHasStarted = true;
 	singlePlayer.insert(std::pair<sf::IpAddress, Game*>(p1.myAddress, nGame));
 }
 
 void SinglePlayerHandler::addMessage(sf::Packet addMe, sf::IpAddress myAddress)
 {
-	//singlePlayer.at(myAddress)->packetQueue1.push(&addMe);
 	singlePlayer.at(myAddress)->playerOneGame.ReceiveMessage(addMe);
 }
 
@@ -39,7 +44,7 @@ void SinglePlayerHandler::sendMessages()
 {
 	for (auto check : singlePlayer)
 	{
-		while (!check.second->playerOneGame.outgoingMessages.empty())
+		if (!check.second->playerOneGame.outgoingMessages.empty())
 		{
 			sf::Packet toSend = check.second->playerOneGame.outgoingMessages.front();
 			check.second->playerOneGame.outgoingMessages.pop();
@@ -77,6 +82,5 @@ void SinglePlayerHandler::update()
 	if(removeMe.size() > 0)
 		removePlayers();
 
-	//sendMessages();
 
 }

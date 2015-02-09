@@ -24,6 +24,11 @@ bool DatabaseManager::registerUser(std::string username, std::string password)
 	//check if username exists
 	//if it doesn't exist create an account
 	//else return false "account already exist"
+	if (username == "")
+	{
+		//don't let them have empty name
+		return false;
+	}
 	const char *name = username.c_str();
 	const char *pass = password.c_str();
 	if (open())
