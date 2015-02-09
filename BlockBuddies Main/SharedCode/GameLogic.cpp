@@ -136,40 +136,41 @@ bool GameLogic::PopulateTempRow(){
 //repopulates temp row
 bool GameLogic::InsertBottomRow(){
 
-
-	//if there's something in the top row already, game over (return 1)
-	for (int colNum = 0; colNum < gso.boardWidth; colNum++){
-		if (gso.gameBoard[gso.boardHeight - 1][colNum] != 0) {
-			isGameOver = true;
-			outgoingMessages.push(GameOverPacket());
-			return true;
+	if (!isGameOver){
+		//if there's something in the top row already, game over (return 1)
+		for (int colNum = 0; colNum < gso.boardWidth; colNum++){
+			if (gso.gameBoard[gso.boardHeight - 1][colNum] != 0) {
+				isGameOver = true;
+				outgoingMessages.push(GameOverPacket());
+				return true;
+			}
 		}
-	}
 
 
-	//first, shift everything in the board up
-	//start 2nd from top row, left column
-	//then move down a row until at row 1 (new row will get inserted at row 0)
-	for (int rowNum = gso.boardHeight - 2; rowNum > -1; rowNum--) {
-		for (int colNum = 0; colNum < gso.boardWidth; colNum++) {
-			gso.gameBoard[rowNum + 1][colNum] = gso.gameBoard[rowNum][colNum];
+		//first, shift everything in the board up
+		//start 2nd from top row, left column
+		//then move down a row until at row 1 (new row will get inserted at row 0)
+		for (int rowNum = gso.boardHeight - 2; rowNum > -1; rowNum--) {
+			for (int colNum = 0; colNum < gso.boardWidth; colNum++) {
+				gso.gameBoard[rowNum + 1][colNum] = gso.gameBoard[rowNum][colNum];
+			}
 		}
+
+
+		//insert the last row at the bottom
+		for (int j = 0; j < gso.boardWidth; j++){
+			gso.gameBoard[0][j] = gso.tempRow[j];
+			//std::cout << "gameBoard value[0][" << j << "]: " << gso.gameBoard[0][j] << ", tempRow val: " << tempRow[j] << std::endl;
+		}
+
+		//check all the bottom row squares for matches
+		for (int j = 0; j < gso.boardWidth; j++){
+			blocksToCheckForMatches.insert(std::make_pair(0, j));
+		}
+
+		//remake the temp row:
+		PopulateTempRow();
 	}
-
-
-	//insert the last row at the bottom
-	for (int j = 0; j < gso.boardWidth; j++){
-		gso.gameBoard[0][j] = gso.tempRow[j];
-		//std::cout << "gameBoard value[0][" << j << "]: " << gso.gameBoard[0][j] << ", tempRow val: " << tempRow[j] << std::endl;
-	}
-
-	//check all the bottom row squares for matches
-	for (int j = 0; j < gso.boardWidth; j++){
-		blocksToCheckForMatches.insert(std::make_pair(0, j));
-	}
-
-	//remake the temp row:
-	PopulateTempRow();
 
 	return false;
 }
@@ -526,9 +527,7 @@ void GameLogic::GameTick(){
 	//if this is true, put the game state as a message to the client
 	bool gameStateChanged = false;
 
-	//reduce timers (pauses for swapping or clearing pieces)
-	
-	//if (DecrementCounters()){ gameStateChanged = true; }
+	//reduce timers (rowInsertionTimerRunning pauses for swapping or clearing pieces)
 	DecrementCounters();
 
 	if (rowInsertionTimerRunning) {
