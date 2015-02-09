@@ -590,6 +590,20 @@ void GameLogic::GameTick(){
 
 	//queue = FIFO, so make sure you're adding the packets in the correct order
 
+	/*if (outgoingMessages.size() >= 1)
+	{
+		std::queue<sf::Packet> swap;
+		std::swap(outgoingMessages, swap);
+		sf::Packet p;
+		p << gso;
+		outgoingMessages.push(p);
+	}
+	else
+	{
+		sf::Packet p;
+		p << gso;
+		outgoingMessages.push(p);
+	}*/
 
 	if (gameStateChanged){
 		//gso.PrintToFile();

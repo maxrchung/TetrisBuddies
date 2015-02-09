@@ -53,6 +53,9 @@ public:
 	//returns the player's score
 	int GetScore() { return gso.score; }
 
+	//holds the array that keeps track of the board, as well as the player's score
+	GameStateObject gso;
+
 
 private:
 
@@ -69,8 +72,6 @@ private:
 	std::vector<TimedPiece> destroyedBlocks;
 
 
-	//holds the array that keeps track of the board, as well as the player's score
-	GameStateObject gso;
 	
 
 	//the number of colors that will be used in the game.

@@ -212,19 +212,15 @@ void NetworkManager::update()
 	   else
 	   {
 		   singlePlayer.update();
+		   multiplayer.update();
 		   tick = sf::Time::Zero;
 		   clock.restart();
 	   }
        
        if (singlePlayer.singlePlayer.size() >= 1)
-       {
-           while (!singlePlayer.singlePlayer.at(player.myAddress)->playerOneGame.outgoingMessages.empty())
-           {
-               sf::Packet toSend = singlePlayer.singlePlayer.at(player.myAddress)->playerOneGame.outgoingMessages.front();
-               singlePlayer.singlePlayer.at(player.myAddress)->playerOneGame.outgoingMessages.pop();
-               player.playerSocket->send(toSend);
-           }
-       }
+		   singlePlayer.sendMessages();
+	   if (multiplayer.multiPlayerGames.size() >= 1)
+		   multiplayer.sendMessages();
 
 
 

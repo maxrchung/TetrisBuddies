@@ -40,7 +40,7 @@ void SinglePlayerHandler::sendMessages()
 {
 	for (auto check : singlePlayer)
 	{
-		while (!check.second->playerOneGame.outgoingMessages.empty())
+		if (!check.second->playerOneGame.outgoingMessages.empty())
 		{
 			sf::Packet toSend = check.second->playerOneGame.outgoingMessages.front();
 			check.second->playerOneGame.outgoingMessages.pop();
@@ -78,6 +78,5 @@ void SinglePlayerHandler::update()
 	if(removeMe.size() > 0)
 		removePlayers();
 
-	//sendMessages();
 
 }
