@@ -25,7 +25,7 @@ GameStateObject::GameStateObject(){
 	frameNum = 0;
 	cursorPos.first = boardHeight / 2;
 	cursorPos.second = boardWidth / 2;
-	rowInsertionPause = 0;
+	rowInsertionCountdown = 0;
 	fallingBlocks.clear();
 	clearingBlocks.clear();
 	newRowActive = false;
@@ -62,7 +62,7 @@ void GameStateObject::Print(){
 	std::cout << "Cursor position (row, col): " << cursorPos.first << "," << cursorPos.second << std::endl;
 	std::cout << "Frame Number: " << frameNum << std::endl;
 	std::cout << "Timestamp: " << timestamp << std::endl;
-	std::cout << "Row Insertion Pause: " << rowInsertionPause << std::endl;
+	std::cout << "Row Insertion Pause: " << rowInsertionCountdown << std::endl;
 	std::cout << "New row active? " << newRowActive << std::endl;
 	std::cout << "Size of FallingBlocks: " << fallingBlocks.size() << std::endl;
 
@@ -99,7 +99,7 @@ void GameStateObject::PrintToFile(){
 	debugFile << "Cursor position (row, col): " << cursorPos.first << "," << cursorPos.second << std::endl;
 	debugFile << "Frame Number: " << frameNum << std::endl;
 	debugFile << "Timestamp: " << timestamp << std::endl;
-	debugFile << "Row Insertion Pause: " << rowInsertionPause << std::endl;
+	debugFile << "Row Insertion Pause: " << rowInsertionCountdown << std::endl;
 	debugFile << "New row active? " << newRowActive << std::endl;
 
 	debugFile << "Temp :| ";
@@ -200,7 +200,7 @@ GameStateObject& GameStateObject::operator=(GameStateObject& rhs)
 	cursorPos = rhs.cursorPos;
 	frameNum = rhs.frameNum;
 	timestamp = rhs.timestamp;
-	rowInsertionPause = rhs.rowInsertionPause;
+	rowInsertionCountdown = rhs.rowInsertionCountdown;
 	newRowActive = rhs.newRowActive;
 
 	for (int colNum = 0; colNum < boardWidth; colNum++){
@@ -241,7 +241,7 @@ sf::Packet& operator <<(sf::Packet& packet, const GameStateObject& gso)
 	packet << gso.timestamp;
 
 	//  int row insertion pause
-	packet << gso.rowInsertionPause;
+	packet << gso.rowInsertionCountdown;
 
 	//	bool new row active
 	packet << gso.newRowActive;
@@ -311,7 +311,7 @@ sf::Packet& operator >>(sf::Packet& packet, GameStateObject& gso)
 	packet >> gso.timestamp;
 
 	//  int row insertion pause
-	packet >> gso.rowInsertionPause;
+	packet >> gso.rowInsertionCountdown;
 
 	//	bool new row active
 	packet >> gso.newRowActive;

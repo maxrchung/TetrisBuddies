@@ -3,10 +3,10 @@
 #include "MessageType.h"
 
 GameLogic::GameLogic(){
-	
+
 	srand(time(NULL));
 	// Tetris Attack has 4 colors on easy, 5 colors on med/hard, and 6 in multi (grey blocks that become garbage)
-	numColors = 5; 
+	numColors = 5;
 
 	//this is set to true in InitalBoardPopulation(), which is what's run when the game starts for the first time
 	isGameOver = true;
@@ -21,11 +21,13 @@ GameLogic::GameLogic(){
 	blocksToCheckForMatches.clear();
 	//messagesToDecode doesn't have a clear
 
+	rowInsertionTimerRunning = true;
+
 }
 
 void GameLogic::ResetGame()
 {
-	gso =  GameStateObject();
+	gso = GameStateObject();
 	GameLogic::InitialBoardPopulation();
 	totalRowInsertionTime = 1200;
 }
@@ -123,10 +125,10 @@ bool GameLogic::PopulateTempRow(){
 
 	for (int i = 0; i < gso.boardWidth; i++){
 		gso.tempRow[i] = (rand() % numColors) + 1;
-		
+
 		//std::cout << "Value of temprow[" << i << "]: " << tempRow[i] << std::endl;
 	}
-	
+
 	return true;
 }
 
@@ -138,10 +140,11 @@ bool GameLogic::InsertBottomRow(){
 
 	//if there's something in the top row already, game over (return 1)
 	for (int colNum = 0; colNum < gso.boardWidth; colNum++){
-		if (gso.gameBoard[gso.boardHeight - 1][colNum] != 0) { 
-			isGameOver = true; 
+		if (gso.gameBoard[gso.boardHeight - 1][colNum] != 0) {
+			isGameOver = true;
 			outgoingMessages.push(GameOverPacket());
-			return true; }
+			return true;
+		}
 	}
 
 
@@ -181,7 +184,6 @@ bool GameLogic::InsertBottomRow(){
 //every block only moves once per call
 //only blocks that stopped moving are checked for matches
 bool GameLogic::ApplyGravity(){
-
 
 
 	bool blockMoved = false;
@@ -235,13 +237,15 @@ bool GameLogic::ApplyGravity(){
 
 //swapping pieces applies gravity
 bool GameLogic::SwapPieces(int row1Num, int col1Num, int row2Num, int col2Num){
-	
+
 	//if trying to swap anywhere out of bounds, fail out
-	if ( 
+	if (
 		(row1Num < 0 || row1Num > gso.boardHeight - 1 || row2Num < 0 || row2Num > gso.boardHeight - 1) ||
-		(col1Num < 0 || col1Num > gso.boardWidth - 1  || col2Num < 0 || col2Num > gso.boardWidth - 1)
+		(col1Num < 0 || col1Num > gso.boardWidth - 1 || col2Num < 0 || col2Num > gso.boardWidth - 1)
 		)
-	{std::cout << "Swapping out of bounds" << std::endl;  return false;}
+	{
+		std::cout << "Swapping out of bounds" << std::endl;  return false;
+	}
 
 	int temp = gso.gameBoard[row1Num][col1Num];
 	gso.gameBoard[row1Num][col1Num] = gso.gameBoard[row2Num][col2Num];
@@ -261,7 +265,7 @@ bool GameLogic::SwapPieces(int row1Num, int col1Num, int row2Num, int col2Num){
 
 
 bool GameLogic::ProcessBTCFM(){
-	
+
 	int r = -1;
 	int c = -1;
 	for (auto b : blocksToCheckForMatches){
@@ -273,7 +277,7 @@ bool GameLogic::ProcessBTCFM(){
 		CheckBlockForMatches(r, c);
 	}
 	blocksToCheckForMatches.clear();
-	
+
 	return true;
 }
 
@@ -384,7 +388,7 @@ bool GameLogic::ClearMatches(){
 
 
 	//for each element in the BMFD set:
-		//get the row, col numbers, and set that element in the game board array to 0;
+	//get the row, col numbers, and set that element in the game board array to 0;
 
 	int row;
 	int col;
@@ -396,7 +400,7 @@ bool GameLogic::ClearMatches(){
 		col = i.second;
 		gso.gameBoard[row][col] = 0;
 	}
-	
+
 	ApplyGravity();
 
 	//clear the BMFD
@@ -409,13 +413,13 @@ bool GameLogic::ClearMatches(){
 
 
 bool GameLogic::ProcessMessage(sf::Packet toProcess){
-	
+
 	int command;
 	PacketDecode decode;
 	toProcess >> command;
 	decode = PacketDecode(command);
 
-	
+
 
 
 	//swap will be the most common command, so it gets checked first
@@ -424,9 +428,16 @@ bool GameLogic::ProcessMessage(sf::Packet toProcess){
 		sf::Uint8 p1r, p1c, p2r, p2c;
 		toProcess >> p1r >> p1c >> p2r >> p2c;
 		std::cout << "Swapping piece (" << (int)p1r << ", " << (int)p1c << ") with (" << (int)p2r << ", " << (int)p2c << ")\n" << std::endl;
-		
-		//haven't tested this yet; the different data types might cause errors (int vs sf::uint8)
+
+
+		//this line will be commented out:
 		SwapPieces(p1r, p1c, p2r, p2c);
+		
+		//instead:
+		//put the pieces into a "swap" queue
+		//pause the row timer
+		//in the Tick(), it will be swapped when countdown = 0
+
 		return true;
 	}
 
@@ -445,7 +456,7 @@ bool GameLogic::ProcessMessage(sf::Packet toProcess){
 
 	else if (command == PacketDecode::PACKET_START){
 		//std::cout << "Got 'Start Game' command!" << std::endl;
-		
+
 		//do all the game initalization stuff
 		//like what?
 		//call InitialBoardPopulation
@@ -458,7 +469,7 @@ bool GameLogic::ProcessMessage(sf::Packet toProcess){
 			InitialBoardPopulation();
 			outgoingMessages.push(StartPacket());
 		}
-		
+
 		//else { std::cout << "Game has already started" << std::endl; }
 
 		return true;
@@ -476,76 +487,78 @@ void GameLogic::GameTick(){
 	//if this is true, put the game state as a message to the client
 	bool gameStateChanged = false;
 
-		//reduce timers (pauses for clear timers, time to insert new row)
-		rowInsertionTimeLeft --;
+	//reduce timers (pauses for swapping or clearing pieces)
+	if (rowInsertionTimerRunning){
+		rowInsertionTimeLeft--;
+	}
 
-		//while messageQueue isn't empty
-		while ( !messagesToDecode.empty())
+	//while messageQueue isn't empty
+	while (!messagesToDecode.empty())
+	{
+		ProcessMessage(messagesToDecode.front());
+		messagesToDecode.pop();
+		gameStateChanged = true;
+	}
+
+
+	if (ApplyGravity()){
+		gameStateChanged = true;
+	}
+
+
+	//while messageQueue isn't empty
+	//processMessage (msgQ)
+	//row might get inserted at bottom
+	//set row insertion timer to 0
+	//pieces might get swapped
+	//swap pieces
+
+	ProcessBTCFM();
+	//this isn't a good idea; this way blocks might still be matched while they're falling
+	//CheckAllBlocksForMatches();
+
+	if (ClearMatches()){
+		gameStateChanged = true;
+	}
+
+	std::cout << "Row insertion time:  " << rowInsertionTimeLeft << std::endl;
+	//if the insert new row timer is 0;
+	if (rowInsertionTimeLeft == 0){
+
+		InsertBottomRow();
+
+		//reduces the total row insertion time whenever a new row is inserted
+		if (totalRowInsertionTime > 20){
+			totalRowInsertionTime -= 20;
+		}
+
+		//reset the row insertion timer
+
+		gso.newRowActive = true;
+		rowInsertionTimeLeft = totalRowInsertionTime;
+		sendNewRow = true;
+		gameStateChanged = true;
+	}
+
+	//send appropriate packets back to the client, such as game over or new game state
+	//possible packets to send: new GameState, start game, game over
+	//startGame and GameOver are sent by ProcessMessage
+	//so add: blocks to clear, 
+
+	//queue = FIFO, so make sure you're adding the packets in the correct order
+
+
+	if (gameStateChanged){
+		//gso.PrintToFile();
+		sf::Packet p;
+		if (outgoingMessages.size() >= 1)
 		{
-			ProcessMessage(messagesToDecode.front());
-			messagesToDecode.pop();
-			gameStateChanged = true;
+			std::queue<sf::Packet> swap;
+			std::swap(outgoingMessages, swap);
 		}
-
-
-		if (ApplyGravity()){
-			gameStateChanged = true;
-		}
-
-
-		//while messageQueue isn't empty
-			//processMessage (msgQ)
-				//row might get inserted at bottom
-					//set row insertion timer to 0
-				//pieces might get swapped
-					//swap pieces
-
-		ProcessBTCFM();
-		//this isn't a good idea; this way blocks might still be matched while they're falling
-		//CheckAllBlocksForMatches();
-
-		if (ClearMatches()){
-			gameStateChanged = true;
-		}
-
-		std::cout << "Row insertion time:  " << rowInsertionTimeLeft << std::endl;
-		//if the insert new row timer is 0;
-		if (rowInsertionTimeLeft == 0){
-
-			InsertBottomRow();
-
-			//reduces the total row insertion time whenever a new row is inserted
-			if (totalRowInsertionTime > 20){
-				totalRowInsertionTime -= 20;
-			}
-
-			//reset the row insertion timer
-
-			gso.newRowActive = true;
-			rowInsertionTimeLeft = totalRowInsertionTime;
-			sendNewRow = true;
-			gameStateChanged = true;
-		}
-
-		//send appropriate packets back to the client, such as game over or new game state
-			//possible packets to send: new GameState, start game, game over
-			//startGame and GameOver are sent by ProcessMessage
-			//so add: blocks to clear, 
-
-		//queue = FIFO, so make sure you're adding the packets in the correct order
-
-
-		if (gameStateChanged){
-			//gso.PrintToFile();
-			sf::Packet p;
-			if (outgoingMessages.size() >= 1)
-			{
-				std::queue<sf::Packet> swap;
-				std::swap(outgoingMessages, swap);
-			}
-			p << gso;
-			outgoingMessages.push(p);
-		}
+		p << gso;
+		outgoingMessages.push(p);
+	}
 }
 
 

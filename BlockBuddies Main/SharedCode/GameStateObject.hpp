@@ -71,9 +71,9 @@ public:
 	int timestamp;
 	//no idea if this is right. we might need to use something else for the timestamp 
 
-	//row insertion pause here
-	int rowInsertionPause;
-	//this won't be used
+	//row insertion time
+	int rowInsertionCountdown;
+
 
 	//falling blocks here
 	std::vector<TimedPiece> fallingBlocks;

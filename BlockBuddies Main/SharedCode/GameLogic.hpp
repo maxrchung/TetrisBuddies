@@ -56,6 +56,13 @@ public:
 
 private:
 
+	//these are used to set how long a piece takes to fall, and how long blocks stay until they're cleared
+	//these values are all temporary; only one set is on the client for 300ms to swap
+	const int blockClearTime = 2000;
+	const int blockFallTime = 50;
+	const int blockSwapTime = 300;
+
+	bool rowInsertionTimerRunning;
 
 	//holds the array that keeps track of the board, as well as the player's score
 	GameStateObject gso;
