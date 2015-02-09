@@ -35,8 +35,8 @@ public:
 	//default Tetris Attack values: 12 rows, 6 cols
 	static const int boardHeight = 20;
 	static const int boardWidth = 16;
-	//static const int boardHeight = 10;
-	//static const int boardWidth = 8;
+	//static const int boardHeight = 12;
+	//static const int boardWidth = 6;
 
 	int gameBoard[boardHeight][boardWidth];
 

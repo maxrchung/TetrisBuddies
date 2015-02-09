@@ -292,8 +292,10 @@ void NetworkedSinglePlayer::update()
 			}
 		}	
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
+			if (pressed2 == false){
 			ClientManager::getInstance().requestNewRow();
 			pressed2 = true;
+			}
 		}
 		else
 			pressed2 = false; //cannot hold swap button to keep swapping
