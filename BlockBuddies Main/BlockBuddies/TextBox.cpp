@@ -170,9 +170,9 @@ void TextBox::draw()
     if(borderOutline)
     {
         sf::FloatRect messageRect = message.getGlobalBounds();
-        sf::RectangleShape border = sf::RectangleShape(sf::Vector2f(messageRect.width + 20 * GraphicsManager::getInstance()->scale, 
+        sf::RectangleShape border = sf::RectangleShape(sf::Vector2f(boundingWidth + 20 * GraphicsManager::getInstance()->scale, 
                                                                     messageRect.height + 20 * GraphicsManager::getInstance()->scale));
-        border.setPosition(messageRect.left - 10 * GraphicsManager::getInstance()->scale, 
+        border.setPosition(GraphicsManager::getInstance()->window.getSize().x/2 - boundingWidth/2 - 10 * GraphicsManager::getInstance()->scale, 
                            messageRect.top - 10 * GraphicsManager::getInstance()->scale);
         adjustColor = GraphicsManager::getInstance()->buttonColor;
         adjustColor.a = fade.value;

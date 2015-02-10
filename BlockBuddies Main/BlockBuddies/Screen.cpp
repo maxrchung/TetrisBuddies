@@ -112,7 +112,8 @@ void Screen::update()
         }
     }
 
-    close->update();
+    if(close->isDisplayed && close->isUpdatable)
+        close->update();
 }
 
 void Screen::draw()
@@ -132,7 +133,9 @@ void Screen::draw()
         if(UIElement->isDisplayed) // Avoid drawing the close X in the corner
             UIElement->draw();
     }
-    close->draw();
+
+    if(close->isDisplayed)
+        close->draw();
 }
 
 // Does nothing since the basic screen does nothing
