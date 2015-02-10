@@ -122,6 +122,8 @@ ProfileScreen::ProfileScreen()
 }
 void ProfileScreen::reload()
 {
+		std::string username = ClientManager::getInstance().player.username;
+		std::cout << "this is my username:  " << username << std::endl;
 		nameTag->message.setString(ClientManager::getInstance().player.username);
 		hsTag->message.setString(std::to_string(ClientManager::getInstance().player.highScore));
 		gpTag->message.setString(std::to_string(ClientManager::getInstance().player.gamesPlayed));

@@ -23,13 +23,24 @@ NetworkedSinglePlayer::NetworkedSinglePlayer()
 	name(new TextBox("Player name goes here",
 	-590.0f,
 	-380.0f,
+	600.0f)),
+	oldHighScore(new TextBox("Score to beat: ",
+	410.0f,
+	-350.0f,
+	600.0f)),
+	scoreToBeat(new TextBox("Score to beat goes here",
+	490.0f,
+	-350.0f,
 	600.0f))
+
 {
 	initGame();
 	UIElements.push_back(highScore);
 	UIElements.push_back(score);
 	UIElements.push_back(username);
 	UIElements.push_back(name);
+	UIElements.push_back(oldHighScore);
+	UIElements.push_back(scoreToBeat);
 	swapSound.setBuffer(*SoundManager::getInstance().getSound("heya"));
 	
 }
@@ -41,7 +52,7 @@ NetworkedSinglePlayer::~NetworkedSinglePlayer()
 
 void NetworkedSinglePlayer::initGame()
 {
-	name->message.setString(ClientManager::getInstance().player.username);
+	
 	winX = GraphicsManager::getInstance()->window.getSize().x;
 	winY = GraphicsManager::getInstance()->window.getSize().y;
 	//fill in initial board
@@ -81,7 +92,7 @@ void NetworkedSinglePlayer::initGame()
 }
 void NetworkedSinglePlayer::update()
 {
-	//takes care of displaying the score. 
+	//takes care of displaying the score.
 	std::string scoreString;
 	int Number = (int)gso.score;
 	scoreString = static_cast<std::ostringstream*>(&(std::ostringstream() << Number))->str();
@@ -325,6 +336,8 @@ void NetworkedSinglePlayer::updateBlocks()
 }
 void NetworkedSinglePlayer::draw()
 {
+	name->message.setString(ClientManager::getInstance().player.username);
+	scoreToBeat->message.setString(std::to_string(ClientManager::getInstance().player.highScore));
 	Screen::draw();
 
 	GraphicsManager::getInstance()->window.draw(rec);
@@ -345,6 +358,8 @@ void NetworkedSinglePlayer::draw()
 	GraphicsManager::getInstance()->window.draw(ch->getTopCursor()); //draws top cursor
 	GraphicsManager::getInstance()->window.draw(ch->getBottomCursor()); //draws bottom cursor
 	highScore->message.setColor(sf::Color::Black);
+	oldHighScore->message.setColor(sf::Color::Black);
+	scoreToBeat->message.setColor(sf::Color::Black);
 	score->message.setColor(sf::Color::Black);
 	username->message.setColor(sf::Color::Black);
 	name->message.setColor(sf::Color::Black);

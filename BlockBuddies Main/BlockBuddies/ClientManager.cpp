@@ -15,6 +15,7 @@ bool ClientManager::initConnection(sf::IpAddress IP, int portNumber)
     Game::getInstance()->startLoadingThread();
 	//Tries to connect
 	sf::Socket::Status status = socket.connect(IP, portNumber);
+	multiplayer = false;
 	//Checks if it was able to connect
 	if (status != sf::Socket::Done)
 	{
@@ -74,9 +75,30 @@ void ClientManager::update()
 		{
 			case PacketDecode::PACKET_GAMESTATE:
 			{
-				packet >> currentGSO;
-				isUpdated = true;
-				std::cout << "were updating the gso \n";
+				if (!multiplayer)
+				{
+					packet >> currentGSO;
+					isUpdated = true;
+					std::cout << "were updating the gso \n";
+				}
+				else
+				{
+					if (packetCount == 0)
+					{ 
+						std::cout << "I've got player one's GSO! \n";
+						packet >> currentGSO;
+						isUpdated = true;
+						packetCount++;
+					}
+					else
+					{
+						packet >> secondGSO;
+						std::cout << "I've got player two's GSO! \n";
+						isUpdated = true;
+						packetCount = 0;
+
+					}
+				}
 				break;
 			}
 
@@ -90,6 +112,7 @@ void ClientManager::update()
             case PacketDecode::PACKET_FOUNDGAME:
             {
                 ((QueueScreen*)ScreenManager::getInstance()->currentScreens.back())->foundGame();
+				multiplayer = true;
                 std::cout << "Receive found game packet" << std::endl;
             }
 
@@ -102,7 +125,9 @@ void ClientManager::update()
 			}
 			case PacketDecode::PACKET_USERINFOUPDATE:
 			{
+				std::string saveName = player.username;
 				packet >> player;
+				player.username = saveName;
 				infoUpdate = true;
 			}
 			case PacketDecode::PACKET_SWAP:
@@ -145,6 +170,11 @@ void ClientManager::update()
 
         ClientManager::getInstance().closeConnection();
     }
+}
+
+bool ClientManager::isMultiplayer()
+{
+	return multiplayer;
 }
 
 bool ClientManager::loginUser(std::string username , std::string password)

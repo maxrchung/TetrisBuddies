@@ -55,6 +55,9 @@ private:
 	TextBox* score;
 	TextBox* highScore;
 	TextBox* name;
+	TextBox* oldHighScore;
+	TextBox* scoreToBeat;
+
 
 
 
