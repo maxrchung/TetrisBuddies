@@ -97,7 +97,6 @@ void NetworkedSinglePlayer::update()
 	int Number = (int)gso.score;
 	scoreString = static_cast<std::ostringstream*>(&(std::ostringstream() << Number))->str();
 	score->message.setString(scoreString);
-	Screen::update();
 	if (reset)
 	{
 		initGame();
