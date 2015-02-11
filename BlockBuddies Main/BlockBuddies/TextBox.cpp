@@ -2,56 +2,8 @@
 #include "GraphicsManager.hpp"
 #include <iostream>
 
-TextBox::TextBox(char* message,
-                 float posX,
-				 float posY,
-				 float width,
-				 Alignments textAlignment,
-				 bool isTitle,
-                 bool borderOutline)
-    :message(sf::Text(message,
-                      GraphicsManager::getInstance()->messageFont,
-					  GraphicsManager::getInstance()->messageSize)),
-	 boundingWidth(width * GraphicsManager::getInstance()->scale),
-     borderOutline(borderOutline)
-{
-    this->isTitle = isTitle;
-
-	// The isTitle parameter indicates whether or not the textbox is a larger title
-	// e.g. "Login" for the LoginScreen, or just a normal instructions e.g. "Enter credentials below"
-	// Right now, they are only differentiated by two different font sizes
-	// If we would like, we could change the parameter to accept a font size, or
-	// change the font of either within GraphicsManager
-	if (isTitle)
-		this->message.setCharacterSize(GraphicsManager::getInstance()->titleSize);
-
-	// Sets the message color of the TextBox
-	this->message.setColor(GraphicsManager::getInstance()->typeColor);
-
-	// Determines whether it is drawn based on the TextBox's left-center or by the center
-	if (textAlignment == Alignments::LEFT)
-		this->message.setOrigin(GraphicsManager::getInstance()->getLeftCenter(this->message));
-	else if (textAlignment == Alignments::CENTER)
-		this->message.setOrigin(GraphicsManager::getInstance()->getCenter(this->message));
-
-	// Save this alignment for if we need to reset the position
-	this->textAlignment = textAlignment;
-
-	// Sets the message position, by first going to the center of the screen and then moving 
-	// a scaled distance away
-	this->message.setPosition(sf::Vector2f(GraphicsManager::getInstance()->window.getSize())/2.0f);
-    this->message.move(posX * GraphicsManager::getInstance()->scale, posY * GraphicsManager::getInstance()->scale);
-
-	// If we need to reset the position, we need to remember where to go
-	targetPosition = sf::Vector2f(posX, posY);
-
-	textWrap();
-
-	prevMessage = this->message;
-}
-
 TextBox::TextBox(std::string message,
-	float posX,
+    float posX,
 	float posY,
 	float width,
 	Alignments textAlignment,
@@ -89,7 +41,7 @@ TextBox::TextBox(std::string message,
 	this->message.move(posX * GraphicsManager::getInstance()->scale, posY * GraphicsManager::getInstance()->scale);
 
 	// If we need to reset the position, we need to remember where to go
-	targetPosition = sf::Vector2f(posX, posY);
+	targetPosition = sf::Vector2f(floorf(posX), floorf(posY));
 
 	textWrap();
 
