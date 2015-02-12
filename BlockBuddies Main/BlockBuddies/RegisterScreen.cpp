@@ -130,7 +130,11 @@ void RegisterScreen::update()
     if (home->isActivated ||
         (InputManager::getInstance()->enter && home->isSelected))
     {
-        if (password->input.getString() == password2->input.getString())
+        if (password->input.getString() == "" && username->input.getString() == "" && password2->input.getString() == "")
+        {
+            // Does nothing if username and password are empty
+        }
+        else if (password->input.getString() == password2->input.getString())
         {
             if (ClientManager::getInstance().registerUser(username->input.getString(),
                 password->input.getString()))

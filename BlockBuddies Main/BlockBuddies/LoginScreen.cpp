@@ -131,6 +131,11 @@ void LoginScreen::update()
     if (home->isActivated ||
         (InputManager::getInstance()->enter && home->isSelected))
     {
+        if(username->input.getString() == "" && password->input.getString() == "")
+        {
+            // Do nothing if the username/password inputs are empty
+            return; // We return because we want to skip this entire block
+        }
         if (!ClientManager::getInstance().isConnected)
         {
 			if (!ClientManager::getInstance().initConnection(sf::IpAddress::getLocalAddress(), 5000))
@@ -156,7 +161,7 @@ void LoginScreen::update()
 				if (sound.getStatus() != sound.Playing)
 					sound.play();
 
-                ScreenManager::getInstance()->addScreen(Screens::NOTIFICATION, "Wrong username or password combination");
+                ScreenManager::getInstance()->addScreen(Screens::NOTIFICATION, "Bad username or password combination.");
             }
         }
     }
