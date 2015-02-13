@@ -33,7 +33,7 @@ TextInput::TextInput(float posX,
 		boundingRect.setOrigin(GraphicsManager::getInstance()->getCenter(this->boundingRect));
 	boundingRect.setScale(GraphicsManager::getInstance()->scale, GraphicsManager::getInstance()->scale);
 	boundingRect.setPosition(sf::Vector2f(GraphicsManager::getInstance()->window.getSize()) / 2.0f);
-	boundingRect.move(posX * GraphicsManager::getInstance()->scale, posY * GraphicsManager::getInstance()->scale);
+	boundingRect.move(floorf(posX) * GraphicsManager::getInstance()->scale, floorf(posY) * GraphicsManager::getInstance()->scale);
 
 	// Sets the color of the input text
 	input.setColor(GraphicsManager::getInstance()->typeColor);

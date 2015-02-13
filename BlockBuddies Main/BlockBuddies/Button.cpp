@@ -4,6 +4,8 @@
 #include "ScreenManager.hpp"
 #include "InputManager.hpp"
 #include "ClientManager.h"
+#include <math.h>
+#include <stdlib.h>
 
 Button::Button(Screens toScreen,
 	           char* label,
@@ -28,7 +30,7 @@ Button::Button(Screens toScreen,
 		boundingRect.setOrigin(GraphicsManager::getInstance()->getCenter(boundingRect));
 	boundingRect.setScale(GraphicsManager::getInstance()->scale, GraphicsManager::getInstance()->scale);
 	boundingRect.setPosition(sf::Vector2f(GraphicsManager::getInstance()->window.getSize())/2.0f);
-	boundingRect.move(posX * GraphicsManager::getInstance()->scale, posY * GraphicsManager::getInstance()->scale);
+	boundingRect.move(floorf(posX) * GraphicsManager::getInstance()->scale, floorf(posY) * GraphicsManager::getInstance()->scale);
 
 	// Sets the color, origin, and position of the text label
 	// The position is set to the center of the boundingRect
@@ -40,7 +42,7 @@ Button::Button(Screens toScreen,
 	this->label.setOrigin(GraphicsManager::getInstance()->getCenter(this->label));
     this->label.setString(label);
     this->label.setOrigin(GraphicsManager::getInstance()->getCenter(this->label).x,
-                          this->label.getOrigin().y - 2 * GraphicsManager::getInstance()->scale);
+                          floorf(this->label.getOrigin().y - 2 * GraphicsManager::getInstance()->scale));
 	this->label.setPosition(boundingRect.getPosition());
 }
 
