@@ -30,9 +30,13 @@ public:
     void update();
 	void checkForConnections();
 	void makeNewPlayer();
+	bool isLoggedIn(std::string user);
 	void newHighScore(int newScore, std::string username);
 	void addWin(std::string username, bool win);
     std::list<Player> connectPlayers;
+	std::list<Player> toRemove;
+	std::list<std::string> userNamesLoggedIn;
+
 
 	GameLogic gameHandler;
 	sf::Clock clock;

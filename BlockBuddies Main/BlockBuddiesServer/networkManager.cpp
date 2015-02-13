@@ -35,6 +35,18 @@ void NetworkManager::newHighScore(int newScore, std::string username)
 	databaseAccess.unlock();
 }
 
+
+
+bool NetworkManager::isLoggedIn(std::string toCheck)
+{
+	for (auto player : userNamesLoggedIn)
+	{
+		if (player == toCheck)
+			return true;
+	}
+	return false;
+}
+
 //Used to indicate a loss or a win by passing true or false
 void NetworkManager::addWin(std::string username, bool win)
 {
@@ -48,12 +60,10 @@ void NetworkManager::addWin(std::string username, bool win)
 void NetworkManager::update()
 {
     // Needed for removing a player from the list
-
     Player* toDisconnect = NULL;
 
     for(auto& player : connectPlayers)
     {
-		
         if(!player.receivedPackets.empty())
         {
             sf::Packet packet = player.receivedPackets.front();
@@ -71,38 +81,47 @@ void NetworkManager::update()
             int decodeIndex;
             packet >> decodeIndex;
             decode = PacketDecode(decodeIndex);
-			
-			
+					
             switch(decode)
             {
                 case PacketDecode::PACKET_LOGIN:
                 {
-					
                     std::string user;
                     std::string pass;
                     packet >> user 
                            >> pass;
-					databaseAccess.lock();
-                    if (DatabaseManager::getInstance().loginUser(user, pass))
-                    {
-                        UserInfo userInfo = DatabaseManager::getInstance().getUserInfo(user);
-                        player.playerInfo = userInfo;
-                        sf::Packet answer;
-                        answer << true // Indicates successful login
-                               << userInfo;
-                        player.playerSocket->send(answer);
 
-                        std::cout << "Sent login packet accept" << std::endl;
-                    }
-                    else
-                    {
-                        sf::Packet answer;
-                        answer << false;
-                        player.playerSocket->send(answer);
-                        std::cout << "Sent login packet reject" << std::endl;
-                    }
-					databaseAccess.unlock();
-
+					//databaseAccess.lock();
+					if (!isLoggedIn(user))
+					{
+						if (DatabaseManager::getInstance().loginUser(user, pass))
+						{
+							UserInfo userInfo = DatabaseManager::getInstance().getUserInfo(user);
+							player.playerInfo = userInfo;
+							sf::Packet answer;
+							answer << true // Indicates successful login
+								<< userInfo;
+							player.playerSocket->send(answer);
+							userNamesLoggedIn.push_back(player.playerInfo.username);
+							std::cout << "Sent login packet accept" << std::endl;
+						}
+						else
+						{
+							
+							sf::Packet answer;
+							answer << false;
+							player.playerSocket->send(answer);
+							std::cout << "Sent login packet reject" << std::endl;
+						}
+						//databaseAccess.unlock();
+					}
+					else
+					{
+						sf::Packet answer;
+						answer << false;
+						player.playerSocket->send(answer);
+						std::cout << "Sent login packet reject" << std::endl;
+					}
                     break;
                 }
 
@@ -124,7 +143,6 @@ void NetworkManager::update()
                         answer << true
                                << userInfo;
                         player.playerSocket->send(answer);
-
                         std::cout << "Sent packet register accept" << std::endl;
                     }
                     else
@@ -224,8 +242,6 @@ void NetworkManager::update()
 	   if (multiplayer.multiPlayerGames.size() >= 1)
 		   multiplayer.sendMessages();
 
-
-
        // Remove player if he has not responded
        if (player.receiveAliveTimer.getElapsedTime().asSeconds() > Player::receiveAliveLimit)
            toDisconnect = &player;
@@ -235,6 +251,7 @@ void NetworkManager::update()
     if (toDisconnect)
     {
         std::cout << "Size of connectPlayers: " << connectPlayers.size() << std::endl;
+		userNamesLoggedIn.remove( toDisconnect->playerInfo.username );
         queueAccess.lock();
         connectPlayers.remove(*toDisconnect);
         queueAccess.unlock();
@@ -255,9 +272,7 @@ void NetworkManager::update()
             std::cout << "Send check alive packet" << std::endl;
             player.playerSocket->send(packet);
         }
-    }
-
-    multiplayer.update();
+    }	
 }
 
 // Checks for conneciton requests and incoming messages
