@@ -3,7 +3,6 @@
 #include "RegisterScreen.hpp"
 #include "HomeScreen.hpp"
 #include "ProfileScreen.hpp"
-#include "GameTypeScreen.hpp"
 #include "GameScreen.hpp"
 #include "ResultScreen.hpp"
 #include "InputManager.hpp"
@@ -36,7 +35,6 @@ void ScreenManager::init()
 											 { Screens::REGISTER, new RegisterScreen() },
 											 { Screens::HOME, new HomeScreen() },
 											 { Screens::PROFILE, new ProfileScreen() },
-											 { Screens::GAMETYPE, new GameTypeScreen() },
 											 { Screens::GAME, new GameScreen() },
 											 { Screens::RESULT, new ResultScreen() },
                                              { Screens::OFFLINEHOME, new OfflineHomeScreen() },
