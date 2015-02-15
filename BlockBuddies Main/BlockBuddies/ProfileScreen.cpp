@@ -6,19 +6,19 @@
 ProfileScreen::ProfileScreen()
 	:
     backSection(new Section(0.0f,
-                            0.0f,
+                            12.5f,
                             420.0f,
-                            620.0f,
+                            595.0f,
                             GraphicsManager::getInstance()->buttonColor)),
 
 	section(new Section(0.0f,
-	                     0.0f,
+	                     12.5f,
 						 400.0f,
-						 600.0f)),
+						 575.0f)),
 
     title(new TextBox("PROFILE",
 	                   0.0f,
-					   -225.0f,
+					   -200.0f,
 					   300.0f,
 					   Alignments::CENTER,
                        true)),

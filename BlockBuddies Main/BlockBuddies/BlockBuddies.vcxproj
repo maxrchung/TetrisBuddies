@@ -82,8 +82,6 @@
     <ClCompile Include="NetworkedSinglePlayer.cpp" />
     <ClCompile Include="NotificationScreen.cpp" />
     <ClCompile Include="OfflineCloseScreen.cpp" />
-    <ClCompile Include="OfflineGameTypeScreen.cpp" />
-    <ClCompile Include="OfflineHomeScreen.cpp" />
     <ClCompile Include="OfflineResultScreen.cpp" />
     <ClCompile Include="ProfileScreen.cpp" />
     <ClCompile Include="QueueScreen.cpp" />

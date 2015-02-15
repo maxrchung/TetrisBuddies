@@ -18,6 +18,11 @@ GameScreen::GameScreen()
 	rec.setOutlineColor(sf::Color::Black);
 }
 
+void GameScreen::reload()
+{
+    BlockShowerManager::getInstance()->fade.state = FadeStates::FADING_OUT;
+}
+
 void GameScreen::update()
 {
 	Screen::update();
@@ -161,7 +166,6 @@ void GameScreen::update()
 		delete bh;
 		delete ch;
 		reset = true;
-        BlockShowerManager::getInstance()->fade.state = FadeStates::FADING_IN;
 
         if(ClientManager::getInstance().isConnected)
             ScreenManager::getInstance()->switchScreen(RESULT);

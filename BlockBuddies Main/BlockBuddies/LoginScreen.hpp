@@ -25,6 +25,8 @@ public:
 
 	void draw();
 
+    void reload();
+
 	TextBox* status;
 
 private:
