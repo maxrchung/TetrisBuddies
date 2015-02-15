@@ -16,32 +16,38 @@ ProfileScreen::ProfileScreen()
 						 400.0f,
 						 600.0f)),
 
-     title(new TextBox("PROFILE",
+    title(new TextBox("PROFILE",
 	                   0.0f,
 					   -225.0f,
 					   300.0f,
 					   Alignments::CENTER,
                        true)),
                        
-	 status(new TextBox("View your profile stats here. Press back to return to the home menu.",
+	status(new TextBox("View your profile stats here. Press back to return to the home menu.",
 	                    0.0f,
 						-125.0f,
 						300.0f,
                         Alignments::CENTER,
                         false,
                         true)),
+
+    statsBorder(new Section(0.0f,
+                            50.0f,
+                            320.0f,
+                            240.0f,
+                            sf::Color::Transparent)),
 						 
 	usernameTag(new TextBox("Username: ",
-						 -100.0f,
-						 -50.0f,
-						 150.0f,
-						 Alignments::LEFT)),
+						    -100.0f,
+                            -50.0f,
+                            150.0f,
+						    Alignments::LEFT)),
 
 	nameTag(new TextBox("",
-						 50.0f,
-						 -50.0f,
-						 250.0f,
-						 Alignments::LEFT)),
+						50.0f,
+						-50.0f,
+						250.0f,
+						Alignments::LEFT)),
 
 	highscoreTag(new TextBox("High score: ",
 						 -100.0f,
@@ -98,9 +104,13 @@ ProfileScreen::ProfileScreen()
                     150.0f,
                     50.0f))
 {
+    statsBorder->boundingRect.setOutlineColor(GraphicsManager::getInstance()->buttonColor);
+    statsBorder->boundingRect.setOutlineThickness(2);
+    statsBorder->boundingRect.setFillColor(sf::Color::Transparent);
     UIElements.push_back(backSection);
     UIElements.push_back(section);
     UIElements.push_back(title);
+    UIElements.push_back(statsBorder);
     UIElements.push_back(status);
 	UIElements.push_back(usernameTag);
 	UIElements.push_back(highscoreTag);
@@ -118,13 +128,13 @@ ProfileScreen::ProfileScreen()
 }
 void ProfileScreen::reload()
 {
-		std::string username = ClientManager::getInstance().player.username;
-		std::cout << "this is my username:  " << username << std::endl;
-		nameTag->message.setString(ClientManager::getInstance().player.username);
-		hsTag->message.setString(std::to_string(ClientManager::getInstance().player.highScore));
-		gpTag->message.setString(std::to_string(ClientManager::getInstance().player.gamesPlayed));
-		gwTag->message.setString(std::to_string(ClientManager::getInstance().player.gamesWon));
-        wpTag->message.setString(std::to_string(ClientManager::getInstance().player.winPercentage).substr(0, 5));
+    std::string username = ClientManager::getInstance().player.username;
+    std::cout << "this is my username:  " << username << std::endl;
+    nameTag->message.setString(ClientManager::getInstance().player.username);
+    hsTag->message.setString(std::to_string(ClientManager::getInstance().player.highScore));
+    gpTag->message.setString(std::to_string(ClientManager::getInstance().player.gamesPlayed));
+    gwTag->message.setString(std::to_string(ClientManager::getInstance().player.gamesWon));
+    wpTag->message.setString(std::to_string(ClientManager::getInstance().player.winPercentage).substr(0, 5));
 }
 
 

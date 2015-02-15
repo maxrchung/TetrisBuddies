@@ -22,6 +22,7 @@ private:
     TextBox* title;
     TextBox* status;
 
+    Section* statsBorder;
 	TextBox* usernameTag;
 	TextBox* highscoreTag;
 	TextBox* gamesplayedTag;
