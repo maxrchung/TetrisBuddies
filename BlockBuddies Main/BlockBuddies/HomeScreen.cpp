@@ -25,7 +25,7 @@ HomeScreen::HomeScreen()
 					   // Parameter tells the constructor that it is a title
 					   true)),
 
-     welcome(new TextBox("Welcome to Block Buddies! Hit play to join the queue of active games. Press profile to view your stats, or help for further instructions.",
+     welcome(new TextBox("Welcome to the game! Hit singleplayer to play by yourself or multiplayer to play against another opponent. Press profile to view your stats, or press help for further instructions.",
                          0.0f,
                          -100.0f,
                          300.0f,
@@ -34,14 +34,14 @@ HomeScreen::HomeScreen()
                          true)),
 
      networkedSinglePlayer(new Button(Screens::ONLINESINGLE,
-                         "soloTest",
+                         "Singleplayer",
                          0.0f,
                          0.0f,
                          150.0f,
                          50.0f)),
 
      multiplayer(new Button(Screens::QUEUE,
-                         "Play",
+                         "Multiplayer",
                          0.0f,
                          75.0f,
                          150.0f,

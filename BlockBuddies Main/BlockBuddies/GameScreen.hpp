@@ -16,6 +16,7 @@ public:
 	GameScreen();
 	void update();
 	void draw();
+    void reload();
 
 private:
 	BlockHandler *bh;

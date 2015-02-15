@@ -18,7 +18,8 @@ public:
 private:
     Section* backSection;
 	Section* section;
-	TextBox* welcome;
+    TextBox* title;
+	TextBox* instruction;
 	Button* home;
 };
 

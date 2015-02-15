@@ -131,7 +131,7 @@ void TextBox::draw()
     adjustColor.a = fade.value;
     message.setColor(adjustColor);
     float scaleFade = fade.value/255.0f / 4.0f + 0.75f;
-
+    
     if(borderOutline)
     {
         adjustColor = GraphicsManager::getInstance()->buttonColor;

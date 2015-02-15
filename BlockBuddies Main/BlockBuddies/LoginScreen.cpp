@@ -4,6 +4,8 @@
 #include "ClientManager.h"
 #include "SoundManager.h"
 #include "NotificationScreen.hpp"
+#include "BlockShowerManager.hpp"
+
 LoginScreen::LoginScreen()
     :backSection(new Section(0.0f,
                              12.5f,
@@ -25,7 +27,7 @@ LoginScreen::LoginScreen()
 					   // Parameter tells the constructor that it is a title
 					   true)),
 
-	 status(new TextBox("Welcome to the game! Enter your username and password to login. Press register to create a new account, or press solo to play a single-player game.",
+	 status(new TextBox("Welcome to Block Buddies! Enter your username and password to login. Press register to create a new account, or press offline to play a single-player game.",
 	                    0.0f,
 						-125.0f,
 						300.0f,
@@ -63,7 +65,7 @@ LoginScreen::LoginScreen()
 							true)),
 
 	 home(new Button(Screens::HOME,
-		             "Enter",
+		             "Login",
                      0.0f,
                      100.0f,
                      150.0f,
@@ -76,8 +78,8 @@ LoginScreen::LoginScreen()
                        150.0f,
                        50.0f)),
 
-     offlineHome(new Button(Screens::OFFLINEHOME,
-			                "Offline Mode",
+     offlineHome(new Button(Screens::GAME,
+			                "Offline",
                             0.0f,
                             250.0f,
                             150.0f,
@@ -200,6 +202,7 @@ void LoginScreen::update()
 		//sound.setBuffer(*SoundManager::getInstance().getSound("repressed"));
 		//sound.play();
 		//ScreenManager::getInstance()->shake(1);
+		SoundManager::getInstance().playMusic("Sounds/Slamtris.ogg");
         ScreenManager::getInstance()->switchScreen(offlineHome->toScreen);
     }
 }
@@ -207,4 +210,9 @@ void LoginScreen::update()
 void LoginScreen::draw()
 {
     Screen::draw();
+}
+
+void LoginScreen::reload()
+{
+    BlockShowerManager::getInstance()->fade.state = FadeStates::FADING_IN;
 }

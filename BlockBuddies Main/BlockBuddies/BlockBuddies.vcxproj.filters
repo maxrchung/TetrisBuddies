@@ -209,16 +209,10 @@
     <ClCompile Include="ResultScreen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OfflineHomeScreen.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Screen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="OfflineResultScreen.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="OfflineGameTypeScreen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CloseScreen.cpp">
