@@ -6,10 +6,12 @@ int main()
 {
     // Initialize game
     Game::getInstance()->init();
+    sf::Clock frameLimiter;
 
 	while (Game::getInstance()->isRunning)
 		// Lets Game handle everything
-		Game::getInstance()->run();
+        if(frameLimiter.getElapsedTime().asMilliseconds() > 16)
+            Game::getInstance()->run();
 
 	return 0;
 }

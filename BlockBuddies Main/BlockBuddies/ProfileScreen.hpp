@@ -17,10 +17,11 @@ public:
 	void reload();
 
 private:
-
-	bool needsUpdate;
     Section* backSection;
 	Section* section;
+    TextBox* title;
+    TextBox* status;
+
 	TextBox* usernameTag;
 	TextBox* highscoreTag;
 	TextBox* gamesplayedTag;
@@ -34,8 +35,6 @@ private:
 	TextBox* wpTag;
 
     Button* home;
-    Button* profile;
-    Button* gameType;
 };
 
 #endif//PROFILESCREEN_HPP

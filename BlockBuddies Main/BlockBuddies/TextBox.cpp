@@ -46,6 +46,18 @@ TextBox::TextBox(std::string message,
 	textWrap();
 
 	prevMessage = this->message;
+
+    if(borderOutline)
+    {
+        sf::FloatRect messageRect = this->message.getGlobalBounds();
+        border = sf::RectangleShape(sf::Vector2f(boundingWidth + 20 * GraphicsManager::getInstance()->scale, 
+                                    messageRect.height + 20 * GraphicsManager::getInstance()->scale));
+        border.setOrigin(GraphicsManager::getInstance()->getCenter(border));
+        border.setPosition(this->message.getPosition());
+        border.setOutlineColor(GraphicsManager::getInstance()->buttonColor);
+        border.setOutlineThickness(2);
+        border.setFillColor(sf::Color::Transparent);
+    }
 }
 
 // Snippet of code for dealing with text wraps
@@ -118,25 +130,19 @@ void TextBox::draw()
     sf::Color adjustColor = message.getColor();
     adjustColor.a = fade.value;
     message.setColor(adjustColor);
+    float scaleFade = fade.value/255.0f / 4.0f + 0.75f;
 
     if(borderOutline)
     {
-        sf::FloatRect messageRect = message.getGlobalBounds();
-        sf::RectangleShape border = sf::RectangleShape(sf::Vector2f(boundingWidth + 20 * GraphicsManager::getInstance()->scale, 
-                                                                    messageRect.height + 20 * GraphicsManager::getInstance()->scale));
-        border.setPosition(GraphicsManager::getInstance()->window.getSize().x/2 - boundingWidth/2 - 10 * GraphicsManager::getInstance()->scale, 
-                           messageRect.top - 10 * GraphicsManager::getInstance()->scale);
         adjustColor = GraphicsManager::getInstance()->buttonColor;
         adjustColor.a = fade.value;
         border.setOutlineColor(adjustColor);
-        border.setOutlineThickness(2);
-        border.setFillColor(sf::Color::Transparent);
+
+        border.setScale(sf::Vector2f(scaleFade, scaleFade));
 
         GraphicsManager::getInstance()->window.draw(border);
     }
 
-    float scaleFade = fade.value/255.0f / 4.0f + 0.75f;
     message.setScale(sf::Vector2f(scaleFade, scaleFade));
-
     GraphicsManager::getInstance()->window.draw(message);
 }

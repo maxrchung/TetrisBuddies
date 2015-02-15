@@ -37,6 +37,8 @@ private:
 
     bool isTitle;
     bool borderOutline;
+
+    sf::RectangleShape border;
 };
 
 #endif TEXTBOX_HPP

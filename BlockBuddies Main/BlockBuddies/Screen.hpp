@@ -33,6 +33,7 @@ enum Screens
 	ONLINESINGLE,
     QUEUE,
     NOTIFICATION,
+    INSTRUCTION,
     NONE
 };
 

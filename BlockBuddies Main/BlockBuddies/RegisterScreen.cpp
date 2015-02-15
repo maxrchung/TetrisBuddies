@@ -12,13 +12,13 @@ RegisterScreen::RegisterScreen()
     backSection(new Section(0.0f,
                             0.0f,
                             420.0f,
-                            620.0f,
+                            570.0f,
                             GraphicsManager::getInstance()->buttonColor)),
 
     section(new Section(0.0f,
 		                 0.0f,
 						 400.0f,
-						 600.0f)),
+						 550.0f)),
 
 	 title(new TextBox("REGISTER",
                        0.0f,
@@ -79,14 +79,14 @@ RegisterScreen::RegisterScreen()
 	 home(new Button(Screens::HOME,
 		             "Enter",
                      0.0f,
-                     137.5f,
+                     125.0f,
                      150.0f,
                      50.0f)),
 
 	 login(new Button(Screens::LOGIN,
 		              "Cancel",
                       0.0f,
-                      212.5f,
+                      200.0f,
                       150.0f,
                       50.0f))
 {

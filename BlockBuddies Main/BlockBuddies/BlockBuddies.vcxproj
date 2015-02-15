@@ -33,6 +33,7 @@
     <ClInclude Include="HomeScreen.hpp" />
     <ClInclude Include="GameTypeScreen.hpp" />
     <ClInclude Include="InputManager.hpp" />
+    <ClInclude Include="InstructionScreen.hpp" />
     <ClInclude Include="LoginScreen.hpp" />
     <ClInclude Include="MultiplayerScreen.hpp" />
     <ClInclude Include="NetworkedSinglePlayer.h" />
@@ -76,6 +77,7 @@
     <ClCompile Include="GraphicsManager.cpp" />
     <ClCompile Include="HomeScreen.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="InstructionScreen.cpp" />
     <ClCompile Include="LoginScreen.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MultiplayerScreen.cpp" />

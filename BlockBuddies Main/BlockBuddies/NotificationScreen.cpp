@@ -10,17 +10,17 @@ NotificationScreen::NotificationScreen()
 	:backSection(new Section(0.0f,
                              0.0f,
                              420.0f,
-                             420.0f,
+                             320.0f,
                              GraphicsManager::getInstance()->buttonColor)),
 
      section(new Section(0.0f,
 	                     0.0f,
 						 400.0f,
-						 400.0f)),
+						 300.0f)),
 
      title(new TextBox("ERROR",
 	                   0.0f,
-					   -133.33f,
+					   -75.0f,
 					   300.0f,
 					   Alignments::CENTER,
 
@@ -29,7 +29,7 @@ NotificationScreen::NotificationScreen()
 
 	 status(new TextBox("",
 	                    0.0f,
-						-30.0f,
+						0.0f,
 						300.0f,
                         Alignments::CENTER,
                         false,

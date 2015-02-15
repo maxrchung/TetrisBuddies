@@ -6,28 +6,28 @@
 #include "NotificationScreen.hpp"
 LoginScreen::LoginScreen()
     :backSection(new Section(0.0f,
-                             0.0f,
+                             12.5f,
                              420.0f,
-                             620.0f,
+                             645.0f,
                              GraphicsManager::getInstance()->buttonColor)),
 
      section(new Section(0.0f,
-	                     0.0f,
+	                     12.5f,
 						 400.0f,
-						 600.0f)),
+						 625.0f)),
                          
      title(new TextBox("BLOCK BUDDIES",
 	                   0.0f,
-					   -200.0f,
+					   -225.0f,
 					   300.0f,
 					   Alignments::CENTER,
 
 					   // Parameter tells the constructor that it is a title
 					   true)),
 
-	 status(new TextBox("Welcome to the game! Enter your username and password to login. Press register to create a new account, or press offline mode to play an offline game.",
+	 status(new TextBox("Welcome to the game! Enter your username and password to login. Press register to create a new account, or press solo to play a single-player game.",
 	                    0.0f,
-						-110.0f,
+						-125.0f,
 						300.0f,
                         Alignments::CENTER,
                         false,

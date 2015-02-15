@@ -17,6 +17,7 @@
 #include "QueueScreen.hpp"
 #include "Game.hpp"
 #include "NotificationScreen.hpp"
+#include "InstructionScreen.hpp"
 
 ScreenManager* ScreenManager::instance;
 
@@ -47,6 +48,7 @@ void ScreenManager::init()
 											 { Screens::ONLINESINGLE, new NetworkedSinglePlayer() },
                                              { Screens::QUEUE, new QueueScreen() },
                                              { Screens::NOTIFICATION, new NotificationScreen() },
+                                             { Screens::INSTRUCTION, new InstructionScreen() }
 	                                     };
 
 	// Set this to something else if you want to start on a specific screen

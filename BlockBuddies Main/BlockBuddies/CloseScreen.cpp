@@ -10,17 +10,17 @@ CloseScreen::CloseScreen()
     :backSection(new Section(0.0f,
 	                         0.0f,
 						     420.0f,
-						     420.0f,
+						     470.0f,
                              GraphicsManager::getInstance()->buttonColor)),
 
      section(new Section(0.0f,
 	                     0.0f,
 						 400.0f,
-						 400.0f)),
+						 450.0f)),
 
      title(new TextBox("QUIT",
 	                   0.0f,
-					   -133.33f,
+					   -150.0f,
 					   300.0f,
 					   Alignments::CENTER,
 
@@ -29,7 +29,7 @@ CloseScreen::CloseScreen()
 
 	 status(new TextBox("Are you sure you want to exit?",
 	                    0.0f,
-						-66.5f,
+						-75.0f,
 						300.0f,
                         Alignments::CENTER,
                         false,

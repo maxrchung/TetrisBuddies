@@ -1,5 +1,5 @@
-#ifndef HOMESCREEN_HPP
-#define HOMESCREEN_HPP
+#ifndef INSTRUCTIONSCREEN_HPP
+#define INSTRUCTIONSCREEN_HPP
 
 #include "Screen.hpp"
 #include "Button.hpp"
@@ -8,22 +8,18 @@
 
 // Screen you get into when you first login or register an account
 // Basically the central hub to take you to other parts
-class HomeScreen: public Screen
+class InstructionScreen: public Screen
 {
 public:
-	HomeScreen();
+	InstructionScreen();
 	void update();
 	void draw();
 
 private:
     Section* backSection;
 	Section* section;
-    TextBox* title;
 	TextBox* welcome;
-    Button* networkedSinglePlayer;
-	Button* multiplayer;
-	Button* profile;
-    Button* instruction;
+	Button* home;
 };
 
-#endif//HOMESCREEN_HPP
+#endif//INSTRUCTIONSCREEN_HPP
