@@ -207,7 +207,7 @@ void TextInput::update()
             else
             {
                 // Don't add a letter if the input is over some limit
-                if ((int)input.getString().getSize() > 50)
+                if ((int)input.getString().getSize() >= 30)
                     return;
             
                 sf::String addedInput = input.getString();

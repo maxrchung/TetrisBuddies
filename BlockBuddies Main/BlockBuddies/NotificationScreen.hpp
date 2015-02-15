@@ -14,6 +14,7 @@ public:
 
     void update();
 	void draw();
+    void reload();
 
 	TextBox* status;
 

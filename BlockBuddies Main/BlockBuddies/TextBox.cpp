@@ -146,3 +146,20 @@ void TextBox::draw()
     message.setScale(sf::Vector2f(scaleFade, scaleFade));
     GraphicsManager::getInstance()->window.draw(message);
 }
+
+void TextBox::reload()
+{
+    if (borderOutline)
+    {
+        textWrap();
+
+        sf::FloatRect messageRect = this->message.getLocalBounds();
+        border = sf::RectangleShape(sf::Vector2f(boundingWidth + 20 * GraphicsManager::getInstance()->scale, 
+                                    messageRect.height + 20 * GraphicsManager::getInstance()->scale));
+        border.setOrigin(GraphicsManager::getInstance()->getCenter(border));
+        border.setPosition(this->message.getPosition());
+        border.setOutlineColor(GraphicsManager::getInstance()->buttonColor);
+        border.setOutlineThickness(2);
+        border.setFillColor(sf::Color::Transparent);
+    }
+}

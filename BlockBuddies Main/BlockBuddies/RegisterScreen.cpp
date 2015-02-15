@@ -130,9 +130,9 @@ void RegisterScreen::update()
     if (home->isActivated ||
         (InputManager::getInstance()->enter && home->isSelected))
     {
-        if (password->input.getString() == "" && username->input.getString() == "" && password2->input.getString() == "")
+        if (password->input.getString().getSize() < 5 || username->input.getString().getSize() < 5 || password2->input.getString().getSize() < 5)
         {
-            // Does nothing if username and password are empty
+            ScreenManager::getInstance()->addScreen(Screens::NOTIFICATION, "Enter a minimum of 5 characters for each input.");
         }
         else if (password->input.getString() == password2->input.getString())
         {

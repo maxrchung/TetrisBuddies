@@ -131,10 +131,10 @@ void LoginScreen::update()
     if (home->isActivated ||
         (InputManager::getInstance()->enter && home->isSelected))
     {
-        if(username->input.getString() == "" && password->input.getString() == "")
+        if(username->input.getString().getSize() < 5 || password->input.getString().getSize() < 5)
         {
-            // Do nothing if the username/password inputs are empty
-            return; // We return because we want to skip this entire block
+            ScreenManager::getInstance()->addScreen(Screens::NOTIFICATION, "Enter a minimum of 5 characters for each input.");
+            return;
         }
         if (!ClientManager::getInstance().isConnected)
         {

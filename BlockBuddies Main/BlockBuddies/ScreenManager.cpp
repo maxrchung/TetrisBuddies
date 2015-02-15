@@ -3,7 +3,6 @@
 #include "RegisterScreen.hpp"
 #include "HomeScreen.hpp"
 #include "ProfileScreen.hpp"
-#include "GameTypeScreen.hpp"
 #include "GameScreen.hpp"
 #include "ResultScreen.hpp"
 #include "InputManager.hpp"
@@ -36,7 +35,6 @@ void ScreenManager::init()
 											 { Screens::REGISTER, new RegisterScreen() },
 											 { Screens::HOME, new HomeScreen() },
 											 { Screens::PROFILE, new ProfileScreen() },
-											 { Screens::GAMETYPE, new GameTypeScreen() },
 											 { Screens::GAME, new GameScreen() },
 											 { Screens::RESULT, new ResultScreen() },
                                              { Screens::OFFLINEHOME, new OfflineHomeScreen() },
@@ -140,13 +138,10 @@ void ScreenManager::addScreen(const Screens toScreen, const sf::String notificat
     }
 
     currentScreens.push_back(screens[toScreen]);
-    screens[toScreen]->reload();
-    currentScreens[currentScreens.size() - 1]->fade.state = FadeStates::FADING_IN;
-    // Add a notification message if we are given one through the parameter
     if(!notificationMessage.isEmpty())
-    {
         ((NotificationScreen*) currentScreens.back())->status->message.setString(notificationMessage);
-    }
+    currentScreens.back()->reload();
+    currentScreens[currentScreens.size() - 1]->fade.state = FadeStates::FADING_IN;
 }
 
 void ScreenManager::shake(float seconds)
