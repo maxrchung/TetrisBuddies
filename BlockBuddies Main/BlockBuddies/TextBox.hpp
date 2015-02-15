@@ -19,6 +19,8 @@ public:
 
 	void update();
 	void draw();
+    void reload();
+
 	sf::Text message;
 
 private:

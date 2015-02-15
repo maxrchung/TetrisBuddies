@@ -12,8 +12,6 @@
 #include <tuple>
 #include <iostream>
 
-
-
 class NetworkedSinglePlayer : public Screen
 {
 public:

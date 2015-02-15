@@ -1,6 +1,8 @@
 #include "HomeScreen.hpp"
 #include "InputManager.hpp"
 #include "ScreenManager.hpp"
+#include "SoundManager.h"
+#include "ClientManager.h"
 
 HomeScreen::HomeScreen()
     :backSection(new Section(0.0f,
@@ -81,7 +83,11 @@ void HomeScreen::update()
 
     if (networkedSinglePlayer->isActivated ||
         (InputManager::getInstance()->enter && networkedSinglePlayer->isSelected))
-            ScreenManager::getInstance()->switchScreen(networkedSinglePlayer->toScreen);
+    {
+        SoundManager::getInstance().playMusic("Sounds/Slamtris.ogg");
+        ClientManager::getInstance().requestStartGame();
+        ScreenManager::getInstance()->switchScreen(networkedSinglePlayer->toScreen);
+    }
     
     else if (multiplayer->isActivated ||
              (InputManager::getInstance()->enter && multiplayer->isSelected))

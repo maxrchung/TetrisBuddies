@@ -79,3 +79,8 @@ void NotificationScreen::draw()
 
     Screen::draw();
 }
+
+void NotificationScreen::reload()
+{
+    status->reload();
+}

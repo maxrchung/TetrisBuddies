@@ -140,13 +140,10 @@ void ScreenManager::addScreen(const Screens toScreen, const sf::String notificat
     }
 
     currentScreens.push_back(screens[toScreen]);
-    screens[toScreen]->reload();
-    currentScreens[currentScreens.size() - 1]->fade.state = FadeStates::FADING_IN;
-    // Add a notification message if we are given one through the parameter
     if(!notificationMessage.isEmpty())
-    {
         ((NotificationScreen*) currentScreens.back())->status->message.setString(notificationMessage);
-    }
+    currentScreens.back()->reload();
+    currentScreens[currentScreens.size() - 1]->fade.state = FadeStates::FADING_IN;
 }
 
 void ScreenManager::shake(float seconds)
