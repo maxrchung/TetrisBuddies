@@ -5,6 +5,8 @@
 #include "GraphicsManager.hpp"
 #include "ScreenManager.hpp"
 #include "CursorHandler.hpp"
+#include "GameStateObject.hpp"
+
 class MultiplayerScreen : public Screen
 {
 public:
@@ -13,6 +15,13 @@ public:
 	void draw();
     void reload();
 private:
+
+	unsigned int winX;
+	unsigned int winY;
+	GameStateObject gso;
+	int blockSizeX;
+	int blockSizeY;
+
 	CursorHandler *ch;
 	sf::RectangleShape p1Blocks[20][16];
 	sf::RectangleShape p2Blocks[20][16];

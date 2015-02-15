@@ -4,8 +4,16 @@
 MultiplayerScreen::MultiplayerScreen()
 	:blockSwitch(false)
 {
-	ch = new CursorHandler(SCREENWIDTH, SCREENHEIGHT, GraphicsManager::getInstance()->window.getSize().x, GraphicsManager::getInstance()->window.getSize().y,
-		 GraphicsManager::getInstance()->window.getSize().x / 2 - SCREENWIDTH * 3 / 2, GraphicsManager::getInstance()->window.getSize().y / 2 - SCREENHEIGHT / 2);
+
+
+	winX = GraphicsManager::getInstance()->window.getSize().x;
+	winY = GraphicsManager::getInstance()->window.getSize().y;
+
+	blockSizeX = (int)(winY / gso.boardHeight);
+	int offset = winY - SCREENHEIGHT;
+
+	ch = new CursorHandler(SCREENWIDTH - 50 , SCREENHEIGHT - 50, (winX / 2) - 110 , winY + 60, blockSizeX, -offset);
+
 	//draws a large rectangle around the game screen for p1
 	p1Outline.setSize(sf::Vector2f(SCREENWIDTH, SCREENHEIGHT));
 	p1Outline.setFillColor(sf::Color::Transparent);
