@@ -22,6 +22,22 @@ void MatchMakingHandler::addMessage(sf::Packet addMe , sf::IpAddress myAddress)
 		multiPlayerGames.at(myAddress)->packetQueue2.push(&addMe);
 }
 
+bool MatchMakingHandler::isInQueue(sf::IpAddress check)
+{
+	return multiPlayerGames.count(check);
+}
+
+void MatchMakingHandler::removeFromQueue(sf::IpAddress remove)
+{
+	int count = 0;
+	for (auto& check : activePlayers)
+	{
+		if (check.myAddress == remove)
+			break;
+		count++;
+	}
+	activePlayers.erase(activePlayers.begin() + count);
+}
 
 void MatchMakingHandler::checkForMatches()
 {
