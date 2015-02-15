@@ -33,7 +33,12 @@ public:
 
 	std::queue<sf::Packet> outgoingMessages;
 
-	
+	bool delayGame();
+	sf::Clock clock;
+	sf::Time tick;
+	bool delayStarted = false;
+	bool delayFinished = false;
+	int delayTime = 3;
 
 	//Debug functions:
 

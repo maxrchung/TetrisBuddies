@@ -213,7 +213,7 @@ void NetworkManager::update()
                 }
                 default:
                 {
-					if (!singlePlayer.singlePlayer.count(player.myAddress))
+					if (!singlePlayer.singlePlayerGames.count(player.myAddress))
 						singlePlayer.makeGame(player);
 
 					if (singlePlayer.isInGame(player.myAddress))
@@ -237,7 +237,7 @@ void NetworkManager::update()
 		   clock.restart();
 	   }
        
-       if (singlePlayer.singlePlayer.size() >= 1)
+	   if (singlePlayer.singlePlayerGames.size() >= 1)
 		   singlePlayer.sendMessages();
 	   if (multiplayer.multiPlayerGames.size() >= 1)
 		   multiplayer.sendMessages();
@@ -251,6 +251,15 @@ void NetworkManager::update()
     if (toDisconnect)
     {
         std::cout << "Size of connectPlayers: " << connectPlayers.size() << std::endl;
+		if (singlePlayer.isInGame(toDisconnect->myAddress))
+		{
+			singlePlayer.removeMe.push_back(toDisconnect->myAddress);
+			singlePlayer.removePlayers();
+		}
+		else if (multiplayer.isInQueue(toDisconnect->myAddress))
+		{
+			multiplayer.removeFromQueue(toDisconnect->myAddress);
+		}
 		userNamesLoggedIn.remove( toDisconnect->playerInfo.username );
         queueAccess.lock();
         connectPlayers.remove(*toDisconnect);

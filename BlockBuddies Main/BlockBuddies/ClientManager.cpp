@@ -114,6 +114,7 @@ void ClientManager::update()
                 ((QueueScreen*)ScreenManager::getInstance()->currentScreens.back())->foundGame();
 				multiplayer = true;
                 std::cout << "Receive found game packet" << std::endl;
+				break;
             }
 
 			case PacketDecode::PACKET_GAMEOVER:
@@ -122,6 +123,7 @@ void ClientManager::update()
 				lastScore = currentGSO.score;
 				currentGSO = GameStateObject();
 				std::cout << "game Over \n";
+				break;
 			}
 			case PacketDecode::PACKET_USERINFOUPDATE:
 			{
@@ -129,14 +131,17 @@ void ClientManager::update()
 				packet >> player;
 				player.username = saveName;
 				infoUpdate = true;
+				break;
 			}
 			case PacketDecode::PACKET_SWAP:
 			{
 				//fill me in
+				break;
 			}
 			case PacketDecode::PACKET_CLEAR:
 			{
 				//fill me in
+				break;
 			}
 			default:
 			{

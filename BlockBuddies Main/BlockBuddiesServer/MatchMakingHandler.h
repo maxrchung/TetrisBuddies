@@ -20,6 +20,8 @@ public:
 	std::list<sf::IpAddress> removeMe;
 	std::list<int> removePostions;
 
+	bool isInQueue(sf::IpAddress check);
+	void removeFromQueue(sf::IpAddress remove);
 	void removePlayers();
 	void sendMessages();
 	void sendResults(int postion, int winner);

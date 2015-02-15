@@ -22,6 +22,27 @@ void MatchMakingHandler::addMessage(sf::Packet addMe , sf::IpAddress myAddress)
 		multiPlayerGames.at(myAddress)->packetQueue2.push(&addMe);
 }
 
+bool MatchMakingHandler::isInQueue(sf::IpAddress toRemove)
+{
+	for (auto& check : activePlayers)
+	{
+		if (check.myAddress == toRemove)
+			return true;
+	}
+	return false;
+}
+
+void MatchMakingHandler::removeFromQueue(sf::IpAddress remove)
+{
+	int count = 0;
+	for (auto& check : activePlayers)
+	{
+		if (check.myAddress == remove)
+			break;
+		count++;
+	}
+	activePlayers.erase(activePlayers.begin() + count);
+}
 
 void MatchMakingHandler::checkForMatches()
 {
@@ -35,35 +56,34 @@ void MatchMakingHandler::checkForMatches()
 
 void MatchMakingHandler::sendResults(int postition, int winner)
 {
-	sf::Packet lost;
-	sf::Packet win;
-	win << PacketDecode::PACKET_WINNER;
-	lost << PacketDecode::PACKET_GAMEOVER;
-	//If player one won do this else player two won
-	if (winner == 1)
-	{
-		gameList[postition]->player1->playerSocket->send(win);
-		gameList[postition]->player2->playerSocket->send(lost);
-		DatabaseManager::getInstance().updateUserGames(gameList[postition]->player1->playerInfo.username, true);
-	}
-	else
-	{
-		gameList[postition]->player2->playerSocket->send(win);
-		gameList[postition]->player1->playerSocket->send(lost);
-		DatabaseManager::getInstance().updateUserGames(gameList[postition]->player2->playerInfo.username, true);
-	}
-	//Send updated profile information;
-	sf::Packet updateP1;
-	sf::Packet updateP2;
+		sf::Packet lost;
+		sf::Packet win;
+		win << PacketDecode::PACKET_WINNER;
+		lost << PacketDecode::PACKET_GAMEOVER;
+		//If player one won do this else player two won
+		if (winner == 1)
+		{
+			gameList[postition]->player1->playerSocket->send(win);
+			gameList[postition]->player2->playerSocket->send(lost);
+			DatabaseManager::getInstance().updateUserGames(gameList[postition]->player1->playerInfo.username, true);
+		}
+		else
+		{
+			gameList[postition]->player2->playerSocket->send(win);
+			gameList[postition]->player1->playerSocket->send(lost);
+			DatabaseManager::getInstance().updateUserGames(gameList[postition]->player2->playerInfo.username, true);
+		}
+		//Send updated profile information;
+		sf::Packet updateP1;
+		sf::Packet updateP2;
 
-	updateP1 << PacketDecode::PACKET_USERINFOUPDATE;
-	updateP1 << DatabaseManager::getInstance().getUserInfo(gameList[postition]->player1->playerInfo.username);
+		updateP1 << PacketDecode::PACKET_USERINFOUPDATE;
+		updateP1 << DatabaseManager::getInstance().getUserInfo(gameList[postition]->player1->playerInfo.username);
 
-	updateP2 << PacketDecode::PACKET_USERINFOUPDATE;
-	updateP2 << DatabaseManager::getInstance().getUserInfo(gameList[postition]->player2->playerInfo.username);
-	gameList[postition]->player2->playerSocket->send(updateP1);
-	gameList[postition]->player1->playerSocket->send(updateP2);
-	
+		updateP2 << PacketDecode::PACKET_USERINFOUPDATE;
+		updateP2 << DatabaseManager::getInstance().getUserInfo(gameList[postition]->player2->playerInfo.username);
+		gameList[postition]->player2->playerSocket->send(updateP1);
+		gameList[postition]->player1->playerSocket->send(updateP2);
 }
 
 
@@ -75,8 +95,6 @@ void MatchMakingHandler::makeGame(Player &p1, Player &p2)
 	multiPlayerGames.insert(std::pair<sf::IpAddress, Game*>(p1.myAddress, nGame));
 	multiPlayerGames.insert(std::pair<sf::IpAddress, Game*>(p2.myAddress, nGame));
     gameList.push_back(nGame);
-	nGame->playerOneGame.gameHasStarted = true;
-	nGame->playerTwoGame.gameHasStarted = true;
     sf::Packet foundGame;
     foundGame << PacketDecode::PACKET_FOUNDGAME;
     p1.playerSocket->send(foundGame);
@@ -116,19 +134,6 @@ void MatchMakingHandler::sendMessages()
 			check->player2->playerSocket->send(p2);
 			check->player2->playerSocket->send(p1);	
 		}
-		else
-		{
-			//The case that one player doesn't have a packet to send.
-			//Send whatever the most recent one is. 
-			p1 << check->playerOneGame.gso;
-			p2 << check->playerTwoGame.gso;
-			
-			check->player1->playerSocket->send(p1);
-			check->player1->playerSocket->send(p2);
-
-			check->player2->playerSocket->send(p2);
-			check->player2->playerSocket->send(p1);
-		}
 	}
 }
 
@@ -140,28 +145,36 @@ void MatchMakingHandler::update()
 
 	for (auto check: gameList)
 	{
-		if (check->playerOneGame.IsGameOver())
-		{ 
-			sendResults(counter , 2);
-			//Remove players from list
-			removeMe.push_front(check->player1->myAddress);
-			removePostions.push_back(counter);
-			removeMe.push_back(check->player1->myAddress);
-			removeMe.push_back(check->player2->myAddress);
-
-		}else if (check->playerTwoGame.IsGameOver())
-		{
-			sendResults(counter, 1);
-			//Remove players from list
-			removeMe.push_front(check->player1->myAddress);
-			removePostions.push_back(counter);
-			removeMe.push_back(check->player1->myAddress);
-			removeMe.push_back(check->player2->myAddress);
-		}
-		else
+		if (check->playerOneGame.delayFinished && check->playerTwoGame.delayFinished)
 		{
 			check->playerOneGame.GameTick();
 			check->playerTwoGame.GameTick();
+
+			if (check->playerOneGame.IsGameOver() && check->playerOneGame.gameHasStarted)
+			{
+				sendResults(counter, 2);
+				//Remove players from list
+				removeMe.push_front(check->player1->myAddress);
+				removePostions.push_back(counter);
+				removeMe.push_back(check->player1->myAddress);
+				removeMe.push_back(check->player2->myAddress);
+
+			}
+			else if (check->playerTwoGame.IsGameOver() && check->playerTwoGame.gameHasStarted)
+			{
+				sendResults(counter, 1);
+				//Remove players from list
+				removeMe.push_front(check->player1->myAddress);
+				removePostions.push_back(counter);
+				removeMe.push_back(check->player1->myAddress);
+				removeMe.push_back(check->player2->myAddress);
+			}
+
+		}
+		else
+		{
+			check->playerOneGame.delayGame();
+			check->playerTwoGame.delayGame();
 		}
 		counter++;
 	}
