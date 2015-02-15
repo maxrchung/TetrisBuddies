@@ -259,9 +259,7 @@ void NetworkManager::update()
 		else if (multiplayer.isInQueue(toDisconnect->myAddress))
 		{
 			multiplayer.removeFromQueue(toDisconnect->myAddress);
-			std::cout << "I've been removed from the queue! Hooray!" << std::endl;
 		}
-
 		userNamesLoggedIn.remove( toDisconnect->playerInfo.username );
         queueAccess.lock();
         connectPlayers.remove(*toDisconnect);

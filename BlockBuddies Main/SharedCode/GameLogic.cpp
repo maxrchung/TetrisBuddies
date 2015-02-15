@@ -24,6 +24,34 @@ GameLogic::GameLogic(){
 
 }
 
+bool GameLogic::delayGame()
+{
+	if (!delayStarted)
+	{
+		clock.restart();
+		tick = sf::Time::Zero;
+		delayStarted = true;
+		return false;
+	}
+	else
+	{
+		if (tick.asSeconds() < delayTime)
+		{
+			tick += clock.getElapsedTime();
+			return false;
+		}
+		else
+		{
+			delayFinished = true;
+			InitialBoardPopulation();
+			gameHasStarted = true;
+			return true;
+		}
+	}
+
+	return true;
+}
+
 void GameLogic::ResetGame()
 {
 	gso = GameStateObject();
@@ -565,7 +593,6 @@ void GameLogic::GameTick(){
 		gameStateChanged = true;
 	}
 
-	std::cout << "Row insertion time:  " << gso.rowInsertionCountdown << std::endl;
 	//if the insert new row timer is 0;
 	if (gso.rowInsertionCountdown == 0){
 

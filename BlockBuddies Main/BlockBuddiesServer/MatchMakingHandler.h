@@ -20,7 +20,7 @@ public:
 	std::list<sf::IpAddress> removeMe;
 	std::list<int> removePostions;
 
-	bool isInQueue(sf::IpAddress check){ return multiPlayerGames.count(check); }
+	bool isInQueue(sf::IpAddress check);
 	void removeFromQueue(sf::IpAddress remove);
 	void removePlayers();
 	void sendMessages();
