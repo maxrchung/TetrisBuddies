@@ -27,7 +27,7 @@ LoginScreen::LoginScreen()
 					   // Parameter tells the constructor that it is a title
 					   true)),
 
-	 status(new TextBox("Welcome to the game! Enter your username and password to login. Press register to create a new account, or press offline to play a single-player game.",
+	 status(new TextBox("Welcome to Block Buddies! Enter your username and password to login. Press register to create a new account, or press offline to play a single-player game.",
 	                    0.0f,
 						-125.0f,
 						300.0f,
