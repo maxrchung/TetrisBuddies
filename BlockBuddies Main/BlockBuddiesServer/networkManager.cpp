@@ -211,11 +211,13 @@ void NetworkManager::update()
 
                     break;
                 }
-                default:
-                {
+				case PacketDecode::PACKET_START:
+				{
 					if (!singlePlayer.singlePlayerGames.count(player.myAddress))
 						singlePlayer.makeGame(player);
-
+				}
+                default:
+                {
 					if (singlePlayer.isInGame(player.myAddress))
 						singlePlayer.addMessage(notPopped, player.myAddress);
 					else
