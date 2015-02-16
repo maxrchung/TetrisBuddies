@@ -22,7 +22,7 @@ void MultiplayerScreen::initGame()
 
 	int offset = winY - SCREENHEIGHT;
 
-	ch = new CursorHandler(SCREENWIDTH - 50 , SCREENHEIGHT - 50, (winX / 2) - 110 , winY + 60, blockSizeX, -offset);
+	ch = new CursorHandler(SCREENWIDTH, SCREENHEIGHT, winX, winY, winX / 2 - SCREENWIDTH * 3 / 2, winY / 2 - SCREENHEIGHT / 2, blockSizeX, 0);
 
 	//draws a large rectangle around the game screen for p1
 	p1Outline.setSize(sf::Vector2f(SCREENWIDTH, SCREENHEIGHT));
