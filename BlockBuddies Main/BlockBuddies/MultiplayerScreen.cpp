@@ -45,7 +45,7 @@ void MultiplayerScreen::initGame()
 		{
 
 			sf::RectangleShape shape(sf::Vector2f(blockSizeX, blockSizeY));
-			shape.setPosition(j + (winX / 2 - SCREENWIDTH * 3 / 2), i - (winY / 2 - SCREENHEIGHT / 2) - blockSizeX); //puts it in the middle of the screen
+			shape.setPosition(j + (winX / 2 - SCREENWIDTH * 3 / 2), i - ((winY / 2) - SCREENHEIGHT) - 5 ); //puts it in the middle of the screen
 			shape.setFillColor(sf::Color::Transparent); //transparent blocks to appear as empty space
 			p1Blocks[gridPosx][gridPosy] = shape;
 			gridPosy++;
@@ -62,7 +62,7 @@ void MultiplayerScreen::initGame()
 		{
 
 			sf::RectangleShape shape(sf::Vector2f(blockSizeX, blockSizeY));
-			shape.setPosition(j + (winX / 2 + SCREENWIDTH / 2), i - (winY / 2 - SCREENHEIGHT / 2) - blockSizeX); //puts it in the middle of the screen
+			shape.setPosition(j + (winX / 2 + SCREENWIDTH / 2), i - ((winY / 2) - SCREENHEIGHT ) - 5); //puts it in the middle of the screen
 			shape.setFillColor(sf::Color::Transparent); //transparent blocks to appear as empty space
 			p2Blocks[gridPosx][gridPosy] = shape;
 			gridPosy++;

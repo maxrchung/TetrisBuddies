@@ -38,8 +38,6 @@ private:
 	bool blockSwitch;
 	void initGame();
 	bool reset;
-	int blockSizeX;
-	int blockSizeY;
 	void updateBlocks();
 	sf::Sound swapSound;
 	const int SCREENWIDTH = 400;
