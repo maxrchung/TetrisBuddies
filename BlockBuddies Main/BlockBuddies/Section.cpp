@@ -37,5 +37,15 @@ void Section::draw()
     }
     float scaleFactor = GraphicsManager::getInstance()->scale * (fade.value/255.0f / 4.0f + 0.75f);
     boundingRect.setScale(sf::Vector2f(scaleFactor, scaleFactor));
+    
+    sf::Vector2f prevPosition = boundingRect.getPosition();
+
+    if(fade.state == FadeStates::FADING_IN)
+        boundingRect.move(sf::Vector2f(0, (1 - fade.value/255.0f) * -128));
+    else if(fade.state == FadeStates::FADING_OUT)
+        boundingRect.move(sf::Vector2f(0, (1 - fade.value/255.0f) * 128));
+
 	GraphicsManager::getInstance()->window.draw(boundingRect);
+
+    boundingRect.setPosition(prevPosition);
 }

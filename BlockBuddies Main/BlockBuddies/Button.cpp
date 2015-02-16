@@ -67,7 +67,7 @@ void Button::update()
 	else
 	{
 		boundingRect.setFillColor(GraphicsManager::getInstance()->buttonColor);
-		label.setColor(GraphicsManager::getInstance()->typeColor); 
+		label.setColor(GraphicsManager::getInstance()->typeColor);
 		isActivated = false;
 	}
 
@@ -94,7 +94,17 @@ void Button::draw()
                                         fade.value));
     float scaleFactor = GraphicsManager::getInstance()->scale * (fade.value/255.0f / 4.0f + 0.75f);
     boundingRect.setScale(sf::Vector2f(scaleFactor, scaleFactor));
+
+    sf::Vector2f prevPosition = boundingRect.getPosition();
+
+    if(fade.state == FadeStates::FADING_IN)
+        boundingRect.move(sf::Vector2f(0, (1 - fade.value/255.0f) * -128));
+    else if(fade.state == FadeStates::FADING_OUT)
+        boundingRect.move(sf::Vector2f(0, (1 - fade.value/255.0f) * 128));
+
 	GraphicsManager::getInstance()->window.draw(boundingRect);
+
+    boundingRect.setPosition(prevPosition);
 
     sf::Color labelColor = label.getColor();
     labelColor.a = fade.value;
@@ -104,6 +114,16 @@ void Button::draw()
     float scaleFade = fade.value/255.0f / 4.0f + 0.75f;
     label.setScale(sf::Vector2f(scaleFade, scaleFade));
 
+    prevPosition = label.getPosition();
+
+    if(fade.state == FadeStates::FADING_IN)
+        label.move(sf::Vector2f(0, (1 - fade.value/255.0f) * -128));
+    else if(fade.state == FadeStates::FADING_OUT)
+        label.move(sf::Vector2f(0, (1 - fade.value/255.0f) * 128));
+
 	GraphicsManager::getInstance()->window.draw(label);
+
+    label.setPosition(prevPosition);
+
 }
 

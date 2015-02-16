@@ -21,7 +21,7 @@ void Fade::update()
     // Raises opacity until it hits 255
     if(state == FadeStates::FADING_IN)
     {
-        value += 12;
+        value += 9;
         if(value >= 255)
         {
             value = 255; // For safety
@@ -31,7 +31,7 @@ void Fade::update()
     // Lowers opacity until it hits 0
     else if(state == FadeStates::FADING_OUT)
     {
-        value -= 12;
+        value -= 9;
         if(value <= 0)
         {
             value = 0;

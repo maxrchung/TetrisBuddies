@@ -140,11 +140,31 @@ void TextBox::draw()
 
         border.setScale(sf::Vector2f(scaleFade, scaleFade));
 
+        sf::Vector2f borderPosition = border.getPosition();
+
+        if (fade.state == FadeStates::FADING_IN)
+            border.move(sf::Vector2f(0, (1 - fade.value / 255.0f) * -128));
+        else if (fade.state == FadeStates::FADING_OUT)
+            border.move(sf::Vector2f(0, (1 - fade.value / 255.0f) * 128));
+
         GraphicsManager::getInstance()->window.draw(border);
+        
+        border.setPosition(borderPosition);
     }
 
     message.setScale(sf::Vector2f(scaleFade, scaleFade));
-    GraphicsManager::getInstance()->window.draw(message);
+
+    sf::Vector2f prevPosition = message.getPosition();
+
+    if(fade.state == FadeStates::FADING_IN)
+        message.move(sf::Vector2f(0, (1 - fade.value/255.0f) * -128));
+    else if(fade.state == FadeStates::FADING_OUT)
+        message.move(sf::Vector2f(0, (1 - fade.value/255.0f) * 128));
+
+	GraphicsManager::getInstance()->window.draw(message);
+
+    message.setPosition(prevPosition);
+
 }
 
 void TextBox::reload()

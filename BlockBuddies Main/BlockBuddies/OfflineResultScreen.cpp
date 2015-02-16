@@ -6,35 +6,35 @@
 
 OfflineResultScreen::OfflineResultScreen()
 	:backSection(new Section(0.0f,
-	                     0.0f,
-						 420.0f,
-						 620.0f,
-                         GraphicsManager::getInstance()->buttonColor)),
+	                         -20.0f,
+                             420.0f,
+                             510.0f,
+                             GraphicsManager::getInstance()->buttonColor)),
 
      section(new Section(0.0f,
-                         0.0f,
+                         -20.0f,
                          400.0f,
-                         600.0f)),
+                         490.0f)),
      
-     title(new TextBox("RESULTS",
+     title(new TextBox("GAME OVER",
                        0.0f,
-                       -200.0f,
+                       -190.0f,
                        300.0f,
                        Alignments::CENTER,
                        true)),
 
-     status(new TextBox("The game is currently running in offline mode. Please login to track your stats.",
+     status(new TextBox("The game is currently running in offline mode. Login to track your stats, or press play again to play another round.",
                         0.0f,
-                        -125.0f,
+                        -115.0f,
                         300.0f,
                         Alignments::CENTER,
                         false,
                         true)),
 
-     scoreTag(new TextBox("Score",
+     scoreTag(new TextBox("Score:",
                           0.0f,
                           -40.0f,
-                          Alignments::LEFT)),
+                          Alignments::CENTER)),
 
      score(new TextBox("0",
                        0.0f,
@@ -46,21 +46,14 @@ OfflineResultScreen::OfflineResultScreen()
 	 login(new Button(Screens::LOGIN,
                       "Login",
                       0.0f,
-                      100.5f,
+                      75.5f,
                       150.0f,
                       50.0f)),
 
 	 offlineGame(new Button(Screens::GAME,
                             "Play Again",
                             0.0f,
-                            175.0f,
                             150.0f,
-                            50.0f)),
-
-     offlineHome(new Button(Screens::OFFLINEHOME,
-	                        "Home",
-                            0.0f,
-                            250.0f,
                             150.0f,
                             50.0f))
 {
@@ -71,11 +64,9 @@ OfflineResultScreen::OfflineResultScreen()
     UIElements.push_back(scoreTag);
     UIElements.push_back(score);
     UIElements.push_back(login);
-    UIElements.push_back(offlineHome);
     UIElements.push_back(offlineGame);
 
     selectables = { login,
-                    offlineHome,
                     offlineGame };
 }
 
@@ -90,13 +81,7 @@ void OfflineResultScreen::update()
 
 	score->message.setString(std::to_string(BlockHandler::displayScore));
 
-    if (offlineHome->isActivated ||
-        (InputManager::getInstance()->enter && offlineHome->isSelected))
-    {
-        ScreenManager::getInstance()->switchScreen(offlineHome->toScreen);
-    }
-    
-    else if (offlineGame->isActivated ||
+    if (offlineGame->isActivated ||
              (InputManager::getInstance()->enter && offlineGame->isSelected))
     {
         BlockShowerManager::getInstance()->fade.state = FadeStates::FADING_OUT;

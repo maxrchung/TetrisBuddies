@@ -22,6 +22,5 @@ class OfflineResultScreen : public Screen
         TextBox* score; // Ex. "5000"
         Button* login;
         Button* offlineGame;
-        Button* offlineHome;
 };
 #endif//OFFLINERESULTSCREEN_HPP

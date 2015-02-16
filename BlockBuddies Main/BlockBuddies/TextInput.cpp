@@ -446,8 +446,16 @@ void TextInput::draw()
     boundingRect.setFillColor(adjustColor);
     float scaleFactor = GraphicsManager::getInstance()->scale * (fade.value/255.0f / 4.0f + 0.75f);
     boundingRect.setScale(sf::Vector2f(scaleFactor, scaleFactor));
-	// Draw the background boundingRect
+
+    // Applies position fading
+    sf::Vector2f prevPosition = boundingRect.getPosition();
+    if(fade.state == FadeStates::FADING_IN)
+        boundingRect.move(sf::Vector2f(0, (1 - fade.value/255.0f) * -128));
+    else if(fade.state == FadeStates::FADING_OUT)
+        boundingRect.move(sf::Vector2f(0, (1 - fade.value/255.0f) * 128));
+
 	GraphicsManager::getInstance()->window.draw(boundingRect);
+    boundingRect.setPosition(prevPosition);
     
     // Highlight all the text if we are selecting all
     if(selectAll)
@@ -464,13 +472,29 @@ void TextInput::draw()
         selectAll.setScale(1.0f,
                            GraphicsManager::getInstance()->scale);
         selectAll.setScale(sf::Vector2f(scaleFactor, scaleFactor));
+
+        prevPosition = selectAll.getPosition();
+        if (fade.state == FadeStates::FADING_IN)
+            selectAll.move(sf::Vector2f(0, (1 - fade.value / 255.0f) * -128));
+        else if (fade.state == FadeStates::FADING_OUT)
+            selectAll.move(sf::Vector2f(0, (1 - fade.value / 255.0f) * 128));
+
         GraphicsManager::getInstance()->window.draw(selectAll);
+        boundingRect.setPosition(prevPosition);
 
         adjustColor = displayedInput.getColor();
         adjustColor.a = fade.value;
         displayedInput.setColor(adjustColor);
         displayedInput.setScale(sf::Vector2f(scaleFactor, scaleFactor));
+
+        prevPosition = displayedInput.getPosition();
+        if (fade.state == FadeStates::FADING_IN)
+            displayedInput.move(sf::Vector2f(0, (1 - fade.value / 255.0f) * -128));
+        else if (fade.state == FadeStates::FADING_OUT)
+            displayedInput.move(sf::Vector2f(0, (1 - fade.value / 255.0f) * 128));
+
         GraphicsManager::getInstance()->window.draw(displayedInput);
+        displayedInput.setPosition(prevPosition);
     }
     else
     {
@@ -481,14 +505,28 @@ void TextInput::draw()
         float scaleFade = fade.value / 255.0f / 4.0f + 0.75f;
         displayedInput.setScale(sf::Vector2f(scaleFade, scaleFade));
 
+        prevPosition = displayedInput.getPosition();
+        if (fade.state == FadeStates::FADING_IN)
+            displayedInput.move(sf::Vector2f(0, (1 - fade.value / 255.0f) * -128));
+        else if (fade.state == FadeStates::FADING_OUT)
+            displayedInput.move(sf::Vector2f(0, (1 - fade.value / 255.0f) * 128));
+
         GraphicsManager::getInstance()->window.draw(displayedInput);
+        displayedInput.setPosition(prevPosition);
 
         inputCursor.boundingRect.setFillColor(sf::Color(inputCursor.boundingRect.getFillColor().r,
                                                         inputCursor.boundingRect.getFillColor().g,
                                                         inputCursor.boundingRect.getFillColor().b,
                                                         fade.value));
         inputCursor.boundingRect.setScale(sf::Vector2f(scaleFactor, scaleFactor));
+
+        prevPosition = inputCursor.boundingRect.getPosition();
+        if (fade.state == FadeStates::FADING_IN)
+            inputCursor.boundingRect.move(sf::Vector2f(0, (1 - fade.value / 255.0f) * - 128));
+        else if (fade.state == FadeStates::FADING_OUT)
+            inputCursor.boundingRect.move(sf::Vector2f(0, (1 - fade.value / 255.0f) * 128));
         inputCursor.draw();
+        inputCursor.boundingRect.setPosition(prevPosition);
     }
 }
 
