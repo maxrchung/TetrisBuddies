@@ -218,6 +218,7 @@ void NetworkManager::update()
 				}
                 default:
                 {
+					std::cout << "My packet code is: " << decode << std::endl;
 					if (singlePlayer.isInGame(player.myAddress))
 						singlePlayer.addMessage(notPopped, player.myAddress);
 					else

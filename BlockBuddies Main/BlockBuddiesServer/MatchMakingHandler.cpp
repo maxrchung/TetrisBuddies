@@ -16,10 +16,13 @@ MatchMakingHandler::~MatchMakingHandler()
 
 void MatchMakingHandler::addMessage(sf::Packet addMe , sf::IpAddress myAddress)
 {
-	if (multiPlayerGames.at(myAddress)->player1->myAddress == myAddress)
-		multiPlayerGames.at(myAddress)->packetQueue1.push(&addMe);
-	else if (multiPlayerGames.at(myAddress)->player2->myAddress == myAddress)
-		multiPlayerGames.at(myAddress)->packetQueue2.push(&addMe);
+	if (multiPlayerGames.size() > 0)
+	{
+		if (multiPlayerGames.at(myAddress)->player1->myAddress == myAddress)
+			multiPlayerGames.at(myAddress)->playerOneGame.ReceiveMessage(addMe);
+		else if (multiPlayerGames.at(myAddress)->player2->myAddress == myAddress)
+			multiPlayerGames.at(myAddress)->playerTwoGame.ReceiveMessage(addMe);
+	}
 }
 
 bool MatchMakingHandler::isInQueue(sf::IpAddress toRemove)
