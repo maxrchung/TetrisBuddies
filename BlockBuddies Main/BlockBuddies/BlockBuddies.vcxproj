@@ -34,6 +34,7 @@
     <ClInclude Include="InputManager.hpp" />
     <ClInclude Include="InstructionScreen.hpp" />
     <ClInclude Include="LoginScreen.hpp" />
+    <ClInclude Include="MultiplayerResultScreen.hpp" />
     <ClInclude Include="MultiplayerScreen.hpp" />
     <ClInclude Include="NetworkedSinglePlayer.h" />
     <ClInclude Include="NotificationScreen.hpp" />
