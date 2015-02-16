@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <array>
 #include <vector>
+//#include <list>
 #include <queue>
 #include <ctime>
 #include <set>
@@ -22,6 +23,9 @@ public:
 
 	GameLogic();
 	void GameTick();
+
+	//temp name, it'll be renamed to GameTick()
+	void NewTick();
 
 	void Print(){ gso.Print(); }
 	void PrintBlocksMarkedForDeletion() const;
@@ -66,10 +70,12 @@ private:
 
 	//these are used to set how long a piece takes to fall, and how long blocks stay until they're cleared
 	//these values are all temporary; only one set is on the client for 300ms to swap
-	const int blockClearTime = 2000;
-	const int blockFallTime = 50;
-	const int blockSwapTime = 300;
+	const sf::Time blockClearTime = sf::milliseconds(2000);
+	const sf::Time blockFallTime = sf::milliseconds(50);
+	const sf::Time blockSwapTime = sf::milliseconds(300);
 	bool rowInsertionTimerRunning;
+	
+	//probably won't need this
 	bool DecrementCounters();
 
 	std::vector<TimedPiece> fallingBlocks;
@@ -88,7 +94,9 @@ private:
 	std::set<std::pair<int, int>> blocksToCheckForMatches;
 	std::queue<sf::Packet> messagesToDecode;
 
-	int totalRowInsertionTime;
+	sf::Time totalRowInsertionTime;
+	sf::Clock newRowClock;
+
 
 	//functions**********************************************
 	
@@ -121,6 +129,10 @@ private:
 	//Apples gravity and clears BMFD
 	//bool ClearMatches();
 
+
+	bool CheckSwappingTimers();
+	bool CheckClearingTimers();
+	bool CheckFallingTimers();
 
 
 	sf::Packet StartPacket(){

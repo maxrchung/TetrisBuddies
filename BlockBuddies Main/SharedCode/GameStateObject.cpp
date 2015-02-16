@@ -261,7 +261,14 @@ sf::Packet& operator <<(sf::Packet& packet, const GameStateObject& gso)
 		packet << gso.clearingBlocks[i];
 	}
 
-
+	//sizeOf(swappingBlocks)
+	// (it SHOULD only ever be 2)
+	//until sizeOf is done: entries in the vector
+	int numSwappingBlocks = gso.swappingBlocks.size();
+	packet << numSwappingBlocks;
+	for (int i = 0; i < numSwappingBlocks; i++){
+		packet << gso.swappingBlocks[i];
+	}
 
 
 
@@ -320,6 +327,14 @@ sf::Packet& operator >>(sf::Packet& packet, GameStateObject& gso)
 		//each one is an entry in the vector
 		packet >> x;
 		gso.clearingBlocks.push_back(x);
+	}
+
+	int numSwappingBlocks;
+	packet >> numSwappingBlocks;
+	for (int i = 0; i < numSwappingBlocks; i++){
+		//each one is an entry in the vector
+		packet >> x;
+		gso.swappingBlocks.push_back(x);
 	}
 
 	return packet;

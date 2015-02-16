@@ -65,9 +65,11 @@ public:
 	int rowInsertionCountdown;
 
 
-	//clearing blocks here
+	//clearing blocks go here to tell the client what's about to be cleared
 	std::vector<std::pair<int, int>> clearingBlocks;
 
+	//swapping blocks go here to tell the client what's about to be swapped
+	std::vector<std::pair<int, int>> swappingBlocks;
 
 	bool newRowActive; 
 

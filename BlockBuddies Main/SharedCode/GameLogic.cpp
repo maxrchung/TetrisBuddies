@@ -13,8 +13,8 @@ GameLogic::GameLogic(){
 	gameHasStarted = false;
 
 	//I don't know what a good value for this is.  We can play with it and find out what works.  Also, it will have to decrease as the game goes on. Based on score, maybe? Or game time? Or level?
-	totalRowInsertionTime = 1200;
-	gso.rowInsertionCountdown = totalRowInsertionTime;
+	totalRowInsertionTime = sf::milliseconds(16000);
+	gso.rowInsertionCountdown = totalRowInsertionTime.asMilliseconds();
 
 	blocksMarkedForDeletion.clear();
 	blocksToCheckForMatches.clear();
@@ -56,7 +56,7 @@ void GameLogic::ResetGame()
 {
 	gso = GameStateObject();
 	GameLogic::InitialBoardPopulation();
-	totalRowInsertionTime = 1200;
+	totalRowInsertionTime = sf::milliseconds(16000);
 }
 
 bool GameLogic::ReceiveMessage(sf::Packet incomingMessage){
@@ -143,6 +143,7 @@ void GameLogic::InitialBoardPopulation(){
 	gso.newRowActive = false;
 
 	PopulateTempRow();
+	newRowClock.restart();
 }
 
 
@@ -263,41 +264,22 @@ bool GameLogic::ApplyGravity(){
 	return blockMoved;
 }
 
-bool GameLogic::DecrementCounters(){
+/*
+new gravity algorithm:
 
-	bool ret = false;
-
-	if (!fallingBlocks.empty()){
-		ret = true;
-		for (int i = 0; i < fallingBlocks.size(); i++){
-			fallingBlocks.at(i).duration--;
-		}
-	}
+start on row 1, go by column:
+	
+	if column is not already falling:
+		if the space below is empty, treat the column as "falling" with THIS piece as the head/timer
 
 
-	if (!swappingBlocks.empty()){
-		ret = true;
-		for (int i = 0; i < swappingBlocks.size(); i++){
-			swappingBlocks.at(i).duration--;
-		}
-	}
 
-
-	if (!gso.clearingBlocks.empty()){
-		ret = true;
-		for (int i = 0; i < gso.clearingBlocks.size(); i++){
-			destroyedBlocks.at(i).duration--;
-		}
-	}
-
-	return ret;
-}
+*/
 
 
 
 
-
-
+//******************RECHECK THIS BECAUSE OF NEW GRAVITY AND STUFF
 //swapping pieces applies gravity
 bool GameLogic::SwapPieces(int row1Num, int col1Num, int row2Num, int col2Num){
 
@@ -314,7 +296,7 @@ bool GameLogic::SwapPieces(int row1Num, int col1Num, int row2Num, int col2Num){
 	gso.gameBoard[row1Num][col1Num] = gso.gameBoard[row2Num][col2Num];
 	gso.gameBoard[row2Num][col2Num] = temp;
 
-	ApplyGravity();
+	//ApplyGravity();
 
 
 	//V------- Might need to re-examine this logic now that gravity has changed
@@ -496,15 +478,19 @@ bool GameLogic::ProcessMessage(sf::Packet toProcess){
 
 
 		//this line will be commented out:
-		SwapPieces(p1r, p1c, p2r, p2c);
+		//SwapPieces(p1r, p1c, p2r, p2c);
 		
 		//instead:
 		//put the pieces into a "swap" queue
 		//pause the row timer
 		//in the Tick(), it will be swapped when countdown = 0
-		swappingBlocks.push_back(TimedPiece{p1r, p1c, blockSwapTime});
-		swappingBlocks.push_back(TimedPiece{p2r, p2c, blockSwapTime});
+
 		//rowInsertionTimerRunning = false;
+		swappingBlocks.push_back(TimedPiece{p1r, p1c});
+		swappingBlocks.push_back(TimedPiece{p2r, p2c});
+		gso.swappingBlocks.push_back(std::make_pair(p1r, p1c));
+		gso.swappingBlocks.push_back(std::make_pair(p2r, p2c));
+
 
 		return true;
 	}
@@ -513,11 +499,8 @@ bool GameLogic::ProcessMessage(sf::Packet toProcess){
 	else if (command == PacketDecode::PACKET_NEWROW){
 		//std::cout << "Got 'Request New Row' command!" << std::endl;
 
-		//**set the row insertion time left to 0;
-		gso.rowInsertionCountdown = 0;
-
-		//increases the total insertion time by 1, because it gets reduced by 1 in the Tick()
-		totalRowInsertionTime++;
+		InsertBottomRow();
+		newRowClock.restart();
 
 		return true;
 	}
@@ -549,18 +532,27 @@ bool GameLogic::ProcessMessage(sf::Packet toProcess){
 
 void GameLogic::GameTick(){
 
-	gso.newRowActive = false;
-	gso.frameNum++;
 
+	//reset all the temp variables:
+	gso.newRowActive = false;
+	//clear the clearing and swapping vectors here:
+	gso.swappingBlocks.clear();
+	gso.clearingBlocks.clear();
 	//if this is true, put the game state as a message to the client
 	bool gameStateChanged = false;
 
-	//reduce timers (rowInsertionTimerRunning pauses for swapping or clearing pieces)
-	DecrementCounters();
+	//end temp variables
 
-	if (rowInsertionTimerRunning) {
-		gso.rowInsertionCountdown--;
-	}
+	gso.frameNum++;
+
+
+
+	//reduce timers (rowInsertionTimerRunning pauses for swapping or clearing pieces)
+	//DecrementCounters();
+
+	//Decrement the row insertion counter
+	if (rowInsertionTimerRunning) {gso.rowInsertionCountdown--;}
+	//(since we're not using counters any more, this won't be used)
 
 	
 
@@ -572,10 +564,9 @@ void GameLogic::GameTick(){
 		gameStateChanged = true;
 	}
 
+	if (CheckSwappingTimers()){ gameStateChanged = true; }
 
-	if (ApplyGravity()){
-		gameStateChanged = true;
-	}
+	if (ApplyGravity()){gameStateChanged = true;}
 
 
 	//while messageQueue isn't empty
@@ -593,20 +584,24 @@ void GameLogic::GameTick(){
 		gameStateChanged = true;
 	}
 
+
+	//if it's time to insert a new row:
 	//if the insert new row timer is 0;
-	if (gso.rowInsertionCountdown == 0){
+	//if (gso.rowInsertionCountdown == 0){
+	if (newRowClock.getElapsedTime() > totalRowInsertionTime){
 
 		InsertBottomRow();
 
 		//reduces the total row insertion time whenever a new row is inserted
-		if (totalRowInsertionTime > 20){
-			totalRowInsertionTime -= 20;
+		if (totalRowInsertionTime.asMilliseconds() > 500){
+			totalRowInsertionTime = totalRowInsertionTime - sf::milliseconds(500);
 		}
 
 		//reset the row insertion timer
 
 		gso.newRowActive = true;
-		gso.rowInsertionCountdown = totalRowInsertionTime;
+		newRowClock.restart();
+		gso.rowInsertionCountdown = totalRowInsertionTime.asMilliseconds();
 		gameStateChanged = true;
 	}
 
@@ -632,6 +627,10 @@ void GameLogic::GameTick(){
 		outgoingMessages.push(p);
 	}*/
 
+
+	//this might cause a problem:
+	//the clearingBlocks and swappingBlocks only get added to the GSO once
+	//if the packet they're in gets overwritten, they will never be sent to the client
 	if (gameStateChanged){
 		//gso.PrintToFile();
 		sf::Packet p;
@@ -645,8 +644,114 @@ void GameLogic::GameTick(){
 	}
 }
 
+void GameLogic::NewTick(){
+
+	//**********clear the temporary GSO stuff
+
+		//reset all the temp variables:
+		gso.newRowActive = false;
+
+		//clear the clearing and swapping vectors here:
+		gso.swappingBlocks.clear();
+		gso.clearingBlocks.clear();
+
+		//if this is true, put the game state as a message to the client
+		bool gameStateChanged = false;
+
+	//**********************end temp variables
+
+	gso.frameNum++;
 
 
+	//process input
+		//check for messages
+
+	//while messageQueue isn't empty
+	while (!messagesToDecode.empty())
+	{
+		ProcessMessage(messagesToDecode.front());
+		messagesToDecode.pop();
+		gameStateChanged = true;
+	}
+
+
+	//check timers:
+	
+	//swap
+	//if time is up, swap the two pieces
+	if (CheckSwappingTimers()){gameStateChanged = true;}
+	
+	//clear
+	//if time is up, remove the blocks from the board and apply gravity
+	if (CheckClearingTimers()){gameStateChanged = true;}
+	
+	//fall
+	//if time is up, move the blocks down by one square, check if they landed, then update the timers for the new pieces
+	if (CheckFallingTimers()){gameStateChanged = true;}
+
+
+	//check for matches
+		//if match found:
+		//add to "clearing" vectors along with times
+		//add clearing blocks to GSO
+
+	//
+}
+
+
+bool GameLogic::CheckSwappingTimers(){
+
+	if (swappingBlocks.size() == 0){ return false; }
+
+	//note: right now it only checks the first 2 elements
+	//this might cause a bug on the off-chance that there are 4 pieces being swapped at the same time
+
+	//if the two pieces' (at the head of the queue) timers = 0
+	if ((swappingBlocks.at(0).duration.getElapsedTime() > blockSwapTime) && (swappingBlocks.at(1).duration.getElapsedTime() > blockSwapTime)){
+		
+		//swap the pieces
+		//(SwapPieces adds them to BTCFM)
+		SwapPieces(swappingBlocks.at(0).blockNum.first, swappingBlocks.at(0).blockNum.second, swappingBlocks.at(1).blockNum.first, swappingBlocks.at(1).blockNum.second);
+
+
+
+		//remove the pieces
+		//swappingBlocks.erase(swappingBlocks.begin(), swappingBlocks.begin()+1);
+		swappingBlocks.clear();
+
+		//apply gravity(?) (gravity will be reworked)
+
+		return true;
+	}
+
+	return false;
+}
+
+
+bool GameLogic::CheckClearingTimers(){
+
+	//if (clea)
+
+
+	//if the pieces's clearing times are up
+		//remove them
+		//apply gravity(?)
+
+	return false;
+}
+
+
+bool GameLogic::CheckFallingTimers(){
+
+	//(this should be checked on a per-column basis, starting at row 1)
+
+	//if a piece's falling timer is up
+		//move it down one block, reset the falling time
+		//if the piece landed, remove it from the Falling queue and add it to BTCFM
+
+
+	return false;
+}
 
 //Debug functions:
 

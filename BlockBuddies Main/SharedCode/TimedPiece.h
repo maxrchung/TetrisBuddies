@@ -5,30 +5,31 @@
 #include <utility>
 #include <SFML/Network.hpp>
 
+
 //this is for every piece that needs something to happen to it
 //blockNum: the coordinates of the block
 //duration: how long until the event happens
 struct TimedPiece{
 	std::pair<int, int> blockNum;
-	int duration;
+	sf::Clock duration;
 
-	TimedPiece(){
-		blockNum.first = 0;
-		blockNum.second = 0;
-		duration = 0;
-	}
+	//TimedPiece(){
+	//	blockNum.first = 0;
+	//	blockNum.second = 0;
+	//	duration = 0;
+	//}
 
-	TimedPiece(int x, int y, int z){
+	TimedPiece(int x, int y){
 		blockNum.first = x;
 		blockNum.second = y;
-		duration = z;
+		duration.restart();
 	}
 
-	bool operator < (const TimedPiece& str) const
-	{return (duration < str.duration);}
+	//bool operator < (const TimedPiece& str) const
+	//{return (duration < str.duration);}
 
-	bool operator >(const TimedPiece& str) const
-	{return (duration > str.duration);}
+	//bool operator >(const TimedPiece& str) const
+	//{return (duration > str.duration);}
 
 };
 
