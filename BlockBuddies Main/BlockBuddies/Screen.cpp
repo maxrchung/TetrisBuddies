@@ -20,6 +20,7 @@ Screen::Screen()
     fade = Fade();
     close->fade.value = 255;
     close->fade.state = FadeStates::FADED_IN;
+    close->drawSelector = false;
 }
 
 // Updates selectables and UIElements
@@ -148,7 +149,10 @@ void Screen::reload()
 void Screen::deselect()
 {
     for(auto selectable : selectables)
+    {
         selectable->isSelected = false;
+        selectable->selectFade.state = FadeStates::FADING_OUT;
+    }
 }
 
 // Deactivates all the UIElements

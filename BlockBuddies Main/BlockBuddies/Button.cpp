@@ -61,14 +61,16 @@ void Button::update()
 	{
 		boundingRect.setFillColor(GraphicsManager::getInstance()->backgroundColor);
 		label.setColor(GraphicsManager::getInstance()->selectColor);
-	}
 
+        selectFade.state = FadeStates::FADING_IN;
+	}
 	// Else return the color to its original state
 	else
 	{
 		boundingRect.setFillColor(GraphicsManager::getInstance()->buttonColor);
 		label.setColor(GraphicsManager::getInstance()->typeColor);
 		isActivated = false;
+        selectFade.state = FadeStates::FADING_OUT;
 	}
 
 	// Checks for mouse click onto the button
@@ -88,42 +90,59 @@ void Button::update()
 
 void Button::draw()
 {
+    // Fades button color while fading
     boundingRect.setFillColor(sf::Color(boundingRect.getFillColor().r,
                                         boundingRect.getFillColor().g,
                                         boundingRect.getFillColor().b,
                                         fade.value));
+
+    // Scales button as fading
     float scaleFactor = GraphicsManager::getInstance()->scale * (fade.value/255.0f / 4.0f + 0.75f);
     boundingRect.setScale(sf::Vector2f(scaleFactor, scaleFactor));
 
+    // Moves the button up/down as it fades
     sf::Vector2f prevPosition = boundingRect.getPosition();
-
     if(fade.state == FadeStates::FADING_IN)
         boundingRect.move(sf::Vector2f(0, (1 - fade.value/255.0f) * -128));
     else if(fade.state == FadeStates::FADING_OUT)
         boundingRect.move(sf::Vector2f(0, (1 - fade.value/255.0f) * 128));
-
 	GraphicsManager::getInstance()->window.draw(boundingRect);
+
+    if(drawSelector)
+    {
+        selectFade.update();
+
+        sf::RectangleShape selector = sf::RectangleShape(sf::Vector2f(boundingRect.getGlobalBounds().width + 12 * GraphicsManager::getInstance()->scale,
+                                                                  boundingRect.getGlobalBounds().height + 12 * GraphicsManager::getInstance()->scale));
+        selector.setOrigin(GraphicsManager::getInstance()->getCenter(selector));
+        selector.setPosition(boundingRect.getPosition());
+        selector.setFillColor(sf::Color::Transparent);
+        selector.setOutlineThickness(2);
+        sf::Color selectorColor = GraphicsManager::getInstance()->buttonColor;
+        selectorColor.a = selectFade.value;
+        selector.setOutlineColor(selectorColor);
+        GraphicsManager::getInstance()->window.draw(selector);
+    }
 
     boundingRect.setPosition(prevPosition);
 
+    // Fades label color
     sf::Color labelColor = label.getColor();
     labelColor.a = fade.value;
     label.setColor(labelColor);
     label.setScale(sf::Vector2f(scaleFactor, scaleFactor));
 
+    // Scales while fading
     float scaleFade = fade.value/255.0f / 4.0f + 0.75f;
     label.setScale(sf::Vector2f(scaleFade, scaleFade));
 
+    // Moves while fading
     prevPosition = label.getPosition();
-
     if(fade.state == FadeStates::FADING_IN)
         label.move(sf::Vector2f(0, (1 - fade.value/255.0f) * -128));
     else if(fade.state == FadeStates::FADING_OUT)
         label.move(sf::Vector2f(0, (1 - fade.value/255.0f) * 128));
-
 	GraphicsManager::getInstance()->window.draw(label);
-
     label.setPosition(prevPosition);
-
 }
 

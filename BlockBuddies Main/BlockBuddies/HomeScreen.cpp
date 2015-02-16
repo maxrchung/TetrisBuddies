@@ -55,7 +55,7 @@ HomeScreen::HomeScreen()
                         50.0f)),
 
      instruction(new Button(Screens::INSTRUCTION,
-                        "Help",
+                        "Instructions",
                         0.0f,
                         225.0f,
                         150.0f,

@@ -103,6 +103,7 @@ void TextInput::update()
 			                                        (float)mousePosition.y))
         {
 			isSelected = true;
+            selectFade.state = FadeStates::FADING_IN;
             selectAll = false;
         }
 
@@ -407,6 +408,8 @@ void TextInput::update()
 		boundingRect.setFillColor(GraphicsManager::getInstance()->backgroundColor);
 		displayedInput.setColor(GraphicsManager::getInstance()->selectColor);
 
+        selectFade.state = FadeStates::FADING_IN;
+
         // This block handles inputCursor blinking
 		// If the cursor timer is greater than some constant
 		if(inputCursor.blinkTimer.getElapsedTime().asMilliseconds() > 500)
@@ -427,6 +430,8 @@ void TextInput::update()
 
 		// If the box is not selected, do not display the cursor
 		inputCursor.isDisplayed = false;
+
+        selectFade.state = FadeStates::FADING_OUT;
 	}
 
 	// If the mouse is hovering over the TextInput, then the color is highlighted but
@@ -436,6 +441,8 @@ void TextInput::update()
 	{
 		boundingRect.setFillColor(GraphicsManager::getInstance()->backgroundColor);
 		displayedInput.setColor(GraphicsManager::getInstance()->selectColor);
+
+        selectFade.state = FadeStates::FADING_IN;
 	}
 }
 
@@ -455,6 +462,23 @@ void TextInput::draw()
         boundingRect.move(sf::Vector2f(0, (1 - fade.value/255.0f) * 128));
 
 	GraphicsManager::getInstance()->window.draw(boundingRect);
+
+    if(drawSelector)
+    {
+        selectFade.update();
+
+        sf::RectangleShape selector = sf::RectangleShape(sf::Vector2f(boundingRect.getGlobalBounds().width + 12 * GraphicsManager::getInstance()->scale,
+                                                                  boundingRect.getGlobalBounds().height + 12 * GraphicsManager::getInstance()->scale));
+        selector.setOrigin(GraphicsManager::getInstance()->getCenter(selector));
+        selector.setPosition(GraphicsManager::getInstance()->getCenter(boundingRect, Bounds::GLOBAL));
+        selector.setFillColor(sf::Color::Transparent);
+        selector.setOutlineThickness(2);
+        sf::Color selectorColor = GraphicsManager::getInstance()->buttonColor;
+        selectorColor.a = selectFade.value;
+        selector.setOutlineColor(selectorColor);
+        GraphicsManager::getInstance()->window.draw(selector);
+    }
+
     boundingRect.setPosition(prevPosition);
     
     // Highlight all the text if we are selecting all
