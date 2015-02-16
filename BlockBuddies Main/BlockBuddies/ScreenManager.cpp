@@ -63,8 +63,8 @@ void ScreenManager::update()
         if (currentScreens[i]->fade.state == FadeStates::FADED_OUT)
             removeIndex = i;
 
-        // Only update the screen if the fade state is faded in or fading in
-        else if (currentScreens[i]->fade.state == FadeStates::FADED_IN || currentScreens[i]->fade.state == FadeStates::FADING_IN)
+        // Only update the screen if the fade state is faded in
+        else if (currentScreens[i]->fade.state == FadeStates::FADED_IN)
         {
             currentScreens[i]->update();
             break;
@@ -112,6 +112,8 @@ void ScreenManager::switchScreen(const Screens toScreen)
         // Start fading out
         screen->fade.state = FadeStates::FADING_OUT;
 
+        // In case the screen we want to go to is already inside our currentScreens,
+        // We remove it and just put it in the front
         if(screen == screens[toScreen])
             removeIndex = counter;
     }
