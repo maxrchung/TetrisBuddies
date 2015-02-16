@@ -92,6 +92,7 @@ void MultiplayerResultScreen::draw()
 void MultiplayerResultScreen::reload()
 {
     BlockShowerManager::getInstance()->fade.state = FadeStates::FADING_IN;
+
     if(ClientManager::getInstance().wonGame)
         result->message.setString("YOU WON!");
     else
