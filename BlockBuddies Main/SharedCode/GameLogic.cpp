@@ -45,6 +45,9 @@ bool GameLogic::delayGame()
 			delayFinished = true;
 			InitialBoardPopulation();
 			gameHasStarted = true;
+			sf::Packet toSend;
+			toSend << gso;
+			outgoingMessages.push(toSend);
 			return true;
 		}
 	}
@@ -634,7 +637,7 @@ void GameLogic::GameTick(){
 	if (gameStateChanged){
 		//gso.PrintToFile();
 		sf::Packet p;
-		if (outgoingMessages.size() >= 1)
+		if (outgoingMessages.size() > 1)
 		{
 			std::queue<sf::Packet> swap;
 			std::swap(outgoingMessages, swap);

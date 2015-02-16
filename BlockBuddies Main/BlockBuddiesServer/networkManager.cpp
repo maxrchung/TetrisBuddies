@@ -211,11 +211,14 @@ void NetworkManager::update()
 
                     break;
                 }
-                default:
-                {
+				case PacketDecode::PACKET_START:
+				{
 					if (!singlePlayer.singlePlayerGames.count(player.myAddress))
 						singlePlayer.makeGame(player);
-
+				}
+                default:
+                {
+					std::cout << "My packet code is: " << decode << std::endl;
 					if (singlePlayer.isInGame(player.myAddress))
 						singlePlayer.addMessage(notPopped, player.myAddress);
 					else

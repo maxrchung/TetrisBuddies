@@ -16,10 +16,13 @@ MatchMakingHandler::~MatchMakingHandler()
 
 void MatchMakingHandler::addMessage(sf::Packet addMe , sf::IpAddress myAddress)
 {
-	if (multiPlayerGames.at(myAddress)->player1->myAddress == myAddress)
-		multiPlayerGames.at(myAddress)->packetQueue1.push(&addMe);
-	else if (multiPlayerGames.at(myAddress)->player2->myAddress == myAddress)
-		multiPlayerGames.at(myAddress)->packetQueue2.push(&addMe);
+	if (multiPlayerGames.size() > 0)
+	{
+		if (multiPlayerGames.at(myAddress)->player1->myAddress == myAddress)
+			multiPlayerGames.at(myAddress)->playerOneGame.ReceiveMessage(addMe);
+		else if (multiPlayerGames.at(myAddress)->player2->myAddress == myAddress)
+			multiPlayerGames.at(myAddress)->playerTwoGame.ReceiveMessage(addMe);
+	}
 }
 
 bool MatchMakingHandler::isInQueue(sf::IpAddress toRemove)
@@ -121,6 +124,7 @@ void MatchMakingHandler::sendMessages()
 
 	for (auto check : gameList)
 	{
+		//if both have updated game states. 
 		if (!check->playerOneGame.outgoingMessages.empty() && !check->playerTwoGame.outgoingMessages.empty())
 		{
 			p1 = check->playerOneGame.outgoingMessages.front();
@@ -133,7 +137,37 @@ void MatchMakingHandler::sendMessages()
 
 			check->player2->playerSocket->send(p2);
 			check->player2->playerSocket->send(p1);	
+		} // if player one has updated their GSO
+		else if (!check->playerOneGame.outgoingMessages.empty() && check->playerTwoGame.outgoingMessages.empty())
+		{
+			p1 = check->playerOneGame.outgoingMessages.front();
+			p2 << check->playerTwoGame.gso;
+			check->playerOneGame.outgoingMessages.pop();
+
+			check->player1->playerSocket->send(p1);
+			check->player1->playerSocket->send(p2);
+
+			check->player2->playerSocket->send(p2);
+			check->player2->playerSocket->send(p1);
+
+		}// if player two has updated thier GSO
+		else if (check->playerOneGame.outgoingMessages.empty() && !check->playerTwoGame.outgoingMessages.empty())
+		{
+			p1 << check->playerOneGame.gso;
+			p2 = check->playerTwoGame.outgoingMessages.front();
+			check->playerTwoGame.outgoingMessages.pop();
+
+			check->player1->playerSocket->send(p1);
+			check->player1->playerSocket->send(p2);
+
+			check->player2->playerSocket->send(p2);
+			check->player2->playerSocket->send(p1);
 		}
+		else
+		{
+			//Both queues are empty and so you don't need to send anything. 
+		}
+
 	}
 }
 
