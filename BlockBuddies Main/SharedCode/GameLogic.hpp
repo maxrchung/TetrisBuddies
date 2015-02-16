@@ -94,7 +94,9 @@ private:
 	std::set<std::pair<int, int>> blocksToCheckForMatches;
 	std::queue<sf::Packet> messagesToDecode;
 
-	int totalRowInsertionTime;
+	sf::Time totalRowInsertionTime;
+	sf::Clock newRowClock;
+
 
 	//functions**********************************************
 	

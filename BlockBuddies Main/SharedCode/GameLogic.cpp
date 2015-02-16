@@ -13,8 +13,8 @@ GameLogic::GameLogic(){
 	gameHasStarted = false;
 
 	//I don't know what a good value for this is.  We can play with it and find out what works.  Also, it will have to decrease as the game goes on. Based on score, maybe? Or game time? Or level?
-	totalRowInsertionTime = 1200;
-	gso.rowInsertionCountdown = totalRowInsertionTime;
+	totalRowInsertionTime = sf::milliseconds(16000);
+	gso.rowInsertionCountdown = totalRowInsertionTime.asMilliseconds();
 
 	blocksMarkedForDeletion.clear();
 	blocksToCheckForMatches.clear();
@@ -56,7 +56,7 @@ void GameLogic::ResetGame()
 {
 	gso = GameStateObject();
 	GameLogic::InitialBoardPopulation();
-	totalRowInsertionTime = 1200;
+	totalRowInsertionTime = sf::milliseconds(16000);
 }
 
 bool GameLogic::ReceiveMessage(sf::Packet incomingMessage){
@@ -143,6 +143,7 @@ void GameLogic::InitialBoardPopulation(){
 	gso.newRowActive = false;
 
 	PopulateTempRow();
+	newRowClock.restart();
 }
 
 
@@ -498,11 +499,8 @@ bool GameLogic::ProcessMessage(sf::Packet toProcess){
 	else if (command == PacketDecode::PACKET_NEWROW){
 		//std::cout << "Got 'Request New Row' command!" << std::endl;
 
-		//**set the row insertion time left to 0;
-		gso.rowInsertionCountdown = 0;
-
-		//increases the total insertion time by 1, because it gets reduced by 1 in the Tick()
-		totalRowInsertionTime++;
+		InsertBottomRow();
+		newRowClock.restart();
 
 		return true;
 	}
@@ -589,19 +587,21 @@ void GameLogic::GameTick(){
 
 	//if it's time to insert a new row:
 	//if the insert new row timer is 0;
-	if (gso.rowInsertionCountdown == 0){
+	//if (gso.rowInsertionCountdown == 0){
+	if (newRowClock.getElapsedTime() > totalRowInsertionTime){
 
 		InsertBottomRow();
 
 		//reduces the total row insertion time whenever a new row is inserted
-		if (totalRowInsertionTime > 20){
-			totalRowInsertionTime -= 20;
+		if (totalRowInsertionTime.asMilliseconds() > 500){
+			totalRowInsertionTime = totalRowInsertionTime - sf::milliseconds(500);
 		}
 
 		//reset the row insertion timer
 
 		gso.newRowActive = true;
-		gso.rowInsertionCountdown = totalRowInsertionTime;
+		newRowClock.restart();
+		gso.rowInsertionCountdown = totalRowInsertionTime.asMilliseconds();
 		gameStateChanged = true;
 	}
 
