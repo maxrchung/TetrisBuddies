@@ -24,14 +24,7 @@ public:
 	
 private:
 
-	typedef std::tuple<int, int> blocksWT;
-	std::vector <blocksWT> blockToCheck;
-	sf::Color first;
-	sf::Color second;
-	int dur = 400;
-	sf::Clock clocks[20][16];
-	unsigned index = 0;
-	bool remove = false;
+	
 	
 	CursorHandler *ch;
 	bool pressed, pressed2;

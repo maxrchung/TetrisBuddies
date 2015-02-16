@@ -23,10 +23,13 @@ OfflineResultScreen::OfflineResultScreen()
                        Alignments::CENTER,
                        true)),
 
-     status(new TextBox("Currently playing in offline mode, please login to track your stats",
+     status(new TextBox("The game is currently running in offline mode. Please login to track your stats.",
                         0.0f,
                         -125.0f,
-                        300.0f)),
+                        300.0f,
+                        Alignments::CENTER,
+                        false,
+                        true)),
 
      scoreTag(new TextBox("Score",
                           0.0f,
@@ -74,6 +77,11 @@ OfflineResultScreen::OfflineResultScreen()
     selectables = { login,
                     offlineHome,
                     offlineGame };
+}
+
+void OfflineResultScreen::reload()
+{
+    BlockShowerManager::getInstance()->fade.state = FadeStates::FADING_IN;
 }
 
 void OfflineResultScreen::update()

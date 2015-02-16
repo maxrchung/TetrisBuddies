@@ -12,6 +12,7 @@
 #include "SoundManager.h"
 #include "InputManager.hpp"
 
+
 class MultiplayerScreen : public Screen
 {
 public:
@@ -20,6 +21,13 @@ public:
 	void draw();
 	void reload();
 private:
+
+	unsigned int winX;
+	unsigned int winY;
+	GameStateObject gso;
+	int blockSizeX;
+	int blockSizeY;
+
 	CursorHandler *ch;
 	sf::RectangleShape p1Blocks[GameStateObject::boardHeight][GameStateObject::boardWidth];
 	sf::RectangleShape p2Blocks[GameStateObject::boardHeight][GameStateObject::boardWidth];

@@ -12,6 +12,7 @@ class OfflineResultScreen : public Screen
 		OfflineResultScreen();
 		void update();
 		void draw();
+        void reload();
 	private:
         Section* backSection;
         Section* section;

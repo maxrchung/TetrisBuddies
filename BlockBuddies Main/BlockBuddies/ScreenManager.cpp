@@ -6,8 +6,6 @@
 #include "GameScreen.hpp"
 #include "ResultScreen.hpp"
 #include "InputManager.hpp"
-#include "OfflineHomeScreen.hpp"
-#include "OfflineGameTypeScreen.hpp"
 #include "OfflineResultScreen.hpp"
 #include "CloseScreen.hpp"
 #include "OfflineCloseScreen.hpp"
@@ -37,8 +35,6 @@ void ScreenManager::init()
 											 { Screens::PROFILE, new ProfileScreen() },
 											 { Screens::GAME, new GameScreen() },
 											 { Screens::RESULT, new ResultScreen() },
-                                             { Screens::OFFLINEHOME, new OfflineHomeScreen() },
-                                             { Screens::OFFLINEGAMETYPE, new OfflineGameTypeScreen() },
                                              { Screens::OFFLINERESULT, new OfflineResultScreen() },
                                              { Screens::CLOSE, new CloseScreen() },
                                              { Screens::OFFLINECLOSE, new OfflineCloseScreen() },

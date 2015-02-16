@@ -11,18 +11,18 @@ MultiplayerScreen::MultiplayerScreen()
 
 void MultiplayerScreen::initGame()
 {
-	int winX = GraphicsManager::getInstance()->window.getSize().x;
-	int winY = GraphicsManager::getInstance()->window.getSize().y;
+	winX = GraphicsManager::getInstance()->window.getSize().x;
+	winY = GraphicsManager::getInstance()->window.getSize().y;
+
 	//fill in initial board
 	int gridPosy = 0;
 	int gridPosx = 0;
 	blockSizeX = 25;
 	blockSizeY = 25;
 
-	//draws a large rectangle around the game screen
+	int offset = winY - SCREENHEIGHT;
 
-	ch = new CursorHandler(SCREENWIDTH, SCREENHEIGHT, winX, winY,
-		blockSizeX, 0);
+	ch = new CursorHandler(SCREENWIDTH - 50 , SCREENHEIGHT - 50, (winX / 2) - 110 , winY + 60, blockSizeX, -offset);
 
 	//draws a large rectangle around the game screen for p1
 	p1Outline.setSize(sf::Vector2f(SCREENWIDTH, SCREENHEIGHT));

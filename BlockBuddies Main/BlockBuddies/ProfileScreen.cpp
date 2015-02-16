@@ -6,19 +6,19 @@
 ProfileScreen::ProfileScreen()
 	:
     backSection(new Section(0.0f,
-                            0.0f,
+                            12.5f,
                             420.0f,
-                            620.0f,
+                            595.0f,
                             GraphicsManager::getInstance()->buttonColor)),
 
 	section(new Section(0.0f,
-	                     0.0f,
+	                     12.5f,
 						 400.0f,
-						 600.0f)),
+						 575.0f)),
 
     title(new TextBox("PROFILE",
 	                   0.0f,
-					   -225.0f,
+					   -200.0f,
 					   300.0f,
 					   Alignments::CENTER,
                        true)),
@@ -31,13 +31,7 @@ ProfileScreen::ProfileScreen()
                         false,
                         true)),
 
-    statsBorder(new Section(0.0f,
-                            50.0f,
-                            320.0f,
-                            240.0f,
-                            sf::Color::Transparent)),
-						 
-	usernameTag(new TextBox("Username: ",
+	usernameTag(new TextBox("Username:",
 						    -100.0f,
                             -50.0f,
                             150.0f,
@@ -49,7 +43,7 @@ ProfileScreen::ProfileScreen()
 						250.0f,
 						Alignments::LEFT)),
 
-	highscoreTag(new TextBox("High score: ",
+	highscoreTag(new TextBox("High score:",
 						 -100.0f,
 						 0.0f,
 						 250.0f,
@@ -104,13 +98,9 @@ ProfileScreen::ProfileScreen()
                     150.0f,
                     50.0f))
 {
-    statsBorder->boundingRect.setOutlineColor(GraphicsManager::getInstance()->buttonColor);
-    statsBorder->boundingRect.setOutlineThickness(2);
-    statsBorder->boundingRect.setFillColor(sf::Color::Transparent);
     UIElements.push_back(backSection);
     UIElements.push_back(section);
     UIElements.push_back(title);
-    UIElements.push_back(statsBorder);
     UIElements.push_back(status);
 	UIElements.push_back(usernameTag);
 	UIElements.push_back(highscoreTag);
