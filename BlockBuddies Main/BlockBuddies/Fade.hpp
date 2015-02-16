@@ -14,10 +14,13 @@ enum FadeStates
 class Fade
 {
 public:
-    Fade();
+    Fade(int limit = 255);
 
     // Updates the fade value frame by frame depending on its state
     void update();
+
+    // What's the max limit of the fade
+    int limit;
 
     // Start everything as hidden
     int value = 0;

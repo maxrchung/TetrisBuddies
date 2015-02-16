@@ -66,7 +66,11 @@ void ScreenManager::update()
         // Only update the screen if the fade state is faded in
         else if (currentScreens[i]->fade.state == FadeStates::FADED_IN)
         {
-            currentScreens[i]->update();
+            if(ScreenManager::getInstance()->currentScreens.back()->fade.state != FadeStates::FADED_OUT
+                && ScreenManager::getInstance()->currentScreens.back()->fade.state != FadeStates::FADING_OUT)
+            {
+                currentScreens[i]->update();
+            }
             break;
         }
     }
