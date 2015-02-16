@@ -34,6 +34,7 @@ enum Screens
     QUEUE,
     NOTIFICATION,
     INSTRUCTION,
+    MULTIPLAYERRESULT,
     NONE
 };
 

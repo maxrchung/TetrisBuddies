@@ -36,6 +36,8 @@ public:
 	bool isConnected = false; // Denotes whether or not you are connected
 	bool isMultiplayer();
 
+    bool wonGame = false; // Set to true/false after a game over
+
 	GameLogic gameLogicHandler;
 
 	ClientMessages messageMaker;

@@ -14,7 +14,7 @@ InstructionScreen::InstructionScreen()
                          400.0f,
                          600.0f)),
 
-     title(new TextBox("HELP",
+     title(new TextBox("INSTRUCTIONS",
                        0.0f,
                        -225.0f,
                        300.0f,
