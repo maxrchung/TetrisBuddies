@@ -8,6 +8,8 @@
 // a typical TextBox is not
 class Selectable {
 public:
+    Selectable();
+
 	// Boolean indicating whether or not the element is
 	// currently selected or not
 	bool isSelected = false;

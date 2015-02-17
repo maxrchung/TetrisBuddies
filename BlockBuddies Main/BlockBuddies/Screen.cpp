@@ -114,7 +114,9 @@ void Screen::update()
     }
 
     if(close->isDisplayed && close->isUpdatable)
+    {
         close->update();
+    }
 }
 
 void Screen::draw()

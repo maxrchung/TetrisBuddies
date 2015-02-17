@@ -92,6 +92,7 @@
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="ScreenManager.cpp" />
     <ClCompile Include="Section.cpp" />
+    <ClCompile Include="Selectable.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="sqlite3.c" />
     <ClCompile Include="TextBox.cpp" />

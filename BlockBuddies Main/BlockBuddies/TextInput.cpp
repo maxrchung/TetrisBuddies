@@ -504,7 +504,6 @@ void TextInput::draw()
             selectAll.move(sf::Vector2f(0, (1 - fade.value / 255.0f) * 128));
 
         GraphicsManager::getInstance()->window.draw(selectAll);
-        boundingRect.setPosition(prevPosition);
 
         adjustColor = displayedInput.getColor();
         adjustColor.a = fade.value;

@@ -1,6 +1,7 @@
 #include "Fade.hpp"
 
-Fade::Fade()
+Fade::Fade(int limit)
+    :limit(limit)
 {
 }
 
@@ -21,17 +22,17 @@ void Fade::update()
     // Raises opacity until it hits 255
     if(state == FadeStates::FADING_IN)
     {
-        value += 8;
-        if(value >= 255)
+        value += 10;
+        if(value >= limit)
         {
-            value = 255; // For safety
+            value = limit; // For safety
             state = FadeStates::FADED_IN;
         }
     }
     // Lowers opacity until it hits 0
     else if(state == FadeStates::FADING_OUT)
     {
-        value -= 8;
+        value -= 10;
         if(value <= 0)
         {
             value = 0;
