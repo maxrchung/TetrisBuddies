@@ -50,6 +50,10 @@ public:
     void deactivate();
     Button* close;
     Fade fade;
+    // Yeah so we have a colorfade separate from the fade because
+    // we want the opacity to be slightly lowered without affecting
+    // the scaling or positioning
+    Fade colorFade;
 
 protected:
 	std::vector <UIElement*> UIElements;

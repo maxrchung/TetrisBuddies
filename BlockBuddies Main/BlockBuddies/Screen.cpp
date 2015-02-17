@@ -18,6 +18,7 @@ Screen::Screen()
                       30.0f))
 {
     fade = Fade();
+    colorFade = Fade((int)(255 * 0.7f));
     close->fade.value = 255;
     close->fade.state = FadeStates::FADED_IN;
     close->drawSelector = false;
@@ -128,11 +129,14 @@ void Screen::draw()
     // somewhat too complicated and can get unwieldy if we forget to change the a variable 
     // properly in another section.
     fade.update();
+    colorFade.state = fade.state;
+    colorFade.update();
 
     for(auto& UIElement : UIElements)
     {
         // Not sure if this is the best way to handle fade, but I think it'll suffice
         UIElement->fade = fade;
+        UIElement->colorFade = colorFade;
         if(UIElement->isDisplayed) // Avoid drawing the close X in the corner
             UIElement->draw();
     }
