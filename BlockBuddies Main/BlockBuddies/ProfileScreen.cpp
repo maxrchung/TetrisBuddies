@@ -124,7 +124,8 @@ void ProfileScreen::reload()
     hsTag->message.setString(std::to_string(ClientManager::getInstance().player.highScore));
     gpTag->message.setString(std::to_string(ClientManager::getInstance().player.gamesPlayed));
     gwTag->message.setString(std::to_string(ClientManager::getInstance().player.gamesWon));
-    wpTag->message.setString(std::to_string(ClientManager::getInstance().player.winPercentage).substr(0, 5));
+    wpTag->message.setString(std::to_string(ClientManager::getInstance().player.getWinRate()).substr(0, 5));
+	std::cout <<  ClientManager::getInstance().player.winPercentage << std::endl;
 }
 
 

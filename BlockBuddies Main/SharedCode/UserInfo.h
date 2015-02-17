@@ -18,7 +18,7 @@ public:
 	int gamesLost;
 	float winPercentage;
 	void printOut();
-
+	float getWinRate();
     bool operator==(UserInfo u);
 };
 

@@ -69,12 +69,14 @@ void MatchMakingHandler::sendResults(int postition, int winner)
 			gameList[postition]->player1->playerSocket->send(win);
 			gameList[postition]->player2->playerSocket->send(lost);
 			DatabaseManager::getInstance().updateUserGames(gameList[postition]->player1->playerInfo.username, true);
+			DatabaseManager::getInstance().updateUserGames(gameList[postition]->player2->playerInfo.username, false);
 		}
 		else
 		{
 			gameList[postition]->player2->playerSocket->send(win);
 			gameList[postition]->player1->playerSocket->send(lost);
 			DatabaseManager::getInstance().updateUserGames(gameList[postition]->player2->playerInfo.username, true);
+			DatabaseManager::getInstance().updateUserGames(gameList[postition]->player1->playerInfo.username, false);
 		}
 		//Send updated profile information;
 		sf::Packet updateP1;
@@ -117,10 +119,21 @@ void MatchMakingHandler::removePlayers()
 	removePostions.clear();
 }
 
+void MatchMakingHandler::sendPackets(sf::Packet& p1, sf::Packet& p2 , int position)
+{
+	gameList[position]->player1->playerSocket->send(p1);
+	gameList[position]->player1->playerSocket->send(p2);
+
+	gameList[position]->player2->playerSocket->send(p2);
+	gameList[position]->player2->playerSocket->send(p1);
+}
+
 void MatchMakingHandler::sendMessages()
 {
 	sf::Packet p1;
 	sf::Packet p2;
+
+	int counter = 0;
 
 	for (auto check : gameList)
 	{
@@ -132,11 +145,7 @@ void MatchMakingHandler::sendMessages()
 			check->playerOneGame.outgoingMessages.pop();
 			check->playerTwoGame.outgoingMessages.pop();
 			//Send player one his gamestate first then send second players board to them first. 
-			check->player1->playerSocket->send(p1);
-			check->player1->playerSocket->send(p2);
-
-			check->player2->playerSocket->send(p2);
-			check->player2->playerSocket->send(p1);	
+			sendPackets(p1,p2,counter);
 		} // if player one has updated their GSO
 		else if (!check->playerOneGame.outgoingMessages.empty() && check->playerTwoGame.outgoingMessages.empty())
 		{
@@ -144,11 +153,7 @@ void MatchMakingHandler::sendMessages()
 			p2 << check->playerTwoGame.gso;
 			check->playerOneGame.outgoingMessages.pop();
 
-			check->player1->playerSocket->send(p1);
-			check->player1->playerSocket->send(p2);
-
-			check->player2->playerSocket->send(p2);
-			check->player2->playerSocket->send(p1);
+			sendPackets(p1, p2, counter);
 
 		}// if player two has updated thier GSO
 		else if (check->playerOneGame.outgoingMessages.empty() && !check->playerTwoGame.outgoingMessages.empty())
@@ -157,17 +162,13 @@ void MatchMakingHandler::sendMessages()
 			p2 = check->playerTwoGame.outgoingMessages.front();
 			check->playerTwoGame.outgoingMessages.pop();
 
-			check->player1->playerSocket->send(p1);
-			check->player1->playerSocket->send(p2);
-
-			check->player2->playerSocket->send(p2);
-			check->player2->playerSocket->send(p1);
+			sendPackets(p1, p2, counter);
 		}
 		else
 		{
 			//Both queues are empty and so you don't need to send anything. 
 		}
-
+		counter++;
 	}
 }
 
@@ -188,7 +189,6 @@ void MatchMakingHandler::update()
 			{
 				sendResults(counter, 2);
 				//Remove players from list
-				removeMe.push_front(check->player1->myAddress);
 				removePostions.push_back(counter);
 				removeMe.push_back(check->player1->myAddress);
 				removeMe.push_back(check->player2->myAddress);
@@ -198,7 +198,6 @@ void MatchMakingHandler::update()
 			{
 				sendResults(counter, 1);
 				//Remove players from list
-				removeMe.push_front(check->player1->myAddress);
 				removePostions.push_back(counter);
 				removeMe.push_back(check->player1->myAddress);
 				removeMe.push_back(check->player2->myAddress);
