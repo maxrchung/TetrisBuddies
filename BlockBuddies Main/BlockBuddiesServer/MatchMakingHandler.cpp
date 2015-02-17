@@ -87,8 +87,8 @@ void MatchMakingHandler::sendResults(int postition, int winner)
 
 		updateP2 << PacketDecode::PACKET_USERINFOUPDATE;
 		updateP2 << DatabaseManager::getInstance().getUserInfo(gameList[postition]->player2->playerInfo.username);
-		gameList[postition]->player2->playerSocket->send(updateP1);
-		gameList[postition]->player1->playerSocket->send(updateP2);
+		gameList[postition]->player2->playerSocket->send(updateP2);
+		gameList[postition]->player1->playerSocket->send(updateP1);
 }
 
 
