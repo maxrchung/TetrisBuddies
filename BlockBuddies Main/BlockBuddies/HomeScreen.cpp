@@ -9,7 +9,8 @@ HomeScreen::HomeScreen()
 	                         12.5f,
                              420.0f,
                              595.0f,
-                             GraphicsManager::getInstance()->buttonColor)),
+                             GraphicsManager::getInstance()->buttonColor,
+                             true)),
 
      section(new Section(0.0f,
                          12.5f,
@@ -25,7 +26,7 @@ HomeScreen::HomeScreen()
 					   // Parameter tells the constructor that it is a title
 					   true)),
 
-     welcome(new TextBox("Welcome to the game! Hit singleplayer to play by yourself or multiplayer to play against another opponent. Press profile to view your stats, or press help for further instructions.",
+     welcome(new TextBox("Welcome to the game! Hit singleplayer to play by yourself or multiplayer to play against another opponent. Press profile to view your stats, or press instructions to learn how to play.",
                          0.0f,
                          -100.0f,
                          300.0f,

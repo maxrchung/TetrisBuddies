@@ -4,7 +4,8 @@ Section::Section(float posX,
 	             float posY,
 				 float width,
 				 float height,
-                 sf::Color color)
+                 sf::Color color,
+                 bool drawBorder)
     :boundingRect(sf::RectangleShape(sf::Vector2f(width, height))), color(color)
 {
 	// Sets the color, origin, scale, and position of the section
@@ -16,6 +17,74 @@ Section::Section(float posX,
 	boundingRect.setPosition(sf::Vector2f(GraphicsManager::getInstance()->window.getSize())/2.0f);
 	boundingRect.move(posX * GraphicsManager::getInstance()->scale,
 		              posY * GraphicsManager::getInstance()->scale);
+
+    float scale = GraphicsManager::getInstance()->scale;
+    if(drawBorder)
+    {
+        srand(time(NULL));
+        for(int i = 0; i < 16; i++)
+        {
+            float side = (float)(rand() % 50 + 10);
+            sf::RectangleShape block = sf::RectangleShape(sf::Vector2f(side, side));
+            block.setPosition(boundingRect.getPosition());
+
+            // Decides which side of the border to go
+            int direction = rand() % 6;
+
+            // top
+            if(direction == 0)
+            {
+                int width = boundingRect.getLocalBounds().width - block.getLocalBounds().width;
+                width = rand() % width;
+                block.move(ceil((-boundingRect.getLocalBounds().width/2+ width) * scale),
+                           ceil((-boundingRect.getLocalBounds().height/2 -block.getLocalBounds().width)) * scale);
+            }
+
+            // left
+            else if(direction == 1 || direction == 2)
+            {
+                int height = boundingRect.getLocalBounds().height - block.getLocalBounds().height;
+                height = rand() % height;
+                block.move(ceil((-boundingRect.getLocalBounds().width/2 - block.getLocalBounds().width)) * scale,
+                           ceil(-boundingRect.getLocalBounds().height /2.0f + height) * scale);
+            }
+
+            // Right
+            else if(direction == 3 || direction == 4)
+            {
+                int height = boundingRect.getLocalBounds().height - block.getLocalBounds().height;
+                height = rand() % height;
+                block.move(ceil((boundingRect.getLocalBounds().width/2.0f)) * scale,
+                           ceil((-boundingRect.getLocalBounds().height/2.0f + height)) * scale);
+            }
+
+            // Bottom
+            else if (direction == 5)
+            {
+                int width = boundingRect.getLocalBounds().width - block.getLocalBounds().width;
+                width = rand() % width;
+                block.move(ceil((-boundingRect.getLocalBounds().width/2.0f + width) * scale),
+                           ceil(boundingRect.getLocalBounds().height/2.0f) * scale);
+            }
+
+            bool toContinue = false;
+            for(auto& placedBlock : blockBorder)
+            {
+                if(placedBlock.getGlobalBounds().intersects(block.getGlobalBounds()))
+                {
+                    i--;
+                    toContinue = true;
+                    break;
+                }
+            }
+
+            if(toContinue)
+                continue;
+
+            blockBorder.push_back(block);
+        }
+
+    }
 }
 
 void Section::update()
@@ -37,7 +106,7 @@ void Section::draw()
     }
     float scaleFactor = GraphicsManager::getInstance()->scale * (fade.value/255.0f / 4.0f + 0.75f);
     boundingRect.setScale(sf::Vector2f(scaleFactor, scaleFactor));
-    
+
     sf::Vector2f prevPosition = boundingRect.getPosition();
 
     if(fade.state == FadeStates::FADING_IN)
@@ -48,4 +117,17 @@ void Section::draw()
 	GraphicsManager::getInstance()->window.draw(boundingRect);
 
     boundingRect.setPosition(prevPosition);
+
+    for(auto& block : blockBorder)
+    {
+        block.setFillColor(adjustColor);
+        block.setScale(sf::Vector2f(scaleFactor, scaleFactor));
+        prevPosition = block.getPosition();
+        if (fade.state == FadeStates::FADING_IN)
+            block.move(sf::Vector2f(0, (1 - fade.value / 255.0f) * -128));
+        else if (fade.state == FadeStates::FADING_OUT)
+            block.move(sf::Vector2f(0, (1 - fade.value / 255.0f) * 128));
+        GraphicsManager::getInstance()->window.draw(block);
+        block.setPosition(prevPosition);
+    }
 }

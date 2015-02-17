@@ -18,7 +18,7 @@ Screen::Screen()
                       30.0f))
 {
     fade = Fade();
-    colorFade = Fade((int)(255 * 0.6f));
+    colorFade = Fade((int)(255 * 0.64f));
     close->fade.value = 255;
     close->fade.state = FadeStates::FADED_IN;
 }

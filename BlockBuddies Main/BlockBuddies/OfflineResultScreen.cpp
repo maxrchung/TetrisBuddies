@@ -9,7 +9,8 @@ OfflineResultScreen::OfflineResultScreen()
 	                         -20.0f,
                              420.0f,
                              510.0f,
-                             GraphicsManager::getInstance()->buttonColor)),
+                             GraphicsManager::getInstance()->buttonColor,
+                             true)),
 
      section(new Section(0.0f,
                          -20.0f,

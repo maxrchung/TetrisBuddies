@@ -11,7 +11,8 @@ NotificationScreen::NotificationScreen()
                              0.0f,
                              420.0f,
                              320.0f,
-                             GraphicsManager::getInstance()->buttonColor)),
+                             GraphicsManager::getInstance()->buttonColor,
+                             true)),
 
      section(new Section(0.0f,
 	                     0.0f,

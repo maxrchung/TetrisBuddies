@@ -11,7 +11,8 @@ LoginScreen::LoginScreen()
                              12.5f,
                              420.0f,
                              645.0f,
-                             GraphicsManager::getInstance()->buttonColor)),
+                             GraphicsManager::getInstance()->buttonColor,
+                             true)),
 
      section(new Section(0.0f,
 	                     12.5f,
