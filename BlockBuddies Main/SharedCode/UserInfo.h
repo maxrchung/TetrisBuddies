@@ -10,7 +10,6 @@ public:
 	UserInfo();
 	UserInfo(std::string username, int highscore, int gamesplayed,int gamesWon);
 	~UserInfo();
-	
 	std::string username;
 	int highScore;
 	int gamesPlayed;
@@ -21,6 +20,7 @@ public:
 	float getWinRate();
     bool operator==(UserInfo u);
 	UserInfo& operator=(UserInfo temp);
+	std::string getUserName();
 };
 
 sf::Packet& operator <<(sf::Packet& packet, const UserInfo& userInfo);

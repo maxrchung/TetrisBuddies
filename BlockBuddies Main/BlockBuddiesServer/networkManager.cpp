@@ -64,11 +64,11 @@ void NetworkManager::update()
 
     for(auto& player : connectPlayers)
     {
-        if(!player.receivedPackets.empty())
+        if(!player->receivedPackets.empty())
         {
-            sf::Packet packet = player.receivedPackets.front();
+            sf::Packet packet = player->receivedPackets.front();
             queueAccess.lock();
-            player.receivedPackets.pop();
+            player->receivedPackets.pop();
             queueAccess.unlock();
 			
 			sf::Packet notPopped;
@@ -97,12 +97,12 @@ void NetworkManager::update()
 						if (DatabaseManager::getInstance().loginUser(user, pass))
 						{
 							UserInfo userInfo = DatabaseManager::getInstance().getUserInfo(user);
-							player.playerInfo = userInfo;
+							player->playerInfo = userInfo;
 							sf::Packet answer;
 							answer << true // Indicates successful login
 								<< userInfo;
-							player.playerSocket->send(answer);
-							userNamesLoggedIn.push_back(player.playerInfo.username);
+							player->playerSocket->send(answer);
+							userNamesLoggedIn.push_back(player->playerInfo.username);
 							std::cout << "Sent login packet accept" << std::endl;
 						}
 						else
@@ -110,7 +110,7 @@ void NetworkManager::update()
 							
 							sf::Packet answer;
 							answer << false;
-							player.playerSocket->send(answer);
+							player->playerSocket->send(answer);
 							std::cout << "Sent login packet reject" << std::endl;
 						}
 						//databaseAccess.unlock();
@@ -119,7 +119,7 @@ void NetworkManager::update()
 					{
 						sf::Packet answer;
 						answer << false;
-						player.playerSocket->send(answer);
+						player->playerSocket->send(answer);
 						std::cout << "Sent login packet reject" << std::endl;
 					}
                     break;
@@ -142,14 +142,14 @@ void NetworkManager::update()
                         sf::Packet answer;
                         answer << true
                                << userInfo;
-                        player.playerSocket->send(answer);
+                        player->playerSocket->send(answer);
                         std::cout << "Sent packet register accept" << std::endl;
                     }
                     else
                     {
                         sf::Packet answer;
                         answer << false;
-                        player.playerSocket->send(answer);
+                        player->playerSocket->send(answer);
 
                         std::cout << "Sent packet register reject" << std::endl;
 					}
@@ -166,7 +166,7 @@ void NetworkManager::update()
                     std::cout << "Received packet join queue" << std::endl;
                     std::cout << "activePlayers" << std::endl;
                     for(int i = 0; i < multiplayer.activePlayers.size(); i++)
-                        std::cout << multiplayer.activePlayers[i].myAddress << std::endl;
+                        std::cout << multiplayer.activePlayers[i]->myAddress << std::endl;
                     break;
 				}
 
@@ -176,7 +176,7 @@ void NetworkManager::update()
                     for(int i = 0; i < (int) multiplayer.activePlayers.size(); i++)
                     {
                         // Removes the player from the queue by looping and matching IP addresses
-                        if(multiplayer.activePlayers[i].myAddress == player.myAddress)
+                        if(multiplayer.activePlayers[i]->myAddress == player->myAddress)
                         {
                             toRemove = i;
                         }
@@ -187,7 +187,7 @@ void NetworkManager::update()
 
                     std::cout << "activePlayers" << std::endl;
                     for(int i = 0; i < multiplayer.activePlayers.size(); i++)
-                        std::cout << multiplayer.activePlayers[i].myAddress << std::endl;
+                        std::cout << multiplayer.activePlayers[i]->myAddress << std::endl;
 
                     std::cout << "Received packet leave queue" << std::endl;
                     break;
@@ -197,32 +197,32 @@ void NetworkManager::update()
                 {
                     sf::Packet answer;
                     answer << PacketDecode::PACKET_DISCONNECT;
-                    player.playerSocket->send(answer);
+                    player->playerSocket->send(answer);
                     std::cout << "Sent disconnect packet" << std::endl;
 
-                    toDisconnect = &player;
+                    toDisconnect = player;
                     break;
                 }
 
                 case PacketDecode::PACKET_CHECKALIVE:
                 {
                     std::cout << "Received checkalive packet" << std::endl;
-                    player.receiveAliveTimer.restart();
+                    player->receiveAliveTimer.restart();
 
                     break;
                 }
 				case PacketDecode::PACKET_START:
 				{
-					if (!singlePlayer.singlePlayerGames.count(player.myAddress))
+					if (!singlePlayer.singlePlayerGames.count(player->myAddress))
 						singlePlayer.makeGame(player);
 				}
                 default:
                 {
 					std::cout << "My packet code is: " << decode << std::endl;
-					if (singlePlayer.isInGame(player.myAddress))
-						singlePlayer.addMessage(notPopped, player.myAddress);
+					if (singlePlayer.isInGame(player->myAddress))
+						singlePlayer.addMessage(notPopped, player->myAddress);
 					else
-						multiplayer.addMessage(notPopped, player.myAddress);
+						multiplayer.addMessage(notPopped, player->myAddress);
 					break;
 				}
             }
@@ -246,8 +246,8 @@ void NetworkManager::update()
 		   multiplayer.sendMessages();
 
        // Remove player if he has not responded
-       if (player.receiveAliveTimer.getElapsedTime().asSeconds() > Player::receiveAliveLimit)
-           toDisconnect = &player;
+       if (player->receiveAliveTimer.getElapsedTime().asSeconds() > Player::receiveAliveLimit)
+           toDisconnect = player;
     }
 
     // Disconnect afterwards so we don't run into iterating problems
@@ -265,7 +265,7 @@ void NetworkManager::update()
 		}
 		userNamesLoggedIn.remove( toDisconnect->playerInfo.username );
         queueAccess.lock();
-        connectPlayers.remove(*toDisconnect);
+        connectPlayers.remove(toDisconnect);
         queueAccess.unlock();
         std::cout << "Removed disconnected player" << std::endl;
         std::cout << "Size of connectPlayers: " << connectPlayers.size() << std::endl;
@@ -282,7 +282,7 @@ void NetworkManager::update()
         for(auto& player : connectPlayers)
         {
             std::cout << "Send check alive packet" << std::endl;
-            player.playerSocket->send(packet);
+            player->playerSocket->send(packet);
         }
     }	
 }
@@ -304,7 +304,7 @@ void NetworkManager::checkForConnections()
 				sf::TcpSocket* client = new sf::TcpSocket;
 				if (listener.accept(*client) == sf::Socket::Done)
 				{
-                    connectPlayers.push_back(Player(client));
+                    connectPlayers.push_back(new Player(client));
 					connections.add(*client);
 				}
 				else
@@ -319,12 +319,12 @@ void NetworkManager::checkForConnections()
 				// The listener socket is not ready, test all other sockets (the clients)
 				for (auto& player : connectPlayers)
 				{
-					if (connections.isReady(*player.playerSocket))
+					if (connections.isReady(*(player->playerSocket)))
 					{
 						sf::Packet packet;
-                        if(player.playerSocket->receive(packet) == sf::Socket::Done)
+                        if(player->playerSocket->receive(packet) == sf::Socket::Done)
 						{
-                            player.receivedPackets.push(packet);
+                            player->receivedPackets.push(packet);
 							
 						}
                     }

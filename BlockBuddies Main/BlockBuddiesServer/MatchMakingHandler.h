@@ -14,7 +14,7 @@ public:
 	~MatchMakingHandler();
 
 
-	std::deque<Player> activePlayers;
+	std::deque<Player*> activePlayers;
     std::map<sf::IpAddress, Game*> multiPlayerGames;
     std::deque<Game*> gameList;
 	std::list<sf::IpAddress> removeMe;
@@ -28,7 +28,7 @@ public:
 	void sendResults(int postion, int winner);
 	void addMessage(sf::Packet addMe, sf::IpAddress myAddress);
 	void checkForMatches();
-	void makeGame(Player &p1, Player &p2);
+	void makeGame(Player *p1, Player *p2);
 
 	void update();
 

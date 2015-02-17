@@ -11,6 +11,7 @@ Player::Player()
 Player::Player(sf::TcpSocket* userSocket)
     :playerSocket(userSocket)
 {
+	playerInfo = UserInfo();
 	myAddress = (*userSocket).getRemoteAddress();
 }
 
@@ -21,7 +22,10 @@ Player::~Player()
 Player& Player::operator=(Player p)
 {
 	playerSocket = p.playerSocket;
-	playerInfo = p.playerInfo;
+	playerInfo.username = p.playerInfo.username;
+	playerInfo.gamesPlayed = p.playerInfo.gamesPlayed;
+	playerInfo.gamesWon = p.playerInfo.gamesWon;
+	playerInfo.gamesLost = playerInfo.gamesLost;
 	return *this;
 }
 

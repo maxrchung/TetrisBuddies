@@ -33,8 +33,8 @@ public:
 	bool isLoggedIn(std::string user);
 	void newHighScore(int newScore, std::string username);
 	void addWin(std::string username, bool win);
-    std::list<Player> connectPlayers;
-	std::list<Player> toRemove;
+    std::list<Player*> connectPlayers;
+	std::list<Player*> toRemove;
 	std::list<std::string> userNamesLoggedIn;
 
 

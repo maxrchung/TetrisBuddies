@@ -33,6 +33,10 @@ UserInfo::~UserInfo()
 {
 }
 
+std::string UserInfo::getUserName()
+{
+	return username;
+}
 float UserInfo::getWinRate()
 {
 	if (gamesPlayed != 0)

@@ -29,7 +29,7 @@ bool MatchMakingHandler::isInQueue(sf::IpAddress toRemove)
 {
 	for (auto& check : activePlayers)
 	{
-		if (check.myAddress == toRemove)
+		if (check->myAddress == toRemove)
 			return true;
 	}
 	return false;
@@ -40,7 +40,7 @@ void MatchMakingHandler::removeFromQueue(sf::IpAddress remove)
 	int count = 0;
 	for (auto& check : activePlayers)
 	{
-		if (check.myAddress == remove)
+		if (check->myAddress == remove)
 			break;
 		count++;
 	}
@@ -51,6 +51,7 @@ void MatchMakingHandler::checkForMatches()
 {
     if (activePlayers.size() >= 2)
     {
+		activePlayers[0]->playerInfo;
         makeGame(activePlayers[0], activePlayers[1]);
         activePlayers.pop_front();
         activePlayers.pop_front();
@@ -63,47 +64,49 @@ void MatchMakingHandler::sendResults(int postition, int winner)
 		sf::Packet win;
 		win << PacketDecode::PACKET_WINNER;
 		lost << PacketDecode::PACKET_GAMEOVER;
+		UserInfo Temp = gameList[postition]->player1->playerInfo;
 		//If player one won do this else player two won
 		if (winner == 1)
 		{
 			gameList[postition]->player1->playerSocket->send(win);
 			gameList[postition]->player2->playerSocket->send(lost);
-			DatabaseManager::getInstance().updateUserGames(gameList[postition]->player1->playerInfo.username, true);
-			DatabaseManager::getInstance().updateUserGames(gameList[postition]->player2->playerInfo.username, false);
+			DatabaseManager::getInstance().updateUserGames(gameList[postition]->player1->playerInfo.getUserName(), true);
+			DatabaseManager::getInstance().updateUserGames(gameList[postition]->player2->playerInfo.getUserName(), false);
 		}
 		else
 		{
 			gameList[postition]->player2->playerSocket->send(win);
 			gameList[postition]->player1->playerSocket->send(lost);
-			DatabaseManager::getInstance().updateUserGames(gameList[postition]->player2->playerInfo.username, true);
-			DatabaseManager::getInstance().updateUserGames(gameList[postition]->player1->playerInfo.username, false);
+			DatabaseManager::getInstance().updateUserGames(gameList[postition]->player2->playerInfo.getUserName(), true);
+			DatabaseManager::getInstance().updateUserGames(gameList[postition]->player1->playerInfo.getUserName(), false);
 		}
 		//Send updated profile information;
 		sf::Packet updateP1;
 		sf::Packet updateP2;
-
+		Temp = gameList[postition]->player1->playerInfo;
 		updateP1 << PacketDecode::PACKET_USERINFOUPDATE;
-		updateP1 << DatabaseManager::getInstance().getUserInfo(gameList[postition]->player1->playerInfo.username);
+		updateP1 << DatabaseManager::getInstance().getUserInfo(gameList[postition]->player1->playerInfo.getUserName());
 
 		updateP2 << PacketDecode::PACKET_USERINFOUPDATE;
-		updateP2 << DatabaseManager::getInstance().getUserInfo(gameList[postition]->player2->playerInfo.username);
+		updateP2 << DatabaseManager::getInstance().getUserInfo(gameList[postition]->player2->playerInfo.getUserName());
 		gameList[postition]->player2->playerSocket->send(updateP2);
 		gameList[postition]->player1->playerSocket->send(updateP1);
 }
 
 
-void MatchMakingHandler::makeGame(Player &p1, Player &p2)
+void MatchMakingHandler::makeGame(Player* p1, Player* p2)
 {
 	Game* nGame = new Game(2);
-	nGame->player1 = &p1;
-	nGame->player2 = &p2;
-	multiPlayerGames.insert(std::pair<sf::IpAddress, Game*>(p1.myAddress, nGame));
-	multiPlayerGames.insert(std::pair<sf::IpAddress, Game*>(p2.myAddress, nGame));
+	nGame->player1 = p1;
+	nGame->player2 = p2;
+	multiPlayerGames.insert(std::pair<sf::IpAddress, Game*>(p1->myAddress, nGame));
+	multiPlayerGames.insert(std::pair<sf::IpAddress, Game*>(p2->myAddress, nGame));
     gameList.push_back(nGame);
+	UserInfo temp = gameList[0]->player1->playerInfo;
     sf::Packet foundGame;
     foundGame << PacketDecode::PACKET_FOUNDGAME;
-    p1.playerSocket->send(foundGame);
-    p2.playerSocket->send(foundGame);
+    p1->playerSocket->send(foundGame);
+    p2->playerSocket->send(foundGame);
     std::cout << "Sent found game packet" << std::endl;
 }
 
@@ -177,7 +180,11 @@ void MatchMakingHandler::update()
 	//Run the game tick
 	int counter = 0;
 	bool needsRemove = false;;
+	if (gameList.size() > 0)
+	{
+		UserInfo temp = gameList[0]->player1->playerInfo;
 
+	}
 	for (auto check: gameList)
 	{
 		if (check->playerOneGame.delayFinished && check->playerTwoGame.delayFinished)

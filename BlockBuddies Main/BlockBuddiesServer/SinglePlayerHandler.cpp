@@ -27,12 +27,12 @@ bool SinglePlayerHandler::isInGame(sf::IpAddress lookUp)
 	return singlePlayerGames.count(lookUp);
 }
 
-void SinglePlayerHandler::makeGame(Player &p1)
+void SinglePlayerHandler::makeGame(Player* p1)
 {
 	Game* nGame = new Game(1);
-	nGame->player1 = &p1;
+	nGame->player1 = p1;
 	nGame->playerOneGame.gameHasStarted = true;
-	singlePlayerGames.insert(std::pair<sf::IpAddress, Game*>(p1.myAddress, nGame));
+	singlePlayerGames.insert(std::pair<sf::IpAddress, Game*>(p1->myAddress, nGame));
 }
 
 void SinglePlayerHandler::addMessage(sf::Packet addMe, sf::IpAddress myAddress)
