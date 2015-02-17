@@ -221,7 +221,7 @@ void MultiplayerScreen::update()
 			p1GSO = GameStateObject();
 			p2GSO = GameStateObject();
 			updateBlocks();
-			ScreenManager::getInstance()->switchScreen(RESULT);
+			ScreenManager::getInstance()->switchScreen(MULTIPLAYERRESULT);
 		}
 		else
 			ScreenManager::getInstance()->switchScreen(OFFLINERESULT);
