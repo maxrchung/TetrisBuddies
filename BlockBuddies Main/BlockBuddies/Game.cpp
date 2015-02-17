@@ -62,10 +62,6 @@ void Game::draw()
     // Draws block shower background
     BlockShowerManager::getInstance()->draw();
 
-    // Draws the borders
-    for(auto border : GraphicsManager::getInstance()->borders)
-        GraphicsManager::getInstance()->window.draw(border);
-
 	// This will usually be empty for Login/Register screen and the like, but GameScreen
 	// will need this to draw things
 	ScreenManager::getInstance()->draw();

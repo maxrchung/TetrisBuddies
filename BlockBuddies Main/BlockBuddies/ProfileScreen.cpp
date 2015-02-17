@@ -37,7 +37,7 @@ ProfileScreen::ProfileScreen()
                             150.0f,
 						    Alignments::LEFT)),
 
-	nameTag(new TextBox("",
+	nameTag(new TextBox("maxisagod",
 						50.0f,
 						-50.0f,
 						250.0f,
@@ -49,7 +49,7 @@ ProfileScreen::ProfileScreen()
 						 250.0f,
 						 Alignments::LEFT)),
 
-	hsTag(new TextBox("",
+	hsTag(new TextBox("0",
 						 50.0f,
 						 0.0f,
 						 250.0f,
@@ -61,7 +61,7 @@ ProfileScreen::ProfileScreen()
 						 250.0f,
 						 Alignments::LEFT)),
 
-	gpTag(new TextBox("",
+	gpTag(new TextBox("0",
 						 50.0f,
 						 50.0f,
 						 250.0f,
@@ -73,7 +73,7 @@ ProfileScreen::ProfileScreen()
 						 250.0f,
 						 Alignments::LEFT)),
 
-	gwTag(new TextBox("",
+	gwTag(new TextBox("0",
 						 50.0f,
 						 100.0f,
 						 250.0f,
@@ -85,7 +85,7 @@ ProfileScreen::ProfileScreen()
 						 250.0f,
 						 Alignments::LEFT)),
 
-	wpTag(new TextBox("",
+	wpTag(new TextBox("0",
 						 50.0f,
 						 150.0f,
 						 250.0f,

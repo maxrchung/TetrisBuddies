@@ -63,9 +63,6 @@ public:
 	sf::Color buttonColor;
 	sf::Color typeColor;
 
-    // Borders outlining the screen
-    std::vector<sf::RectangleShape> borders;
-
 private:
 	// Singleton overhead stuff to take care of
 	GraphicsManager(){};

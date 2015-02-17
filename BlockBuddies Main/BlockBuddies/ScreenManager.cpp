@@ -64,14 +64,14 @@ void ScreenManager::update()
             removeIndex = i;
 
         // Only update the screen if the fade state is faded in
-        else if (currentScreens[i]->fade.state == FadeStates::FADED_IN)
+        else if (currentScreens[i]->fade.state == FadeStates::FADED_IN || currentScreens[i]->fade.state == FadeStates::FADING_IN)
         {
             if(ScreenManager::getInstance()->currentScreens.back()->fade.state != FadeStates::FADED_OUT
                 && ScreenManager::getInstance()->currentScreens.back()->fade.state != FadeStates::FADING_OUT)
             {
                 currentScreens[i]->update();
+                break;
             }
-            break;
         }
     }
 
@@ -90,7 +90,8 @@ void ScreenManager::update()
 		GraphicsManager::getInstance()->window.setView(view);
 		shakeTimer -= clock.getElapsedTime();
 	}
-	else{
+	else
+    {
 		GraphicsManager::getInstance()->window.setView(GraphicsManager::getInstance()->window.getDefaultView());
 	}
 	clock.restart();
@@ -143,7 +144,9 @@ void ScreenManager::addScreen(const Screens toScreen, const sf::String notificat
 
     currentScreens.push_back(screens[toScreen]);
     if(!notificationMessage.isEmpty())
+    {
         ((NotificationScreen*) currentScreens.back())->status->message.setString(notificationMessage);
+    }
     currentScreens.back()->reload();
     currentScreens[currentScreens.size() - 1]->fade.state = FadeStates::FADING_IN;
 }
