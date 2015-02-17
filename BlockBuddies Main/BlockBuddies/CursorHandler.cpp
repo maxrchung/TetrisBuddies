@@ -52,13 +52,13 @@ CursorHandler::CursorHandler(int sw, int sh, int ww, int wh, int xStart, int ySt
 	originX = (ww / 2 - (ww / 2 - sw / 2)) / blockSize;
 	originY = ((wh / 2 - ((wh / 2 + offset) - sh / 2)) / blockSize) - 1;
 
-	ww = ww / 2 - sw;
-	wh = wh / 2;
+	ww = ww / 2 - sw - offset;
+	wh = wh / 2 + 2*offset;
 
 	xBoundary = xStart;
 	yBoundary = yStart;
-	screenWidth = sw - blockS;
-	screenHeight = sh - blockS;
+	screenWidth = sw - blockSize;
+	screenHeight = sh - blockSize;
 
 	//inital set up for main square
 	mainSquare.setSize(sf::Vector2f(25, 25));

@@ -11,30 +11,35 @@ MultiplayerScreen::MultiplayerScreen()
 
 void MultiplayerScreen::initGame()
 {
-	winX = GraphicsManager::getInstance()->window.getSize().x;
-	winY = GraphicsManager::getInstance()->window.getSize().y;
-
 	//fill in initial board
 	int gridPosy = 0;
 	int gridPosx = 0;
 	blockSizeX = 25;
 	blockSizeY = 25;
 
-	int offset = winY - SCREENHEIGHT;
+	winX = GraphicsManager::getInstance()->window.getSize().x - (GraphicsManager::getInstance()->window.getSize().x % blockSizeX);
+	winY = GraphicsManager::getInstance()->window.getSize().y - (GraphicsManager::getInstance()->window.getSize().y % blockSizeX);
 
-	ch = new CursorHandler(SCREENWIDTH, SCREENHEIGHT, winX, winY, winX / 2 - SCREENWIDTH * 3 / 2, winY / 2 - SCREENHEIGHT / 2, blockSizeX, 0);
+	int funkyX = (winX / 2 - SCREENWIDTH * 3 / 2) - ((winX / 2 - SCREENWIDTH * 3 / 2) % blockSizeX);
+	int funkyY = (winY / 2 - SCREENHEIGHT / 2) - ((winY / 2 - SCREENHEIGHT / 2) % blockSizeX);
+	int funkyX2 = (winX / 2 + SCREENWIDTH / 2) - ((winX / 2 + SCREENWIDTH / 2) % blockSizeX);
+	int funkyY2 = (winY / 2 - SCREENHEIGHT / 2) - ((winY / 2 - SCREENHEIGHT / 2) % blockSizeX);
+
+	int offset = ((winX / 2 - SCREENWIDTH * 3 / 2) % blockSizeX);
+
+	ch = new CursorHandler(SCREENWIDTH, SCREENHEIGHT, winX, winY, funkyX, funkyY, blockSizeX, offset);
 
 	//draws a large rectangle around the game screen for p1
 	p1Outline.setSize(sf::Vector2f(SCREENWIDTH, SCREENHEIGHT));
 	p1Outline.setFillColor(sf::Color::Transparent);
-	p1Outline.setPosition(winX / 2 - SCREENWIDTH * 3 / 2, winY / 2 - SCREENHEIGHT / 2);
-	p1Outline.setOutlineThickness(25);
+	p1Outline.setPosition(funkyX,funkyY);
+	p1Outline.setOutlineThickness(blockSizeX);
 	p1Outline.setOutlineColor(sf::Color::Black);
 	//draws a large rectangle around the game screen for p2
 	p2Outline.setSize(sf::Vector2f(SCREENWIDTH, SCREENHEIGHT));
 	p2Outline.setFillColor(sf::Color::Transparent);
-	p2Outline.setPosition(winX / 2 + SCREENWIDTH / 2, winY / 2 - SCREENHEIGHT / 2);
-	p2Outline.setOutlineThickness(25);
+	p2Outline.setPosition(funkyX2, funkyY2);
+	p2Outline.setOutlineThickness(blockSizeX);
 	p2Outline.setOutlineColor(sf::Color::Black);
 
 
@@ -45,7 +50,7 @@ void MultiplayerScreen::initGame()
 		{
 
 			sf::RectangleShape shape(sf::Vector2f(blockSizeX, blockSizeY));
-			shape.setPosition(j + (winX / 2 - SCREENWIDTH * 3 / 2), i - ((winY / 2) - SCREENHEIGHT) - 5 ); //puts it in the middle of the screen
+			shape.setPosition(j + funkyX, i - (((winY / 2) - SCREENHEIGHT) + blockSizeX)); //puts it in the middle of the screen
 			shape.setFillColor(sf::Color::Transparent); //transparent blocks to appear as empty space
 			p1Blocks[gridPosx][gridPosy] = shape;
 			gridPosy++;
@@ -62,7 +67,7 @@ void MultiplayerScreen::initGame()
 		{
 
 			sf::RectangleShape shape(sf::Vector2f(blockSizeX, blockSizeY));
-			shape.setPosition(j + (winX / 2 + SCREENWIDTH / 2), i - ((winY / 2) - SCREENHEIGHT ) - 5); //puts it in the middle of the screen
+			shape.setPosition(j + funkyX2, i - (((winY / 2) - SCREENHEIGHT) + blockSizeX)); //puts it in the middle of the screen
 			shape.setFillColor(sf::Color::Transparent); //transparent blocks to appear as empty space
 			p2Blocks[gridPosx][gridPosy] = shape;
 			gridPosy++;
