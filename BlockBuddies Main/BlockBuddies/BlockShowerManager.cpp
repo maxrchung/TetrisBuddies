@@ -13,7 +13,7 @@ BlockShowerManager* BlockShowerManager::getInstance()
 
 void BlockShowerManager::init()
 {
-    fade = Fade();
+    fade = Fade((int)(255 * 0.9f));
     fade.state = FadeStates::FADING_IN;
     // Initializes all the meteors to random positions
     meteors = std::vector<BlockMeteor>(30);

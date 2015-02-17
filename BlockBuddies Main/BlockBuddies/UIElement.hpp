@@ -21,6 +21,7 @@ public:
 	virtual void draw() = 0;
 
     Fade fade;
+    Fade colorFade;
 
     // Determines whether to display the element or not
     bool isDisplayed = true;

@@ -89,6 +89,8 @@ void QueueScreen::update()
             (InputManager::getInstance()->enter && cancel->isSelected) ||
             InputManager::getInstance()->escape)
         {
+            deselect();
+            deactivate();
             fade.state = FadeStates::FADING_OUT;
             InputManager::getInstance()->resetInput();
             ClientManager::getInstance().leaveQueue();

@@ -62,6 +62,8 @@ void NotificationScreen::update()
     if (back->isActivated ||
         (InputManager::getInstance()->enter  && back->isSelected) || InputManager::getInstance()->escape)
     {
+        deselect();
+        deactivate();
         fade.state = FadeStates::FADING_OUT;
         InputManager::getInstance()->resetInput();
         return;

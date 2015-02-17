@@ -26,13 +26,13 @@ void Section::update()
 void Section::draw()
 {
     sf::Color adjustColor = boundingRect.getFillColor();
-    adjustColor.a = fade.value;
+    adjustColor.a = colorFade.value;
     if(boundingRect.getFillColor() != sf::Color::Transparent)
         boundingRect.setFillColor(adjustColor);
     else
     {
         adjustColor = boundingRect.getOutlineColor();
-        adjustColor.a = fade.value;
+        adjustColor.a = colorFade.value;
         boundingRect.setOutlineColor(adjustColor);
     }
     float scaleFactor = GraphicsManager::getInstance()->scale * (fade.value/255.0f / 4.0f + 0.75f);
