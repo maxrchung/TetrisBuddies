@@ -127,7 +127,7 @@ void GameLogic::InitialBoardPopulation(){
 			allBlocksFilled = true;
 		}
 
-		ClearMatches();
+		ClearInitialMatches();
 
 
 		for (int rowNum = 0; rowNum < initHeight; rowNum++) {
@@ -144,6 +144,7 @@ void GameLogic::InitialBoardPopulation(){
 
 	gso.score = 0;
 	gso.newRowActive = false;
+	destroyedBlocks.clear();
 
 	PopulateTempRow();
 	newRowClock.restart();
@@ -343,6 +344,9 @@ bool GameLogic::CheckAllBlocksForMatches(){
 
 	//if (blocksToCheckForMatches.size() == 0){return false;}
 	//else { return true; }
+
+	blocksToCheckForMatches.clear();
+
 	return true;
 }
 
@@ -432,6 +436,8 @@ bool GameLogic::CheckBlockForMatches(int rowNum, int colNum){
 bool GameLogic::ClearMatches(){
 
 
+	//instead of clearing them here, add them to destroyedBlocks
+
 	if (blocksMarkedForDeletion.empty()){
 		return false;
 	}
@@ -444,11 +450,15 @@ bool GameLogic::ClearMatches(){
 	int col;
 
 
-	//for (std::set<std::pair<int, int>>::iterator i = blocksMarkedForDeletion.begin(); i != blocksMarkedForDeletion.end(); ++i){
 	for (auto i : blocksMarkedForDeletion) {
 		row = i.first;
 		col = i.second;
-		gso.gameBoard[row][col] = 0;
+		//gso.gameBoard[row][col] = 0;
+
+		//add to destroyedBlocks here:
+		//(make sure that the new row timer is paused while clearing)
+		destroyedBlocks.push_back(TimedPiece{i.first, i.second});
+
 	}
 
 	ApplyGravity();
@@ -459,6 +469,39 @@ bool GameLogic::ClearMatches(){
 	return true;
 }
 
+bool GameLogic::ClearInitialMatches(){
+
+
+	//instead of clearing them here, add them to destroyedBlocks
+
+	if (blocksMarkedForDeletion.empty()){
+		return false;
+	}
+
+
+	//for each element in the BMFD set:
+	//get the row, col numbers, and set that element in the game board array to 0;
+
+	int row;
+	int col;
+
+
+	for (auto i : blocksMarkedForDeletion) {
+		row = i.first;
+		col = i.second;
+		gso.gameBoard[row][col] = 0;
+
+		//add to destroyedBlocks here:
+		//(make sure that the new row timer is paused while clearing)
+	}
+
+	ApplyGravity();
+
+	//clear the BMFD
+	blocksMarkedForDeletion.clear();
+
+	return true;
+}
 
 
 
@@ -579,13 +622,14 @@ void GameLogic::GameTick(){
 	//pieces might get swapped
 	//swap pieces
 
-	ProcessBTCFM();
+	//ProcessBTCFM();
 	//this isn't a good idea; this way blocks might still be matched while they're falling
-	//CheckAllBlocksForMatches();
+	CheckAllBlocksForMatches();
 
-	if (ClearMatches()){
-		gameStateChanged = true;
-	}
+
+	//it's set to "initial" right now because the code for teh clear animation isn't in place yet.
+	if (ClearInitialMatches()){ gameStateChanged = true; }
+	//if (ClearMatches()){gameStateChanged = true;}
 
 
 	//if it's time to insert a new row:
@@ -605,6 +649,7 @@ void GameLogic::GameTick(){
 		gso.newRowActive = true;
 		newRowClock.restart();
 		gso.rowInsertionCountdown = totalRowInsertionTime.asMilliseconds();
+		std::cout << "Row insertion time: " << totalRowInsertionTime.asMilliseconds() << " ms" << std::endl;
 		gameStateChanged = true;
 	}
 
@@ -704,7 +749,10 @@ void GameLogic::NewTick(){
 
 bool GameLogic::CheckSwappingTimers(){
 
-	if (swappingBlocks.size() == 0){ return false; }
+	//(make sure that the new row timer is paused while swapping)
+	//maybe add to totalRowInsertionTime?
+
+	if (swappingBlocks.empty()){ return false; }
 
 	//note: right now it only checks the first 2 elements
 	//this might cause a bug on the off-chance that there are 4 pieces being swapped at the same time
@@ -733,12 +781,24 @@ bool GameLogic::CheckSwappingTimers(){
 
 bool GameLogic::CheckClearingTimers(){
 
-	//if (clea)
+	//maybe add to totalRowInsertionTime?
 
+	if (destroyedBlocks.empty()){ return false; }
 
 	//if the pieces's clearing times are up
 		//remove them
 		//apply gravity(?)
+
+	for (auto i = destroyedBlocks.begin(); i != destroyedBlocks.end(); ++i){
+	//for (int i = 0; i < destroyedBlocks.size(); ++i){
+		if (i->duration.getElapsedTime() > blockClearTime){
+			gso.gameBoard[i->blockNum.first][i->blockNum.second] = 0;
+			
+			//remove from the vector here:
+			destroyedBlocks.erase(i);
+		}
+
+	}
 
 	return false;
 }

@@ -52,6 +52,7 @@ public:
 	bool SwapPieces(int row1Num, int col1Num, int row2Num, int col2Num);
 	bool ProcessBTCFM();
 	bool ClearMatches();
+	bool ClearInitialMatches();
 
 	//checks the entire board for matches
 	bool CheckAllBlocksForMatches();
