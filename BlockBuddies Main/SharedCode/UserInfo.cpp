@@ -6,7 +6,7 @@ UserInfo::UserInfo() :username("default"), highScore(0), gamesPlayed(0), gamesWo
 	gamesLost = gamesPlayed - gamesWon;
 	if (gamesPlayed != 0)
 	{
-		winPercentage = (float)gamesWon / gamesPlayed;
+		winPercentage = ((float)(gamesWon) / (float)gamesPlayed) * 100;
 	}
 	else
 	{
@@ -19,7 +19,7 @@ gamesPlayed(gamesplayed), gamesWon(gameswon)
 	gamesLost = gamesPlayed - gamesWon;
 	if (gamesPlayed != 0)
 	{
-		winPercentage = (float)gamesWon/gamesPlayed;
+		winPercentage = ((float)(gamesWon) / (float)gamesPlayed );
 	
 	}
 	else
@@ -33,6 +33,20 @@ UserInfo::~UserInfo()
 {
 }
 
+float UserInfo::getWinRate()
+{
+	if (gamesPlayed != 0)
+	{
+		winPercentage = ((float)(gamesWon) / (float)gamesPlayed);
+
+	}
+	else
+	{
+		winPercentage = 0;
+
+	}
+	return winPercentage;
+}
 void UserInfo::printOut()
 {
 	std::cout << "Username :" << username << std::endl;
@@ -40,7 +54,7 @@ void UserInfo::printOut()
 	std::cout << "GamesPlayed :" << gamesPlayed << std::endl;
 	std::cout << "GamesWon :" << gamesWon << std::endl;
 	std::cout << "gamesLost :" << gamesLost << std::endl;
-	std::cout << "WinRate :" << winPercentage << std::endl;
+	std::cout << "WinRate :" << getWinRate() << std::endl;
 	
 }
 
