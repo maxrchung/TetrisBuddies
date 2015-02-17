@@ -20,10 +20,12 @@ public:
 	void printOut();
 	float getWinRate();
     bool operator==(UserInfo u);
+	UserInfo& operator=(UserInfo temp);
 };
 
 sf::Packet& operator <<(sf::Packet& packet, const UserInfo& userInfo);
 
 sf::Packet& operator >>(sf::Packet& packet, UserInfo& userInfo);
+
 
 #endif//USERINFO_H

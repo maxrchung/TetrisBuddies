@@ -65,6 +65,15 @@ bool UserInfo::operator==(UserInfo u)
     return username == u.username;
 }
 
+UserInfo& UserInfo::operator=(UserInfo temp)
+{
+	username = temp.username;
+	gamesPlayed = temp.gamesPlayed;
+	gamesWon = temp.gamesWon;
+	highScore = temp.highScore;
+	return *this;
+}
+
 sf::Packet& operator <<(sf::Packet& packet, const UserInfo& userInfo)
 {
     return packet << userInfo.username 
