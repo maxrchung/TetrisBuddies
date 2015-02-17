@@ -21,6 +21,7 @@ public:
 	std::list<int> removePostions;
 
 	bool isInQueue(sf::IpAddress check);
+	void sendPackets(sf::Packet& , sf::Packet& , int position );
 	void removeFromQueue(sf::IpAddress remove);
 	void removePlayers();
 	void sendMessages();
