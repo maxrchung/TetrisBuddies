@@ -332,8 +332,8 @@ bool GameLogic::ProcessBTCFM(){
 	return true;
 }
 
-//****NEED TO MAKE SURE THAT FALLING BLOCKS AREN'T CHECKED
-//checks the entire board for matches
+
+//checks the entire board for matches, except blocks that are falling
 bool GameLogic::CheckAllBlocksForMatches(){
 
 	for (int row = 0; row < gso.boardHeight; row++){
@@ -637,7 +637,10 @@ void GameLogic::GameTick(){
 
 	//if it's time to insert a new row:
 	//if the insert new row timer is 0;
-	//if (gso.rowInsertionCountdown == 0){
+
+	//this is for the client- whenever the rowInsertionCountdown isn't 0, it means that's the new value for the row countdown
+	gso.rowInsertionCountdown = 0;
+
 	if (newRowClock.getElapsedTime() > totalRowInsertionTime){
 
 		InsertBottomRow();
@@ -782,8 +785,8 @@ bool GameLogic::CheckSwappingTimers(){
 
 
 		//remove the pieces
-		//swappingBlocks.erase(swappingBlocks.begin(), swappingBlocks.begin()+1);
-		swappingBlocks.clear();
+		swappingBlocks.erase(swappingBlocks.begin(), swappingBlocks.begin() + 2);
+		//swappingBlocks.clear();
 
 		//apply gravity(?) (gravity will be reworked)
 
