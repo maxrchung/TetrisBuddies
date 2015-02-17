@@ -80,7 +80,7 @@ void AnimationManager::swap()
 				if (s.at(0).getPosition().x > blockx2)
 				{
 					//25 is how far the blocks are from each other
-					s.at(0).setPosition(s.at(0).getPosition().y - time.asSeconds() * 25, blocky);
+					s.at(0).setPosition(s.at(0).getPosition().x - time.asSeconds() * 25, blocky);
 					if (s.at(0).getPosition().x < blockx2)
 						s.at(0).setPosition(blockx2, blocky);
 				}
