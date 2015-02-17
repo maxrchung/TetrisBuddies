@@ -332,13 +332,16 @@ bool GameLogic::ProcessBTCFM(){
 	return true;
 }
 
-
+//****NEED TO MAKE SURE THAT FALLING BLOCKS AREN'T CHECKED
 //checks the entire board for matches
 bool GameLogic::CheckAllBlocksForMatches(){
 
 	for (int row = 0; row < gso.boardHeight; row++){
 		for (int col = 0; col < gso.boardWidth; col++){
-			CheckBlockForMatches(row, col);
+			
+			if (!BlockIsFalling(row, col)){
+				CheckBlockForMatches(row, col);
+			}
 		}
 	}
 
@@ -640,7 +643,7 @@ void GameLogic::GameTick(){
 		InsertBottomRow();
 
 		//reduces the total row insertion time whenever a new row is inserted
-		if (totalRowInsertionTime.asMilliseconds() > 500){
+		if (totalRowInsertionTime.asMilliseconds() > 1000){
 			totalRowInsertionTime = totalRowInsertionTime - sf::milliseconds(500);
 		}
 
@@ -746,6 +749,18 @@ void GameLogic::NewTick(){
 	//
 }
 
+
+bool GameLogic::BlockIsFalling(int rowNum, int colNum){
+	//if there's a 0 in the column below the block, return true
+	//else reutrn false
+
+	for (int i = 0; i < rowNum; i++){
+		if (gso.gameBoard[i][colNum] == 0){
+			return true;
+		}
+	}
+	return false;
+}
 
 bool GameLogic::CheckSwappingTimers(){
 

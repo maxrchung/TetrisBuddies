@@ -53,6 +53,7 @@ public:
 	bool ProcessBTCFM();
 	bool ClearMatches();
 	bool ClearInitialMatches();
+	bool BlockIsFalling(int rowNum, int colNum);
 
 	//checks the entire board for matches
 	bool CheckAllBlocksForMatches();
