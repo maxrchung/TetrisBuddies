@@ -84,7 +84,8 @@ void TextBox::textWrap()
 				if (checkBound.getLocalBounds().width > boundingWidth)
 				{
 					// Loop backwards from the end of the check
-					for (int j = i; j >= 0; j--)
+                    // We do j = i - 1 to avoid the case where a space is at the last letter
+					for (int j = i - 1; j >= 0; j--)
 					{
 						// Until you find a space
 						if (this->message.getString()[j] == sf::String(" "))
@@ -94,7 +95,7 @@ void TextBox::textWrap()
 							checkReturn.insert(j + 1, "\n"); // +1 to go after the designated point
 							this->message.setString(checkReturn);
 							checkBound.setString("");
-							i = j + 1;
+							i = j+1;
 							break;
 						}
 					}

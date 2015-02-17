@@ -12,16 +12,15 @@
 Screen::Screen()
     :close(new Button(Screens::CLOSE,
                       "X",
-                      (GraphicsManager::getInstance()->window.getSize().x / 2.0f) / GraphicsManager::getInstance()->scale - 15.0f,
-                      -(GraphicsManager::getInstance()->window.getSize().y / 2.0f) / GraphicsManager::getInstance()->scale + 15.0f,
+                      (GraphicsManager::getInstance()->window.getSize().x / 2.0f) / GraphicsManager::getInstance()->scale - 25.0f,
+                      -(GraphicsManager::getInstance()->window.getSize().y / 2.0f) / GraphicsManager::getInstance()->scale + 25.0f,
                       30.0f,
                       30.0f))
 {
     fade = Fade();
-    colorFade = Fade((int)(255 * 0.7f));
+    colorFade = Fade((int)(255 * 0.6f));
     close->fade.value = 255;
     close->fade.state = FadeStates::FADED_IN;
-    close->drawSelector = false;
 }
 
 // Updates selectables and UIElements
@@ -117,6 +116,13 @@ void Screen::update()
     if(close->isDisplayed && close->isUpdatable)
     {
         close->update();
+        sf::Vector2i mousePosition = sf::Mouse::getPosition(GraphicsManager::getInstance()->window);
+        if (close->boundingRect.getGlobalBounds().contains((float)mousePosition.x,
+            (float)mousePosition.y) ||
+            close->isSelected)
+        {
+            close->boundingRect.setFillColor(GraphicsManager::getInstance()->sectionColor);
+        }
     }
 }
 
