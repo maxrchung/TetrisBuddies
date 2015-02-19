@@ -239,7 +239,21 @@ void NetworkManager::update()
 		   tick = sf::Time::Zero;
 		   clock.restart();
 	   }
-       
+
+	   if (gametick.asMilliseconds() < 10)
+	   {
+		   tick += gameTickClock.getElapsedTime();
+	   }
+	   else
+	   {
+		   singlePlayer.update();
+		   multiplayer.update();
+		   gametick = sf::Time::Zero;
+		   gameTickClock.restart();
+	   }
+
+
+
 	   if (singlePlayer.singlePlayerGames.size() >= 1)
 		   singlePlayer.sendMessages();
 	   if (multiplayer.multiPlayerGames.size() >= 1)

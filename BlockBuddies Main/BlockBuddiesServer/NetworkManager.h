@@ -41,6 +41,9 @@ public:
 	GameLogic gameHandler;
 	sf::Clock clock;
 	sf::Time tick;
+
+	sf::Clock gameTickClock;
+	sf::Time gametick;
 	bool running = true;
 	MatchMakingHandler multiplayer;
     SinglePlayerHandler singlePlayer;
