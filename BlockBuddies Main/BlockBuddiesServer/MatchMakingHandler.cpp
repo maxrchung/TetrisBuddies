@@ -70,25 +70,25 @@ void MatchMakingHandler::sendResults(int postition, int winner)
 		{
 			gameList[postition]->player1->playerSocket->send(win);
 			gameList[postition]->player2->playerSocket->send(lost);
-			DatabaseManager::getInstance().updateUserGames(gameList[postition]->player1->playerInfo.getUserName(), true);
-			DatabaseManager::getInstance().updateUserGames(gameList[postition]->player2->playerInfo.getUserName(), false);
+			DatabaseManager::getInstance().updateUserGames(gameList[postition]->player1->cachedName, true);
+			DatabaseManager::getInstance().updateUserGames(gameList[postition]->player2->cachedName, false);
 		}
 		else
 		{
 			gameList[postition]->player2->playerSocket->send(win);
 			gameList[postition]->player1->playerSocket->send(lost);
-			DatabaseManager::getInstance().updateUserGames(gameList[postition]->player2->playerInfo.getUserName(), true);
-			DatabaseManager::getInstance().updateUserGames(gameList[postition]->player1->playerInfo.getUserName(), false);
+			DatabaseManager::getInstance().updateUserGames(gameList[postition]->player2->cachedName, true);
+			DatabaseManager::getInstance().updateUserGames(gameList[postition]->player1->cachedName, false);
 		}
 		//Send updated profile information;
 		sf::Packet updateP1;
 		sf::Packet updateP2;
 		Temp = gameList[postition]->player1->playerInfo;
 		updateP1 << PacketDecode::PACKET_USERINFOUPDATE;
-		updateP1 << DatabaseManager::getInstance().getUserInfo(gameList[postition]->player1->playerInfo.getUserName());
+		updateP1 << DatabaseManager::getInstance().getUserInfo(gameList[postition]->player1->cachedName);
 
 		updateP2 << PacketDecode::PACKET_USERINFOUPDATE;
-		updateP2 << DatabaseManager::getInstance().getUserInfo(gameList[postition]->player2->playerInfo.getUserName());
+		updateP2 << DatabaseManager::getInstance().getUserInfo(gameList[postition]->player2->cachedName);
 		gameList[postition]->player2->playerSocket->send(updateP2);
 		gameList[postition]->player1->playerSocket->send(updateP1);
 }

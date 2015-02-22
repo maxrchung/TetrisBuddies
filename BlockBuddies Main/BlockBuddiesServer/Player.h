@@ -13,6 +13,7 @@ public:
 	sf::TcpSocket* playerSocket;
     std::queue<sf::Packet> receivedPackets;
 
+	std::string cachedName;
     sf::Clock receiveAliveTimer;
 	sf::IpAddress myAddress;
     // Server automatically removes the player after

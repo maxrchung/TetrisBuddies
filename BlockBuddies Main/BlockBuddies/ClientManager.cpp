@@ -137,6 +137,7 @@ void ClientManager::update()
 			case PacketDecode::PACKET_WINNER:
 			{
 				wonGame = true;
+				gameOver = true;
 				break;
 			}
 			case PacketDecode::PACKET_CLEAR:
