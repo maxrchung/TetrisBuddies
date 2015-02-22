@@ -67,10 +67,11 @@ void SinglePlayerHandler::update()
 			lost << PacketDecode::PACKET_GAMEOVER;
 			if (check.second->player1->playerInfo.highScore < check.second->playerOneGame.GetScore())
 			{
-				DatabaseManager::getInstance().updateNewHighScore(check.second->player1->playerInfo.username, check.second->playerOneGame.GetScore());
+				DatabaseManager::getInstance().updateNewHighScore(check.second->player1->cachedName, check.second->playerOneGame.GetScore());
 				sf::Packet update;
+				UserInfo temp = DatabaseManager::getInstance().getUserInfo(check.second->player1->cachedName);
 				update << PacketDecode::PACKET_USERINFOUPDATE;
-				update << DatabaseManager::getInstance().getUserInfo(check.second->player1->playerInfo.username);
+				update << temp;
 				check.second->player1->playerSocket->send(update);
 			}
 			check.second->player1->playerSocket->send(lost);

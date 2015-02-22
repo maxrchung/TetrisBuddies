@@ -99,10 +99,11 @@ void NetworkManager::update()
 							UserInfo userInfo = DatabaseManager::getInstance().getUserInfo(user);
 							player->playerInfo = userInfo;
 							sf::Packet answer;
+							player->cachedName = user;
 							answer << true // Indicates successful login
 								<< userInfo;
 							player->playerSocket->send(answer);
-							userNamesLoggedIn.push_back(player->playerInfo.username);
+							userNamesLoggedIn.push_back(player->cachedName);
 							std::cout << "Sent login packet accept" << std::endl;
 						}
 						else
@@ -137,7 +138,7 @@ void NetworkManager::update()
 					databaseAccess.lock();
                     if (DatabaseManager::getInstance().registerUser(user, pass))
                     {
-                        int i = 1;
+						player->cachedName = user;
                         UserInfo userInfo = DatabaseManager::getInstance().getUserInfo(user);
                         sf::Packet answer;
                         answer << true
