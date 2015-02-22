@@ -113,6 +113,17 @@ void TextBox::textWrap()
 		message.move(targetPosition.x * GraphicsManager::getInstance()->scale, 
 			         targetPosition.y * GraphicsManager::getInstance()->scale);
 
+        if (borderOutline)
+        {
+            sf::FloatRect messageRect = this->message.getGlobalBounds();
+            border = sf::RectangleShape(sf::Vector2f(boundingWidth + 20 * GraphicsManager::getInstance()->scale,
+                                        messageRect.height + 20 * GraphicsManager::getInstance()->scale));
+            border.setOrigin(GraphicsManager::getInstance()->getCenter(border));
+            border.setPosition(this->message.getPosition());
+            border.setOutlineColor(GraphicsManager::getInstance()->buttonColor);
+            border.setOutlineThickness(2);
+            border.setFillColor(sf::Color::Transparent);
+        }
 	}
 }
 

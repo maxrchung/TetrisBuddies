@@ -23,8 +23,9 @@ public:
 
 	sf::Text message;
 
-private:
 	void textWrap();
+
+private:
 	float boundingWidth;
 
 	// Used to check if there is a change in the message

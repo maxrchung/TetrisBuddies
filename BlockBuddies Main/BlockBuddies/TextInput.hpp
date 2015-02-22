@@ -51,9 +51,10 @@ public:
 		// We leave this public so that we can access it within TextInput
 		sf::RectangleShape boundingRect;
 	} inputCursor;
+
+	sf::RectangleShape boundingRect;
 	
 private:
-	sf::RectangleShape boundingRect;
 	Alignments drawAlignment;
 	Alignments textAlignment;
 	bool isProtected;

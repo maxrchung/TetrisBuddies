@@ -21,7 +21,8 @@ GraphicsManager* GraphicsManager::getInstance()
 void GraphicsManager::init()
 {
 	// Sets window to fullscreen
-	window.create(sf::VideoMode::getDesktopMode(), 
+	window.create(sf::VideoMode(1280, 600),
+                  //sf::VideoMode::getDesktopMode(),
 				  "Block Buddies",
 				  sf::Style::None);
 
@@ -64,7 +65,6 @@ void GraphicsManager::init()
 	// They represent respectively the darkest and lightest colors
 	selectColor =       buttonColor;
 	typeColor =         backgroundColor;
-
 }
 
 // getCenter() is a utility function for getting the origin of an object

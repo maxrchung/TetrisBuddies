@@ -85,7 +85,7 @@ RegisterScreen::RegisterScreen()
                      50.0f)),
 
 	 login(new Button(Screens::LOGIN,
-		              "Cancel",
+		              "Back",
                       0.0f,
                       200.0f,
                       150.0f,
