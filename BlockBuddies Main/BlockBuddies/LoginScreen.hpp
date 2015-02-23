@@ -43,7 +43,9 @@ private:
 	TextInput* password;
     Button* home;
     Button* signup;
+    Button* instruction;
     Button* offlineHome;
+    Button* exit;
 
     //added a sound object to login screen
 	sf::Sound sound;

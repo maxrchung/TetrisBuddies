@@ -28,7 +28,7 @@ RegisterScreen::RegisterScreen()
 					   Alignments::CENTER,
 					   true)),
 
-     status(new TextBox("Enter username once and password twice to register an account.",
+     status(new TextBox("Enter username once and password twice to register an account. Enter a minimum of 5 characters.",
 	                    0.0f,
 						-125.0f,
 						300.0f,
@@ -85,7 +85,7 @@ RegisterScreen::RegisterScreen()
                      50.0f)),
 
 	 login(new Button(Screens::LOGIN,
-		              "Cancel",
+		              "Back",
                       0.0f,
                       200.0f,
                       150.0f,

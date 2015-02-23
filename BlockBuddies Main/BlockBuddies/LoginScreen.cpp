@@ -10,25 +10,25 @@ LoginScreen::LoginScreen()
     :backSection(new Section(0.0f,
                              12.5f,
                              420.0f,
-                             645.0f,
+                             595.0f,
                              GraphicsManager::getInstance()->buttonColor,
                              true)),
 
      section(new Section(0.0f,
 	                     12.5f,
 						 400.0f,
-						 625.0f)),
+						 575.0f)),
                          
      title(new TextBox("BLOCK BUDDIES",
 	                   0.0f,
-					   -225.0f,
+					   -200.0f,
 					   300.0f,
 					   Alignments::CENTER,
 
 					   // Parameter tells the constructor that it is a title
 					   true)),
 
-	 status(new TextBox("Welcome to Block Buddies! Enter your username and password to login. Press register to create a new account, or press offline to play a single-player game.",
+	 status(new TextBox("Welcome to the game! Login to access multiplayer or play an offline game here.",
 	                    0.0f,
 						-125.0f,
 						300.0f,
@@ -38,7 +38,7 @@ LoginScreen::LoginScreen()
 
      usernameTag(new TextBox("Username: ",
 		                     -140.0f,
-							 -25.0f,
+							 -50.0f,
 							 250.0f,
 							 // We want left alignment so that we can easily line up
 							 // Username: tags with the Password: tag below it
@@ -46,19 +46,19 @@ LoginScreen::LoginScreen()
 
      passwordTag(new TextBox("Password: ",
 	                         -140.0f,
-							 25.0f,
+							 0.0f,
 							 250.0f,
 							 Alignments::LEFT)),
 
      username(new TextInput(-60.0f,
-		                    -25.0f,
+		                    -50.0f,
 							200.0f,
 							30.0f,
 							Alignments::LEFT,
 							Alignments::LEFT)),
 
      password(new TextInput(-60.0f,
-		                    25.0f,
+		                    0.0f,
 							200.0f,
 							30.0f,
 							Alignments::LEFT,
@@ -67,24 +67,39 @@ LoginScreen::LoginScreen()
 
 	 home(new Button(Screens::HOME,
 		             "Login",
-                     0.0f,
-                     100.0f,
+                     -87.5f,
+                     75.0f,
                      150.0f,
                      50.0f)),
 
      signup(new Button(Screens::REGISTER,
                        "Register",
-                       0.0f,
-                       175.0f,
+                       87.5f,
+                       75.0f,
                        150.0f,
                        50.0f)),
 
+     instruction(new Button(Screens::INSTRUCTION,
+                            "Instructions",
+                            -87.5,
+                            150.0f,
+                            150.0f,
+                            50.0f)),
+
      offlineHome(new Button(Screens::GAME,
 			                "Offline",
-                            0.0f,
-                            250.0f,
+                            87.5f,
                             150.0f,
-                            50.0f))
+                            150.0f,
+                            50.0f)),
+                            
+     exit(new Button(Screens::NONE,
+                     "Exit",
+                     0.0f,
+                     225.0f,
+                     150.0f,
+                     50.0f))
+
 {
     UIElements.push_back(backSection);
     UIElements.push_back(section);
@@ -96,13 +111,17 @@ LoginScreen::LoginScreen()
     UIElements.push_back(password);
     UIElements.push_back(home);
     UIElements.push_back(signup);
+    UIElements.push_back(instruction);
     UIElements.push_back(offlineHome);
+    UIElements.push_back(exit);
 
     selectables = { username,
                     password,
                     home,
                     signup,
-                    offlineHome };
+                    instruction,
+                    offlineHome,
+                    exit };
 
 	//set the sound with a soundbuffer from the soundmanager
 	sound.setBuffer(*SoundManager::getInstance().getSound("scream"));
@@ -206,6 +225,48 @@ void LoginScreen::update()
 		SoundManager::getInstance().playMusic("Sounds/Slamtris.ogg");
         ScreenManager::getInstance()->switchScreen(offlineHome->toScreen);
     }
+
+    else if (instruction->isActivated ||
+             (InputManager::getInstance()->enter && instruction->isSelected))
+    {
+        ScreenManager::getInstance()->addScreen(instruction->toScreen);
+    }
+
+    else if (exit->isActivated ||
+             (InputManager::getInstance()->enter && exit->isSelected))
+    {
+        ScreenManager::getInstance()->closeGame();
+        InputManager::getInstance()->resetInput();
+    }
+
+    sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(GraphicsManager::getInstance()->window).x,
+                                              sf::Mouse::getPosition(GraphicsManager::getInstance()->window).y);
+
+    if(home->boundingRect.getGlobalBounds().contains(mousePosition))
+        status->message.setString("Login with the given username and password.");
+
+    else if(signup->boundingRect.getGlobalBounds().contains(mousePosition))
+        status->message.setString("Register a new account to access multiplayer features.");
+
+    else if(instruction->boundingRect.getGlobalBounds().contains(mousePosition))
+        status->message.setString("New to the game? Learn how to play!");
+
+    else if(offlineHome->boundingRect.getGlobalBounds().contains(mousePosition))
+        status->message.setString("Play a singleplayer offline game. Stats are not saved in this mode.");
+
+    else if(exit->boundingRect.getGlobalBounds().contains(mousePosition))
+        status->message.setString("Exit the program. See you next time!");
+
+    else if(username->boundingRect.getGlobalBounds().contains(mousePosition))
+        status->message.setString("Enter account username here.");
+
+    else if(password->boundingRect.getGlobalBounds().contains(mousePosition))
+        status->message.setString("Enter account password here.");    
+
+    else
+        status->message.setString("Welcome to the game! Login to access multiplayer or play an offline game here.");
+
+    status->textWrap();
 }
 
 void LoginScreen::draw()

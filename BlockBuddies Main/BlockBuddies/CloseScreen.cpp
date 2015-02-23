@@ -28,7 +28,7 @@ CloseScreen::CloseScreen()
 					   // Parameter tells the constructor that it is a title
 					   true)),
 
-	 status(new TextBox("Are you sure you want to exit?",
+	 status(new TextBox("Are you sure you want to exit the game?",
 	                    0.0f,
 						-75.0f,
 						300.0f,

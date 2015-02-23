@@ -100,7 +100,7 @@ void HomeScreen::update()
 
     else if (instruction->isActivated ||
              (InputManager::getInstance()->enter && instruction->isSelected))
-                 ScreenManager::getInstance()->switchScreen(instruction->toScreen);
+                 ScreenManager::getInstance()->addScreen(instruction->toScreen);
 }
 
 void HomeScreen::draw()

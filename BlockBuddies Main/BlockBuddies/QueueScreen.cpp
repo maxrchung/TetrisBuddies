@@ -95,7 +95,6 @@ void QueueScreen::update()
             fade.state = FadeStates::FADING_OUT;
             InputManager::getInstance()->resetInput();
             ClientManager::getInstance().leaveQueue();
-            return;
         }
     }
 }

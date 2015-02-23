@@ -21,7 +21,6 @@ Section::Section(float posX,
     float scale = GraphicsManager::getInstance()->scale;
     if(drawBorder)
     {
-        srand(time(NULL));
         for(int i = 0; i < 16; i++)
         {
             float side = (float)(rand() % 50 + 10);
@@ -66,6 +65,10 @@ Section::Section(float posX,
                 block.move(ceil((-boundingRect.getLocalBounds().width/2.0f + width) * scale),
                            ceil(boundingRect.getLocalBounds().height/2.0f) * scale);
             }
+
+            sf::Vector2f center = GraphicsManager::getInstance()->getCenter(block);
+            block.setOrigin(center);
+            block.move(center.x * scale, center.y * scale);
 
             bool toContinue = false;
             for(auto& placedBlock : blockBorder)
