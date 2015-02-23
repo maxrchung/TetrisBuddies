@@ -14,6 +14,15 @@ MatchMakingHandler::~MatchMakingHandler()
 
 }
 
+bool MatchMakingHandler::isInGame(sf::IpAddress check)
+{
+	for (auto& checkMe: gameList)
+		if (checkMe->player1->myAddress == check || checkMe->player2->myAddress == check)
+			return true;
+
+	return false;
+}
+
 void MatchMakingHandler::addMessage(sf::Packet addMe , sf::IpAddress myAddress)
 {
 	if (multiPlayerGames.size() > 0)
@@ -102,7 +111,6 @@ void MatchMakingHandler::makeGame(Player* p1, Player* p2)
 	multiPlayerGames.insert(std::pair<sf::IpAddress, Game*>(p1->myAddress, nGame));
 	multiPlayerGames.insert(std::pair<sf::IpAddress, Game*>(p2->myAddress, nGame));
     gameList.push_back(nGame);
-	UserInfo temp = gameList[0]->player1->playerInfo;
     sf::Packet foundGame;
     foundGame << PacketDecode::PACKET_FOUNDGAME;
     p1->playerSocket->send(foundGame);
@@ -175,16 +183,17 @@ void MatchMakingHandler::sendMessages()
 	}
 }
 
+void MatchMakingHandler::queueToRemove(sf::IpAddress p1, sf::IpAddress p2, int postionToRemove)
+{
+	removePostions.push_back(postionToRemove);
+	removeMe.push_back(p1);
+	removeMe.push_back(p2);
+}
+
 void MatchMakingHandler::update()
 {
 	//Run the game tick
 	int counter = 0;
-	bool needsRemove = false;;
-	if (gameList.size() > 0)
-	{
-		UserInfo temp = gameList[0]->player1->playerInfo;
-
-	}
 	for (auto check: gameList)
 	{
 		if (check->playerOneGame.delayFinished && check->playerTwoGame.delayFinished)
@@ -195,19 +204,12 @@ void MatchMakingHandler::update()
 			if (check->playerOneGame.IsGameOver() && check->playerOneGame.gameHasStarted)
 			{
 				sendResults(counter, 2);
-				//Remove players from list
-				removePostions.push_back(counter);
-				removeMe.push_back(check->player1->myAddress);
-				removeMe.push_back(check->player2->myAddress);
-
+				queueToRemove(check->player1->myAddress, check->player2->myAddress, counter);
 			}
 			else if (check->playerTwoGame.IsGameOver() && check->playerTwoGame.gameHasStarted)
 			{
 				sendResults(counter, 1);
-				//Remove players from list
-				removePostions.push_back(counter);
-				removeMe.push_back(check->player1->myAddress);
-				removeMe.push_back(check->player2->myAddress);
+				queueToRemove(check->player1->myAddress, check->player2->myAddress, counter);
 			}
 
 		}
@@ -221,7 +223,4 @@ void MatchMakingHandler::update()
 
 	if (removeMe.size() > 0)
 		removePlayers();
-
-	
-
 }

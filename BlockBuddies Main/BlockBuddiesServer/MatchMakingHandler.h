@@ -13,7 +13,6 @@ public:
 	MatchMakingHandler();
 	~MatchMakingHandler();
 
-
 	std::deque<Player*> activePlayers;
     std::map<sf::IpAddress, Game*> multiPlayerGames;
     std::deque<Game*> gameList;
@@ -21,6 +20,7 @@ public:
 	std::list<int> removePostions;
 
 	bool isInQueue(sf::IpAddress check);
+	bool isInGame(sf::IpAddress check);
 	void sendPackets(sf::Packet& , sf::Packet& , int position );
 	void removeFromQueue(sf::IpAddress remove);
 	void removePlayers();
@@ -29,6 +29,7 @@ public:
 	void addMessage(sf::Packet addMe, sf::IpAddress myAddress);
 	void checkForMatches();
 	void makeGame(Player *p1, Player *p2);
+	void queueToRemove(sf::IpAddress p1, sf::IpAddress p2, int postionToRemove);
 
 	void update();
 

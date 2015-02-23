@@ -36,9 +36,8 @@ public:
     std::list<Player*> connectPlayers;
 	std::list<Player*> toRemove;
 	std::list<std::string> userNamesLoggedIn;
-
-
 	GameLogic gameHandler;
+	//Sending messages
 	sf::Clock clock;
 	sf::Time tick;
 
