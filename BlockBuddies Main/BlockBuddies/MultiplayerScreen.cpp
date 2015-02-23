@@ -1,6 +1,7 @@
 #include "MultiplayerScreen.hpp"
 #include "BlockShowerManager.hpp"
 #include "AnimationManager.hpp"
+#include <cmath>
 MultiplayerScreen::MultiplayerScreen()
 :blockSwitch(false), pressed(false), pressed2(false), reset(false)
 {
@@ -14,43 +15,45 @@ void MultiplayerScreen::initGame()
 	//fill in initial board
 	int gridPosy = 0;
 	int gridPosx = 0;
-	blockSizeX = 25;
-	blockSizeY = 25;
+	blockSize = (GraphicsManager::getInstance()->window.getSize().y/ gso.boardHeight) * .9;
 
-	winX = GraphicsManager::getInstance()->window.getSize().x - (GraphicsManager::getInstance()->window.getSize().x % blockSizeX);
-	winY = GraphicsManager::getInstance()->window.getSize().y - (GraphicsManager::getInstance()->window.getSize().y % blockSizeX);
+	winX = GraphicsManager::getInstance()->window.getSize().x - (GraphicsManager::getInstance()->window.getSize().x % blockSize);
+	winY = GraphicsManager::getInstance()->window.getSize().y - (GraphicsManager::getInstance()->window.getSize().y % blockSize);
 
-	int funkyX = (winX / 2 - SCREENWIDTH * 3 / 2) - ((winX / 2 - SCREENWIDTH * 3 / 2) % blockSizeX);
-	int funkyY = (winY / 2 - SCREENHEIGHT / 2) - ((winY / 2 - SCREENHEIGHT / 2) % blockSizeX);
-	int funkyX2 = (winX / 2 + SCREENWIDTH / 2) - ((winX / 2 + SCREENWIDTH / 2) % blockSizeX);
-	int funkyY2 = (winY / 2 - SCREENHEIGHT / 2) - ((winY / 2 - SCREENHEIGHT / 2) % blockSizeX);
 
-	int offset = ((winX / 2 - SCREENWIDTH * 3 / 2) % blockSizeX);
+	int gbHeight = (gso.boardHeight * blockSize);
+	int gbWidth = (blockSize * gso.boardWidth);
+	
+	int p1OutlineX = blockSize;
+	int p1OutlineY = (winY / 2 - gbHeight / 2) - ((winY / 2 - gbHeight / 2) % blockSize);
+	int p2OutlineX = winX - (gbWidth + blockSize);
+	int p2OutlineY = (winY / 2 - gbHeight / 2) - ((winY / 2 - gbHeight / 2) % blockSize);
 
-	ch = new CursorHandler(SCREENWIDTH, SCREENHEIGHT, winX, winY, funkyX, funkyY, blockSizeX, offset);
+	int offset = (winX % blockSize);
+
+	ch = new CursorHandler(gbWidth, gbHeight, winX, winY, p1OutlineX, p1OutlineY, blockSize, offset);
 
 	//draws a large rectangle around the game screen for p1
-	p1Outline.setSize(sf::Vector2f(SCREENWIDTH, SCREENHEIGHT));
+	p1Outline.setSize(sf::Vector2f(gbWidth, gbHeight));
 	p1Outline.setFillColor(sf::Color::Transparent);
-	p1Outline.setPosition(funkyX,funkyY);
-	p1Outline.setOutlineThickness(blockSizeX);
+	p1Outline.setPosition(p1OutlineX + blockSize, p1OutlineY + blockSize);
+	p1Outline.setOutlineThickness(blockSize);
 	p1Outline.setOutlineColor(sf::Color::Black);
 	//draws a large rectangle around the game screen for p2
-	p2Outline.setSize(sf::Vector2f(SCREENWIDTH, SCREENHEIGHT));
+	p2Outline.setSize(sf::Vector2f(gbWidth, gbHeight));
 	p2Outline.setFillColor(sf::Color::Transparent);
-	p2Outline.setPosition(funkyX2, funkyY2);
-	p2Outline.setOutlineThickness(blockSizeX);
+	p2Outline.setPosition(p2OutlineX - blockSize, p2OutlineY + blockSize);
+	p2Outline.setOutlineThickness(blockSize);
 	p2Outline.setOutlineColor(sf::Color::Black);
 
 
 	//creates blocks and puts them in 2D array for p1
-	for (int i = SCREENHEIGHT; i > 0; i -= blockSizeY)
+	for (int i = gbHeight; i > 0; i -= blockSize)
 	{
-		for (int j = 0; j < SCREENWIDTH; j += blockSizeX)
+		for (int j = 0; j < gbWidth; j += blockSize)
 		{
-
-			sf::RectangleShape shape(sf::Vector2f(blockSizeX, blockSizeY));
-			shape.setPosition(j + funkyX, i - (((winY / 2) - SCREENHEIGHT) + blockSizeX)); //puts it in the middle of the screen
+			sf::RectangleShape shape(sf::Vector2f(blockSize, blockSize));
+			shape.setPosition(j + p1OutlineX + blockSize, i - p1OutlineY + blockSize *2); //puts it in the middle of the screen
 			shape.setFillColor(sf::Color::Transparent); //transparent blocks to appear as empty space
 			p1Blocks[gridPosx][gridPosy] = shape;
 			gridPosy++;
@@ -61,13 +64,13 @@ void MultiplayerScreen::initGame()
 
 	gridPosx = 0;
 	gridPosy = 0;
-	for (int i = SCREENHEIGHT; i > 0; i -= blockSizeY)
+	for (int i = gbHeight; i > 0; i -= blockSize)
 	{
-		for (int j = 0; j < SCREENWIDTH; j += blockSizeX)
+		for (int j = 0; j < gbWidth; j += blockSize)
 		{
 
-			sf::RectangleShape shape(sf::Vector2f(blockSizeX, blockSizeY));
-			shape.setPosition(j + funkyX2, i - (((winY / 2) - SCREENHEIGHT) + blockSizeX)); //puts it in the middle of the screen
+			sf::RectangleShape shape(sf::Vector2f(blockSize, blockSize));
+			shape.setPosition(j + p2OutlineX - blockSize, i - p2OutlineY + blockSize *2); //puts it in the middle of the screen
 			shape.setFillColor(sf::Color::Transparent); //transparent blocks to appear as empty space
 			p2Blocks[gridPosx][gridPosy] = shape;
 			gridPosy++;
@@ -100,12 +103,6 @@ void MultiplayerScreen::update()
 			updateBlocks();
 
 		}
-
-		if (InputManager::getInstance()->backspace)
-		{
-			ClientManager::getInstance().requestSwap(ch->getCursorY(), ch->getCursorX(), ch->getCursorY(), ch->getCursorX() + 1);
-		}
-
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 		{
@@ -150,12 +147,11 @@ void MultiplayerScreen::update()
 				ClientManager::getInstance().requestSwap(ch->getCursorY(), ch->getCursorX(), ch->getCursorY(), ch->getCursorX() - 1);
 				if (swapSound.getStatus() != swapSound.Playing)
 					swapSound.play();
-				ScreenManager::getInstance()->shake(.5);
 
 				int y = ch->getCursorY();
 				int x = ch->getCursorX();
 
-				AnimationManager::getInstance()->add(p1Blocks[y][x], p1Blocks[y][x - 1]);
+				//AnimationManager::getInstance()->add(p1Blocks[y][x], p1Blocks[y][x - 1]);
 				pressed2 = true;
 			}
 		}
@@ -165,14 +161,14 @@ void MultiplayerScreen::update()
 			{
 				ClientManager::getInstance().requestSwap(ch->getCursorY(), ch->getCursorX(), ch->getCursorY(), ch->getCursorX() + 1);
 				pressed2 = true;
-				ScreenManager::getInstance()->shake(.5);
+
 				if (swapSound.getStatus() != swapSound.Playing)
 					swapSound.play();
 
 				int y = ch->getCursorY();
 				int x = ch->getCursorX();
 
-				AnimationManager::getInstance()->add(p1Blocks[y][x], p1Blocks[y][x + 1]);
+				//AnimationManager::getInstance()->add(p1Blocks[y][x], p1Blocks[y][x + 1]);
 
 			}
 		}
@@ -182,13 +178,13 @@ void MultiplayerScreen::update()
 			{
 				ClientManager::getInstance().requestSwap(ch->getCursorY(), ch->getCursorX(), ch->getCursorY() + 1, ch->getCursorX());
 				pressed2 = true;
-				ScreenManager::getInstance()->shake(.5);
+
 				if (swapSound.getStatus() != swapSound.Playing)
 					swapSound.play();
 				int y = ch->getCursorY();
 				int x = ch->getCursorX();
 
-				AnimationManager::getInstance()->add(p1Blocks[y][x], p1Blocks[y + 1][x]);
+				//AnimationManager::getInstance()->add(p1Blocks[y][x], p1Blocks[y + 1][x]);
 			}
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) //swaps the main block with the bottom block
@@ -197,13 +193,13 @@ void MultiplayerScreen::update()
 			{
 				ClientManager::getInstance().requestSwap(ch->getCursorY(), ch->getCursorX(), ch->getCursorY() - 1, ch->getCursorX());
 				pressed2 = true;
-				ScreenManager::getInstance()->shake(.5);
+
 				if (swapSound.getStatus() != swapSound.Playing)
 					swapSound.play();
 				int y = ch->getCursorY();
 				int x = ch->getCursorX();
 
-				AnimationManager::getInstance()->add(p1Blocks[y][x], p1Blocks[y - 1][x]);
+				//AnimationManager::getInstance()->add(p1Blocks[y][x], p1Blocks[y - 1][x]);
 			}
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
@@ -397,21 +393,22 @@ void MultiplayerScreen::draw()
 	GraphicsManager::getInstance()->window.draw(p1Outline);
 	GraphicsManager::getInstance()->window.draw(p2Outline);
 	//draws blocks on screen
-	for (int i = 0; i < SCREENHEIGHT / 25; i++)
+	for (int i = 0; i < gso.boardHeight; i++)
 	{
-		for (int j = 0; j < SCREENWIDTH / 25; j++)
+		for (int j = 0; j < gso.boardWidth; j++)
 		{
 			GraphicsManager::getInstance()->window.draw(p1Blocks[i][j]);
 		}
 	}
 
-	for (int i = 0; i < SCREENHEIGHT / 25; i++)
+	for (int i = 0; i < gso.boardHeight; i++)
 	{
-		for (int j = 0; j < SCREENWIDTH / 25; j++)
+		for (int j = 0; j < gso.boardWidth; j++)
 		{
 			GraphicsManager::getInstance()->window.draw(p2Blocks[i][j]);
 		}
 	}
+
 	AnimationManager::getInstance()->update();
 	GraphicsManager::getInstance()->window.draw(ch->getMainCursor()); //draws main cursor
 	GraphicsManager::getInstance()->window.draw(ch->getLeftCursor()); //draws left cursor

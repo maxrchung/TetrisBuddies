@@ -52,42 +52,43 @@ CursorHandler::CursorHandler(int sw, int sh, int ww, int wh, int xStart, int ySt
 	originX = (ww / 2 - (ww / 2 - sw / 2)) / blockSize;
 	originY = ((wh / 2 - ((wh / 2 + offset) - sh / 2)) / blockSize) - 1;
 
-	ww = ww / 2 - sw - offset;
-	wh = wh / 2 + 2*offset;
+	xBoundary = xStart + blockSize;
+	yBoundary = yStart + blockSize;
 
-	xBoundary = xStart;
-	yBoundary = yStart;
 	screenWidth = sw - blockSize;
-	screenHeight = sh - blockSize;
+	screenHeight = sh + blockSize;
+
+	int x = (((xStart + sw) / 2)+blockSize*2) - ((((xStart + sw) / 2)+ blockSize*2) % blockSize);
+	int y = (((yStart + sh) / 2) + blockSize*2) - ((((yStart + sh) / 2) + blockSize*2) % blockSize);
 
 	//inital set up for main square
-	mainSquare.setSize(sf::Vector2f(25, 25));
+	mainSquare.setSize(sf::Vector2f(blockSize, blockSize));
 	mainSquare.setFillColor(sf::Color::Transparent);
-	mainSquare.setPosition(ww, wh);
+	mainSquare.setPosition(x, y);
 	mainSquare.setOutlineThickness(-3);
 	mainSquare.setOutlineColor(sf::Color::Black);
 	//initial set up for right square
-	rightSquare.setSize(sf::Vector2f(25, 25));
+	rightSquare.setSize(sf::Vector2f(blockSize, blockSize));
 	rightSquare.setFillColor(sf::Color::Transparent);
-	rightSquare.setPosition(ww + blockSize, wh);
+	rightSquare.setPosition(x + blockSize, y);
 	rightSquare.setOutlineThickness(-3);
 	rightSquare.setOutlineColor(sf::Color(0, 0, 0, 200));
 	//inital set up for left square
-	leftSquare.setSize(sf::Vector2f(25, 25));
+	leftSquare.setSize(sf::Vector2f(blockSize, blockSize));
 	leftSquare.setFillColor(sf::Color::Transparent);
-	leftSquare.setPosition(ww - blockSize, wh);
+	leftSquare.setPosition(x - blockSize, y);
 	leftSquare.setOutlineThickness(-3);
 	leftSquare.setOutlineColor(sf::Color(0, 0, 0, 200));
 	//initial set up for top square
-	topSquare.setSize(sf::Vector2f(25, 25));
+	topSquare.setSize(sf::Vector2f(blockSize, blockSize));
 	topSquare.setFillColor(sf::Color::Transparent);
-	topSquare.setPosition(ww, wh + blockSize);
+	topSquare.setPosition(x, y + blockSize);
 	topSquare.setOutlineThickness(-3);
 	topSquare.setOutlineColor(sf::Color(0, 0, 0, 200));
 	//initial set up for bottom square
-	bottomSquare.setSize(sf::Vector2f(25, 25));
+	bottomSquare.setSize(sf::Vector2f(blockSize, blockSize));
 	bottomSquare.setFillColor(sf::Color::Transparent);
-	bottomSquare.setPosition(ww, wh - blockS);
+	bottomSquare.setPosition(x, y - blockSize);
 	bottomSquare.setOutlineThickness(-3);
 	bottomSquare.setOutlineColor(sf::Color(0, 0, 0, 200));
 
