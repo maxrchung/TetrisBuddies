@@ -9,27 +9,27 @@ OfflineCloseScreen::OfflineCloseScreen()
 	:backSection(new Section(0.0f,
 	                     0.0f,
 						 420.0f,
-						 470.0f,
+						 395.0f,
                          GraphicsManager::getInstance()->buttonColor,
                          true)),
 
      section(new Section(0.0f,
 	                     0.0f,
 						 400.0f,
-						 450.0f)),
+						 375.0f)),
 
      title(new TextBox("QUIT",
 	                   0.0f,
-					   -150.0f,
+					   -150.0f + 37.5f,
 					   300.0f,
 					   Alignments::CENTER,
 
 					   // Parameter tells the constructor that it is a title
 					   true)),
 
-	 status(new TextBox("Are you sure you want to exit the game?",
+	 status(new TextBox("Are you sure you want to quit the game?",
 	                    0.0f,
-						-75.0f,
+						-75.0f + 37.5f,
 						300.0f,
                         Alignments::CENTER,
                         false,
@@ -37,22 +37,22 @@ OfflineCloseScreen::OfflineCloseScreen()
 
 	 login(new Button(Screens::LOGIN,
 		              "Login",
-                      0.0f,
-                      0.0f,
+                      -87.5f,
+                      0.0f + 37.5f,
                       150.0f,
                       50.0f)),
 
      exit(new Button(Screens::NONE,
                      "Exit",
-                     0.0f,
-                     75.0f,
+                     87.5f,
+                     0.0f + 37.5f,
                      150.0f,
                      50.0f)),
 
      cancel(new Button(Screens::NONE,
-                       "Cancel",
+                       "Back",
                        0.0f,
-                       150.0f,
+                       75.0f + 37.5f,
                        150.0f,
                        50.0f))
 {
@@ -100,8 +100,23 @@ void OfflineCloseScreen::update()
         deactivate();
         fade.state = FadeStates::FADING_OUT;
         InputManager::getInstance()->resetInput();
-        return;
     }
+
+    sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(GraphicsManager::getInstance()->window).x,
+                                              sf::Mouse::getPosition(GraphicsManager::getInstance()->window).y);
+
+    if(login->boundingRect.getGlobalBounds().contains(mousePosition))
+        status->message.setString("Login to the game.");
+
+    else if (exit->boundingRect.getGlobalBounds().contains(mousePosition))
+        status->message.setString("Exit the game and close the program.");
+
+    else if (cancel->boundingRect.getGlobalBounds().contains(mousePosition))
+        status->message.setString("Leave the quit screen.");
+    else
+        status->message.setString("Are you sure you want to quit the game?");
+
+    status->textWrap();
 }
 
 void OfflineCloseScreen::draw()

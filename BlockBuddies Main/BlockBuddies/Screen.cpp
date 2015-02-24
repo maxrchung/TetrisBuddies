@@ -29,21 +29,10 @@ void Screen::update()
     if (close->isActivated)
     {
         close->isActivated = false;
-        
-        RegisterScreen* registerCheck = dynamic_cast<RegisterScreen*>(this);
-        LoginScreen* loginCheck = dynamic_cast<LoginScreen*>(this);
 
         if(ClientManager::getInstance().isConnected)
         {
             ScreenManager::getInstance()->addScreen(close->toScreen);
-            if(registerCheck || loginCheck)
-            {
-                sf::Text& alter = ((CloseScreen*)ScreenManager::getInstance()->currentScreens.back())->login->label;
-                alter.setString("Login");
-                alter.setOrigin(GraphicsManager::getInstance()->getCenter(alter));
-                alter.setPosition(sf::Vector2f(GraphicsManager::getInstance()->window.getSize().x / 2.0f,
-                                               GraphicsManager::getInstance()->window.getSize().y / 2.0f));
-            }
         }
         else
             ScreenManager::getInstance()->addScreen(Screens::OFFLINECLOSE);

@@ -12,25 +12,25 @@ RegisterScreen::RegisterScreen()
     backSection(new Section(0.0f,
                             0.0f,
                             420.0f,
-                            570.0f,
+                            495.0f,
                             GraphicsManager::getInstance()->buttonColor,
                             true)),
 
     section(new Section(0.0f,
 		                 0.0f,
 						 400.0f,
-						 550.0f)),
+						 475.0f)),
 
 	 title(new TextBox("REGISTER",
                        0.0f,
-					   -200.0f,
+					   -175.0f + 12.5f,
 					   300.0f,
 					   Alignments::CENTER,
 					   true)),
 
      status(new TextBox("Enter username once and password twice to register an account. Enter a minimum of 5 characters.",
 	                    0.0f,
-						-125.0f,
+						-100.0f + 12.5f,
 						300.0f,
                         Alignments::CENTER,
                         false,
@@ -38,31 +38,31 @@ RegisterScreen::RegisterScreen()
 
      usernameTag(new TextBox("Username: ",
 	                         -140.0f,
-							 -50.0f,
+							 -25.0f + 12.5f,
 							 300.0f,
 							 Alignments::LEFT)),
 
 	 passwordTag(new TextBox("Password: ",
 	                         -140.0f,
-							 0.0f,
+							 25.0f + 12.5f,
 							 250.0f,
 							 Alignments::LEFT)),
 
      password2Tag(new TextBox("Password: ",
 	                          -140.0f,
-							  50.0f,
+							  75.0f + 12.5f,
 							  250.0f,
 							  Alignments::LEFT)),
 
 	 username(new TextInput(-60.0f,
-	                        -50.0f,
+	                        -25.0f + 12.5f,
 							200.0f,
 							30.0f,
 							Alignments::LEFT,
 							Alignments::LEFT)),
 
      password(new TextInput(-60.0f,
-	                        0.0f,
+	                        25.0f + 12.5f,
 							200.0f,
 							30.0f,
 							Alignments::LEFT,
@@ -70,7 +70,7 @@ RegisterScreen::RegisterScreen()
 							true)),
 
 	 password2(new TextInput(-60.0f,
-		                     50.0f,
+		                     75.0f + 12.5f,
 							 200.0f,
 							 30.0f,
 							 Alignments::LEFT,
@@ -79,15 +79,15 @@ RegisterScreen::RegisterScreen()
 
 	 home(new Button(Screens::HOME,
 		             "Enter",
-                     0.0f,
-                     125.0f,
+                     -87.5f,
+                     150.0f + 12.5f,
                      150.0f,
                      50.0f)),
 
 	 login(new Button(Screens::LOGIN,
 		              "Back",
-                      0.0f,
-                      200.0f,
+                      87.5f,
+                      150.0f + 12.5f,
                       150.0f,
                       50.0f))
 {
@@ -131,6 +131,15 @@ void RegisterScreen::update()
     if (home->isActivated ||
         (InputManager::getInstance()->enter && home->isSelected))
     {
+        if (!ClientManager::getInstance().isConnected)
+        {
+			if (!ClientManager::getInstance().initConnection(sf::IpAddress::getLocalAddress(), 5000))
+            {
+                ScreenManager::getInstance()->addScreen(Screens::NOTIFICATION, "Failed to connect with server. The server may be down, or you may not be connected to the Internet.");
+                return; // Skip the rest if we can't connect
+            }
+        }
+
         if (password->input.getString().getSize() < 5 || username->input.getString().getSize() < 5 || password2->input.getString().getSize() < 5)
         {
             ScreenManager::getInstance()->addScreen(Screens::NOTIFICATION, "Enter a minimum of 5 characters for each input.");
@@ -145,11 +154,16 @@ void RegisterScreen::update()
             else
             {
                 ScreenManager::getInstance()->addScreen(Screens::NOTIFICATION, "This username has already been taken.");
+
+                // Need to remember to close connection so the game won't think we're still connected
+                // This may potentially cause lag
+                ClientManager::getInstance().closeConnection();
             }
         }
         else
         {
             ScreenManager::getInstance()->addScreen(Screens::NOTIFICATION, "The passwords do not match.");
+            ClientManager::getInstance().closeConnection();
         }
     }
     else if (login->isActivated ||
@@ -157,6 +171,23 @@ void RegisterScreen::update()
     {
         ScreenManager::getInstance()->switchScreen(login->toScreen);
     }
+
+    sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(GraphicsManager::getInstance()->window).x,
+                                              sf::Mouse::getPosition(GraphicsManager::getInstance()->window).y);
+
+    if(username->boundingRect.getGlobalBounds().contains(mousePosition))
+        status->message.setString("Enter a username with 5 characters or more.");
+
+    else if (password->boundingRect.getGlobalBounds().contains(mousePosition))
+        status->message.setString("Enter a password with 5 characters or more.");
+
+    else if (password2->boundingRect.getGlobalBounds().contains(mousePosition))
+        status->message.setString("Enter password a second time that matches the above password.");
+
+    else
+        status->message.setString("Enter username once and password twice to register an account. Enter a minimum of 5 characters.");
+
+    status->textWrap();
 }
 
 void RegisterScreen::draw()

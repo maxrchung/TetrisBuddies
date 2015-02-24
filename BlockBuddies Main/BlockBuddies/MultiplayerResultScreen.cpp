@@ -11,25 +11,25 @@ MultiplayerResultScreen::MultiplayerResultScreen()
     backSection(new Section(0.0f,
                             0.0f,
                             420.0f,
-                            470.0f,
+                            395.0f,
                             GraphicsManager::getInstance()->buttonColor,
                             true)),
 
     section(new Section(0.0f,
                         0.0f,
                         400.0f,
-                        450.0f)),
+                        375.0f)),
      
      title(new TextBox("GAME OVER",
                        0.0f,
-                       -150.0f,
+                       -150.0f + 37.5f,
                        300.0f,
                        Alignments::CENTER,
                        true)),
 
-     status(new TextBox("Game over! Hit home to return back to the home screen, or press play again to rejoin the game queue.",
+     status(new TextBox("Game over! Play another multiplayer game?",
                         0.0f,
-                        -75.0f,
+                        -75.0f + 37.5f,
                         300.0f,
                         Alignments::CENTER,
                         false,
@@ -37,22 +37,22 @@ MultiplayerResultScreen::MultiplayerResultScreen()
 
      result(new TextBox("YOU",
                         0.0f,
-                        0.0f,
+                        0.0f + 37.5f,
                         300.0f,
                         Alignments::CENTER,
                         true)),
 
-	 game(new Button(Screens::ONLINESINGLE,
+	 game(new Button(Screens::QUEUE,
                      "Play Again",
-                     0.0f,
-                     150.0f,
+                     87.5f,
+                     75.0f + 37.5f,
                      150.0f,
                      50.0f)),
 
      home(new Button(Screens::HOME,
 	                 "Home",
-                     0.0f,
-                     75.0f,
+                     -87.5f,
+                     75.0f + 37.5f,
                      150.0f,
                      50.0f))
 {
@@ -88,6 +88,18 @@ void MultiplayerResultScreen::update()
 void MultiplayerResultScreen::draw()
 {
     Screen::draw();
+    
+    sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(GraphicsManager::getInstance()->window).x,
+                                              sf::Mouse::getPosition(GraphicsManager::getInstance()->window).y);
+
+    if (home->boundingRect.getGlobalBounds().contains(mousePosition))
+        status->message.setString("Return to the home screen.");
+    else if(game->boundingRect.getGlobalBounds().contains(mousePosition))
+        status->message.setString("Join the queue for a multiplayer game.");
+    else
+        status->message.setString("Game over! Play another multiplayer game?");
+
+    status->textWrap();
 }
 
 void MultiplayerResultScreen::reload()

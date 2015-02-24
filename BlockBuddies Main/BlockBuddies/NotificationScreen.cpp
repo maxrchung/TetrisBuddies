@@ -37,7 +37,7 @@ NotificationScreen::NotificationScreen()
                         true)),
 
      back(new Button(Screens::NONE,
-                       "Return",
+                       "Back",
                        0.0f,
                        75.0f,
                        150.0f,

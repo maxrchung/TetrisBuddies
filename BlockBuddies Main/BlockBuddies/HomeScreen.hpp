@@ -14,6 +14,7 @@ public:
 	HomeScreen();
 	void update();
 	void draw();
+    void reload();
 
 private:
     Section* backSection;
@@ -24,6 +25,7 @@ private:
 	Button* multiplayer;
 	Button* profile;
     Button* instruction;
+    Button* logout;
 };
 
 #endif//HOMESCREEN_HPP

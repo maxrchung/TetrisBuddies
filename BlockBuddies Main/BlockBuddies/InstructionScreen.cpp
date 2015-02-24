@@ -37,6 +37,10 @@ InstructionScreen::InstructionScreen()
                      150.0f,
                      50.0f))
 {
+    // So we don't update/draw the close button when
+    // this screen is on top
+    close->isDisplayed = false;
+
     UIElements.push_back(backSection);
     UIElements.push_back(section);
     UIElements.push_back(title);
@@ -54,10 +58,10 @@ void InstructionScreen::update()
     if (home->isActivated ||
         (InputManager::getInstance()->enter && home->isSelected))
     {
-            deselect();
-            deactivate();
-            fade.state = FadeStates::FADING_OUT;
-            InputManager::getInstance()->resetInput();
+        deselect();
+        deactivate();
+        fade.state = FadeStates::FADING_OUT;
+        InputManager::getInstance()->resetInput();
     }
 }
 

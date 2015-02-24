@@ -3,32 +3,33 @@
 #include "ScreenManager.hpp"
 #include "SoundManager.h"
 #include "ClientManager.h"
+#include "BlockShowerManager.hpp"
 
 HomeScreen::HomeScreen()
     :backSection(new Section(0.0f,
-	                         12.5f,
+	                         0.0f,
                              420.0f,
-                             595.0f,
+                             470.0f,
                              GraphicsManager::getInstance()->buttonColor,
                              true)),
 
      section(new Section(0.0f,
-                         12.5f,
+                         0.0f,
                          400.0f,
-                         575.0f)),
+                         450.0f)),
 
      title(new TextBox("HOME",
 	                   0.0f,
-					   -200.0f,
+					   -150.0f,
 					   300.0f,
 					   Alignments::CENTER,
 
 					   // Parameter tells the constructor that it is a title
 					   true)),
 
-     welcome(new TextBox("Welcome to the game! Hit singleplayer to play by yourself or multiplayer to play against another opponent. Press profile to view your stats, or press instructions to learn how to play.",
+     welcome(new TextBox("The game is now connected with the server. Access the multiplayer features from this menu.",
                          0.0f,
-                         -100.0f,
+                         -75.0f,
                          300.0f,
                          Alignments::CENTER,
                          false,
@@ -36,29 +37,36 @@ HomeScreen::HomeScreen()
 
      networkedSinglePlayer(new Button(Screens::ONLINESINGLE,
                          "Singleplayer",
-                         0.0f,
+                         -87.5f,
                          0.0f,
                          150.0f,
                          50.0f)),
 
      multiplayer(new Button(Screens::QUEUE,
                          "Multiplayer",
+                         87.5f,
                          0.0f,
-                         75.0f,
                          150.0f,
                          50.0f)),
 
      profile(new Button(Screens::PROFILE,
                         "Profile",
-                        0.0f,
-                        150.0f,
+                        -87.5f,
+                        75.0f,
                         150.0f,
                         50.0f)),
 
      instruction(new Button(Screens::INSTRUCTION,
                         "Instructions",
-                        0.0f,
-                        225.0f,
+                        87.5f,
+                        75.0f,
+                        150.0f,
+                        50.0f)),
+
+     logout(new Button(Screens::LOGIN,
+                        "Logout",
+                        0,
+                        150.0f,
                         150.0f,
                         50.0f))
 {
@@ -70,11 +78,13 @@ HomeScreen::HomeScreen()
     UIElements.push_back(multiplayer);
     UIElements.push_back(profile);
     UIElements.push_back(instruction);
+    UIElements.push_back(logout);
 
     selectables = { networkedSinglePlayer,
                     multiplayer,
                     profile,
-                    instruction };
+                    instruction,
+                    logout };
 }
 
 void HomeScreen::update()
@@ -96,15 +106,51 @@ void HomeScreen::update()
 
     else if (profile->isActivated ||
              (InputManager::getInstance()->enter && profile->isSelected))
-                 ScreenManager::getInstance()->switchScreen(profile->toScreen);
+                 ScreenManager::getInstance()->addScreen(profile->toScreen);
 
     else if (instruction->isActivated ||
              (InputManager::getInstance()->enter && instruction->isSelected))
                  ScreenManager::getInstance()->addScreen(instruction->toScreen);
+
+    else if (logout->isActivated ||
+             (InputManager::getInstance()->enter && logout->isSelected))
+    {
+        ScreenManager::getInstance()->switchScreen(logout->toScreen);
+        ClientManager::getInstance().closeConnection();
+        InputManager::getInstance()->resetInput();
+    }
+
+    sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(GraphicsManager::getInstance()->window).x,
+                                              sf::Mouse::getPosition(GraphicsManager::getInstance()->window).y);
+
+    if(networkedSinglePlayer->boundingRect.getGlobalBounds().contains(mousePosition))
+        welcome->message.setString("Play a singleplayer game. Stats will be saved to the profile page.");
+
+    else if (multiplayer->boundingRect.getGlobalBounds().contains(mousePosition))
+        welcome->message.setString("Join the multiplayer queue and look for an available game.");
+
+    else if (profile->boundingRect.getGlobalBounds().contains(mousePosition))
+        welcome->message.setString("View account stats tracked from singleplayer and multiplayer.");
+
+    else if (instruction->boundingRect.getGlobalBounds().contains(mousePosition))
+        welcome->message.setString("New to the game? Learn how to play.");
+
+    else if (logout->boundingRect.getGlobalBounds().contains(mousePosition))
+        welcome->message.setString("Logout of this account and return back to the main menu.");
+
+    else
+        welcome->message.setString("The game is now connected with the server. Access the multiplayer features from this menu.");
+
+    welcome->textWrap();
 }
 
 void HomeScreen::draw()
 {
     // Calls base draw()
     Screen::draw();
+}
+
+void HomeScreen::reload()
+{
+    BlockShowerManager::getInstance()->fade.state = FadeStates::FADING_IN;
 }

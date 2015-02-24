@@ -21,8 +21,7 @@ GraphicsManager* GraphicsManager::getInstance()
 void GraphicsManager::init()
 {
 	// Sets window to fullscreen
-	window.create(sf::VideoMode(1280, 600),
-                  //sf::VideoMode::getDesktopMode(),
+	window.create(sf::VideoMode::getDesktopMode(),
 				  "Block Buddies",
 				  sf::Style::None);
 

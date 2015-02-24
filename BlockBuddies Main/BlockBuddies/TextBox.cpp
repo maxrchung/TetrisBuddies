@@ -124,6 +124,8 @@ void TextBox::textWrap()
             border.setOutlineThickness(2);
             border.setFillColor(sf::Color::Transparent);
         }
+
+        prevMessage = message;
 	}
 }
 

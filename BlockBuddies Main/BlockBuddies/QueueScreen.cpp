@@ -37,7 +37,7 @@ QueueScreen::QueueScreen()
                         true)),
 
      cancel(new Button(Screens::NONE,
-                       "Cancel",
+                       "Back",
                        0.0f,
                        75.0f,
                        150.0f,

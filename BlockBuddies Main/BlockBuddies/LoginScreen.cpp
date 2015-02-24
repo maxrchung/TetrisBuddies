@@ -8,29 +8,29 @@
 
 LoginScreen::LoginScreen()
     :backSection(new Section(0.0f,
-                             12.5f,
+                             0.0f,
                              420.0f,
                              595.0f,
                              GraphicsManager::getInstance()->buttonColor,
                              true)),
 
      section(new Section(0.0f,
-	                     12.5f,
+	                     0.0f,
 						 400.0f,
 						 575.0f)),
                          
      title(new TextBox("BLOCK BUDDIES",
 	                   0.0f,
-					   -200.0f,
+					   -200.0f - 12.5f,
 					   300.0f,
 					   Alignments::CENTER,
 
 					   // Parameter tells the constructor that it is a title
 					   true)),
 
-	 status(new TextBox("Welcome to the game! Login to access multiplayer or play an offline game here.",
+	 status(new TextBox("Welcome to the game! Login to access multiplayer.",
 	                    0.0f,
-						-125.0f,
+						-125.0f - 12.5f,
 						300.0f,
                         Alignments::CENTER,
                         false,
@@ -38,7 +38,7 @@ LoginScreen::LoginScreen()
 
      usernameTag(new TextBox("Username: ",
 		                     -140.0f,
-							 -50.0f,
+							 -50.0f - 12.5f,
 							 250.0f,
 							 // We want left alignment so that we can easily line up
 							 // Username: tags with the Password: tag below it
@@ -46,19 +46,19 @@ LoginScreen::LoginScreen()
 
      passwordTag(new TextBox("Password: ",
 	                         -140.0f,
-							 0.0f,
+							 0.0f - 12.5f,
 							 250.0f,
 							 Alignments::LEFT)),
 
      username(new TextInput(-60.0f,
-		                    -50.0f,
+		                    -50.0f - 12.5f,
 							200.0f,
 							30.0f,
 							Alignments::LEFT,
 							Alignments::LEFT)),
 
      password(new TextInput(-60.0f,
-		                    0.0f,
+		                    0.0f - 12.5f,
 							200.0f,
 							30.0f,
 							Alignments::LEFT,
@@ -68,35 +68,35 @@ LoginScreen::LoginScreen()
 	 home(new Button(Screens::HOME,
 		             "Login",
                      -87.5f,
-                     75.0f,
+                     75.0f - 12.5f,
                      150.0f,
                      50.0f)),
 
      signup(new Button(Screens::REGISTER,
                        "Register",
                        87.5f,
-                       75.0f,
+                       75.0f - 12.5f,
                        150.0f,
                        50.0f)),
 
      instruction(new Button(Screens::INSTRUCTION,
                             "Instructions",
-                            -87.5,
-                            150.0f,
+                            87.5,
+                            150.0f - 12.5f,
                             150.0f,
                             50.0f)),
 
      offlineHome(new Button(Screens::GAME,
 			                "Offline",
-                            87.5f,
-                            150.0f,
+                            -87.5f,
+                            150.0f - 12.5f,
                             150.0f,
                             50.0f)),
                             
      exit(new Button(Screens::NONE,
                      "Exit",
                      0.0f,
-                     225.0f,
+                     225.0f - 12.5f,
                      150.0f,
                      50.0f))
 
@@ -190,30 +190,7 @@ void LoginScreen::update()
 
     else if (signup->isActivated ||
              (InputManager::getInstance()->enter && signup->isSelected))
-    {
-        if (!ClientManager::getInstance().isConnected)
-        {
-			if (!ClientManager::getInstance().initConnection(sf::IpAddress::getLocalAddress(), 5000))
-			{
-                ScreenManager::getInstance()->addScreen(Screens::NOTIFICATION, "Failed to connect with server. The server may be down, or you may not be connected to the Internet.");
-				if (sound.getStatus() != sound.Playing)
-					sound.play();
-			}
-            else
-            {
-                //play sound then switch screen
-                sound.play();
-                ScreenManager::getInstance()->switchScreen(signup->toScreen);
-            }
-        }
-				
-        else
-        {
-            //play sound then switch screen
-            sound.play();
-            ScreenManager::getInstance()->switchScreen(signup->toScreen);
-        }
-    }
+        ScreenManager::getInstance()->switchScreen(signup->toScreen);
 
     else if (offlineHome->isActivated ||
              (InputManager::getInstance()->enter && offlineHome->isSelected))
@@ -246,10 +223,10 @@ void LoginScreen::update()
         status->message.setString("Login with the given username and password.");
 
     else if(signup->boundingRect.getGlobalBounds().contains(mousePosition))
-        status->message.setString("Register a new account to access multiplayer features.");
+        status->message.setString("Register a new account.");
 
     else if(instruction->boundingRect.getGlobalBounds().contains(mousePosition))
-        status->message.setString("New to the game? Learn how to play!");
+        status->message.setString("New to the game? Learn how to play.");
 
     else if(offlineHome->boundingRect.getGlobalBounds().contains(mousePosition))
         status->message.setString("Play a singleplayer offline game. Stats are not saved in this mode.");
@@ -258,13 +235,13 @@ void LoginScreen::update()
         status->message.setString("Exit the program. See you next time!");
 
     else if(username->boundingRect.getGlobalBounds().contains(mousePosition))
-        status->message.setString("Enter account username here.");
+        status->message.setString("Enter account username.");
 
     else if(password->boundingRect.getGlobalBounds().contains(mousePosition))
-        status->message.setString("Enter account password here.");    
+        status->message.setString("Enter account password.");
 
     else
-        status->message.setString("Welcome to the game! Login to access multiplayer or play an offline game here.");
+        status->message.setString("Welcome to the game! Login to access multiplayer.");
 
     status->textWrap();
 }

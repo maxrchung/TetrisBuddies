@@ -25,6 +25,7 @@ private:
 	TextBox* title;
 	TextBox* status;
 
+    Button* home;
     Button* exit;
     Button* cancel;
 };

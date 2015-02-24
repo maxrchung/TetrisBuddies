@@ -6,27 +6,27 @@
 
 OfflineResultScreen::OfflineResultScreen()
 	:backSection(new Section(0.0f,
-	                         -20.0f,
+	                         0.0f,
                              420.0f,
-                             510.0f,
+                             410.0f,
                              GraphicsManager::getInstance()->buttonColor,
                              true)),
 
      section(new Section(0.0f,
-                         -20.0f,
+                         0.0f,
                          400.0f,
-                         490.0f)),
+                         390.0f)),
      
      title(new TextBox("GAME OVER",
                        0.0f,
-                       -190.0f,
+                       -165.0f + 45.0f,
                        300.0f,
                        Alignments::CENTER,
                        true)),
 
-     status(new TextBox("The game is currently running in offline mode. Login to track your stats, or press play again to play another round.",
+     status(new TextBox("Game over! Play another offline game?",
                         0.0f,
-                        -115.0f,
+                        -90.0f + 45.0f,
                         300.0f,
                         Alignments::CENTER,
                         false,
@@ -34,27 +34,27 @@ OfflineResultScreen::OfflineResultScreen()
 
      scoreTag(new TextBox("Score:",
                           0.0f,
-                          -40.0f,
+                          -40.0f + 45.0f,
                           Alignments::CENTER)),
 
      score(new TextBox("0",
                        0.0f,
-                        0.0f,
+                        0.0f + 45.0f,
                         300.0f,
                         Alignments::CENTER,
                         true)), 
 
 	 login(new Button(Screens::LOGIN,
                       "Login",
-                      0.0f,
-                      75.5f,
+                      -87.5f,
+                      75.0f + 45.0f,
                       150.0f,
                       50.0f)),
 
 	 offlineGame(new Button(Screens::GAME,
                             "Play Again",
-                            0.0f,
-                            150.0f,
+                            87.5f,
+                            75.0f + 45.0f,
                             150.0f,
                             50.0f))
 {
@@ -94,6 +94,18 @@ void OfflineResultScreen::update()
     {
         ScreenManager::getInstance()->switchScreen(login->toScreen);
     }
+
+    sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(GraphicsManager::getInstance()->window).x,
+                                              sf::Mouse::getPosition(GraphicsManager::getInstance()->window).y);
+
+    if(login->boundingRect.getGlobalBounds().contains(mousePosition))
+        status->message.setString("Return to the login screen. Results are not saved unless logged into an account.");
+    else if(offlineGame->boundingRect.getGlobalBounds().contains(mousePosition))
+        status->message.setString("Play another offline game.");
+    else
+        status->message.setString("Game over! Play another offline game?");
+
+    status->textWrap();
 }
 
 void OfflineResultScreen::draw()
