@@ -117,6 +117,14 @@ void OfflineCloseScreen::update()
         status->message.setString("Are you sure you want to quit the game?");
 
     status->textWrap();
+
+    if(InputManager::getInstance()->escape)
+    {
+        deselect();
+        deactivate();
+        fade.state = FadeStates::FADING_OUT;
+        InputManager::getInstance()->resetInput();
+    }
 }
 
 void OfflineCloseScreen::draw()

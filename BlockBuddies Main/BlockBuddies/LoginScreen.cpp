@@ -239,11 +239,17 @@ void LoginScreen::update()
 
     else if(password->boundingRect.getGlobalBounds().contains(mousePosition))
         status->message.setString("Enter account password.");
-
+    else if(close->boundingRect.getGlobalBounds().contains(mousePosition))
+        status->message.setString("Quit the game.");
     else
         status->message.setString("Welcome to the game! Login to access multiplayer.");
 
     status->textWrap();
+
+    if(InputManager::getInstance()->escape)
+    {
+        ScreenManager::getInstance()->addScreen(Screens::OFFLINECLOSE);
+    }
 }
 
 void LoginScreen::draw()

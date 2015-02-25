@@ -250,6 +250,11 @@ void NetworkedSinglePlayer::update()
 		
 	}
 
+    if(InputManager::getInstance()->escape)
+    {
+        ScreenManager::getInstance()->addScreen(close->toScreen);
+    }
+
     Screen::update();
 }
 void NetworkedSinglePlayer::updateBlocks()

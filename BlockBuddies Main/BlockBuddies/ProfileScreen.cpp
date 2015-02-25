@@ -145,6 +145,14 @@ void ProfileScreen::update()
         fade.state = FadeStates::FADING_OUT;
         InputManager::getInstance()->resetInput();
     }
+
+    if(InputManager::getInstance()->escape)
+    {
+        deselect();
+        deactivate();
+        fade.state = FadeStates::FADING_OUT;
+        InputManager::getInstance()->resetInput();
+    }
 }
 
 void ProfileScreen::draw()

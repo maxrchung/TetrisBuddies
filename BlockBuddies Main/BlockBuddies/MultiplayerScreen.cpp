@@ -230,6 +230,10 @@ void MultiplayerScreen::update()
 
 	}
 
+    if (InputManager::getInstance()->escape)
+    {
+        ScreenManager::getInstance()->addScreen(close->toScreen);
+    }
 
     Screen::update();
 }

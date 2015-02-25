@@ -183,11 +183,17 @@ void RegisterScreen::update()
 
     else if (password2->boundingRect.getGlobalBounds().contains(mousePosition))
         status->message.setString("Enter password a second time that matches the above password.");
-
+    else if(close->boundingRect.getGlobalBounds().contains(mousePosition))
+        status->message.setString("Quit the game.");
     else
         status->message.setString("Enter username once and password twice to register an account. Enter a minimum of 5 characters.");
 
     status->textWrap();
+
+    if(InputManager::getInstance()->escape)
+    {
+        ScreenManager::getInstance()->addScreen(Screens::OFFLINECLOSE);
+    }
 }
 
 void RegisterScreen::draw()

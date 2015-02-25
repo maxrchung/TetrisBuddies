@@ -102,10 +102,17 @@ void OfflineResultScreen::update()
         status->message.setString("Return to the login screen. Results are not saved unless logged into an account.");
     else if(offlineGame->boundingRect.getGlobalBounds().contains(mousePosition))
         status->message.setString("Play another offline game.");
+    else if(close->boundingRect.getGlobalBounds().contains(mousePosition))
+        status->message.setString("Quit the game.");
     else
         status->message.setString("Game over! Play another offline game?");
 
     status->textWrap();
+
+    if(InputManager::getInstance()->escape)
+    {
+        ScreenManager::getInstance()->addScreen(Screens::OFFLINECLOSE);
+    }
 }
 
 void OfflineResultScreen::draw()

@@ -105,10 +105,17 @@ void ResultScreen::update()
         status->message.setString("Return to the home screen.");
     else if(game->boundingRect.getGlobalBounds().contains(mousePosition))
         status->message.setString("Play another singleplayer game.");
+    else if(close->boundingRect.getGlobalBounds().contains(mousePosition))
+        status->message.setString("Quit the game.");
     else
         status->message.setString("Game over! Play another singleplayer game?");
 
     status->textWrap();
+
+    if(InputManager::getInstance()->escape)
+    {
+        ScreenManager::getInstance()->addScreen(close->toScreen);
+    }
 	
 }
 

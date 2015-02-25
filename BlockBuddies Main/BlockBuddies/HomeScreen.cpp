@@ -137,11 +137,17 @@ void HomeScreen::update()
 
     else if (logout->boundingRect.getGlobalBounds().contains(mousePosition))
         welcome->message.setString("Logout of this account and return back to the main menu.");
-
+    else if(close->boundingRect.getGlobalBounds().contains(mousePosition))
+        welcome->message.setString("Quit the game.");
     else
         welcome->message.setString("The game is now connected with the server. Access the multiplayer features from this menu.");
 
     welcome->textWrap();
+
+    if(InputManager::getInstance()->escape)
+    {
+        ScreenManager::getInstance()->addScreen(close->toScreen);
+    }
 }
 
 void HomeScreen::draw()

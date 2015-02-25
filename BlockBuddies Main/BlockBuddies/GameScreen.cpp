@@ -3,6 +3,7 @@
 #include "SoundManager.h"
 #include "BlockShowerManager.hpp"
 #include <iostream>
+#include "InputManager.hpp"
 
 // To be filled in at the gameplay people's discretion
 GameScreen::GameScreen()
@@ -172,6 +173,11 @@ void GameScreen::update()
         else
             ScreenManager::getInstance()->switchScreen(OFFLINERESULT);
 	}
+
+    if(InputManager::getInstance()->escape)
+    {
+        ScreenManager::getInstance()->addScreen(Screens::OFFLINECLOSE);
+    }
 }
 
 void GameScreen::draw()

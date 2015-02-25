@@ -97,6 +97,14 @@ void QueueScreen::update()
             ClientManager::getInstance().leaveQueue();
         }
     }
+
+    if(InputManager::getInstance()->escape)
+    {
+        deselect();
+        deactivate();
+        fade.state = FadeStates::FADING_OUT;
+        InputManager::getInstance()->resetInput();
+    }
 }
 
 void QueueScreen::draw()

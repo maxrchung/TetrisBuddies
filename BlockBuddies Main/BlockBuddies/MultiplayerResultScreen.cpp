@@ -96,6 +96,8 @@ void MultiplayerResultScreen::draw()
         status->message.setString("Return to the home screen.");
     else if(game->boundingRect.getGlobalBounds().contains(mousePosition))
         status->message.setString("Join the queue for a multiplayer game.");
+    else if(close->boundingRect.getGlobalBounds().contains(mousePosition))
+        status->message.setString("Quit the game.");
     else
         status->message.setString("Game over! Play another multiplayer game?");
 

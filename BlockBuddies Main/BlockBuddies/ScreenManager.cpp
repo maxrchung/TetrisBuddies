@@ -136,12 +136,6 @@ void ScreenManager::switchScreen(const Screens toScreen)
 // current one
 void ScreenManager::addScreen(const Screens toScreen, const sf::String notificationMessage)
 {
-    for(auto& screen : currentScreens)
-    {
-        screen->deselect();
-        screen->deactivate();
-    }
-
     currentScreens.push_back(screens[toScreen]);
     if(!notificationMessage.isEmpty())
     {

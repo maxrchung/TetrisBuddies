@@ -188,12 +188,6 @@ void TextInput::update()
                 selectAll = true;
         }
 
-        // We can deselect all with escape
-        else if(InputManager::getInstance()->escape)
-        {
-            selectAll = false;
-        }
-
 		// Add in the input text from the InputManager
 		else if (!InputManager::getInstance()->input.isEmpty())
 		{
