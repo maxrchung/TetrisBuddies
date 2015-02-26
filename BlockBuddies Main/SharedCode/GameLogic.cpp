@@ -359,7 +359,11 @@ bool GameLogic::CheckAllBlocksForMatches(){
 bool GameLogic::CheckBlockForMatches(int rowNum, int colNum){
 
 	//if trying to match to an empty block, fail out
-	if (gso.gameBoard[rowNum][colNum] == 0) { return false; }
+	//if trying to match to a falling block, fail out
+	if( (gso.gameBoard[rowNum][colNum] == 0) || (BlockIsFalling(rowNum, colNum))) 
+		{ return false; }
+
+
 
 
 	//where all the pieces go that are tested for each combo check
@@ -373,14 +377,14 @@ bool GameLogic::CheckBlockForMatches(int rowNum, int colNum){
 	//if blocks to the left match, add to potentialMatches and repeat
 	int rowToCheck = rowNum;
 	int colToCheck = colNum - 1;
-	while ((colToCheck > -1) && (gso.gameBoard[rowToCheck][colToCheck] == gso.gameBoard[rowNum][colNum])){
+	while ((colToCheck > -1) && (gso.gameBoard[rowToCheck][colToCheck] == gso.gameBoard[rowNum][colNum]) && (!BlockIsFalling(rowToCheck, colToCheck)) ){
 		potentialMatches.insert(std::make_pair(rowToCheck, colToCheck));
 		colToCheck--;
 	}
 
 	//if blocks to the right match, add to potentialMatches and repeat
 	colToCheck = colNum + 1;
-	while ((colToCheck < gso.boardWidth) && (gso.gameBoard[rowToCheck][colToCheck] == gso.gameBoard[rowNum][colNum])){
+	while ((colToCheck < gso.boardWidth) && (gso.gameBoard[rowToCheck][colToCheck] == gso.gameBoard[rowNum][colNum]) && (!BlockIsFalling(rowToCheck, colToCheck))){
 		potentialMatches.insert(std::make_pair(rowToCheck, colToCheck));
 		colToCheck++;
 	}
@@ -397,14 +401,14 @@ bool GameLogic::CheckBlockForMatches(int rowNum, int colNum){
 	potentialMatches.insert(std::make_pair(rowNum, colNum));
 
 	//if blocks above match, add to potentialMatches and repeat
-	while ((rowToCheck < gso.boardHeight) && (gso.gameBoard[rowToCheck][colToCheck] == gso.gameBoard[rowNum][colNum])){
+	while ((rowToCheck < gso.boardHeight) && (gso.gameBoard[rowToCheck][colToCheck] == gso.gameBoard[rowNum][colNum]) && (!BlockIsFalling(rowToCheck, colToCheck)) ){
 		potentialMatches.insert(std::make_pair(rowToCheck, colToCheck));
 		rowToCheck++;
 	}
 
 	//if blocks below match, add to potentialMatches and repeat
 	rowToCheck = rowNum - 1;
-	while ((rowToCheck > -1) && (gso.gameBoard[rowToCheck][colToCheck] == gso.gameBoard[rowNum][colNum])){
+	while ((rowToCheck > -1) && (gso.gameBoard[rowToCheck][colToCheck] == gso.gameBoard[rowNum][colNum]) && (!BlockIsFalling(rowToCheck, colToCheck)) ){
 		potentialMatches.insert(std::make_pair(rowToCheck, colToCheck));
 		rowToCheck--;
 	}
@@ -421,7 +425,7 @@ bool GameLogic::CheckBlockForMatches(int rowNum, int colNum){
 
 	clearedBlocks = blocksMarkedForDeletion.size() - originalSizeOfBMFD;
 
-	//now, calculate score.  It's always 10pts/block. If it's 4 blocks, bonus of +20. If it's 5, bonus of + 30. 8 = ??
+	//now, calculate score.  It's always 10pts/block. If it's 4 blocks, bonus of +20. If it's 5, bonus of + 30.
 	//algorithm: (10 * clearedBlocks) +  (if clearedBlocks > 3:) ( (clearedBlocks - 2) * 10)?
 
 	if (clearedBlocks > 0){
@@ -645,9 +649,9 @@ void GameLogic::GameTick(){
 
 		InsertBottomRow();
 
-		//reduces the total row insertion time whenever a new row is inserted
-		if (totalRowInsertionTime.asMilliseconds() > 1000){
-			totalRowInsertionTime = totalRowInsertionTime - sf::milliseconds(500);
+		//reduces the total row insertion time by 5% whenever a new row is inserted
+		if (totalRowInsertionTime.asMilliseconds() > 1500){
+			totalRowInsertionTime = totalRowInsertionTime * (float).95;
 		}
 
 		//reset the row insertion timer
@@ -688,69 +692,69 @@ void GameLogic::GameTick(){
 	if (gameStateChanged){
 		//gso.PrintToFile();
 		sf::Packet p;
-		if (outgoingMessages.size() > 1)
-		{
-			std::queue<sf::Packet> swap;
-			std::swap(outgoingMessages, swap);
-		}
+		//if (outgoingMessages.size() > 1)
+		//{
+		//	std::queue<sf::Packet> swap;
+		//	std::swap(outgoingMessages, swap);
+		//}
 		p << gso;
 		outgoingMessages.push(p);
 	}
 }
 
-void GameLogic::NewTick(){
-
-	//**********clear the temporary GSO stuff
-
-		//reset all the temp variables:
-		gso.newRowActive = false;
-
-		//clear the clearing and swapping vectors here:
-		gso.swappingBlocks.clear();
-		gso.clearingBlocks.clear();
-
-		//if this is true, put the game state as a message to the client
-		bool gameStateChanged = false;
-
-	//**********************end temp variables
-
-	gso.frameNum++;
-
-
-	//process input
-		//check for messages
-
-	//while messageQueue isn't empty
-	while (!messagesToDecode.empty())
-	{
-		ProcessMessage(messagesToDecode.front());
-		messagesToDecode.pop();
-		gameStateChanged = true;
-	}
-
-
-	//check timers:
-	
-	//swap
-	//if time is up, swap the two pieces
-	if (CheckSwappingTimers()){gameStateChanged = true;}
-	
-	//clear
-	//if time is up, remove the blocks from the board and apply gravity
-	if (CheckClearingTimers()){gameStateChanged = true;}
-	
-	//fall
-	//if time is up, move the blocks down by one square, check if they landed, then update the timers for the new pieces
-	if (CheckFallingTimers()){gameStateChanged = true;}
-
-
-	//check for matches
-		//if match found:
-		//add to "clearing" vectors along with times
-		//add clearing blocks to GSO
-
-	//
-}
+//void GameLogic::NewTick(){
+//
+//	//**********clear the temporary GSO stuff
+//
+//		//reset all the temp variables:
+//		gso.newRowActive = false;
+//
+//		//clear the clearing and swapping vectors here:
+//		gso.swappingBlocks.clear();
+//		gso.clearingBlocks.clear();
+//
+//		//if this is true, put the game state as a message to the client
+//		bool gameStateChanged = false;
+//
+//	//**********************end temp variables
+//
+//	gso.frameNum++;
+//
+//
+//	//process input
+//		//check for messages
+//
+//	//while messageQueue isn't empty
+//	while (!messagesToDecode.empty())
+//	{
+//		ProcessMessage(messagesToDecode.front());
+//		messagesToDecode.pop();
+//		gameStateChanged = true;
+//	}
+//
+//
+//	//check timers:
+//	
+//	//swap
+//	//if time is up, swap the two pieces
+//	if (CheckSwappingTimers()){gameStateChanged = true;}
+//	
+//	//clear
+//	//if time is up, remove the blocks from the board and apply gravity
+//	if (CheckClearingTimers()){gameStateChanged = true;}
+//	
+//	//fall
+//	//if time is up, move the blocks down by one square, check if they landed, then update the timers for the new pieces
+//	if (CheckFallingTimers()){gameStateChanged = true;}
+//
+//
+//	//check for matches
+//		//if match found:
+//		//add to "clearing" vectors along with times
+//		//add clearing blocks to GSO
+//
+//	//
+//}
 
 
 bool GameLogic::BlockIsFalling(int rowNum, int colNum){
