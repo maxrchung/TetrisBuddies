@@ -12,6 +12,7 @@ public:
     void init();
 	void run();
 	void update();
+    void cursorUpdate();
 	void draw();
     void startLoadingThread();
     void loadingUpdate();
@@ -22,6 +23,11 @@ public:
     bool isLoading = false;
 
 	bool isRunning = true;
+
+    sf::Clock cursorHideClock;
+    float cursorHideTimer = 0.0f;
+    sf::Vector2i prevMousePos;
+
 private:
     Game(){};
     Game(Game const&){};

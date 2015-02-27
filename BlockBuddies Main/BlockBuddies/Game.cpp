@@ -28,6 +28,9 @@ void Game::init()
 	ScreenManager::getInstance()->init();
 	InputManager::getInstance()->init();
     BlockShowerManager::getInstance()->init();
+
+    cursorHideClock.restart();
+    prevMousePos = sf::Mouse::getPosition();
 }
 
 void Game::run() 
@@ -39,6 +42,9 @@ void Game::run()
 
 void Game::update()
 {
+    // Hides/shows the cursor
+    cursorUpdate();
+
     //  Checks received packets and responds to them
     ClientManager::getInstance().update();
 
@@ -52,6 +58,26 @@ void Game::update()
 	// This will involve bigger picture actions such as sending
 	// network messages if we need to
 	ScreenManager::getInstance()->update();
+}
+
+void Game::cursorUpdate()
+{
+    // Hides cursor
+    cursorHideTimer += cursorHideClock.getElapsedTime().asSeconds();
+    cursorHideClock.restart();
+
+    if(prevMousePos != sf::Mouse::getPosition())
+    {
+        GraphicsManager::getInstance()->window.setMouseCursorVisible(true);
+        cursorHideTimer = 0.0f;
+    }
+
+    if (cursorHideTimer > 3.0f)
+    {
+        GraphicsManager::getInstance()->window.setMouseCursorVisible(false);
+    }
+
+    prevMousePos = sf::Mouse::getPosition();
 }
 
 void Game::draw()
