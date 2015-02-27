@@ -209,7 +209,6 @@ void NetworkManager::update()
                 {
                     std::cout << "Received checkalive packet" << std::endl;
                     player->receiveAliveTimer.restart();
-
                     break;
                 }
 				case PacketDecode::PACKET_START:
@@ -271,6 +270,7 @@ void NetworkManager::update()
     if (toDisconnect)
     {
         std::cout << "Size of connectPlayers: " << connectPlayers.size() << std::endl;
+		//If you're in game or queue remove user 
 		if (singlePlayer.isInGame(toDisconnect->myAddress))
 		{
 			singlePlayer.removeMe.push_back(toDisconnect->myAddress);
@@ -280,6 +280,12 @@ void NetworkManager::update()
 		{
 			multiplayer.removeFromQueue(toDisconnect->myAddress);
 		}
+		else if (multiplayer.isInGame(toDisconnect->myAddress))
+		{
+			multiplayer.notifyPartnerOfDisconect(toDisconnect->myAddress);
+			multiplayer.removeFromGame(toDisconnect->myAddress);
+		}
+
 		userNamesLoggedIn.remove( toDisconnect->playerInfo.username );
         queueAccess.lock();
         connectPlayers.remove(toDisconnect);

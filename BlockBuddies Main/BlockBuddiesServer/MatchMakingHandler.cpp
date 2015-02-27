@@ -34,6 +34,26 @@ void MatchMakingHandler::addMessage(sf::Packet addMe , sf::IpAddress myAddress)
 	}
 }
 
+void MatchMakingHandler::notifyPartnerOfDisconect(sf::IpAddress disconnectingPlayer)
+{
+	int counter = 0;
+
+	for (auto& check : gameList)
+	{
+		if (check->player1->myAddress == disconnectingPlayer)
+		{
+			sendResults(counter, 2);
+			break;
+		}
+		else if (check->player2->myAddress == disconnectingPlayer)
+		{
+			sendResults(counter, 1);
+			break;
+		}
+		counter++;
+	}
+}
+
 bool MatchMakingHandler::isInQueue(sf::IpAddress toRemove)
 {
 	for (auto& check : activePlayers)
@@ -118,7 +138,7 @@ void MatchMakingHandler::makeGame(Player* p1, Player* p2)
     std::cout << "Sent found game packet" << std::endl;
 }
 
-void MatchMakingHandler::removePlayers()
+void MatchMakingHandler::removePlayers() 
 {
 	for (auto remove : removeMe)
 		multiPlayerGames.erase(remove);
@@ -128,6 +148,21 @@ void MatchMakingHandler::removePlayers()
 
 	removeMe.clear();
 	removePostions.clear();
+}
+
+void MatchMakingHandler::removeFromGame(sf::IpAddress toRemove)
+{
+	int counter = 0;
+
+	for (auto& check : gameList)
+	{
+		if (check->player1->myAddress == toRemove)
+			queueToRemove(check->player1->myAddress, check->player2->myAddress, counter);
+		else if (check->player2->myAddress == toRemove)
+			queueToRemove(check->player1->myAddress, check->player2->myAddress, counter);
+		counter++;
+	}
+	removePlayers();
 }
 
 void MatchMakingHandler::sendPackets(sf::Packet& p1, sf::Packet& p2 , int position)
