@@ -305,6 +305,13 @@ void ClientManager::requestMultiplayerGame()
 	socket.send(toSend);
 }
 
+void ClientManager::insertPenaltyRow()
+{
+	sf::Packet requestPR;
+	requestPR << PacketDecode::PACKET_NEWPENALTYROW;
+	socket.send(requestPR);
+}
+
 void ClientManager::requestNewRow(){
 	sf::Packet toSend;
 	toSend = messageMaker.NewRowPacket();

@@ -29,6 +29,7 @@ public:
     void acceptGame();
     void rejectGame();
 	void requestNewRow();
+	void insertPenaltyRow();
 	void requestStartGame();
 	void requestMultiplayerGame();
 	void requestSwap(sf::Uint8 p1row, sf::Uint8 p1col, sf::Uint8 p2row, sf::Uint8 p2col);
