@@ -17,7 +17,7 @@ sf::Packet ClientMessages::SwapPacket(sf::Uint8 p1row, sf::Uint8 p1col, sf::Uint
 sf::Packet ClientMessages::NewRowPacket(){
 
 	sf::Packet ret;
-	ret << PacketDecode::PACKET_NEWROW;
+	ret << PacketDecode::PACKET_REQUESTNEWROW;
 	return ret;
 }
 

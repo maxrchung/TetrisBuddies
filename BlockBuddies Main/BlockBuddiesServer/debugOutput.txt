@@ -1,0 +1,840 @@
+Blocks Marked for Deletion: 
+Frame Number: 595
+
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|         4       |
+Row 08:|         4       |
+Row 07:|         4       |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:|                 |
+Row 03:|                 |
+Row 02:|                 |
+Row 01:|                 |
+Row 00:|                 |
+**********************************************
+Blocks Marked for Deletion: 
+Frame Number: 598
+
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|       5 5 5     |
+Row 07:|     5 5 5       |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:|                 |
+Row 03:|                 |
+Row 02:|                 |
+Row 01:|                 |
+Row 00:|                 |
+**********************************************
+Blocks Marked for Deletion: 
+Frame Number: 880
+
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|           1     |
+Row 06:|           1     |
+Row 05:|           1     |
+Row 04:|                 |
+Row 03:|                 |
+Row 02:|                 |
+Row 01:|                 |
+Row 00:|                 |
+**********************************************
+Blocks Marked for Deletion: 
+Frame Number: 1400
+
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|           4     |
+Row 08:|           4     |
+Row 07:|           4     |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:|                 |
+Row 03:|                 |
+Row 02:|                 |
+Row 01:|                 |
+Row 00:|                 |
+**********************************************
+Blocks Marked for Deletion: 
+Frame Number: 2044
+
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|         5       |
+Row 06:|         5       |
+Row 05:|         5       |
+Row 04:|                 |
+Row 03:|                 |
+Row 02:|                 |
+Row 01:|                 |
+Row 00:|                 |
+**********************************************
+Blocks Marked for Deletion: 
+Frame Number: 2136
+
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|             2   |
+Row 06:|             2   |
+Row 05:|             2   |
+Row 04:|                 |
+Row 03:|                 |
+Row 02:|                 |
+Row 01:|                 |
+Row 00:|                 |
+**********************************************
+Blocks Marked for Deletion: 
+Frame Number: 2725
+
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|       1 1 1     |
+Row 04:|                 |
+Row 03:|                 |
+Row 02:|                 |
+Row 01:|                 |
+Row 00:|                 |
+**********************************************
+Blocks Marked for Deletion: 
+Frame Number: 3444
+
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|     3 3 3 3 3   |
+Row 04:|                 |
+Row 03:|                 |
+Row 02:|                 |
+Row 01:|                 |
+Row 00:|                 |
+**********************************************
+Blocks Marked for Deletion: 
+Frame Number: 3577
+
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:|           1 1 1 |
+Row 03:|           1     |
+Row 02:|           1     |
+Row 01:|                 |
+Row 00:|                 |
+**********************************************
+Blocks Marked for Deletion: 
+Frame Number: 3578
+
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|             2   |
+Row 04:|             2   |
+Row 03:|             2   |
+Row 02:|                 |
+Row 01:|                 |
+Row 00:|                 |
+**********************************************
+Blocks Marked for Deletion: 
+Frame Number: 3580
+
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:|                 |
+Row 03:|                 |
+Row 02:|         5 5 5   |
+Row 01:|                 |
+Row 00:|                 |
+**********************************************
+Blocks Marked for Deletion: 
+Frame Number: 4178
+
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|   4 4 4         |
+Row 05:|                 |
+Row 04:|                 |
+Row 03:|                 |
+Row 02:|                 |
+Row 01:|                 |
+Row 00:|                 |
+**********************************************
+Blocks Marked for Deletion: 
+Frame Number: 6840
+
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|   4 4 4         |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:|                 |
+Row 03:|                 |
+Row 02:|                 |
+Row 01:|                 |
+Row 00:|                 |
+**********************************************
+Blocks Marked for Deletion: 
+Frame Number: 8381
+
+Row 19:|                 |
+Row 18:| 3               |
+Row 17:| 3               |
+Row 16:| 3               |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:|                 |
+Row 03:|                 |
+Row 02:|                 |
+Row 01:|                 |
+Row 00:|                 |
+**********************************************
+Blocks Marked for Deletion: 
+Frame Number: 9592
+
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|     5           |
+Row 13:|     5           |
+Row 12:|     5           |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:|                 |
+Row 03:|                 |
+Row 02:|                 |
+Row 01:|                 |
+Row 00:|                 |
+**********************************************
+Blocks Marked for Deletion: 
+Frame Number: 10720
+
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:| 5               |
+Row 11:| 5               |
+Row 10:| 5               |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:|                 |
+Row 03:|                 |
+Row 02:|                 |
+Row 01:|                 |
+Row 00:|                 |
+**********************************************
+Blocks Marked for Deletion: 
+Frame Number: 11359
+
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|   2             |
+Row 12:|   2             |
+Row 11:|   2             |
+Row 10:|   2             |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:|                 |
+Row 03:|                 |
+Row 02:|                 |
+Row 01:|                 |
+Row 00:|                 |
+**********************************************
+Blocks Marked for Deletion: 
+Frame Number: 11969
+
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:| 4 4 4           |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:|                 |
+Row 03:|                 |
+Row 02:|                 |
+Row 01:|                 |
+Row 00:|                 |
+**********************************************
+Blocks Marked for Deletion: 
+Frame Number: 12428
+
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|       3         |
+Row 11:|       3         |
+Row 10:|       3         |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:|                 |
+Row 03:|                 |
+Row 02:|                 |
+Row 01:|                 |
+Row 00:|                 |
+**********************************************
+Blocks Marked for Deletion: 
+Frame Number: 15416
+
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|               4 |
+Row 07:|               4 |
+Row 06:|               4 |
+Row 05:|                 |
+Row 04:|                 |
+Row 03:|                 |
+Row 02:|                 |
+Row 01:|                 |
+Row 00:|                 |
+**********************************************
+Blocks Marked for Deletion: 
+Frame Number: 16056
+
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|           2 2 2 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:|                 |
+Row 03:|                 |
+Row 02:|                 |
+Row 01:|                 |
+Row 00:|                 |
+**********************************************
+Blocks Marked for Deletion: 
+Frame Number: 17567
+
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|     3 3 3       |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:|                 |
+Row 03:|                 |
+Row 02:|                 |
+Row 01:|                 |
+Row 00:|                 |
+**********************************************
+Blocks Marked for Deletion: 
+Frame Number: 17568
+
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|   2 2 2         |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:|                 |
+Row 03:|                 |
+Row 02:|                 |
+Row 01:|                 |
+Row 00:|                 |
+**********************************************
+Blocks Marked for Deletion: 
+Frame Number: 18707
+
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|   5             |
+Row 10:|   5             |
+Row 09:|   5             |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:|                 |
+Row 03:|                 |
+Row 02:|                 |
+Row 01:|                 |
+Row 00:|                 |
+**********************************************
+Blocks Marked for Deletion: 
+Frame Number: 19132
+
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|   2             |
+Row 09:|   2             |
+Row 08:|   2             |
+Row 07:|   2             |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:|                 |
+Row 03:|                 |
+Row 02:|                 |
+Row 01:|                 |
+Row 00:|                 |
+**********************************************
+Blocks Marked for Deletion: 
+Frame Number: 19868
+
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:| 1               |
+Row 09:| 1               |
+Row 08:| 1               |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:|                 |
+Row 03:|                 |
+Row 02:|                 |
+Row 01:|                 |
+Row 00:|                 |
+**********************************************
+Blocks Marked for Deletion: 
+Frame Number: 19871
+
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:| 3               |
+Row 08:| 3               |
+Row 07:| 3               |
+Row 06:| 3               |
+Row 05:|                 |
+Row 04:|                 |
+Row 03:|                 |
+Row 02:|                 |
+Row 01:|                 |
+Row 00:|                 |
+**********************************************
+Blocks Marked for Deletion: 
+Frame Number: 21050
+
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|   4             |
+Row 06:|   4             |
+Row 05:|   4             |
+Row 04:|   4             |
+Row 03:|                 |
+Row 02:|                 |
+Row 01:|                 |
+Row 00:|                 |
+**********************************************
+Blocks Marked for Deletion: 
+Frame Number: 21402
+
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:|                 |
+Row 03:|                 |
+Row 02:|       2         |
+Row 01:|       2         |
+Row 00:|       2         |
+**********************************************
+Blocks Marked for Deletion: 
+Frame Number: 21962
+
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:|                 |
+Row 03:|                 |
+Row 02:|     1           |
+Row 01:|     1           |
+Row 00:|     1           |
+**********************************************
+Blocks Marked for Deletion: 
+Frame Number: 21965
+
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:|                 |
+Row 03:|                 |
+Row 02:|                 |
+Row 01:|   2 2 2 2       |
+Row 00:|                 |
+**********************************************
+Blocks Marked for Deletion: 
+Frame Number: 22033
+
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:|                 |
+Row 03:|                 |
+Row 02:|               1 |
+Row 01:|               1 |
+Row 00:|               1 |
+**********************************************
+Blocks Marked for Deletion: 
+Frame Number: 22036
+
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|           2 2 2 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:|                 |
+Row 03:|                 |
+Row 02:|                 |
+Row 01:|                 |
+Row 00:|                 |
+**********************************************
+Blocks Marked for Deletion: 
+Frame Number: 22110
+
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:|                 |
+Row 03:|                 |
+Row 02:|     3           |
+Row 01:|     3           |
+Row 00:|     3           |
+**********************************************
+Blocks Marked for Deletion: 
+Frame Number: 22113
+
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|     4 4 4       |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:| 4 4 4           |
+Row 04:|                 |
+Row 03:|                 |
+Row 02:|                 |
+Row 01:|   2 2 2 2       |
+Row 00:|                 |
+**********************************************

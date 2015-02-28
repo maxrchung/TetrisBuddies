@@ -14,7 +14,7 @@ enum PacketDecode
 	//4
 	PACKET_SWAP,
 	//5
-	PACKET_NEWROW,
+	PACKET_REQUESTNEWROW,
 	//6
 	PACKET_SCOREUPDATE,
 	//7
@@ -40,7 +40,9 @@ enum PacketDecode
     //17
     PACKET_FOUNDGAME, // Server tells Client that game has been found
 	//18
-	PACKET_WINNER
+	PACKET_WINNER,
+	//19
+	PACKET_NEWPENALTYROW
 
 };
 

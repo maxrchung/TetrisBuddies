@@ -17,7 +17,6 @@ GameLogic::GameLogic(){
 	gso.rowInsertionCountdown = totalRowInsertionTime.asMilliseconds();
 
 	blocksMarkedForDeletion.clear();
-	blocksToCheckForMatches.clear();
 	//messagesToDecode doesn't have a clear
 
 	rowInsertionTimerRunning = true;
@@ -152,20 +151,28 @@ void GameLogic::InitialBoardPopulation(){
 
 
 
-
+//repopulates the temp row
+//if there's a match in the temp row, change it until there isn't
 bool GameLogic::PopulateTempRow(){
+
+
+
 
 	for (int i = 0; i < gso.boardWidth; i++){
 		gso.tempRow[i] = (rand() % numColors) + 1;
 
-		//std::cout << "Value of temprow[" << i << "]: " << tempRow[i] << std::endl;
+		//when there are at least 3 pieces in the row (i >= 2) : while the previous 2 pieces = this piece, change this piece
+		if (i > 1){
+			while ((gso.tempRow[i - 2] == gso.tempRow[i - 1]) && (gso.tempRow[i - 1] == gso.tempRow[i]) ){
+				gso.tempRow[i] = (rand() % numColors) + 1;
+			}
+		}
 	}
 
 	return true;
 }
 
 //shifts everything up by 1, and inserts the bottom row into the array
-//adds the inserted blocks to BTCFM
 //repopulates temp row
 bool GameLogic::InsertBottomRow(){
 
@@ -196,11 +203,6 @@ bool GameLogic::InsertBottomRow(){
 			//std::cout << "gameBoard value[0][" << j << "]: " << gso.gameBoard[0][j] << ", tempRow val: " << tempRow[j] << std::endl;
 		}
 
-		//check all the bottom row squares for matches
-		for (int j = 0; j < gso.boardWidth; j++){
-			blocksToCheckForMatches.insert(std::make_pair(0, j));
-		}
-
 		//remake the temp row:
 		PopulateTempRow();
 	}
@@ -211,7 +213,6 @@ bool GameLogic::InsertBottomRow(){
 
 
 //ApplyGravity moves all blocks down until they rest on either another block or the bottom row
-//it also adds every block that moved to BTCFM
 
 //change it so:
 //every block only moves once per call
@@ -247,12 +248,6 @@ bool GameLogic::ApplyGravity(){
 				gso.gameBoard[currentBlockRow][colNum] = 0;
 
 
-				//if it's on the bottom row, or the block below isn't empty, that means this block just hit bottom
-				//so add it to BTCFM
-				//(currentBlockRow is the one it's CHECKING. It starts at 1, and the row below that is 0.  So it SHOULD be if (currentblockrow - 1 == 0) )
-				if ((currentBlockRow == 1) || ((currentBlockRow > 0) && (gso.gameBoard[currentBlockRow - 2][colNum] != 0))){
-					blocksToCheckForMatches.insert(std::make_pair(currentBlockRow, colNum));
-				}
 
 				//check the block below
 				//currentBlockRow--;
@@ -283,8 +278,6 @@ start on row 1, go by column:
 
 
 
-//******************RECHECK THIS BECAUSE OF NEW GRAVITY AND STUFF
-//swapping pieces applies gravity
 bool GameLogic::SwapPieces(int row1Num, int col1Num, int row2Num, int col2Num){
 
 	//if trying to swap anywhere out of bounds, fail out
@@ -300,37 +293,11 @@ bool GameLogic::SwapPieces(int row1Num, int col1Num, int row2Num, int col2Num){
 	gso.gameBoard[row1Num][col1Num] = gso.gameBoard[row2Num][col2Num];
 	gso.gameBoard[row2Num][col2Num] = temp;
 
-	//ApplyGravity();
 
-
-	//V------- Might need to re-examine this logic now that gravity has changed
-
-	//ApplyGravity automatically puts any block that moved into BTCFM
-	//Checking both blocks on the assumption neither of them fell. The two extra checks (if they did fall) are fine.
-
-	blocksToCheckForMatches.insert(std::make_pair(row1Num, col1Num));
-	blocksToCheckForMatches.insert(std::make_pair(row2Num, col2Num));
 
 	return true;
 }
 
-
-bool GameLogic::ProcessBTCFM(){
-
-	int r = -1;
-	int c = -1;
-	for (auto b : blocksToCheckForMatches){
-		r = b.first;
-		c = b.second;
-
-		//std::cout << "R: " << r << ", C: " << c << std::endl;
-
-		CheckBlockForMatches(r, c);
-	}
-	blocksToCheckForMatches.clear();
-
-	return true;
-}
 
 
 //checks the entire board for matches, except blocks that are falling
@@ -338,17 +305,16 @@ bool GameLogic::CheckAllBlocksForMatches(){
 
 	for (int row = 0; row < gso.boardHeight; row++){
 		for (int col = 0; col < gso.boardWidth; col++){
-			
+
 			if (!BlockIsFalling(row, col)){
 				CheckBlockForMatches(row, col);
 			}
 		}
 	}
 
-	//if (blocksToCheckForMatches.size() == 0){return false;}
-	//else { return true; }
 
-	blocksToCheckForMatches.clear();
+	//for debugging:
+	if (!blocksMarkedForDeletion.empty()){PrintBlocksMarkedForDeletion();}
 
 	return true;
 }
@@ -438,7 +404,6 @@ bool GameLogic::CheckBlockForMatches(int rowNum, int colNum){
 	return true;
 }
 
-//clearing matches applies gravity
 //also empties BMFD
 bool GameLogic::ClearMatches(){
 
@@ -468,7 +433,6 @@ bool GameLogic::ClearMatches(){
 
 	}
 
-	ApplyGravity();
 
 	//clear the BMFD
 	blocksMarkedForDeletion.clear();
@@ -502,7 +466,7 @@ bool GameLogic::ClearInitialMatches(){
 		//(make sure that the new row timer is paused while clearing)
 	}
 
-	ApplyGravity();
+	//ApplyGravity();
 
 	//clear the BMFD
 	blocksMarkedForDeletion.clear();
@@ -549,12 +513,18 @@ bool GameLogic::ProcessMessage(sf::Packet toProcess){
 	}
 
 
-	else if (command == PacketDecode::PACKET_NEWROW){
+	else if (command == PacketDecode::PACKET_REQUESTNEWROW){
 		//std::cout << "Got 'Request New Row' command!" << std::endl;
 
 		InsertBottomRow();
 		newRowClock.restart();
 
+		return true;
+	}
+
+
+	else if (command == PacketDecode::PACKET_NEWPENALTYROW){
+		InsertBottomRow();
 		return true;
 	}
 
@@ -591,6 +561,11 @@ void GameLogic::GameTick(){
 	//clear the clearing and swapping vectors here:
 	gso.swappingBlocks.clear();
 	gso.clearingBlocks.clear();
+
+	//This is always 0, except when a row insertion timer gets reset.
+	//Then it takes the value of the time until the new row is inserted (for one game tick only).
+	gso.rowInsertionCountdown = 0;
+
 	//if this is true, put the game state as a message to the client
 	bool gameStateChanged = false;
 
@@ -604,7 +579,7 @@ void GameLogic::GameTick(){
 	//DecrementCounters();
 
 	//Decrement the row insertion counter
-	if (rowInsertionTimerRunning) {gso.rowInsertionCountdown--;}
+	//if (rowInsertionTimerRunning) {gso.rowInsertionCountdown--;}
 	//(since we're not using counters any more, this won't be used)
 
 	
@@ -619,6 +594,8 @@ void GameLogic::GameTick(){
 
 	if (CheckSwappingTimers()){ gameStateChanged = true; }
 
+	//if (CheckClearingTimers()) { gameStateChanged = true; }
+
 	if (ApplyGravity()){gameStateChanged = true;}
 
 
@@ -629,12 +606,10 @@ void GameLogic::GameTick(){
 	//pieces might get swapped
 	//swap pieces
 
-	//ProcessBTCFM();
-	//this isn't a good idea; this way blocks might still be matched while they're falling
 	CheckAllBlocksForMatches();
 
 
-	//it's set to "initial" right now because the code for teh clear animation isn't in place yet.
+	//it's set to "initial" right now because the code for the clear animation isn't in place yet.
 	if (ClearInitialMatches()){ gameStateChanged = true; }
 	//if (ClearMatches()){gameStateChanged = true;}
 
@@ -642,15 +617,13 @@ void GameLogic::GameTick(){
 	//if it's time to insert a new row:
 	//if the insert new row timer is 0;
 
-	//this is for the client- whenever the rowInsertionCountdown isn't 0, it means that's the new value for the row countdown
-	gso.rowInsertionCountdown = 0;
 
 	if (newRowClock.getElapsedTime() > totalRowInsertionTime){
 
 		InsertBottomRow();
 
 		//reduces the total row insertion time by 5% whenever a new row is inserted
-		if (totalRowInsertionTime.asMilliseconds() > 1500){
+		if (totalRowInsertionTime.asMilliseconds() > 1800){
 			totalRowInsertionTime = totalRowInsertionTime * (float).95;
 		}
 
@@ -783,14 +756,12 @@ bool GameLogic::CheckSwappingTimers(){
 	if ((swappingBlocks.at(0).duration.getElapsedTime() > blockSwapTime) && (swappingBlocks.at(1).duration.getElapsedTime() > blockSwapTime)){
 		
 		//swap the pieces
-		//(SwapPieces adds them to BTCFM)
 		SwapPieces(swappingBlocks.at(0).blockNum.first, swappingBlocks.at(0).blockNum.second, swappingBlocks.at(1).blockNum.first, swappingBlocks.at(1).blockNum.second);
 
 
 
 		//remove the pieces
 		swappingBlocks.erase(swappingBlocks.begin(), swappingBlocks.begin() + 2);
-		//swappingBlocks.clear();
 
 		//apply gravity(?) (gravity will be reworked)
 
@@ -832,7 +803,7 @@ bool GameLogic::CheckFallingTimers(){
 
 	//if a piece's falling timer is up
 		//move it down one block, reset the falling time
-		//if the piece landed, remove it from the Falling queue and add it to BTCFM
+		//if the piece landed, remove it from the Falling queue
 
 
 	return false;
@@ -840,35 +811,88 @@ bool GameLogic::CheckFallingTimers(){
 
 //Debug functions:
 
+//const void GameLogic::PrintClearedBlocks(){}
 
-void GameLogic::PrintBlocksMarkedForDeletion() const {
-	std::cout << "contents of blocksmarkedfordeletion: ";
+ void GameLogic::PrintBlocksMarkedForDeletion() const {
 
-	int row;
-	int col;
 
-	for (std::set<std::pair<int, int>>::iterator i = blocksMarkedForDeletion.begin(); i != blocksMarkedForDeletion.end(); ++i){
-		row = (*i).first;
-		col = (*i).second;
+	 std::ofstream debugFile;
 
-		std::cout << row << "," << col << " ";
-	}
+	 debugFile.open("debugOutput.txt", std::ios::app);
+
+
+	 debugFile << "Blocks Marked for Deletion: " << std::endl;
+	 
+	 //go through the whole board.  If they're in BMFD, print their color.  If not, print a space
+
+	 //debugFile << "Cursor position (row, col): " << cursorPos.first << "," << cursorPos.second << std::endl;
+	 debugFile << "Frame Number: " << gso.frameNum << std::endl;
+	 //debugFile << "Timestamp: " << timestamp << std::endl;
+	 //debugFile << "Row Insertion Pause: " << rowInsertionCountdown << std::endl;
+	 //debugFile << "New row active? " << newRowActive << std::endl;
+
+
+	 //output rows, top to bottom
+	 for (int rowNum = gso.boardHeight - 1; rowNum > -1; rowNum--){
+		 debugFile << std::endl;
+		 //debugFile << "Row " << rowNum << ":| ";
+
+		 debugFile << "Row ";
+		 if (rowNum < 10){ debugFile << "0"; }
+		 debugFile << rowNum << ":| ";
+
+		 //output columns left to right
+		 for (int colNum = 0; colNum < gso.boardWidth; colNum++){
+
+			 //if the block isn't in BMFD, output a space
+			 //else output the color number
+
+			 //if (gso.gameBoard[rowNum][colNum] == 0){ debugFile << "  "; }
+			 if (!blocksMarkedForDeletion.count(std::make_pair(rowNum, colNum)) )
+			 {
+				 debugFile << "  ";
+			 }
+
+
+			 else{ debugFile << gso.gameBoard[rowNum][colNum] << " "; }
+
+		 }
+		 debugFile << "|";
+	 }
+	 debugFile << std::endl;
+
+	 debugFile << "**********************************************" << std::endl;
+
+
+
+	 debugFile.close();
+
+
+	// std::cout << "Player score: " << score << std::endl;
+
+	 //std::cout << "Temp :| ";
+	 //for (int colNum = 0; colNum < boardWidth; colNum++){
+		// std::cout << tempRow[colNum] << " ";
+	 //}
+	 //std::cout << "|" << std::endl;
+
+	 //*********
+	 //print the rest of the elements that will be added to the state 
+
+	 
+	 //std::cout << "contents of blocksmarkedfordeletion: ";
+
+	//int row;
+	//int col;
+
+	//for (std::set<std::pair<int, int>>::iterator i = blocksMarkedForDeletion.begin(); i != blocksMarkedForDeletion.end(); ++i){
+	//	row = (*i).first;
+	//	col = (*i).second;
+
+	//	std::cout << row << "," << col << " ";
+	//}
 }
 
-void GameLogic::PrintBTCFM() const{
-
-	std::cout << "contents of BTCFM: ";
-
-	int row;
-	int col;
-
-	for (std::set<std::pair<int, int>>::iterator i = blocksToCheckForMatches.begin(); i != blocksToCheckForMatches.end(); ++i){
-		row = (*i).first;
-		col = (*i).second;
-
-		std::cout << row << "," << col << " ";
-	}
-}
 
 bool GameLogic::InsertRowAt(int insertOnRowNum, std::array<int, 7> rowToInsert){
 	//insert the row at the specified place

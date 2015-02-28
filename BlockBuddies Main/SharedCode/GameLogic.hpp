@@ -25,11 +25,10 @@ public:
 	void GameTick();
 
 	//temp name, it'll be renamed to GameTick()
-	void NewTick();
+	//void NewTick();
 
 	void Print(){ gso.Print(); }
 	void PrintBlocksMarkedForDeletion() const;
-	void PrintBTCFM() const;
 	bool IsGameOver() const { return isGameOver; }
 	void ResetGame();
 	//used whenever a message needs to be passed into this game. Puts the message in the message queue 
@@ -50,7 +49,6 @@ public:
 	//temporarily here so I can test the game state encoding/decoding
 	bool InsertRowAt(int insertOnRowNum, std::array<int, 7> rowToInsert);
 	bool SwapPieces(int row1Num, int col1Num, int row2Num, int col2Num);
-	bool ProcessBTCFM();
 	bool ClearMatches();
 	bool ClearInitialMatches();
 	bool BlockIsFalling(int rowNum, int colNum);
@@ -69,6 +67,10 @@ public:
 
 
 private:
+
+
+	//print out the matches that are cleared, along with the GSO info
+	//const void PrintClearedBlocks();
 
 	//these are used to set how long a piece takes to fall, and how long blocks stay until they're cleared
 	//these values are all temporary; only one set is on the client for 300ms to swap
@@ -93,7 +95,6 @@ private:
 	
 
 	std::set<std::pair<int, int>> blocksMarkedForDeletion;
-	std::set<std::pair<int, int>> blocksToCheckForMatches;
 	std::queue<sf::Packet> messagesToDecode;
 
 	sf::Time totalRowInsertionTime;
@@ -125,8 +126,6 @@ private:
 	//takes a block's row and column, and adds blocks that will be cleared to blocksMarkedForDeletion
 	bool CheckBlockForMatches(int rowNum, int colNum);
 
-	//Runs all the blocks in blocksToCheckForMatches through CheckBlocksForMatches()
-	//bool ProcessBTCFM();
 
 	//Apples gravity and clears BMFD
 	//bool ClearMatches();
