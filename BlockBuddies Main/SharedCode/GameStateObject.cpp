@@ -7,8 +7,6 @@ GameStateObject::GameStateObject(){
 
 	score = 0;
 
-	
-	
 	//clear the gameBoard
 	for (int rowNum = 0; rowNum < boardHeight; rowNum++){
 		for (int colNum = 0; colNum < boardWidth; colNum++){

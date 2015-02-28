@@ -19,7 +19,6 @@ GameLogic::GameLogic(){
 	blocksMarkedForDeletion.clear();
 	//messagesToDecode doesn't have a clear
 
-	rowInsertionTimerRunning = true;
 
 }
 
@@ -146,7 +145,7 @@ void GameLogic::InitialBoardPopulation(){
 	destroyedBlocks.clear();
 
 	PopulateTempRow();
-	newRowClock.restart();
+	newRowClock.reset(true);
 }
 
 
@@ -154,8 +153,6 @@ void GameLogic::InitialBoardPopulation(){
 //repopulates the temp row
 //if there's a match in the temp row, change it until there isn't
 bool GameLogic::PopulateTempRow(){
-
-
 
 
 	for (int i = 0; i < gso.boardWidth; i++){
@@ -293,8 +290,6 @@ bool GameLogic::SwapPieces(int row1Num, int col1Num, int row2Num, int col2Num){
 	gso.gameBoard[row1Num][col1Num] = gso.gameBoard[row2Num][col2Num];
 	gso.gameBoard[row2Num][col2Num] = temp;
 
-
-
 	return true;
 }
 
@@ -415,6 +410,11 @@ bool GameLogic::ClearMatches(){
 	}
 
 
+	//pause the row insertion counter:
+	newRowClock.pause();
+	//std::cout << "Pausing row insertion counter" << std::endl;
+
+
 	//for each element in the BMFD set:
 	//get the row, col numbers, and set that element in the game board array to 0;
 
@@ -466,7 +466,6 @@ bool GameLogic::ClearInitialMatches(){
 		//(make sure that the new row timer is paused while clearing)
 	}
 
-	//ApplyGravity();
 
 	//clear the BMFD
 	blocksMarkedForDeletion.clear();
@@ -502,7 +501,10 @@ bool GameLogic::ProcessMessage(sf::Packet toProcess){
 		//pause the row timer
 		//in the Tick(), it will be swapped when countdown = 0
 
-		//rowInsertionTimerRunning = false;
+
+		newRowClock.pause();
+		//std::cout << "Pausing row insertion counter" << std::endl;
+
 		swappingBlocks.push_back(TimedPiece{p1r, p1c});
 		swappingBlocks.push_back(TimedPiece{p2r, p2c});
 		gso.swappingBlocks.push_back(std::make_pair(p1r, p1c));
@@ -517,8 +519,7 @@ bool GameLogic::ProcessMessage(sf::Packet toProcess){
 		//std::cout << "Got 'Request New Row' command!" << std::endl;
 
 		InsertBottomRow();
-		newRowClock.restart();
-
+		newRowClock.reset(true);
 		return true;
 	}
 
@@ -575,13 +576,6 @@ void GameLogic::GameTick(){
 
 
 
-	//reduce timers (rowInsertionTimerRunning pauses for swapping or clearing pieces)
-	//DecrementCounters();
-
-	//Decrement the row insertion counter
-	//if (rowInsertionTimerRunning) {gso.rowInsertionCountdown--;}
-	//(since we're not using counters any more, this won't be used)
-
 	
 
 	//while messageQueue isn't empty
@@ -598,6 +592,10 @@ void GameLogic::GameTick(){
 
 	if (ApplyGravity()){gameStateChanged = true;}
 
+	if ( swappingBlocks.empty() && destroyedBlocks.empty() && !newRowClock.isRunning() ){
+		//if (!newRowClock.isRunning()){std::cout << "Resuming row insertion counter" << std::endl;}
+		newRowClock.resume();
+	}
 
 	//while messageQueue isn't empty
 	//processMessage (msgQ)
@@ -630,7 +628,7 @@ void GameLogic::GameTick(){
 		//reset the row insertion timer
 
 		gso.newRowActive = true;
-		newRowClock.restart();
+		newRowClock.reset(true);
 		gso.rowInsertionCountdown = totalRowInsertionTime.asMilliseconds();
 		std::cout << "Row insertion time: " << totalRowInsertionTime.asMilliseconds() << " ms" << std::endl;
 		gameStateChanged = true;
@@ -639,95 +637,19 @@ void GameLogic::GameTick(){
 	//send appropriate packets back to the client, such as game over or new game state
 	//possible packets to send: new GameState, start game, game over
 	//startGame and GameOver are sent by ProcessMessage
-	//so add: blocks to clear, 
 
-	//queue = FIFO, so make sure you're adding the packets in the correct order
-
-	/*if (outgoingMessages.size() >= 1)
-	{
-		std::queue<sf::Packet> swap;
-		std::swap(outgoingMessages, swap);
-		sf::Packet p;
-		p << gso;
-		outgoingMessages.push(p);
-	}
-	else
-	{
-		sf::Packet p;
-		p << gso;
-		outgoingMessages.push(p);
-	}*/
 
 
 	//this might cause a problem:
 	//the clearingBlocks and swappingBlocks only get added to the GSO once
 	//if the packet they're in gets overwritten, they will never be sent to the client
 	if (gameStateChanged){
-		//gso.PrintToFile();
 		sf::Packet p;
-		//if (outgoingMessages.size() > 1)
-		//{
-		//	std::queue<sf::Packet> swap;
-		//	std::swap(outgoingMessages, swap);
-		//}
 		p << gso;
 		outgoingMessages.push(p);
 	}
 }
 
-//void GameLogic::NewTick(){
-//
-//	//**********clear the temporary GSO stuff
-//
-//		//reset all the temp variables:
-//		gso.newRowActive = false;
-//
-//		//clear the clearing and swapping vectors here:
-//		gso.swappingBlocks.clear();
-//		gso.clearingBlocks.clear();
-//
-//		//if this is true, put the game state as a message to the client
-//		bool gameStateChanged = false;
-//
-//	//**********************end temp variables
-//
-//	gso.frameNum++;
-//
-//
-//	//process input
-//		//check for messages
-//
-//	//while messageQueue isn't empty
-//	while (!messagesToDecode.empty())
-//	{
-//		ProcessMessage(messagesToDecode.front());
-//		messagesToDecode.pop();
-//		gameStateChanged = true;
-//	}
-//
-//
-//	//check timers:
-//	
-//	//swap
-//	//if time is up, swap the two pieces
-//	if (CheckSwappingTimers()){gameStateChanged = true;}
-//	
-//	//clear
-//	//if time is up, remove the blocks from the board and apply gravity
-//	if (CheckClearingTimers()){gameStateChanged = true;}
-//	
-//	//fall
-//	//if time is up, move the blocks down by one square, check if they landed, then update the timers for the new pieces
-//	if (CheckFallingTimers()){gameStateChanged = true;}
-//
-//
-//	//check for matches
-//		//if match found:
-//		//add to "clearing" vectors along with times
-//		//add clearing blocks to GSO
-//
-//	//
-//}
 
 
 bool GameLogic::BlockIsFalling(int rowNum, int colNum){
@@ -811,7 +733,6 @@ bool GameLogic::CheckFallingTimers(){
 
 //Debug functions:
 
-//const void GameLogic::PrintClearedBlocks(){}
 
  void GameLogic::PrintBlocksMarkedForDeletion() const {
 
@@ -893,8 +814,7 @@ bool GameLogic::CheckFallingTimers(){
 	//}
 }
 
-
-bool GameLogic::InsertRowAt(int insertOnRowNum, std::array<int, 7> rowToInsert){
+bool GameLogic::InsertRowAt(int insertOnRowNum, std::array<int, 8> rowToInsert){
 	//insert the row at the specified place
 	for (int j = 0; j < gso.boardWidth; j++){ gso.gameBoard[insertOnRowNum][j] = rowToInsert[j]; }
 	return true;

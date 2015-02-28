@@ -16,6 +16,7 @@
 #include "GameStateObject.hpp"
 #include "MessageType.h"
 #include "TimedPiece.h"
+#include "Chronometer.hpp"
 
 class GameLogic{
 
@@ -47,8 +48,12 @@ public:
 
 	//inserts a row that's passed to it at the row you specify
 	//temporarily here so I can test the game state encoding/decoding
-	bool InsertRowAt(int insertOnRowNum, std::array<int, 7> rowToInsert);
+	//it SHOULD be std::array<int, boardWidth>. But that doesn't work here.
+	bool InsertRowAt(int insertOnRowNum, std::array<int, 8> rowToInsert);
+	
+	//it's also commented out in "private"; not sure why it's public
 	bool SwapPieces(int row1Num, int col1Num, int row2Num, int col2Num);
+	
 	bool ClearMatches();
 	bool ClearInitialMatches();
 	bool BlockIsFalling(int rowNum, int colNum);
@@ -77,10 +82,9 @@ private:
 	const sf::Time blockClearTime = sf::milliseconds(2000);
 	const sf::Time blockFallTime = sf::milliseconds(50);
 	const sf::Time blockSwapTime = sf::milliseconds(300);
-	bool rowInsertionTimerRunning;
 	
 	//probably won't need this
-	bool DecrementCounters();
+	//bool DecrementCounters();
 
 	std::vector<TimedPiece> fallingBlocks;
 	std::vector<TimedPiece> swappingBlocks;
@@ -98,8 +102,8 @@ private:
 	std::queue<sf::Packet> messagesToDecode;
 
 	sf::Time totalRowInsertionTime;
-	sf::Clock newRowClock;
-
+	//sf::Clock newRowClock;
+	sftools::Chronometer newRowClock;
 
 	//functions**********************************************
 	
@@ -121,7 +125,6 @@ private:
 
 	//checks the whole board for any pieces that need to be moved down
 	bool ApplyGravity();
-	//called by InitalBoardPopulation(), ClearMatches(), and SwapPieces()
 
 	//takes a block's row and column, and adds blocks that will be cleared to blocksMarkedForDeletion
 	bool CheckBlockForMatches(int rowNum, int colNum);

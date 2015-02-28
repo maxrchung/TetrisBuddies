@@ -34,6 +34,7 @@
     <ClCompile Include="sqlite3.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\SharedCode\Chronometer.hpp" />
     <ClInclude Include="..\SharedCode\GameLogic.hpp" />
     <ClInclude Include="..\SharedCode\GameStateObject.hpp" />
     <ClInclude Include="..\SharedCode\GameTimedEvent.h" />
