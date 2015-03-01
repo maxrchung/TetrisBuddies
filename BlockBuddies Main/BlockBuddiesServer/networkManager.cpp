@@ -219,6 +219,18 @@ void NetworkManager::update()
 							singlePlayer.makeGame(player);
 					}
 				}
+				case PacketDecode::PACKET_EARLYREMOVE:
+				{
+					if (singlePlayer.isInGame(player->myAddress))
+					{
+						singlePlayer.removeMe.push_back(player->myAddress);
+						singlePlayer.removePlayers();
+					}
+					else if (multiplayer.isInGame(player->myAddress))
+						multiplayer.removeFromGame(player->myAddress);
+					
+					break;
+				}
                 default:
                 {
 					if (singlePlayer.isInGame(player->myAddress))

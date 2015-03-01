@@ -231,6 +231,13 @@ bool ClientManager::loginUser(std::string username , std::string password)
         return false;
 }
 
+void ClientManager::leaveGameEarly()
+{
+	sf::Packet leaveGame;
+	leaveGame << PacketDecode::PACKET_EARLYREMOVE;
+	socket.send(leaveGame);
+}
+
 bool ClientManager::registerUser(std::string username, std::string password)
 {
 	sf::Packet registerPacket;

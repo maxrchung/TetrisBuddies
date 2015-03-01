@@ -26,6 +26,7 @@ public:
 	bool loginUser(std::string username, std::string password);
     void joinQueue();
     void leaveQueue();
+	void leaveGameEarly();
     void acceptGame();
     void rejectGame();
 	void requestNewRow();
