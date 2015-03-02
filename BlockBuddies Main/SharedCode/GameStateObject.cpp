@@ -133,7 +133,7 @@ void GameStateObject::PrintToFile(){
 	if (clearingBlocks.size() > 0){
 		debugFile << "Contents of ClearingBlocks: \n";
 		for (int i = 0; i < clearingBlocks.size(); i++){
-			debugFile << "	Row " << clearingBlocks[i].first << ", Col " << clearingBlocks[i].second << ", duration: " << std::endl;
+			debugFile << "	Row " << clearingBlocks[i].first << ", Col " << clearingBlocks[i].second << std::endl;
 		}
 	}
 

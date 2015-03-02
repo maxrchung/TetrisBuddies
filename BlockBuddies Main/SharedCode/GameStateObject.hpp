@@ -29,6 +29,7 @@ public:
 	//couts the contents of the board
 	void Print();
 	
+
 	//Outputs the game state to a file
 	void PrintToFile();
 
