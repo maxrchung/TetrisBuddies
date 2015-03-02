@@ -221,8 +221,10 @@ void NetworkManager::update()
 						singlePlayer.removePlayers();
 					}
 					else if (multiplayer.isInGame(player->myAddress))
+					{
+						multiplayer.notifyPartnerOfDisconect(player->myAddress);
 						multiplayer.removeFromGame(player->myAddress);
-
+					}
 					break;
 				}
 
