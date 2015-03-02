@@ -214,6 +214,7 @@ void NetworkManager::update()
 
 				case PacketDecode::PACKET_EARLYREMOVE:
 				{
+					std::cout << "Playerhas disconnected early! " << std::endl;
 					if (singlePlayer.isInGame(player->myAddress))
 					{
 						singlePlayer.removeMe.push_back(player->myAddress);

@@ -91,6 +91,7 @@ void CloseScreen::update()
         (InputManager::getInstance()->enter && login->isSelected))
     {
         ScreenManager::getInstance()->switchScreen(login->toScreen);
+		ClientManager::getInstance().leaveGameEarly();
         ClientManager::getInstance().closeConnection();
         BlockShowerManager::getInstance()->fade.state = FadeStates::FADING_IN;
         InputManager::getInstance()->resetInput();
@@ -100,6 +101,7 @@ void CloseScreen::update()
              (InputManager::getInstance()->enter && home->isSelected))
     {
         ScreenManager::getInstance()->switchScreen(home->toScreen);
+		ClientManager::getInstance().leaveGameEarly();
     }
 
     else if (exit->isActivated ||
