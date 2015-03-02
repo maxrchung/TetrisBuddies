@@ -80,6 +80,7 @@ void NetworkedSinglePlayer::initGame()
 		for (int j = 0; j < gameScreenWidth; j += blockSizeX)
 		{
 			
+			
 			sf::RectangleShape shape(sf::Vector2f(blockSizeX, blockSizeY));
 			shape.setPosition(j + (winX / 2 - gameScreenWidth / 2), i - (winY / 2 - gameScreenHeight / 2) - blockSizeX); //puts it in the middle of the screen
 			shape.setFillColor(sf::Color::Transparent); //transparent blocks to appear as empty space
@@ -278,27 +279,30 @@ void NetworkedSinglePlayer::updateBlocks()
 				blocks[i][j].setFillColor(sf::Color::Transparent);
 				blocks[i][j].setOutlineThickness(-2);
 				blocks[i][j].setOutlineColor(sf::Color::Transparent);
+				
 				break;
 			}
-			case 1:
+			case 1: //blue case
 			{
 				c.b = 128;
 				blocks[i][j].setFillColor(c);
 				c.a = 255;
 				blocks[i][j].setOutlineThickness(-2);
 				blocks[i][j].setOutlineColor(c);
+				
 				break;
 			}
-			case 2:
+			case 2: //red case
 			{
 				c.r = 255;
 				blocks[i][j].setFillColor(c);
 				c.a = 255;
 				blocks[i][j].setOutlineThickness(-2);
 				blocks[i][j].setOutlineColor(c);
+				
 				break;
 			}
-			case 3:
+			case 3://yellow case
 			{
 				c.r = 255;
 				c.g = 140;
@@ -306,9 +310,10 @@ void NetworkedSinglePlayer::updateBlocks()
 				c.a = 255;
 				blocks[i][j].setOutlineThickness(-2);
 				blocks[i][j].setOutlineColor(c);
+				
 				break;
 			}
-			case 4:
+			case 4:// purple case
 			{
 				c.r = 148;
 				c.b = 211;
@@ -316,9 +321,10 @@ void NetworkedSinglePlayer::updateBlocks()
 				c.a = 255;
 				blocks[i][j].setOutlineThickness(-2);
 				blocks[i][j].setOutlineColor(c);
+				
 				break;
 			}
-			case 5:
+			case 5://green case
 			{
 				c.r = 50;
 				c.g = 205;
@@ -327,9 +333,10 @@ void NetworkedSinglePlayer::updateBlocks()
 				c.a = 255;
 				blocks[i][j].setOutlineThickness(-2);
 				blocks[i][j].setOutlineColor(c);
+				
 				break;
 			}
-			default:
+			default: //error case
 			{
 				blocks[i][j].setFillColor(sf::Color::Black);
 				break;
@@ -345,15 +352,54 @@ void NetworkedSinglePlayer::draw()
 	Screen::draw();
 
 	GraphicsManager::getInstance()->window.draw(rec);
-
+	
 	for (int i = 0; i < GameStateObject::boardHeight; i++)
 	{
 		for (int j = 0; j < GameStateObject::boardWidth; j++)
 		{
 			GraphicsManager::getInstance()->window.draw(blocks[i][j]);
+			//set the shape on the block
+			blockShape.setPosition(blocks[i][j].getPosition());
+			sf::Vector2f scale = sf::Vector2f((float)blockSizeX / 24, (float)blockSizeY / 24);
+			
+			
+			switch (gso.gameBoard[i][j])
+			{
+			//
+			case 1: //blue case
+				blockShape.setTexture(*_getTexture("Textures/bluestar.png"));
+				//defualt textures are 24 by 24 so scale them to match block size
+				blockShape.setScale(sf::Vector2f((float)blockSizeX / 24, (float)blockSizeY / 24));
+				GraphicsManager::getInstance()->window.draw(blockShape);
+				break;
+			case 2: //red case
+				blockShape.setTexture(*_getTexture("Textures/redgear.png"));
+				blockShape.setScale(sf::Vector2f((float)blockSizeX / 24, (float)blockSizeY / 24));
+				GraphicsManager::getInstance()->window.draw(blockShape);
+				break;
+			case 3:// yellow case
+				blockShape.setTexture(*_getTexture("Textures/yellowsquare.png"));
+				blockShape.setScale(sf::Vector2f((float)blockSizeX / 24, (float)blockSizeY / 24));
+				GraphicsManager::getInstance()->window.draw(blockShape);
+				break;
+			case 4://purple
+				blockShape.setTexture(*_getTexture("Textures/purplespade.png"));
+				blockShape.setScale(sf::Vector2f((float)blockSizeX / 24, (float)blockSizeY / 24));
+				GraphicsManager::getInstance()->window.draw(blockShape);
+				break;
+			case 5://green
+				blockShape.setTexture(*_getTexture("Textures/greentriangle.png"));
+				blockShape.setScale(sf::Vector2f((float)blockSizeX / 24, (float)blockSizeY / 24));
+				GraphicsManager::getInstance()->window.draw(blockShape);
+				break;
+			default:
+				break;
+			}
+			
+			
 		}
 	}
-
+	
 	AnimationManager::getInstance()->update();
 
 	GraphicsManager::getInstance()->window.draw(ch->getMainCursor()); //draws main cursor
