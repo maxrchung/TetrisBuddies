@@ -338,14 +338,14 @@ bool GameLogic::CheckBlockForMatches(int rowNum, int colNum){
 	//if blocks to the left match, add to potentialMatches and repeat
 	int rowToCheck = rowNum;
 	int colToCheck = colNum - 1;
-	while ((colToCheck > -1) && (gso.gameBoard[rowToCheck][colToCheck] == gso.gameBoard[rowNum][colNum]) && (!BlockIsFalling(rowToCheck, colToCheck)) ){
+	while ((colToCheck > -1) && (gso.gameBoard[rowToCheck][colToCheck] == gso.gameBoard[rowNum][colNum]) && (!BlockIsFalling(rowToCheck, colToCheck)) && (!DestroyedBlockContains(rowToCheck, colToCheck)) ){
 		potentialMatches.insert(std::make_pair(rowToCheck, colToCheck));
 		colToCheck--;
 	}
 
 	//if blocks to the right match, add to potentialMatches and repeat
 	colToCheck = colNum + 1;
-	while ((colToCheck < gso.boardWidth) && (gso.gameBoard[rowToCheck][colToCheck] == gso.gameBoard[rowNum][colNum]) && (!BlockIsFalling(rowToCheck, colToCheck))){
+	while ((colToCheck < gso.boardWidth) && (gso.gameBoard[rowToCheck][colToCheck] == gso.gameBoard[rowNum][colNum]) && (!BlockIsFalling(rowToCheck, colToCheck)) && (!DestroyedBlockContains(rowToCheck, colToCheck)) ){
 		potentialMatches.insert(std::make_pair(rowToCheck, colToCheck));
 		colToCheck++;
 	}
@@ -362,14 +362,14 @@ bool GameLogic::CheckBlockForMatches(int rowNum, int colNum){
 	potentialMatches.insert(std::make_pair(rowNum, colNum));
 
 	//if blocks above match, add to potentialMatches and repeat
-	while ((rowToCheck < gso.boardHeight) && (gso.gameBoard[rowToCheck][colToCheck] == gso.gameBoard[rowNum][colNum]) && (!BlockIsFalling(rowToCheck, colToCheck)) ){
+	while ((rowToCheck < gso.boardHeight) && (gso.gameBoard[rowToCheck][colToCheck] == gso.gameBoard[rowNum][colNum]) && (!BlockIsFalling(rowToCheck, colToCheck)) && (!DestroyedBlockContains(rowToCheck, colToCheck)) ){
 		potentialMatches.insert(std::make_pair(rowToCheck, colToCheck));
 		rowToCheck++;
 	}
 
 	//if blocks below match, add to potentialMatches and repeat
 	rowToCheck = rowNum - 1;
-	while ((rowToCheck > -1) && (gso.gameBoard[rowToCheck][colToCheck] == gso.gameBoard[rowNum][colNum]) && (!BlockIsFalling(rowToCheck, colToCheck)) ){
+	while ((rowToCheck > -1) && (gso.gameBoard[rowToCheck][colToCheck] == gso.gameBoard[rowNum][colNum]) && (!BlockIsFalling(rowToCheck, colToCheck)) && (!DestroyedBlockContains(rowToCheck, colToCheck)) ){
 		potentialMatches.insert(std::make_pair(rowToCheck, colToCheck));
 		rowToCheck--;
 	}
@@ -399,7 +399,7 @@ bool GameLogic::CheckBlockForMatches(int rowNum, int colNum){
 	return true;
 }
 
-//also empties BMFD
+//Adds blocks to gso.clearingBlocks, also empties BMFD
 bool GameLogic::ClearMatches(){
 
 
@@ -425,11 +425,10 @@ bool GameLogic::ClearMatches(){
 	for (auto i : blocksMarkedForDeletion) {
 		row = i.first;
 		col = i.second;
-		//gso.gameBoard[row][col] = 0;
 
 		//add to destroyedBlocks here:
-		//(make sure that the new row timer is paused while clearing)
 		destroyedBlocks.push_back(TimedPiece{i.first, i.second});
+		gso.clearingBlocks.push_back(std::make_pair(i.first, i.second));
 
 	}
 
@@ -461,9 +460,6 @@ bool GameLogic::ClearInitialMatches(){
 		row = i.first;
 		col = i.second;
 		gso.gameBoard[row][col] = 0;
-
-		//add to destroyedBlocks here:
-		//(make sure that the new row timer is paused while clearing)
 	}
 
 
@@ -588,7 +584,7 @@ void GameLogic::GameTick(){
 
 	if (CheckSwappingTimers()){ gameStateChanged = true; }
 
-	//if (CheckClearingTimers()) { gameStateChanged = true; }
+	if (CheckClearingTimers()) { gameStateChanged = true; }
 
 	if (ApplyGravity()){gameStateChanged = true;}
 
@@ -608,8 +604,8 @@ void GameLogic::GameTick(){
 
 
 	//it's set to "initial" right now because the code for the clear animation isn't in place yet.
-	if (ClearInitialMatches()){ gameStateChanged = true; }
-	//if (ClearMatches()){gameStateChanged = true;}
+	//if (ClearInitialMatches()){ gameStateChanged = true; }
+	if (ClearMatches()){gameStateChanged = true;}
 
 
 	//if it's time to insert a new row:
@@ -647,12 +643,15 @@ void GameLogic::GameTick(){
 		sf::Packet p;
 		p << gso;
 		outgoingMessages.push(p);
+		
+		//this is temporary
+		gso.PrintToFile();
 	}
 }
 
 
 
-bool GameLogic::BlockIsFalling(int rowNum, int colNum){
+bool GameLogic::BlockIsFalling(int rowNum, int colNum) const{
 	//if there's a 0 in the column below the block, return true
 	//else reutrn false
 
@@ -664,6 +663,21 @@ bool GameLogic::BlockIsFalling(int rowNum, int colNum){
 	return false;
 }
 
+bool GameLogic::DestroyedBlockContains(int rowNum, int colNum) const{
+	
+	if (destroyedBlocks.empty()){ return false; }
+
+
+	for (auto i : destroyedBlocks){
+		if (i.blockNum.first == rowNum && i.blockNum.second == colNum){
+			return true;
+		}
+	}
+
+	return false;
+}
+
+
 bool GameLogic::CheckSwappingTimers(){
 
 	//(make sure that the new row timer is paused while swapping)
@@ -674,6 +688,7 @@ bool GameLogic::CheckSwappingTimers(){
 	//note: right now it only checks the first 2 elements
 	//this might cause a bug on the off-chance that there are 4 pieces being swapped at the same time
 
+
 	//if the two pieces' (at the head of the queue) timers = 0
 	if ((swappingBlocks.at(0).duration.getElapsedTime() > blockSwapTime) && (swappingBlocks.at(1).duration.getElapsedTime() > blockSwapTime)){
 		
@@ -681,11 +696,9 @@ bool GameLogic::CheckSwappingTimers(){
 		SwapPieces(swappingBlocks.at(0).blockNum.first, swappingBlocks.at(0).blockNum.second, swappingBlocks.at(1).blockNum.first, swappingBlocks.at(1).blockNum.second);
 
 
-
 		//remove the pieces
 		swappingBlocks.erase(swappingBlocks.begin(), swappingBlocks.begin() + 2);
 
-		//apply gravity(?) (gravity will be reworked)
 
 		return true;
 	}
@@ -696,26 +709,30 @@ bool GameLogic::CheckSwappingTimers(){
 
 bool GameLogic::CheckClearingTimers(){
 
-	//maybe add to totalRowInsertionTime?
-
 	if (destroyedBlocks.empty()){ return false; }
 
 	//if the pieces's clearing times are up
 		//remove them
-		//apply gravity(?)
 
-	for (auto i = destroyedBlocks.begin(); i != destroyedBlocks.end(); ++i){
+	bool ret = false;
+
+	for (auto i = destroyedBlocks.begin(); i != destroyedBlocks.end();){
 	//for (int i = 0; i < destroyedBlocks.size(); ++i){
 		if (i->duration.getElapsedTime() > blockClearTime){
 			gso.gameBoard[i->blockNum.first][i->blockNum.second] = 0;
+
+			ret = true;
+
 			
 			//remove from the vector here:
-			destroyedBlocks.erase(i);
+			i = destroyedBlocks.erase(i);
 		}
+
+		else{++i;}
 
 	}
 
-	return false;
+	return ret;
 }
 
 

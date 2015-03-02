@@ -25,8 +25,6 @@ public:
 	GameLogic();
 	void GameTick();
 
-	//temp name, it'll be renamed to GameTick()
-	//void NewTick();
 
 	void Print(){ gso.Print(); }
 	void PrintBlocksMarkedForDeletion() const;
@@ -56,7 +54,8 @@ public:
 	
 	bool ClearMatches();
 	bool ClearInitialMatches();
-	bool BlockIsFalling(int rowNum, int colNum);
+	bool BlockIsFalling(int rowNum, int colNum) const;
+	bool DestroyedBlockContains(int rowNum, int colNum) const;
 
 	//checks the entire board for matches
 	bool CheckAllBlocksForMatches();
