@@ -22,7 +22,7 @@ public:
     void reload();
 	sf::RectangleShape blocks[GameStateObject::boardHeight][GameStateObject::boardWidth];
 	//number of different sprite shapes
-	sf::Sprite blockShape;
+	
 private:
 
 	
@@ -49,7 +49,7 @@ private:
 	TextBox* name;
 	TextBox* oldHighScore;
 	TextBox* scoreToBeat;
-
+	sf::Sprite blockShape;
 
 
 
@@ -62,7 +62,7 @@ private:
 		sf::Vector2f pos;
 		sf::Vector2f vel;
 
-		blockAnimate() : first(sf::Vector2f(25, 25))
+		/*blockAnimate() : first(sf::Vector2f(25, 25))
 			,second(sf::Vector2f(25, 25))
 			,third(sf::Vector2f(25, 25))
 			, fourth(sf::Vector2f(25, 25))
@@ -73,9 +73,9 @@ private:
 			blocks[1] = second;
 			blocks[2] = third;
 			blocks[3] = fourth;
-		}
+		}*/
 	};
-
+	
 
 };
 

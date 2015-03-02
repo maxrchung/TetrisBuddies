@@ -11,7 +11,7 @@
 #include "TextBox.hpp"
 #include "SoundManager.h"
 #include "InputManager.hpp"
-
+#include "TextureManager.hpp"
 
 class MultiplayerScreen : public Screen
 {
@@ -24,12 +24,12 @@ private:
 
 	int winX;
 	int winY;
-	GameStateObject gso;
 	int blockSize;
 	CursorHandler *ch;
 	sf::RectangleShape p1Blocks[GameStateObject::boardHeight][GameStateObject::boardWidth];
 	sf::RectangleShape p2Blocks[GameStateObject::boardHeight][GameStateObject::boardWidth];
 	sf::RectangleShape p1Outline, p2Outline;
+	sf::Sprite blockShape;
 	GameStateObject p1GSO;
 	GameStateObject p2GSO;
 	bool pressed, pressed2;

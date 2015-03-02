@@ -360,9 +360,7 @@ void NetworkedSinglePlayer::draw()
 			GraphicsManager::getInstance()->window.draw(blocks[i][j]);
 			//set the shape on the block
 			blockShape.setPosition(blocks[i][j].getPosition());
-			sf::Vector2f scale = sf::Vector2f((float)blockSizeX / 24, (float)blockSizeY / 24);
-			
-			
+		
 			switch (gso.gameBoard[i][j])
 			{
 			//

@@ -15,14 +15,14 @@ void MultiplayerScreen::initGame()
 	//fill in initial board
 	int gridPosy = 0;
 	int gridPosx = 0;
-	blockSize = (GraphicsManager::getInstance()->window.getSize().y/ gso.boardHeight) * .9;
+	blockSize = (GraphicsManager::getInstance()->window.getSize().y/ p1GSO.boardHeight) * .9;
 
 	winX = GraphicsManager::getInstance()->window.getSize().x - (GraphicsManager::getInstance()->window.getSize().x % blockSize);
 	winY = GraphicsManager::getInstance()->window.getSize().y - (GraphicsManager::getInstance()->window.getSize().y % blockSize);
 
 
-	int gbHeight = (gso.boardHeight * blockSize);
-	int gbWidth = (blockSize * gso.boardWidth);
+	int gbHeight = (p1GSO.boardHeight * blockSize);
+	int gbWidth = (blockSize * p1GSO.boardWidth);
 	
 	int p1OutlineX = blockSize;
 	int p1OutlineY = (winY / 2 - gbHeight / 2) - ((winY / 2 - gbHeight / 2) % blockSize);
@@ -397,19 +397,92 @@ void MultiplayerScreen::draw()
 	GraphicsManager::getInstance()->window.draw(p1Outline);
 	GraphicsManager::getInstance()->window.draw(p2Outline);
 	//draws blocks on screen
-	for (int i = 0; i < gso.boardHeight; i++)
+	for (int i = 0; i < p1GSO.boardHeight; i++)
 	{
-		for (int j = 0; j < gso.boardWidth; j++)
+		for (int j = 0; j < p1GSO.boardWidth; j++)
 		{
 			GraphicsManager::getInstance()->window.draw(p1Blocks[i][j]);
+			//set the shape on the block
+			blockShape.setPosition(p1Blocks[i][j].getPosition());
+			//grab the color from gamestate
+			switch (p1GSO.gameBoard[i][j])
+			{
+				//
+			case 1: //blue case
+				blockShape.setTexture(*_getTexture("Textures/bluestar.png"));
+				//defualt textures are 24 by 24 so scale them to match block size
+				blockShape.setScale(sf::Vector2f((float)blockSize / 24, (float)blockSize / 24));
+				GraphicsManager::getInstance()->window.draw(blockShape);
+				break;
+			case 2: //red case
+				blockShape.setTexture(*_getTexture("Textures/redgear.png"));
+				blockShape.setScale(sf::Vector2f((float)blockSize / 24, (float)blockSize / 24));
+				GraphicsManager::getInstance()->window.draw(blockShape);
+				break;
+			case 3:// yellow case
+				blockShape.setTexture(*_getTexture("Textures/yellowsquare.png"));
+				blockShape.setScale(sf::Vector2f((float)blockSize / 24, (float)blockSize / 24));
+				GraphicsManager::getInstance()->window.draw(blockShape);
+				break;
+			case 4://purple
+				blockShape.setTexture(*_getTexture("Textures/purplespade.png"));
+				blockShape.setScale(sf::Vector2f((float)blockSize / 24, (float)blockSize / 24));
+				GraphicsManager::getInstance()->window.draw(blockShape);
+				break;
+			case 5://green
+				blockShape.setTexture(*_getTexture("Textures/greentriangle.png"));
+				blockShape.setScale(sf::Vector2f((float)blockSize / 24, (float)blockSize / 24));
+				GraphicsManager::getInstance()->window.draw(blockShape);
+				break;
+			default:
+				break;
+			}
+
+
 		}
 	}
 
-	for (int i = 0; i < gso.boardHeight; i++)
+	for (int i = 0; i < p2GSO.boardHeight; i++)
 	{
-		for (int j = 0; j < gso.boardWidth; j++)
+		for (int j = 0; j < p2GSO.boardWidth; j++)
 		{
 			GraphicsManager::getInstance()->window.draw(p2Blocks[i][j]);
+			//set the shape on the block
+			blockShape.setPosition(p2Blocks[i][j].getPosition());
+			//grab the color from gamestate
+			switch (p2GSO.gameBoard[i][j])
+			{
+				//
+			case 1: //blue case
+				blockShape.setTexture(*_getTexture("Textures/bluestar.png"));
+				//defualt textures are 24 by 24 so scale them to match block size
+				blockShape.setScale(sf::Vector2f((float)blockSize / 24, (float)blockSize / 24));
+				GraphicsManager::getInstance()->window.draw(blockShape);
+				break;
+			case 2: //red case
+				blockShape.setTexture(*_getTexture("Textures/redgear.png"));
+				blockShape.setScale(sf::Vector2f((float)blockSize / 24, (float)blockSize / 24));
+				GraphicsManager::getInstance()->window.draw(blockShape);
+				break;
+			case 3:// yellow case
+				blockShape.setTexture(*_getTexture("Textures/yellowsquare.png"));
+				blockShape.setScale(sf::Vector2f((float)blockSize / 24, (float)blockSize / 24));
+				GraphicsManager::getInstance()->window.draw(blockShape);
+				break;
+			case 4://purple
+				blockShape.setTexture(*_getTexture("Textures/purplespade.png"));
+				blockShape.setScale(sf::Vector2f((float)blockSize / 24, (float)blockSize / 24));
+				GraphicsManager::getInstance()->window.draw(blockShape);
+				break;
+			case 5://green
+				blockShape.setTexture(*_getTexture("Textures/greentriangle.png"));
+				blockShape.setScale(sf::Vector2f((float)blockSize / 24, (float)blockSize / 24));
+				GraphicsManager::getInstance()->window.draw(blockShape);
+				break;
+			default:
+				break;
+			}
+
 		}
 	}
 
