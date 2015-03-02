@@ -7,7 +7,7 @@
 #include "ClientManager.h"
 #include "UIElement.hpp"
 #include "TextBox.hpp"
-
+#include "TextureManager.hpp"
 #include <vector>
 #include <tuple>
 #include <iostream>
@@ -21,7 +21,8 @@ public:
 	void draw();
     void reload();
 	sf::RectangleShape blocks[GameStateObject::boardHeight][GameStateObject::boardWidth];
-	
+	//number of different sprite shapes
+	sf::Sprite blockShape;
 private:
 
 	
