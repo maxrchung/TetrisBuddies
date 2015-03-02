@@ -211,14 +211,7 @@ void NetworkManager::update()
                     player->receiveAliveTimer.restart();
                     break;
                 }
-				case PacketDecode::PACKET_START:
-				{
-					if (!multiplayer.isInGame(player->myAddress))
-					{
-						if (!singlePlayer.isInGame(player->myAddress))
-							singlePlayer.makeGame(player);
-					}
-				}
+
 				case PacketDecode::PACKET_EARLYREMOVE:
 				{
 					if (singlePlayer.isInGame(player->myAddress))
@@ -228,8 +221,18 @@ void NetworkManager::update()
 					}
 					else if (multiplayer.isInGame(player->myAddress))
 						multiplayer.removeFromGame(player->myAddress);
-					
+
 					break;
+				}
+
+				case PacketDecode::PACKET_START:
+				{
+					if (!multiplayer.isInGame(player->myAddress))
+					{
+						if (!singlePlayer.isInGame(player->myAddress))
+							singlePlayer.makeGame(player);
+					}
+					
 				}
                 default:
                 {
