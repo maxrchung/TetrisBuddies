@@ -108,6 +108,7 @@ void CloseScreen::update()
              (InputManager::getInstance()->enter && exit->isSelected))
     {
         ScreenManager::getInstance()->closeGame();
+		ClientManager::getInstance().leaveGameEarly();
         InputManager::getInstance()->resetInput();
     }
 

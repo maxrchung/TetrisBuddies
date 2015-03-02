@@ -54,6 +54,7 @@
     <ClInclude Include="sqlite3.h" />
     <ClInclude Include="TextBox.hpp" />
     <ClInclude Include="TextInput.hpp" />
+    <ClInclude Include="TextureManager.hpp" />
     <ClInclude Include="UIElement.hpp" />
     <ClInclude Include="User.hpp" />
   </ItemGroup>
@@ -97,6 +98,7 @@
     <ClCompile Include="sqlite3.c" />
     <ClCompile Include="TextBox.cpp" />
     <ClCompile Include="TextInput.cpp" />
+    <ClCompile Include="TextureManager.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F14A11ED-47D0-456F-A7B6-EF3BA7657776}</ProjectGuid>
