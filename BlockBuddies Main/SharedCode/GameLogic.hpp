@@ -13,6 +13,7 @@
 #include <ctime>
 #include <set>
 #include <string>
+#include <math.h>
 #include "GameStateObject.hpp"
 #include "MessageType.h"
 #include "TimedPiece.h"
@@ -60,15 +61,23 @@ public:
 	//checks the entire board for matches
 	bool CheckAllBlocksForMatches();
 
-	//bool PopulateTempRow();
+	bool CreateJunkBlocks(int numBlocks);
 	bool gameHasStarted;
 	bool isGameOver;
+
 	//returns the player's score
-	int GetScore() { return gso.score; }
+	int GetScore() const { return gso.score; }
+
+	//this is used for multiplayer; it says how many junk blocks to send to the other player
+	//it only gets set to nonzero when there's something to send
+	int blocksToSend;
 
 	//holds the array that keeps track of the board, as well as the player's score
 	GameStateObject gso;
 
+
+	//temporary:
+	//GameStateObject newGSO;
 
 private:
 
@@ -90,7 +99,6 @@ private:
 	std::vector<TimedPiece> destroyedBlocks;
 
 
-	
 
 	//the number of colors that will be used in the game.
 	//TA values: easy = 4, normal/hard = 5, multiplayer = 6 (gray blocks that make garbage)

@@ -5,6 +5,7 @@
 #include <SFML/Network.hpp>
 #include <iostream>
 #include "GameTimedEvent.h"
+#include <array>
 #include <fstream>
 #include <stdio.h>
 //Network.hpp so it can make itself into a packet
@@ -71,6 +72,9 @@ public:
 
 	//swapping blocks go here to tell the client what's about to be swapped
 	std::vector<std::pair<int, int>> swappingBlocks;
+
+	//contains the junk blocks sent over by the other player, in row form
+	std::vector<std::array<int, boardWidth>> junkRows;
 
 	bool newRowActive; 
 

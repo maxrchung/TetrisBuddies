@@ -19,6 +19,8 @@ GameLogic::GameLogic(){
 	blocksMarkedForDeletion.clear();
 	//messagesToDecode doesn't have a clear
 
+	blocksToSend = 0;
+
 
 }
 
@@ -101,8 +103,6 @@ void GameLogic::InitialBoardPopulation(){
 	*/
 
 
-	//temporatily printing out the game state here so I can see what got cleared
-	//gso.Print();
 
 	/*
 	check for any matches
@@ -209,11 +209,9 @@ bool GameLogic::InsertBottomRow(){
 
 
 
-//ApplyGravity moves all blocks down until they rest on either another block or the bottom row
+//ApplyGravity moves all blocks down until they rest on either another block or the bottom row, one block per tick
 
-//change it so:
-//every block only moves once per call
-//only blocks that stopped moving are checked for matches
+
 bool GameLogic::ApplyGravity(){
 
 
@@ -309,7 +307,7 @@ bool GameLogic::CheckAllBlocksForMatches(){
 
 
 	//for debugging:
-	if (!blocksMarkedForDeletion.empty()){PrintBlocksMarkedForDeletion();}
+	//if (!blocksMarkedForDeletion.empty()){PrintBlocksMarkedForDeletion();}
 
 	return true;
 }
@@ -321,7 +319,8 @@ bool GameLogic::CheckBlockForMatches(int rowNum, int colNum){
 
 	//if trying to match to an empty block, fail out
 	//if trying to match to a falling block, fail out
-	if( (gso.gameBoard[rowNum][colNum] == 0) || (BlockIsFalling(rowNum, colNum))) 
+	//if trying to match to a block that's being cleared, fail out
+	if( (gso.gameBoard[rowNum][colNum] == 0) || (BlockIsFalling(rowNum, colNum)) || DestroyedBlockContains(rowNum, colNum) ) 
 		{ return false; }
 
 
@@ -386,8 +385,12 @@ bool GameLogic::CheckBlockForMatches(int rowNum, int colNum){
 
 	clearedBlocks = blocksMarkedForDeletion.size() - originalSizeOfBMFD;
 
-	//now, calculate score.  It's always 10pts/block. If it's 4 blocks, bonus of +20. If it's 5, bonus of + 30.
+	//now, calculate score.
+	//Tetris attack score alogrithm: It's always 10pts/block. If it's 4 blocks, bonus of +20. If it's 5, bonus of + 30.
 	//algorithm: (10 * clearedBlocks) +  (if clearedBlocks > 3:) ( (clearedBlocks - 2) * 10)?
+
+
+	//we want to encourage combos > 3, so we will change the scoring values
 
 	if (clearedBlocks > 0){
 		//this isn't complete yet
@@ -395,6 +398,13 @@ bool GameLogic::CheckBlockForMatches(int rowNum, int colNum){
 		int points = (clearedBlocks * 10) + (bonusBlocks * 10);
 		gso.score += points;
 	}
+
+	//update blocksToSend here:
+	//right now it's just one block for every one over 3 you do
+	if (clearedBlocks > 3){
+		blocksToSend = clearedBlocks - 3;
+	}
+
 
 	return true;
 }
@@ -513,10 +523,12 @@ bool GameLogic::ProcessMessage(sf::Packet toProcess){
 
 	else if (command == PacketDecode::PACKET_REQUESTNEWROW){
 		//std::cout << "Got 'Request New Row' command!" << std::endl;
-
-		InsertBottomRow();
-		newRowClock.reset(true);
-		return true;
+		if (destroyedBlocks.empty()){
+			InsertBottomRow();
+			newRowClock.reset(true);
+			return true;
+		}
+		return false;
 	}
 
 
@@ -561,7 +573,9 @@ void GameLogic::GameTick(){
 
 	//This is always 0, except when a row insertion timer gets reset.
 	//Then it takes the value of the time until the new row is inserted (for one game tick only).
-	gso.rowInsertionCountdown = 0;
+	sf::Time remainingRowInsertionTime = totalRowInsertionTime - newRowClock.getElapsedTime();
+
+	gso.rowInsertionCountdown = remainingRowInsertionTime.asMilliseconds();
 
 	//if this is true, put the game state as a message to the client
 	bool gameStateChanged = false;
@@ -643,9 +657,18 @@ void GameLogic::GameTick(){
 		sf::Packet p;
 		p << gso;
 		outgoingMessages.push(p);
-		
-		//this is temporary
-		gso.PrintToFile();
+
+		//for debugging
+		//if (!gso.clearingBlocks.empty()){
+		//gso.PrintToFile();
+
+
+		//int junk;
+		//p >> junk;
+		//p >> newGSO;
+		//newGSO.PrintToFile();
+
+		//}
 	}
 }
 
@@ -747,6 +770,42 @@ bool GameLogic::CheckFallingTimers(){
 
 	return false;
 }
+
+bool GameLogic::CreateJunkBlocks(int numBlocks){
+
+	int numRows = ceil(numBlocks / gso.boardWidth);
+
+
+	for (int h = 0; h < numRows; h++){
+		
+		//if GSO doens't have enough rows, add them here (one row per loop):
+		if (gso.junkRows.size() < (h + 1)){
+			const int bw = gso.boardWidth;
+			std::array<int, bw> newJunkRow;
+
+			for (int j = 0; j < bw; j++){
+				newJunkRow.at(j) = 0;
+			}
+
+			gso.junkRows.push_back(newJunkRow);
+		}
+
+
+
+		for (int i = 0; i < gso.boardWidth; i++){
+			gso.junkRows.at(h).at(i) = (rand() % numColors) + 1;
+
+			//when there are at least 3 pieces in the row (i >= 2) : while the previous 2 pieces = this piece, change this piece
+			if (i > 1){
+				while ((gso.junkRows.at(h).at(i - 2) == gso.junkRows.at(h).at(i - 1)) && (gso.junkRows.at(h).at(i - 1) == gso.junkRows.at(h).at(i))){
+					gso.junkRows.at(h).at(i) = (rand() % numColors) + 1;
+				}
+			}
+		}
+	}
+	return true;
+}
+
 
 //Debug functions:
 

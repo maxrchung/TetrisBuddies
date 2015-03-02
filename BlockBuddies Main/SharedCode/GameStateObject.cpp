@@ -62,6 +62,17 @@ void GameStateObject::Print(){
 	std::cout << "Row Insertion Pause: " << rowInsertionCountdown << std::endl;
 	std::cout << "New row active? " << newRowActive << std::endl;
 
+	std::cout << "Number of rows in junkRows: " << junkRows.size() << std::endl;
+	if (!junkRows.empty()){
+		std::cout << "Contents of junkRows:" << std::endl;
+		for (int i = 0; i < junkRows.size(); i++){
+			std::cout << "Row " << i << ": ";
+			for (int j = 0; j < boardWidth; j++){
+				std::cout << junkRows.at(i).at(j) << " ";
+			}
+			std::cout << std::endl;
+		}
+	}
 
 
 	//std::cout << "" << << std::endl;
@@ -77,7 +88,7 @@ void GameStateObject::Print(){
 
 
 
-//change all the COUTs here so it outputs the state to a txt file
+//outputs the state to a txt file
 void GameStateObject::PrintToFile(){
 	
 	std::ofstream debugFile;
@@ -125,12 +136,23 @@ void GameStateObject::PrintToFile(){
 	//*********
 	//print the rest of the elements that will be added to the state 
 
+	debugFile << "Number of rows in junkRows: " << junkRows.size() << std::endl;
+	if (!junkRows.empty()){
+		debugFile << "Contents of junkRows:" << std::endl;
+		for (int i = 0; i < junkRows.size(); i++){
+			debugFile << "Row " << i << ": ";
+			for (int j = 0; j < boardWidth; j++){
+				debugFile << junkRows.at(i).at(j) << " ";
+			}
+			debugFile << std::endl;
+		}
+	}
 
 
 
 	//debugFile << "" << << std::endl;
 	debugFile << "Size of ClearingBlocks: " << clearingBlocks.size() << std::endl;
-	if (clearingBlocks.size() > 0){
+	if (!clearingBlocks.empty()){
 		debugFile << "Contents of ClearingBlocks: \n";
 		for (int i = 0; i < clearingBlocks.size(); i++){
 			debugFile << "	Row " << clearingBlocks[i].first << ", Col " << clearingBlocks[i].second << std::endl;
@@ -157,7 +179,8 @@ bool new row active
 //uint8 first row: temp row
 //uint8 the rest: board
 
-
+//byte: sizeOf(junkRows)
+//until sizeOf is done: each row of junk blocks
 
 //byte: sizeOf(fallingBlocks)
 //until sizeOf is done: entries in the vector
@@ -175,7 +198,7 @@ sf::Packet& operator <<(sf::Packet& packet, const std::pair<int, int>& tp){ retu
 sf::Packet& operator >>(sf::Packet& packet, std::pair<int, int>& tp){ return packet >> tp.first >> tp.second; }
 
 
-//change this to work with the new GSO
+
 GameStateObject& GameStateObject::operator=(GameStateObject& rhs)
 {
 	score = rhs.score;
@@ -195,6 +218,8 @@ GameStateObject& GameStateObject::operator=(GameStateObject& rhs)
 			gameBoard[rowNum][colNum] = rhs.gameBoard[rowNum][colNum];
 		}
 	}
+
+	junkRows = rhs.junkRows;
 
 	clearingBlocks = rhs.clearingBlocks;
 
@@ -249,6 +274,16 @@ sf::Packet& operator <<(sf::Packet& packet, const GameStateObject& gso)
 		}
 	}
 
+
+	////byte: sizeOf(junkRows)
+	////until sizeOf is done: each row of junk blocks
+	//int numJunkRows = gso.junkRows.size();
+	//packet << numJunkRows;
+	//for (int i = 0; i < numJunkRows; i++){
+	//	for (int j = 0; j < gso.boardWidth; j++){
+	//		packet << gso.junkRows.at(i).at(j);
+	//	}
+	//}
 
 
 	//sizeOf(clearingBlocks)
@@ -314,9 +349,32 @@ sf::Packet& operator >>(sf::Packet& packet, GameStateObject& gso)
 
 
 
+	//byte: sizeOf(junkRows)
+	//until sizeOf is done: each row of junk blocks
+	//int numJunkRows;
+	//packet >> numJunkRows;
+	//for (int i = 0; i < numJunkRows; i++){
+	//	
+	//	if (gso.junkRows.size() < (i + 1) ){
+	//		const int bw = gso.boardWidth;
+	//		std::array<int, bw> newJunkRow;
+
+	//		for (int j = 0; j < bw; j++){
+	//			newJunkRow.at(j) = 0;
+	//		}
+
+	//		gso.junkRows.push_back(newJunkRow);
+	//	}
+
+	//	for (int j = 0; j < gso.boardWidth; j++){
+	//		packet >> gso.junkRows.at(i).at(j);
+	//	}
+	//}
+
+
 	std::pair<int, int> x;
 
-
+	gso.clearingBlocks.clear();
 	//sizeOf(clearingBlocks)
 	//until sizeOf is done: entries in the vector
 	int numClearingBlocks;
@@ -327,6 +385,7 @@ sf::Packet& operator >>(sf::Packet& packet, GameStateObject& gso)
 		gso.clearingBlocks.push_back(x);
 	}
 
+	gso.swappingBlocks.clear();
 	int numSwappingBlocks;
 	packet >> numSwappingBlocks;
 	for (int i = 0; i < numSwappingBlocks; i++){
