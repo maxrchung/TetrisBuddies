@@ -136,6 +136,7 @@ void QueueScreen::reload()
 void QueueScreen::foundGame()
 {
     status->message.setString("Game found!");
+	ClientManager::getInstance().gameOver = false;
     loadingGame = true;
     foundTimer.restart();
     deselect();
