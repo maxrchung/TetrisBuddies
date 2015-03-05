@@ -127,6 +127,7 @@ void QueueScreen::reload()
     reverse = 1;
 
     // Sends the server a message to join queue
+	ClientManager::getInstance().gameOver = false;
     ClientManager::getInstance().joinQueue();
     loadingGame = false;
     cancel->isDisplayed = true;

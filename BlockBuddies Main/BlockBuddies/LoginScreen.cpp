@@ -160,7 +160,7 @@ void LoginScreen::update()
         }
         if (!ClientManager::getInstance().isConnected)
         {
-			if (!ClientManager::getInstance().initConnection(sf::IpAddress::getLocalAddress(), 5000))
+			if (!ClientManager::getInstance().initConnection(sf::IpAddress("169.234.10.163"), 5000))
 			{
                 ScreenManager::getInstance()->addScreen(Screens::NOTIFICATION, "Failed to connect with server. The server may be down, or you may not be connected to the Internet.");
 				if (sound.getStatus() != sound.Playing)
