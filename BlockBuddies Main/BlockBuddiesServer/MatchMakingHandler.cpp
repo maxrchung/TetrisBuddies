@@ -67,10 +67,14 @@ bool MatchMakingHandler::isInQueue(sf::IpAddress toRemove)
 void MatchMakingHandler::removeFromQueue(sf::IpAddress remove)
 {
 	int count = 0;
+	int second = 0;
 	for (auto& check : activePlayers)
 	{
 		if (check->myAddress == remove)
+		{
+			second = count;
 			break;
+		}
 		count++;
 	}
 	activePlayers.erase(activePlayers.begin() + count);
