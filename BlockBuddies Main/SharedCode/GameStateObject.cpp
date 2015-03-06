@@ -25,6 +25,7 @@ GameStateObject::GameStateObject(){
 	cursorPos.second = boardWidth / 2;
 	rowInsertionCountdown = 0;
 	clearingBlocks.clear();
+	junkRows.clear();
 	newRowActive = false;
 }
 
@@ -277,13 +278,13 @@ sf::Packet& operator <<(sf::Packet& packet, const GameStateObject& gso)
 
 	////byte: sizeOf(junkRows)
 	////until sizeOf is done: each row of junk blocks
-	//int numJunkRows = gso.junkRows.size();
-	//packet << numJunkRows;
-	//for (int i = 0; i < numJunkRows; i++){
-	//	for (int j = 0; j < gso.boardWidth; j++){
-	//		packet << gso.junkRows.at(i).at(j);
-	//	}
-	//}
+	int numJunkRows = gso.junkRows.size();
+	packet << numJunkRows;
+	for (int i = 0; i < numJunkRows; i++){
+		for (int j = 0; j < gso.boardWidth; j++){
+			packet << gso.junkRows.at(i).at(j);
+		}
+	}
 
 
 	//sizeOf(clearingBlocks)
@@ -348,28 +349,33 @@ sf::Packet& operator >>(sf::Packet& packet, GameStateObject& gso)
 
 
 
-
+	//INSERTING THE JUNK ROWS INTO THE GSO
+	gso.junkRows.clear();
 	//byte: sizeOf(junkRows)
 	//until sizeOf is done: each row of junk blocks
-	//int numJunkRows;
-	//packet >> numJunkRows;
-	//for (int i = 0; i < numJunkRows; i++){
-	//	
-	//	if (gso.junkRows.size() < (i + 1) ){
-	//		const int bw = gso.boardWidth;
-	//		std::array<int, bw> newJunkRow;
+	int numjunkrows;
+	packet >> numjunkrows;
+	for (int i = 0; i < numjunkrows; i++){
+		
+		//if the array is smaller than the current row #, add a new row
+		if (gso.junkRows.size() < (i + 1) ){
+			const int bw = gso.boardWidth;
+			std::array<int, bw> newjunkrow;
 
-	//		for (int j = 0; j < bw; j++){
-	//			newJunkRow.at(j) = 0;
-	//		}
+			//this for loop will be unnecessary if array defaults everything to 0
+			for (int j = 0; j < bw; j++){
+				newjunkrow.at(j) = 0;
+			}
 
-	//		gso.junkRows.push_back(newJunkRow);
-	//	}
+			gso.junkRows.push_back(newjunkrow);
+		}
 
-	//	for (int j = 0; j < gso.boardWidth; j++){
-	//		packet >> gso.junkRows.at(i).at(j);
-	//	}
-	//}
+		//insert the values from the packet into each row
+		//they SHOULD be inserted one row at a time, so the trailing zeroes will be there.
+		for (int j = 0; j < gso.boardWidth; j++){
+			packet >> gso.junkRows.at(i).at(j);
+		}
+	}
 
 
 	std::pair<int, int> x;

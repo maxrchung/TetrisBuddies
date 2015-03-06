@@ -160,7 +160,8 @@ bool GameLogic::PopulateTempRow(){
 
 		//when there are at least 3 pieces in the row (i >= 2) : while the previous 2 pieces = this piece, change this piece
 		if (i > 1){
-			while ((gso.tempRow[i - 2] == gso.tempRow[i - 1]) && (gso.tempRow[i - 1] == gso.tempRow[i]) ){
+			while (AllMatch(gso.tempRow[i - 2], gso.tempRow[i - 1], gso.tempRow[i])){
+			//while ((gso.tempRow[i - 2] == gso.tempRow[i - 1]) && (gso.tempRow[i - 1] == gso.tempRow[i]) ){
 				gso.tempRow[i] = (rand() % numColors) + 1;
 			}
 		}
@@ -659,16 +660,20 @@ void GameLogic::GameTick(){
 		outgoingMessages.push(p);
 
 		//for debugging
-		//if (!gso.clearingBlocks.empty()){
+
+		//sf::Packet p;
+		//CreateJunkBlocks(5);
+
+		//p << gso;
+		//outgoingMessages.push(p);
+
 		//gso.PrintToFile();
-
-
 		//int junk;
 		//p >> junk;
 		//p >> newGSO;
 		//newGSO.PrintToFile();
 
-		//}
+
 	}
 }
 
@@ -732,30 +737,30 @@ bool GameLogic::CheckSwappingTimers(){
 
 bool GameLogic::CheckClearingTimers(){
 
-	if (destroyedBlocks.empty()){ return false; }
+if (destroyedBlocks.empty()){ return false; }
 
-	//if the pieces's clearing times are up
-		//remove them
+//if the pieces's clearing times are up
+//remove them
 
-	bool ret = false;
+bool ret = false;
 
-	for (auto i = destroyedBlocks.begin(); i != destroyedBlocks.end();){
+for (auto i = destroyedBlocks.begin(); i != destroyedBlocks.end();){
 	//for (int i = 0; i < destroyedBlocks.size(); ++i){
-		if (i->duration.getElapsedTime() > blockClearTime){
-			gso.gameBoard[i->blockNum.first][i->blockNum.second] = 0;
+	if (i->duration.getElapsedTime() > blockClearTime){
+		gso.gameBoard[i->blockNum.first][i->blockNum.second] = 0;
 
-			ret = true;
+		ret = true;
 
-			
-			//remove from the vector here:
-			i = destroyedBlocks.erase(i);
-		}
 
-		else{++i;}
-
+		//remove from the vector here:
+		i = destroyedBlocks.erase(i);
 	}
 
-	return ret;
+	else{ ++i; }
+
+}
+
+return ret;
 }
 
 
@@ -764,48 +769,90 @@ bool GameLogic::CheckFallingTimers(){
 	//(this should be checked on a per-column basis, starting at row 1)
 
 	//if a piece's falling timer is up
-		//move it down one block, reset the falling time
-		//if the piece landed, remove it from the Falling queue
+	//move it down one block, reset the falling time
+	//if the piece landed, remove it from the Falling queue
 
 
 	return false;
 }
 
+//A junk row will fall X number of seconds after it's created.  
+//That being the case, you have the time from when it's created to the time it actually falls to fill it out more.
 bool GameLogic::CreateJunkBlocks(int numBlocks){
 
-	int numRows = ceil(numBlocks / gso.boardWidth);
+
+	//total rows = current number of rows + ceiling of blocks 
+	//(but if an existing row is half full and the blocks to add are small enough to fit, this will create an extra row)
+	//That's why it does "shrink_to_fit()" at the end.
+	//Okay, thanks.  Good looking out, Ted.
+	//No problem, Ted.
 
 
+
+	int numRows = gso.junkRows.size() + ceil(double(numBlocks) / double(gso.boardWidth));
+
+	//if GSO doesn't have enough rows, add them here (one row per loop):
 	for (int h = 0; h < numRows; h++){
-		
-		//if GSO doens't have enough rows, add them here (one row per loop):
+
 		if (gso.junkRows.size() < (h + 1)){
 			const int bw = gso.boardWidth;
 			std::array<int, bw> newJunkRow;
 
-			for (int j = 0; j < bw; j++){
-				newJunkRow.at(j) = 0;
-			}
+			//if arrays by default initialize to 0, this loop isn't necessary
+			for (int j = 0; j < bw; j++){ newJunkRow.at(j) = 0; }
 
 			gso.junkRows.push_back(newJunkRow);
 		}
+	}
 
+	//find the first zero, insert the value there, then insert the remaining starting there
+	for (int row = 0; row < gso.junkRows.size(); row++){
+		for (int col = 0; col < gso.boardWidth; col++){
 
+			if (gso.junkRows.at(row).at(col) == 0){
 
-		for (int i = 0; i < gso.boardWidth; i++){
-			gso.junkRows.at(h).at(i) = (rand() % numColors) + 1;
+				//put in a random square., then numBlocks--
+				gso.junkRows.at(row).at(col) = (rand() % numColors) + 1;
+				--numBlocks;
 
-			//when there are at least 3 pieces in the row (i >= 2) : while the previous 2 pieces = this piece, change this piece
-			if (i > 1){
-				while ((gso.junkRows.at(h).at(i - 2) == gso.junkRows.at(h).at(i - 1)) && (gso.junkRows.at(h).at(i - 1) == gso.junkRows.at(h).at(i))){
-					gso.junkRows.at(h).at(i) = (rand() % numColors) + 1;
+				//if col > 2, check for existing matches
+				if (col > 2){
+					while (AllMatch(gso.junkRows.at(row).at(col - 2), gso.junkRows.at(row).at(col - 1), gso.junkRows.at(row).at(col))){
+						gso.junkRows.at(row).at(col) = (rand() % numColors) + 1;
+					}
 				}
 			}
-		}
-	}
-	return true;
+
+			//this should ALWAYS be the way it returns.
+			if (numBlocks == 0){
+				//shrink_to_fit doesn't do jack.
+				//gso.junkRows.shrink_to_fit();
+				bool lastRowIsEmpty = true;
+				for (int i = 0; i < gso.boardWidth; i++){
+					if (gso.junkRows.at(gso.junkRows.size() - 1).at(i) != 0){
+						lastRowIsEmpty = false;
+					}
+				}
+
+				if (lastRowIsEmpty){ gso.junkRows.pop_back(); }
+
+						return true;
+					}
+				}
+			}
+
+			//this is just here so there's some marker for the function not returning correctly
+			return false;
 }
 
+
+bool GameLogic::AllMatch(int a, int b, int c){
+
+	if ((a == b) && ( b == c)) { return true; }
+
+	return false;
+
+}
 
 //Debug functions:
 
@@ -895,3 +942,4 @@ bool GameLogic::InsertRowAt(int insertOnRowNum, std::array<int, 8> rowToInsert){
 	for (int j = 0; j < gso.boardWidth; j++){ gso.gameBoard[insertOnRowNum][j] = rowToInsert[j]; }
 	return true;
 }
+

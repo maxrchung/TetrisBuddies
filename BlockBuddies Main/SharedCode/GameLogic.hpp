@@ -77,7 +77,7 @@ public:
 
 
 	//temporary:
-	//GameStateObject newGSO;
+	GameStateObject newGSO;
 
 private:
 
@@ -139,6 +139,10 @@ private:
 
 	//Apples gravity and clears BMFD
 	//bool ClearMatches();
+
+	//if all 3 values are equal, return true
+	//else return false
+	bool AllMatch(int a, int b, int c);
 
 
 	bool CheckSwappingTimers();
