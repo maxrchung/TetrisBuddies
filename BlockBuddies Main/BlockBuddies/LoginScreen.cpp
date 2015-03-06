@@ -160,7 +160,11 @@ void LoginScreen::update()
         }
         if (!ClientManager::getInstance().isConnected)
         {
-			if (!ClientManager::getInstance().initConnection(sf::IpAddress("169.234.10.163"), 5000))
+			std::ifstream in("IP.txt");
+			//Read in IP to string.
+			std::string ip;
+			getline(in, ip);
+			if (!ClientManager::getInstance().initConnection(sf::IpAddress(ip), 5000))
 			{
                 ScreenManager::getInstance()->addScreen(Screens::NOTIFICATION, "Failed to connect with server. The server may be down, or you may not be connected to the Internet.");
 				if (sound.getStatus() != sound.Playing)
