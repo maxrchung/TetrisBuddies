@@ -219,7 +219,7 @@ UserInfo DatabaseManager::getUserInfo(std::string username)
 			sqlite3_bind_text(stmt, 1, name, strlen(name), 0);
 			int result = sqlite3_step(stmt);
 			
-			if (result = SQLITE_ROW)
+			if (result == SQLITE_ROW)
 			{
 				//create a userinfo wrapper class with all the statistics of user.
 				UserInfo user = UserInfo(username, sqlite3_column_int(stmt, 0), sqlite3_column_int(stmt, 1), sqlite3_column_int(stmt, 2));

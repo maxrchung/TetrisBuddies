@@ -19,8 +19,8 @@ public:
 	void loadSound(std::string,std::string);
 	//returns a soundbuffer from the map based on its name, by default there is one sound, "scream"
 	sf::SoundBuffer* getSound(std::string);
-	// play music
-	void playMusic(std::string);
+	// play music set to loop by default
+	void playMusic(std::string, bool = true);
 	void stopMusic();
 	void setMusicVolume(float);
 	void setMusicLoop(bool);

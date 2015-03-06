@@ -27,7 +27,7 @@ sf::SoundBuffer* SoundManager::getSound(std::string songName)
 	return buff;
 }
 
-void SoundManager::playMusic(std::string songName)
+void SoundManager::playMusic(std::string songName, bool loop)
 {
 	if (music.getStatus() != music.Playing)
 	{
@@ -52,6 +52,8 @@ void SoundManager::playMusic(std::string songName)
 			std::cout << "song not found" << std::endl;
 		}
 	}
+
+	music.setLoop(loop);
 }
 
 void SoundManager::stopMusic()
