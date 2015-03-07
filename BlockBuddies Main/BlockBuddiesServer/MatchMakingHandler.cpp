@@ -1,11 +1,9 @@
 #include "MatchMakingHandler.h"
 #include "DatabaseManager.h"
 
-//Do this if you have a static object
-//std::list<Game*> MatchMakingHandler::activeGames;
-
 MatchMakingHandler::MatchMakingHandler()
 {
+
 }
 
 

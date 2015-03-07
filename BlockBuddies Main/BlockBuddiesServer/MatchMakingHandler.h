@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Player.h"
 #include <queue>
 #include "Message.h"
@@ -12,9 +11,6 @@ class MatchMakingHandler
 public:
 	MatchMakingHandler();
 	~MatchMakingHandler();
-
-	//Make some of these private 
-
 
 	bool isInQueue(sf::IpAddress check);
 	bool isInGame(sf::IpAddress check);
