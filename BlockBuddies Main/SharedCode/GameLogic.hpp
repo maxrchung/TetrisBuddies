@@ -77,7 +77,7 @@ public:
 
 
 	//temporary:
-	GameStateObject newGSO;
+	//GameStateObject newGSO;
 
 private:
 	//Used for multiplayer games. Adds a 3 second delay to sync up with client

@@ -67,10 +67,9 @@ public:
 	bool rowInsertionPaused;
 
 	//block multiplier
-	sf::Uint8 blockMultiplier;
-
+	int blockMultiplier;
 	//cleared blocks
-	sf::Uint8 numClearedBlocks;
+	int numClearedBlocks;
 
 	//clearing blocks go here to tell the client what's about to be cleared
 	std::vector<std::pair<int, int>> clearingBlocks;

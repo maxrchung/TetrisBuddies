@@ -401,6 +401,8 @@ bool GameLogic::CheckBlockForMatches(int rowNum, int colNum){
 		int bonusBlocks = clearedBlocks - 3;
 		int points = (clearedBlocks * 10) + (bonusBlocks * 10);
 		gso.score += points;
+		//gso.numClearedBlocks = clearedBlocks;
+
 	}
 
 	//update blocksToSend here:
@@ -629,7 +631,7 @@ void GameLogic::GameTick(){
 	//swap pieces
 
 	CheckAllBlocksForMatches();
-
+	//gso.numClearedBlocks = blocksMarkedForDeletion.size();
 
 	//if (ClearInitialMatches()){ gameStateChanged = true; }
 	if (ClearMatches()){gameStateChanged = true;}
@@ -644,7 +646,7 @@ void GameLogic::GameTick(){
 		InsertBottomRow();
 
 		//reduces the total row insertion time by 5% whenever a new row is inserted
-		if (totalRowInsertionTime.asMilliseconds() > 1500){
+		if (totalRowInsertionTime.asMilliseconds() > 1800){
 			totalRowInsertionTime = totalRowInsertionTime * (float).9;
 		}
 
@@ -684,11 +686,11 @@ void GameLogic::GameTick(){
 		//p << gso;
 		//outgoingMessages.push(p);
 
-		gso.PrintToFile();
-		int junk;
-		p >> junk;
-		p >> newGSO;
-		newGSO.PrintToFile();
+		//gso.PrintToFile();
+		//int junk;
+		//p >> junk;
+		//p >> newGSO;
+		//newGSO.PrintToFile();
 	}
 
 
