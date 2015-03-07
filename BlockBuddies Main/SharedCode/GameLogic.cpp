@@ -282,8 +282,19 @@ bool GameLogic::SwapPieces(int row1Num, int col1Num, int row2Num, int col2Num){
 		(col1Num < 0 || col1Num > gso.boardWidth - 1 || col2Num < 0 || col2Num > gso.boardWidth - 1)
 		)
 	{
-		std::cout << "Swapping out of bounds" << std::endl;  return false;
+		//std::cout << "Swapping out of bounds" << std::endl;  
+		return false;
 	}
+
+	//if trying to swap to a piece that's clearing, fail out
+	if (
+		DestroyedBlockContains(row1Num, col1Num) ||
+		DestroyedBlockContains(row2Num, col2Num)
+		){
+		//std::cout << "Trying to swap a clearing block" << std::endl;  
+		return false;
+	}
+
 
 	int temp = gso.gameBoard[row1Num][col1Num];
 	gso.gameBoard[row1Num][col1Num] = gso.gameBoard[row2Num][col2Num];
