@@ -232,7 +232,10 @@ bool GameLogic::ApplyGravity(){
 
 
 			//if the current block exists and has nothing directly below it, and the row below it is in bounds (as in, not trying to insert into row -1)
-			if ((gso.gameBoard[currentBlockRow][colNum] > 0) && (gso.gameBoard[currentBlockRow - 1][colNum] == 0) && (currentBlockRow > 0)){
+			//And if it's not in destroyedBlocks
+			if ((gso.gameBoard[currentBlockRow][colNum] > 0) && (gso.gameBoard[currentBlockRow - 1][colNum] == 0) && (currentBlockRow > 0)
+				&& (!DestroyedBlockContains(rowNum, colNum))
+				){
 
 				blockMoved = true;
 				currentRowMoved = true;
@@ -258,18 +261,6 @@ bool GameLogic::ApplyGravity(){
 
 	return blockMoved;
 }
-
-/*
-new gravity algorithm:
-
-start on row 1, go by column:
-	
-	if column is not already falling:
-		if the space below is empty, treat the column as "falling" with THIS piece as the head/timer
-
-
-
-*/
 
 
 
