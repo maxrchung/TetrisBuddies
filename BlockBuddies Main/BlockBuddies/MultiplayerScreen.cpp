@@ -20,6 +20,7 @@ void MultiplayerScreen::initGame()
 	winX = GraphicsManager::getInstance()->window.getSize().x - (GraphicsManager::getInstance()->window.getSize().x % blockSize);
 	winY = GraphicsManager::getInstance()->window.getSize().y - (GraphicsManager::getInstance()->window.getSize().y % blockSize);
 
+	AnimationManager::getInstance()->setBlockSize(blockSize);
 
 	int gbHeight = (p1GSO.boardHeight * blockSize);
 	int gbWidth = (blockSize * p1GSO.boardWidth);
@@ -102,6 +103,15 @@ void MultiplayerScreen::update()
 			}
 			updateBlocks();
 
+			if (!p1GSO.clearingBlocks.empty())
+			{
+				for (int i = 0; i < p1GSO.clearingBlocks.size(); i++)
+				{
+					AnimationManager::getInstance()->addClear(p1Blocks[p1GSO.clearingBlocks.at(i).first][p1GSO.clearingBlocks.at(i).second]);
+				}
+				AnimationManager::getInstance()->setClearingAdd();
+			}
+
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
@@ -151,7 +161,7 @@ void MultiplayerScreen::update()
 				int y = ch->getCursorY();
 				int x = ch->getCursorX();
 
-				//AnimationManager::getInstance()->add(p1Blocks[y][x], p1Blocks[y][x - 1]);
+				AnimationManager::getInstance()->addSwap(p1Blocks[y][x], p1Blocks[y][x - 1]);
 				pressed2 = true;
 			}
 		}
@@ -168,7 +178,7 @@ void MultiplayerScreen::update()
 				int y = ch->getCursorY();
 				int x = ch->getCursorX();
 
-				//AnimationManager::getInstance()->add(p1Blocks[y][x], p1Blocks[y][x + 1]);
+				AnimationManager::getInstance()->addSwap(p1Blocks[y][x], p1Blocks[y][x + 1]);
 
 			}
 		}
@@ -184,7 +194,7 @@ void MultiplayerScreen::update()
 				int y = ch->getCursorY();
 				int x = ch->getCursorX();
 
-				//AnimationManager::getInstance()->add(p1Blocks[y][x], p1Blocks[y + 1][x]);
+				AnimationManager::getInstance()->addSwap(p1Blocks[y][x], p1Blocks[y + 1][x]);
 			}
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) //swaps the main block with the bottom block
@@ -199,7 +209,7 @@ void MultiplayerScreen::update()
 				int y = ch->getCursorY();
 				int x = ch->getCursorX();
 
-				//AnimationManager::getInstance()->add(p1Blocks[y][x], p1Blocks[y - 1][x]);
+				AnimationManager::getInstance()->addSwap(p1Blocks[y][x], p1Blocks[y - 1][x]);
 			}
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
@@ -486,7 +496,6 @@ void MultiplayerScreen::draw()
 		}
 	}
 
-	AnimationManager::getInstance()->update();
 	GraphicsManager::getInstance()->window.draw(ch->getMainCursor()); //draws main cursor
 	GraphicsManager::getInstance()->window.draw(ch->getLeftCursor()); //draws left cursor
 	GraphicsManager::getInstance()->window.draw(ch->getRightCursor()); //draws right cursor
