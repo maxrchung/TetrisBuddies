@@ -682,11 +682,11 @@ void GameLogic::GameTick(){
 		//p << gso;
 		//outgoingMessages.push(p);
 
-		gso.PrintToFile();
-		int junk;
-		p >> junk;
-		p >> newGSO;
-		newGSO.PrintToFile();
+		//gso.PrintToFile();
+		//int junk;
+		//p >> junk;
+		//p >> newGSO;
+		//newGSO.PrintToFile();
 	}
 
 
