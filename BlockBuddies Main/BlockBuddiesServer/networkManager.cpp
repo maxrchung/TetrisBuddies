@@ -260,7 +260,7 @@ void NetworkManager::update()
 		   clock.restart();
 	   }
 
-	   if (gametick.asMilliseconds() < 10)
+	   if (gametick.asMilliseconds() < 16)
 	   {
 		   tick += gameTickClock.getElapsedTime();
 	   }
