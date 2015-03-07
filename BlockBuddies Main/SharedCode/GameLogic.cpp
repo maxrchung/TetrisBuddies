@@ -26,34 +26,35 @@ GameLogic::GameLogic(){
 	totalTimeElapsedClock.restart();
 }
 
+void GameLogic::delayStart()
+{
+	clock.restart();
+	tick = sf::Time::Zero;
+	delayStarted = true;
+}
+
+void GameLogic::initDelayedGame()
+{
+	delayFinished = true;
+	gameHasStarted = true;
+	InitialBoardPopulation();
+	sf::Packet toSend;
+	toSend << gso;
+	outgoingMessages.push(toSend);
+}
+
 bool GameLogic::delayGame()
 {
 	if (!delayStarted)
+		delayStart();
+	else if (tick.asSeconds() < delayTime)
 	{
-		clock.restart();
-		tick = sf::Time::Zero;
-		delayStarted = true;
+		tick += clock.getElapsedTime();
 		return false;
 	}
 	else
-	{
-		if (tick.asSeconds() < delayTime)
-		{
-			tick += clock.getElapsedTime();
-			return false;
-		}
-		else
-		{
-			delayFinished = true;
-			InitialBoardPopulation();
-			gameHasStarted = true;
-			sf::Packet toSend;
-			toSend << gso;
-			outgoingMessages.push(toSend);
-			return true;
-		}
-	}
-
+		initDelayedGame();
+	
 	return true;
 }
 
