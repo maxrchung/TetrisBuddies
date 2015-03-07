@@ -5,6 +5,7 @@
 #include "InputManager.hpp"
 #include "ClientManager.h"
 #include "BlockShowerManager.hpp"
+#include "AnimationManager.hpp"
 
 #include <iostream>
 
@@ -28,6 +29,7 @@ void Game::init()
 	ScreenManager::getInstance()->init();
 	InputManager::getInstance()->init();
     BlockShowerManager::getInstance()->init();
+	AnimationManager::getInstance()->init();
 
     cursorHideClock.restart();
     prevMousePos = sf::Mouse::getPosition();
@@ -91,6 +93,9 @@ void Game::draw()
 	// This will usually be empty for Login/Register screen and the like, but GameScreen
 	// will need this to draw things
 	ScreenManager::getInstance()->draw();
+
+	//AnimationManager draw gets called by update
+	AnimationManager::getInstance()->update();
 
     // Draw everything that we've since prepped onto the window
 	GraphicsManager::getInstance()->window.display();

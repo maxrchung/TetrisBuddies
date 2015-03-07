@@ -61,6 +61,8 @@ void NetworkedSinglePlayer::initGame()
 	blockSizeX = (int)(winY / gso.boardHeight);
 	blockSizeY = (int)(winY / gso.boardHeight);
 
+	AnimationManager::getInstance()->setBlockSize(blockSizeX);
+
 	//draws a large rectangle around the game screen
 	gameScreenHeight = blockSizeX * gso.boardHeight;
 	int offset = winY - gameScreenHeight;
@@ -79,8 +81,6 @@ void NetworkedSinglePlayer::initGame()
 	{
 		for (int j = 0; j < gameScreenWidth; j += blockSizeX)
 		{
-			
-			
 			sf::RectangleShape shape(sf::Vector2f(blockSizeX, blockSizeY));
 			shape.setPosition(j + (winX / 2 - gameScreenWidth / 2), i - (winY / 2 - gameScreenHeight / 2) - blockSizeX); //puts it in the middle of the screen
 			shape.setFillColor(sf::Color::Transparent); //transparent blocks to appear as empty space
@@ -117,11 +117,15 @@ void NetworkedSinglePlayer::update()
 			}
 			updateBlocks();
 
-		}
+			if (!gso.clearingBlocks.empty())
+			{
+				for (int i = 0; i < gso.clearingBlocks.size(); i++)
+				{
+					AnimationManager::getInstance()->addClear(blocks[gso.clearingBlocks.at(i).first][gso.clearingBlocks.at(i).second]);
+				}
+				AnimationManager::getInstance()->setClearingAdd();
+			}
 
-		if (InputManager::getInstance()->backspace)
-		{
-			ClientManager::getInstance().requestSwap(ch->getCursorY(), ch->getCursorX(), ch->getCursorY(), ch->getCursorX() + 1);
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
@@ -168,12 +172,12 @@ void NetworkedSinglePlayer::update()
 				ClientManager::getInstance().requestSwap(ch->getCursorY(), ch->getCursorX(), ch->getCursorY(), ch->getCursorX() - 1);
 				if (swapSound.getStatus() != swapSound.Playing)
 					swapSound.play();
-				ScreenManager::getInstance()->shake(.5);
+				//ScreenManager::getInstance()->shake(.5);
 
 				int y = ch->getCursorY();
 				int x = ch->getCursorX();
 				
-				AnimationManager::getInstance()->add(blocks[y][x], blocks[y][x - 1]);
+				AnimationManager::getInstance()->addSwap(blocks[y][x], blocks[y][x - 1]);
 				pressed2 = true;
 			}
 		}
@@ -183,14 +187,14 @@ void NetworkedSinglePlayer::update()
 			{
 				ClientManager::getInstance().requestSwap(ch->getCursorY(), ch->getCursorX(), ch->getCursorY(), ch->getCursorX() + 1);
 				pressed2 = true;
-				ScreenManager::getInstance()->shake(.5);
+				//ScreenManager::getInstance()->shake(.5);
 				if (swapSound.getStatus() != swapSound.Playing)
 					swapSound.play();
 
 				int y = ch->getCursorY();
 				int x = ch->getCursorX();
 
-				AnimationManager::getInstance()->add(blocks[y][x], blocks[y][x + 1]);
+				AnimationManager::getInstance()->addSwap(blocks[y][x], blocks[y][x + 1]);
 
 			}
 		}
@@ -200,13 +204,13 @@ void NetworkedSinglePlayer::update()
 			{
 				ClientManager::getInstance().requestSwap(ch->getCursorY(), ch->getCursorX(), ch->getCursorY() + 1, ch->getCursorX());
 				pressed2 = true;
-				ScreenManager::getInstance()->shake(.5);
+				//ScreenManager::getInstance()->shake(.5);
 				if (swapSound.getStatus() != swapSound.Playing)
 					swapSound.play();
 				int y = ch->getCursorY();
 				int x = ch->getCursorX();
 
-				AnimationManager::getInstance()->add(blocks[y][x], blocks[y+1][x]);
+				AnimationManager::getInstance()->addSwap(blocks[y][x], blocks[y + 1][x]);
 			}
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) //swaps the main block with the bottom block
@@ -215,13 +219,13 @@ void NetworkedSinglePlayer::update()
 			{
 				ClientManager::getInstance().requestSwap(ch->getCursorY(), ch->getCursorX(), ch->getCursorY() - 1, ch->getCursorX());
 				pressed2 = true;
-				ScreenManager::getInstance()->shake(.5);
+				//ScreenManager::getInstance()->shake(.5);
 				if (swapSound.getStatus() != swapSound.Playing)
 					swapSound.play();
 				int y = ch->getCursorY();
 				int x = ch->getCursorX();
 
-				AnimationManager::getInstance()->add(blocks[y][x], blocks[y-1][x]);
+				AnimationManager::getInstance()->addSwap(blocks[y][x], blocks[y - 1][x]);
 			}
 		}	
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
@@ -398,7 +402,6 @@ void NetworkedSinglePlayer::draw()
 		}
 	}
 	
-	AnimationManager::getInstance()->update();
 
 	GraphicsManager::getInstance()->window.draw(ch->getMainCursor()); //draws main cursor
 	GraphicsManager::getInstance()->window.draw(ch->getLeftCursor()); //draws left cursor

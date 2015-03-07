@@ -11,16 +11,30 @@ public:
 	void init();
 	void update();
 	void draw();
-	void add(sf::RectangleShape r, sf::RectangleShape r2);
+	void addSwap(sf::RectangleShape r, sf::RectangleShape r2);
+	void addClear(sf::RectangleShape b);
+	void addDanger();
+	void setBlockSize(int size);
+	void setClearingAdd();
 private:
 	void swap();
+	void clear();
+	void danger();
+	void setTextureSwap(int index);
+	std::vector <sf::Sprite> swapSprites;
 	std::vector <sf::RectangleShape> s;
-	sf::Time time;
-	sf::Clock clock;
-	sf::Color c1, o1, c2, o2;
+	std::vector <sf::RectangleShape> dangerBlocks;
+	std::vector <std::pair<sf::RectangleShape,int>> clearBlocks;
+	std::vector <sf::RectangleShape> ctemp; 
+	std::vector <float> acceleration;
+	std::vector <sf::Time> ctime;
+	std::vector <sf::Clock> cclock;
+	sf::Time stime;
+	sf::Clock sclock;
 	int blockx, blocky, blockx2, blocky2;
-	bool stop;
-	int fade;
+	int blockSize;
+	bool stop, fade, clearAddFinish;
+	float speed;
 	static AnimationManager* instance;
 };
 
