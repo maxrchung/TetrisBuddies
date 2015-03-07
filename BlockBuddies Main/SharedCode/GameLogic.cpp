@@ -12,6 +12,7 @@ GameLogic::GameLogic(){
 	isGameOver = true;
 	gameHasStarted = false;
 
+
 	//I don't know what a good value for this is.  We can play with it and find out what works.  Also, it will have to decrease as the game goes on. Based on score, maybe? Or game time? Or level?
 	totalRowInsertionTime = sf::milliseconds(16000);
 	gso.rowInsertionCountdown = totalRowInsertionTime.asMilliseconds();
@@ -20,8 +21,9 @@ GameLogic::GameLogic(){
 	//messagesToDecode doesn't have a clear
 
 	blocksToSend = 0;
+	remainingRowInsertionTime = sf::Time::Zero;
 
-
+	totalTimeElapsedClock.restart();
 }
 
 bool GameLogic::delayGame()
@@ -66,7 +68,6 @@ bool GameLogic::ReceiveMessage(sf::Packet incomingMessage){
 	messagesToDecode.push(incomingMessage);
 	return true;
 }
-
 
 
 void GameLogic::InitialBoardPopulation(){
@@ -142,6 +143,7 @@ void GameLogic::InitialBoardPopulation(){
 
 	gso.score = 0;
 	gso.newRowActive = false;
+	gso.rowInsertionPaused = false;
 	destroyedBlocks.clear();
 
 	PopulateTempRow();
@@ -247,9 +249,6 @@ bool GameLogic::ApplyGravity(){
 				gso.gameBoard[currentBlockRow][colNum] = 0;
 
 
-
-				//check the block below
-				//currentBlockRow--;
 			}
 
 
@@ -425,6 +424,7 @@ bool GameLogic::ClearMatches(){
 
 	//pause the row insertion counter:
 	newRowClock.pause();
+	gso.rowInsertionPaused = true;
 	//std::cout << "Pausing row insertion counter" << std::endl;
 
 
@@ -499,7 +499,7 @@ bool GameLogic::ProcessMessage(sf::Packet toProcess){
 		//std::cout << "Got 'Request Swap' command!" << std::endl;
 		sf::Uint8 p1r, p1c, p2r, p2c;
 		toProcess >> p1r >> p1c >> p2r >> p2c;
-		std::cout << "Swapping piece (" << (int)p1r << ", " << (int)p1c << ") with (" << (int)p2r << ", " << (int)p2c << ")\n" << std::endl;
+		//std::cout << "Swapping piece (" << (int)p1r << ", " << (int)p1c << ") with (" << (int)p2r << ", " << (int)p2c << ")\n" << std::endl;
 
 
 		//this line will be commented out:
@@ -512,6 +512,7 @@ bool GameLogic::ProcessMessage(sf::Packet toProcess){
 
 
 		newRowClock.pause();
+		gso.rowInsertionPaused = true;
 		//std::cout << "Pausing row insertion counter" << std::endl;
 
 		swappingBlocks.push_back(TimedPiece{p1r, p1c});
@@ -529,6 +530,7 @@ bool GameLogic::ProcessMessage(sf::Packet toProcess){
 		if (destroyedBlocks.empty()){
 			InsertBottomRow();
 			newRowClock.reset(true);
+			gso.rowInsertionPaused = false;
 			return true;
 		}
 		return false;
@@ -567,6 +569,11 @@ bool GameLogic::ProcessMessage(sf::Packet toProcess){
 
 void GameLogic::GameTick(){
 
+	//temporary:
+	//sf::Clock gameTickTimer;
+	//gameTickTimer.restart();
+	totalTimeElapsed = totalTimeElapsedClock.getElapsedTime();
+	gso.timestamp = totalTimeElapsed.asMilliseconds();
 
 	//reset all the temp variables:
 	gso.newRowActive = false;
@@ -574,9 +581,10 @@ void GameLogic::GameTick(){
 	gso.swappingBlocks.clear();
 	gso.clearingBlocks.clear();
 
-	//This is always 0, except when a row insertion timer gets reset.
-	//Then it takes the value of the time until the new row is inserted (for one game tick only).
-	sf::Time remainingRowInsertionTime = totalRowInsertionTime - newRowClock.getElapsedTime();
+	gso.numClearedBlocks = 0;
+	gso.blockMultiplier = 0;
+
+	remainingRowInsertionTime = totalRowInsertionTime - newRowClock.getElapsedTime();
 
 	gso.rowInsertionCountdown = remainingRowInsertionTime.asMilliseconds();
 
@@ -608,6 +616,7 @@ void GameLogic::GameTick(){
 	if ( swappingBlocks.empty() && destroyedBlocks.empty() && !newRowClock.isRunning() ){
 		//if (!newRowClock.isRunning()){std::cout << "Resuming row insertion counter" << std::endl;}
 		newRowClock.resume();
+		gso.rowInsertionPaused = false;
 	}
 
 	//while messageQueue isn't empty
@@ -620,7 +629,6 @@ void GameLogic::GameTick(){
 	CheckAllBlocksForMatches();
 
 
-	//it's set to "initial" right now because the code for the clear animation isn't in place yet.
 	//if (ClearInitialMatches()){ gameStateChanged = true; }
 	if (ClearMatches()){gameStateChanged = true;}
 
@@ -634,14 +642,15 @@ void GameLogic::GameTick(){
 		InsertBottomRow();
 
 		//reduces the total row insertion time by 5% whenever a new row is inserted
-		if (totalRowInsertionTime.asMilliseconds() > 1800){
-			totalRowInsertionTime = totalRowInsertionTime * (float).95;
+		if (totalRowInsertionTime.asMilliseconds() > 1500){
+			totalRowInsertionTime = totalRowInsertionTime * (float).9;
 		}
 
 		//reset the row insertion timer
 
 		gso.newRowActive = true;
 		newRowClock.reset(true);
+		gso.rowInsertionPaused = false;
 		gso.rowInsertionCountdown = totalRowInsertionTime.asMilliseconds();
 		std::cout << "Row insertion time: " << totalRowInsertionTime.asMilliseconds() << " ms" << std::endl;
 		gameStateChanged = true;
@@ -653,13 +662,17 @@ void GameLogic::GameTick(){
 
 
 
-	//this might cause a problem:
-	//the clearingBlocks and swappingBlocks only get added to the GSO once
-	//if the packet they're in gets overwritten, they will never be sent to the client
 	if (gameStateChanged){
 		sf::Packet p;
 		p << gso;
 		outgoingMessages.push(p);
+
+
+
+		//temporary
+		//sf::Time gtt = gameTickTimer.getElapsedTime();
+		//int gtt2 = gtt.asMilliseconds();
+		//std::cout << " Tick took " << gtt2 << " ms" << std::endl;
 
 		//for debugging
 
@@ -669,14 +682,14 @@ void GameLogic::GameTick(){
 		//p << gso;
 		//outgoingMessages.push(p);
 
-		//gso.PrintToFile();
-		//int junk;
-		//p >> junk;
-		//p >> newGSO;
-		//newGSO.PrintToFile();
-
-
+		gso.PrintToFile();
+		int junk;
+		p >> junk;
+		p >> newGSO;
+		newGSO.PrintToFile();
 	}
+
+
 }
 
 

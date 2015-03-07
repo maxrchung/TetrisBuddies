@@ -60,12 +60,17 @@ public:
 	sf::Uint32 frameNum;
 
 	//timestamp here
-	int timestamp;
-	//no idea if this is right. we might need to use some other data type for the timestamp 
+	sf::Uint32 timestamp;
 
 	//row insertion time
 	int rowInsertionCountdown;
+	bool rowInsertionPaused;
 
+	//block multiplier
+	sf::Uint8 blockMultiplier;
+
+	//cleared blocks
+	sf::Uint8 numClearedBlocks;
 
 	//clearing blocks go here to tell the client what's about to be cleared
 	std::vector<std::pair<int, int>> clearingBlocks;

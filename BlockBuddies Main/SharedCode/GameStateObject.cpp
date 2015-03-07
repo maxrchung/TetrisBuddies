@@ -27,6 +27,9 @@ GameStateObject::GameStateObject(){
 	clearingBlocks.clear();
 	junkRows.clear();
 	newRowActive = false;
+	rowInsertionPaused = false;
+	blockMultiplier = 0;
+	numClearedBlocks = 0;
 }
 
 
@@ -60,8 +63,12 @@ void GameStateObject::Print(){
 	std::cout << "Cursor position (row, col): " << cursorPos.first << "," << cursorPos.second << std::endl;
 	std::cout << "Frame Number: " << frameNum << std::endl;
 	std::cout << "Timestamp: " << timestamp << std::endl;
+	std::cout << "Number of cleared blocks: " << numClearedBlocks << std::endl;
+	std::cout << "Block Muliplier value: " << blockMultiplier << std::endl;
+	std::cout << "Row Insertion Timer paused? " << rowInsertionPaused << std::endl;
 	std::cout << "Row Insertion Pause: " << rowInsertionCountdown << std::endl;
 	std::cout << "New row active? " << newRowActive << std::endl;
+
 
 	std::cout << "Number of rows in junkRows: " << junkRows.size() << std::endl;
 	if (!junkRows.empty()){
@@ -101,6 +108,9 @@ void GameStateObject::PrintToFile(){
 	debugFile << "Cursor position (row, col): " << cursorPos.first << "," << cursorPos.second << std::endl;
 	debugFile << "Frame Number: " << frameNum << std::endl;
 	debugFile << "Timestamp: " << timestamp << std::endl;
+	debugFile << "Number of cleared blocks: " << numClearedBlocks << std::endl;
+	debugFile << "Block Muliplier value: " << blockMultiplier << std::endl; 
+	debugFile << "Row Insertion Timer paused? " << rowInsertionPaused << std::endl;
 	debugFile << "Row Insertion Pause: " << rowInsertionCountdown << std::endl;
 	debugFile << "New row active? " << newRowActive << std::endl;
 
@@ -173,9 +183,12 @@ PACKET STRUCTURE:
 //uint8: command
 //uint32: score
 int, int = cursor row, cursor col
-sf::Uint32 = frame number
-sf::Time timestamp;
-int row insertion pause
+sf::Uint32 frame number
+sf::Uint32 timestamp;
+sf::Uint8 numClearedBlocks
+sf::uint8 blockMultiplier
+bool row insertion paused
+int row insertion countdown
 bool new row active
 //uint8 first row: temp row
 //uint8 the rest: board
@@ -206,6 +219,9 @@ GameStateObject& GameStateObject::operator=(GameStateObject& rhs)
 	cursorPos = rhs.cursorPos;
 	frameNum = rhs.frameNum;
 	timestamp = rhs.timestamp;
+	numClearedBlocks = rhs.numClearedBlocks;
+	blockMultiplier = rhs.blockMultiplier;
+	rowInsertionPaused = rhs.rowInsertionPaused;
 	rowInsertionCountdown = rhs.rowInsertionCountdown;
 	newRowActive = rhs.newRowActive;
 
@@ -229,8 +245,6 @@ GameStateObject& GameStateObject::operator=(GameStateObject& rhs)
 
 
 
-
-//change this to work with the new GSO
 //(insertion operator)
 sf::Packet& operator <<(sf::Packet& packet, const GameStateObject& gso)
 {
@@ -244,8 +258,17 @@ sf::Packet& operator <<(sf::Packet& packet, const GameStateObject& gso)
 	//	sf::Uint32 = frame number
 	packet << gso.frameNum;
 
-	//	??? timestamp;
+	//	sf::Uint32 timestamp;
 	packet << gso.timestamp;
+
+	//sf::uint 8 numclearedBlocks
+	packet << gso.numClearedBlocks;
+
+	//sf::uint8 blockMultiplier
+	packet << gso.blockMultiplier;
+
+	//bool row insertion paused
+	packet << gso.rowInsertionPaused;
 
 	//  int row insertion pause
 	packet << gso.rowInsertionCountdown;
@@ -325,6 +348,15 @@ sf::Packet& operator >>(sf::Packet& packet, GameStateObject& gso)
 
 	//	??? timestamp;
 	packet >> gso.timestamp;
+
+	//sf::uint 8 numclearedBlocks
+	packet >> gso.numClearedBlocks;
+
+	//sf::uint8 blockMultiplier
+	packet >> gso.blockMultiplier;
+
+	//bool row insertion paused
+	packet >> gso.rowInsertionPaused;
 
 	//  int row insertion pause
 	packet >> gso.rowInsertionCountdown;

@@ -91,8 +91,7 @@ private:
 	const sf::Time blockFallTime = sf::milliseconds(50);
 	const sf::Time blockSwapTime = sf::milliseconds(300);
 	
-	//probably won't need this
-	//bool DecrementCounters();
+
 
 	std::vector<TimedPiece> fallingBlocks;
 	std::vector<TimedPiece> swappingBlocks;
@@ -109,8 +108,11 @@ private:
 	std::queue<sf::Packet> messagesToDecode;
 
 	sf::Time totalRowInsertionTime;
-	//sf::Clock newRowClock;
+	sf::Time remainingRowInsertionTime;
 	sftools::Chronometer newRowClock;
+
+	sf::Clock totalTimeElapsedClock;
+	sf::Time totalTimeElapsed;
 
 	//functions**********************************************
 	
