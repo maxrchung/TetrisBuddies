@@ -89,6 +89,29 @@ void MatchMakingHandler::checkForMatches()
     }
 }
 
+void MatchMakingHandler::sendResultsHelper(int postition, int winner)
+{
+	sf::Packet lost;
+	sf::Packet win;
+	win << PacketDecode::PACKET_WINNER;
+	lost << PacketDecode::PACKET_GAMEOVER;
+
+	if (winner == 1)
+	{
+		gameList[postition]->player1->playerSocket->send(win);
+		gameList[postition]->player2->playerSocket->send(lost);
+		DatabaseManager::getInstance().updateUserGames(gameList[postition]->player1->cachedName, true);
+		DatabaseManager::getInstance().updateUserGames(gameList[postition]->player2->cachedName, false);
+	}
+	else
+	{
+		gameList[postition]->player2->playerSocket->send(win);
+		gameList[postition]->player1->playerSocket->send(lost);
+		DatabaseManager::getInstance().updateUserGames(gameList[postition]->player2->cachedName, true);
+		DatabaseManager::getInstance().updateUserGames(gameList[postition]->player1->cachedName, false);
+	}
+}
+
 void MatchMakingHandler::sendResults(int postition, int winner)
 {
 		sf::Packet lost;
@@ -97,20 +120,8 @@ void MatchMakingHandler::sendResults(int postition, int winner)
 		lost << PacketDecode::PACKET_GAMEOVER;
 		UserInfo Temp = gameList[postition]->player1->playerInfo;
 		//If player one won do this else player two won
-		if (winner == 1)
-		{
-			gameList[postition]->player1->playerSocket->send(win);
-			gameList[postition]->player2->playerSocket->send(lost);
-			DatabaseManager::getInstance().updateUserGames(gameList[postition]->player1->cachedName, true);
-			DatabaseManager::getInstance().updateUserGames(gameList[postition]->player2->cachedName, false);
-		}
-		else
-		{
-			gameList[postition]->player2->playerSocket->send(win);
-			gameList[postition]->player1->playerSocket->send(lost);
-			DatabaseManager::getInstance().updateUserGames(gameList[postition]->player2->cachedName, true);
-			DatabaseManager::getInstance().updateUserGames(gameList[postition]->player1->cachedName, false);
-		}
+		sendResultsHelper(postition,  winner);
+
 		//Send updated profile information;
 		sf::Packet updateP1;
 		sf::Packet updateP2;

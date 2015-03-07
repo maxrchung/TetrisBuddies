@@ -43,5 +43,6 @@ private:
 	void queueToRemove(sf::IpAddress p1, sf::IpAddress p2, int postionToRemove);
 	void sendPackets(sf::Packet&, sf::Packet&, int position);
 	void sendResults(int postion, int winner);
+	void sendResultsHelper(int position, int winner);
 
 };
