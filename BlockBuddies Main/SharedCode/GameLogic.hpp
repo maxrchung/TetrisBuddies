@@ -77,7 +77,7 @@ public:
 
 
 	//temporary:
-	GameStateObject newGSO;
+	//GameStateObject newGSO;
 
 private:
 
