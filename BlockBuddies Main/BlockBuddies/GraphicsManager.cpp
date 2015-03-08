@@ -54,7 +54,7 @@ void GraphicsManager::init()
 	// Every time the game is opened, a random color is generated
 	// Note that the colors all have the same hue but different shading
 	srand(time(NULL));
-	sf::Color c(rand() % 85, rand() % 85, rand() % 85);
+	sf::Color c(rand() % 85, rand() % 85, 85); // Sets a primarily blue color
 
 	backgroundColor =	sf::Color(c.r + 85*2, c.g + 85*2, c.b + 85*2);
 	sectionColor =		sf::Color(c.r + 85*1, c.g + 85*1, c.b + 85*1);
