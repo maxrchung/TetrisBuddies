@@ -141,6 +141,8 @@ void MatchMakingHandler::makeGame(Player* p1, Player* p2)
 	Game* nGame = new Game(2);
 	nGame->player1 = p1;
 	nGame->player2 = p2;
+	nGame->playerOneGame.gso.isPlayer2 = false;
+	nGame->playerTwoGame.gso.isPlayer2 = true;
 	multiPlayerGames.insert(std::pair<sf::IpAddress, Game*>(p1->myAddress, nGame));
 	multiPlayerGames.insert(std::pair<sf::IpAddress, Game*>(p2->myAddress, nGame));
     gameList.push_back(nGame);
@@ -187,28 +189,10 @@ void MatchMakingHandler::sendPackets(sf::Packet& p1, sf::Packet& p2 , int positi
 	gameList[position]->player2->playerSocket->send(p1);
 }
 //Send the indicated player their gso and the other player an empty gso
-void MatchMakingHandler::sendSingleMessage(sf::Packet& toSend, int player, int position)
+void MatchMakingHandler::sendSingleMessage(sf::Packet& toSend, int position)
 {
-	sf::Packet empty;
-	empty << PacketDecode::PACKET_EMPTYGSO;
-
-	if (player == 1)
-	{
 		gameList[position]->player1->playerSocket->send(toSend);
-		gameList[position]->player1->playerSocket->send(empty);
-
-		gameList[position]->player2->playerSocket->send(empty);
 		gameList[position]->player2->playerSocket->send(toSend);
-	}
-	else
-	{
-		gameList[position]->player2->playerSocket->send(empty);
-		gameList[position]->player2->playerSocket->send(toSend);
-
-		gameList[position]->player1->playerSocket->send(toSend);
-		gameList[position]->player1->playerSocket->send(empty);
-
-	}
 }
 
 void MatchMakingHandler::sendMessages()
@@ -235,7 +219,7 @@ void MatchMakingHandler::sendMessages()
 			p1 = check->playerOneGame.outgoingMessages.front();
 			check->playerOneGame.outgoingMessages.pop();
 
-			sendSingleMessage(p1,1,counter);
+			sendSingleMessage(p1,counter);
 
 		}// if player two has updated thier GSO
 		else if (check->playerOneGame.outgoingMessages.empty() && !check->playerTwoGame.outgoingMessages.empty())
@@ -243,7 +227,7 @@ void MatchMakingHandler::sendMessages()
 			p2 = check->playerTwoGame.outgoingMessages.front();
 			check->playerTwoGame.outgoingMessages.pop();
 
-			sendSingleMessage(p2, 2, counter);
+			sendSingleMessage(p2, counter);
 		}
 		else
 		{

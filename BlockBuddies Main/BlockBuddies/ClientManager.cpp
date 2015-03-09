@@ -77,13 +77,18 @@ void ClientManager::update()
 			{
 				if (!multiplayer)
 				{
+					//Temp storage. Does nothing
+					bool temp;
+					packet >> temp;
 					packet >> currentGSO;
 					isUpdated = true;
 					std::cout << "were updating the gso \n";
 				}
 				else
 				{
-					if (packetCount == 0)
+					bool isPlayerTwo;
+					packet >> isPlayerTwo;
+					if (!isPlayerTwo)
 					{ 
 						std::cout << "I've got player one's GSO! \n";
 						packet >> currentGSO;
@@ -95,24 +100,9 @@ void ClientManager::update()
 						packet >> secondGSO;
 						std::cout << "I've got player two's GSO! \n";
 						isOpponentUpdated = true;
+						isUpdated = true;
 						packetCount = 0;
-
 					}
-				}
-				break;
-			}
-
-			case PacketDecode::PACKET_EMPTYGSO:
-			{
-				if (packetCount == 0)
-				{
-					isUpdated = false;
-					packetCount++;
-				}
-				else
-				{
-					isOpponentUpdated = false;
-					packetCount = 0;
 				}
 				break;
 			}
