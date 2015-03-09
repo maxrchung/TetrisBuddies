@@ -58,6 +58,7 @@ void SoundManager::playMusic(std::string songName, bool loop)
 
 void SoundManager::playMusicRandom()
 {
+	music.setLoop(false);
 	//if no songs in the list don't play anything
 	if (songList.empty())
 	{
