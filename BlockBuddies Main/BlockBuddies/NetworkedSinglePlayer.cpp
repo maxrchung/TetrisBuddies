@@ -43,9 +43,24 @@ NetworkedSinglePlayer::NetworkedSinglePlayer()
 	UIElements.push_back(scoreToBeat);
 	swapSound.setBuffer(*SoundManager::getInstance().getSound("heya"));
 	
+	sf::Texture* animSpriteTexture = _getTexture("Textures/mikuSprite.png");
+	animSpriteTexture->setSmooth(true);
+
+	miku.setTexture(*animSpriteTexture);
+	miku.addAnim("idle", 0, 0, 20, 20, 10, true);
+	miku.setFrameSize(59, 64);
+	miku.playAnim("idle");
+	std::function<void()> foo = [&](){ 	miku.setFrameSize(59, 64);
+	miku.playAnim("idle"); };
+	miku.addAnim("scream", 0, 235, 8, 8, 10, false,foo);
+	miku.setPosition(2 * blockSizeX, 4*blockSizeX);
+	miku.setScale(3, 3);
 }
 
-
+void NetworkedSinglePlayer::playThis(){
+	miku.setFrameSize(59, 64);
+	miku.playAnim("idle");
+};
 NetworkedSinglePlayer::~NetworkedSinglePlayer()
 {
 }
@@ -118,6 +133,13 @@ void NetworkedSinglePlayer::initGame()
 }
 void NetworkedSinglePlayer::update()
 {
+	//delta timer
+	float deltaTime = (clock.getElapsedTime() - lastFrameTime).asSeconds();
+	lastFrameTime = clock.getElapsedTime();
+	if (deltaTime >= .1){ deltaTime = .1; };
+
+	//update Sprite
+	miku.update(deltaTime);
 	//if song runs out play rando song
 	if (SoundManager::getInstance().music.getStatus() != SoundManager::getInstance().music.Playing)
 	{
@@ -164,6 +186,8 @@ void NetworkedSinglePlayer::update()
 			{
 				ch->Left(sf::Keyboard::Key::Left);
 				pressed = true; // Cannot hold right to move
+				miku.setFrameSize(85, 66);
+				miku.playAnim("scream");
 			}
 
 		}
@@ -560,6 +584,7 @@ void NetworkedSinglePlayer::draw()
 	username->message.setColor(sf::Color::Black);
 	name->message.setColor(sf::Color::Black);
 
+	GraphicsManager::getInstance()->window.draw(miku);
 }
 
 
