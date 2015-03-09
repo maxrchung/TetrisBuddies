@@ -36,3 +36,7 @@ protected:
 	std::map<std::string, AnimSprAnimation*> AnimsList;
 	AnimSprAnimation *currentAnim;
 };
+
+inline void centerOrigin(sf::Sprite& sprite) {
+	sprite.setOrigin((int)sprite.getLocalBounds().width / 2, (int)sprite.getLocalBounds().height / 2);
+}

@@ -11,6 +11,7 @@
 #include <vector>
 #include <tuple>
 #include <iostream>
+#include "AnimatedSprite.h"
 
 class NetworkedSinglePlayer : public Screen
 {
@@ -25,15 +26,15 @@ public:
 	//number of different sprite shapes
 	
 private:
-
-	
-	
+	AnimatedSprite miku;
+	void playThis();
 	CursorHandler *ch;
 	bool pressed, pressed2;
 	sf::RectangleShape rec;
 	sf::RectangleShape tempRowRec;
 	sf::Clock clock;
 	sf::Time timer;
+	sf::Time lastFrameTime;
 	unsigned int winX;
 	unsigned int winY;
 	int gameScreenHeight;
@@ -80,4 +81,3 @@ private:
 	
 
 };
-
