@@ -49,7 +49,7 @@ void GraphicsManager::init()
 	messageFont.loadFromFile("Roboto-Regular.ttf");	
 
     // Runs at 60 FPS
-	window.setFramerateLimit(60);
+    // window.setFramerateLimit(60);
 
 	// Every time the game is opened, a random color is generated
 	// Note that the colors all have the same hue but different shading
