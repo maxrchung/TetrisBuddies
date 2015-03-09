@@ -140,8 +140,12 @@ void MultiplayerScreen::update()
 		//update the game if there is an update available
 		if (ClientManager::getInstance().isUpdated)
 		{
-			p1GSO = ClientManager::getInstance().currentGSO;
-			p2GSO = ClientManager::getInstance().secondGSO;
+
+			if (!ClientManager::getInstance().isPlayerTwo)
+				p1GSO = ClientManager::getInstance().currentGSO;
+			else
+				p2GSO = ClientManager::getInstance().secondGSO;
+
 			ClientManager::getInstance().isUpdated = false;
 
 			if (p1GSO.newRowActive)
@@ -150,6 +154,7 @@ void MultiplayerScreen::update()
 				ch2->Up(sf::Keyboard::Key::Up);
 			ch2->setCursorAt(p2GSO.cursorPos.first, p2GSO.cursorPos.second);
 
+			//This can be further optimized to only update a particular player if both states aren't  updated.
 			updateBlocks();
 			
 			if (!p1GSO.clearingBlocks.empty())

@@ -108,7 +108,9 @@ void ClientManager::update()
 			}
 			case PacketDecode::PACKET_PLAYERNUMBER:
 			{
-				packet >> isPlayerTwo;
+				bool temp;
+				packet >> temp;
+				isPlayerTwo = temp;
 				break;
 			}
 
