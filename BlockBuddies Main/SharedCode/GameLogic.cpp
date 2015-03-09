@@ -742,7 +742,7 @@ void GameLogic::GameTick(){
 		//p << gso;
 		//outgoingMessages.push(p);
 
-		//gso.PrintToFile();
+		gso.PrintToFile();
 		//int junk;
 		//p >> junk;
 		//p >> newGSO;
