@@ -566,6 +566,13 @@ bool GameLogic::ProcessMessage(sf::Packet toProcess){
 
 		return true;
 	}
+	else if (command == PacketDecode::PACKET_CURSORPOSITION)
+	{
+		int x, y;
+		toProcess >> x >> y;
+		gso.cursorPos.first = x;
+		gso.cursorPos.second = y;
+	}
 
 	return false;
 }

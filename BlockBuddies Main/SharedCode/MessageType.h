@@ -19,10 +19,10 @@ enum PacketDecode
 	PACKET_SCOREUPDATE,
 	//7
 	PACKET_GAMEOVER,
-    //8
-    PACKET_DISCONNECT,
-    //9
-    PACKET_CHECKALIVE,
+	//8
+	PACKET_DISCONNECT,
+	//9
+	PACKET_CHECKALIVE,
 	//10
 	PACKET_USERINFOUPDATE,
 	//11
@@ -33,18 +33,20 @@ enum PacketDecode
 	PACKET_CLEAR,
 	//14
 	PACKET_DROP,
-    //15
-    PACKET_JOINQUEUE,
-    //16
-    PACKET_LEAVEQUEUE,
-    //17
-    PACKET_FOUNDGAME, // Server tells Client that game has been found
+	//15
+	PACKET_JOINQUEUE,
+	//16
+	PACKET_LEAVEQUEUE,
+	//17
+	PACKET_FOUNDGAME, // Server tells Client that game has been found
 	//18
 	PACKET_WINNER,
 	//19
 	PACKET_NEWPENALTYROW,
 	//20
-	PACKET_EARLYREMOVE
+	PACKET_EARLYREMOVE,
+	//21
+	PACKET_CURSORPOSITION
 
 };
 

@@ -179,6 +179,15 @@ void ClientManager::update()
     }
 }
 
+void ClientManager::sendCursorUpdate(int x, int y)
+{
+	sf::Packet cursorUpdate;
+	cursorUpdate << PacketDecode::PACKET_CURSORPOSITION;
+	cursorUpdate << x;
+	cursorUpdate << y;
+	socket.send(cursorUpdate);
+}
+
 bool ClientManager::isMultiplayer()
 {
 	return multiplayer;
