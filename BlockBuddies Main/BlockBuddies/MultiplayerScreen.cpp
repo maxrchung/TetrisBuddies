@@ -12,73 +12,114 @@ MultiplayerScreen::MultiplayerScreen()
 
 void MultiplayerScreen::initGame()
 {
+	winX = GraphicsManager::getInstance()->window.getSize().x;
+	winY = GraphicsManager::getInstance()->window.getSize().y;
 	//fill in initial board
 	int gridPosy = 0;
 	int gridPosx = 0;
-	blockSize = (GraphicsManager::getInstance()->window.getSize().y/ p1GSO.boardHeight) * .9;
-
-	winX = GraphicsManager::getInstance()->window.getSize().x - (GraphicsManager::getInstance()->window.getSize().x % blockSize);
-	winY = GraphicsManager::getInstance()->window.getSize().y - (GraphicsManager::getInstance()->window.getSize().y % blockSize);
+	gameScreenHeight = (int)(winY * 0.8);
+	blockSize = std::floor((float)gameScreenHeight / GameStateObject::boardHeight);
 
 	AnimationManager::getInstance()->setBlockSize(blockSize);
 
-	int gbHeight = (p1GSO.boardHeight * blockSize);
-	int gbWidth = (blockSize * p1GSO.boardWidth);
-	
+	int offset = gameScreenHeight - (blockSize * GameStateObject::boardHeight);
+	gameScreenWidth = blockSize * GameStateObject::boardWidth;
+
+	/*
 	int p1OutlineX = blockSize;
 	int p1OutlineY = (winY / 2 - gbHeight / 2) - ((winY / 2 - gbHeight / 2) % blockSize);
 	int p2OutlineX = winX - (gbWidth + blockSize);
 	int p2OutlineY = (winY / 2 - gbHeight / 2) - ((winY / 2 - gbHeight / 2) % blockSize);
+	*/
 
-	int offset = (winX % blockSize);
-
-	ch = new CursorHandler(gbWidth, gbHeight, winX, winY, p1OutlineX, p1OutlineY, blockSize, offset);
-	ch2 = new CursorHandler(gbWidth, gbHeight, winX, winY, p2OutlineX, p2OutlineY, blockSize, offset);
 	//draws a large rectangle around the game screen for p1
-	p1Outline.setSize(sf::Vector2f(gbWidth, gbHeight));
+	p1Outline.setSize(sf::Vector2f(gameScreenWidth, -blockSize * GameStateObject::boardHeight));
 	p1Outline.setFillColor(sf::Color::Transparent);
-	p1Outline.setPosition(p1OutlineX + blockSize, p1OutlineY + blockSize);
-	p1Outline.setOutlineThickness(blockSize);
+	p1Outline.setPosition(2 * blockSize, (winY - (3 * blockSize)));
+	p1Outline.setOutlineThickness(blockSize/3);
 	p1Outline.setOutlineColor(sf::Color::Black);
+
+
 	//draws a large rectangle around the game screen for p2
-	p2Outline.setSize(sf::Vector2f(gbWidth, gbHeight));
+	p2Outline.setSize(sf::Vector2f(gameScreenWidth, -blockSize * GameStateObject::boardHeight));
 	p2Outline.setFillColor(sf::Color::Transparent);
-	p2Outline.setPosition(p2OutlineX - blockSize, p2OutlineY + blockSize);
-	p2Outline.setOutlineThickness(blockSize);
+	p2Outline.setPosition(winX - (2 * blockSize) - gameScreenWidth, (winY - (3 * blockSize)));
+	p2Outline.setOutlineThickness(blockSize/3);
 	p2Outline.setOutlineColor(sf::Color::Black);
 
+	//draws temp row for player 1
+	tempRowRec1.setSize(sf::Vector2f(gameScreenWidth, blockSize));
+	tempRowRec1.setFillColor(sf::Color::Transparent);
+	tempRowRec1.setPosition(2 * blockSize, (winY - (2.5 * blockSize)));
+	tempRowRec1.setOutlineThickness(blockSize / 3);
+	tempRowRec1.setOutlineColor(sf::Color::Black);
+
+	//draws temp row for player 2
+	tempRowRec2.setSize(sf::Vector2f(gameScreenWidth, blockSize));
+	tempRowRec2.setFillColor(sf::Color::Transparent);
+	tempRowRec2.setPosition(winX - (2 * blockSize) - gameScreenWidth, (winY - (2.5 * blockSize)));
+	tempRowRec2.setOutlineThickness(blockSize / 3);
+	tempRowRec2.setOutlineColor(sf::Color::Black);
 
 	//creates blocks and puts them in 2D array for p1
-	for (int i = gbHeight; i > 0; i -= blockSize)
+	for (int i = 0; i < GameStateObject::boardHeight; i++)
 	{
-		for (int j = 0; j < gbWidth; j += blockSize)
+		for (int j = 0; j < GameStateObject::boardWidth; j++)
 		{
 			sf::RectangleShape shape(sf::Vector2f(blockSize, blockSize));
-			shape.setPosition(j + p1OutlineX + blockSize, i - p1OutlineY + blockSize *2); //puts it in the middle of the screen
+			shape.setPosition(p1Outline.getPosition().x + (j * blockSize), p1Outline.getPosition().y - (i * blockSize) - blockSize);
+			//shape.setPosition(j + (winX / 2 - gameScreenWidth / 2), i - (winY / 2 - gameScreenHeight / 2) - blockSizeX); //puts it in the middle of the screen
 			shape.setFillColor(sf::Color::Transparent); //transparent blocks to appear as empty space
 			p1Blocks[gridPosx][gridPosy] = shape;
 			gridPosy++;
+
 		}
 		gridPosy = 0;
 		gridPosx++;
 	}
 
+	//creates the temp row below this
+	for (int i = 0; i < GameStateObject::boardWidth; i++)
+	{
+		sf::RectangleShape shape(sf::Vector2f(blockSize, blockSize));
+		shape.setPosition(tempRowRec1.getPosition().x + (i * blockSize), tempRowRec1.getPosition().y);
+		shape.setFillColor(sf::Color::Transparent);
+		p1NextBlocks[i] = shape;
+	}
 	gridPosx = 0;
 	gridPosy = 0;
-	for (int i = gbHeight; i > 0; i -= blockSize)
-	{
-		for (int j = 0; j < gbWidth; j += blockSize)
-		{
 
+	//creates blocks and puts them in 2D array for p2
+	for (int i = 0; i < GameStateObject::boardHeight; i++)
+	{
+		for (int j = 0; j < GameStateObject::boardWidth; j++)
+		{
 			sf::RectangleShape shape(sf::Vector2f(blockSize, blockSize));
-			shape.setPosition(j + p2OutlineX - blockSize, i - p2OutlineY + blockSize *2); //puts it in the middle of the screen
+			shape.setPosition(p2Outline.getPosition().x + (j * blockSize), p2Outline.getPosition().y - (i * blockSize) - blockSize);
+			//shape.setPosition(j + (winX / 2 - gameScreenWidth / 2), i - (winY / 2 - gameScreenHeight / 2) - blockSizeX); //puts it in the middle of the screen
 			shape.setFillColor(sf::Color::Transparent); //transparent blocks to appear as empty space
 			p2Blocks[gridPosx][gridPosy] = shape;
 			gridPosy++;
+
 		}
 		gridPosy = 0;
 		gridPosx++;
 	}
+
+	//creates the temp row below this
+	for (int i = 0; i < GameStateObject::boardWidth; i++)
+	{
+		sf::RectangleShape shape(sf::Vector2f(blockSize, blockSize));
+		shape.setPosition(tempRowRec2.getPosition().x + (i * blockSize), tempRowRec2.getPosition().y);
+		shape.setFillColor(sf::Color::Transparent);
+		p2NextBlocks[i] = shape;
+	}
+
+	ch = new CursorHandler(p1Blocks[(GameStateObject::boardHeight / 2) - 1][(GameStateObject::boardWidth / 2) - 1].getPosition(),
+		p1Outline.getPosition(), gameScreenHeight, gameScreenWidth, blockSize);
+	ch2 = new CursorHandler(p2Blocks[(GameStateObject::boardHeight / 2) - 1][(GameStateObject::boardWidth / 2) - 1].getPosition(),
+		p2Outline.getPosition(), gameScreenHeight, gameScreenWidth, blockSize);
+	
 }
 void MultiplayerScreen::update()
 {
@@ -104,7 +145,7 @@ void MultiplayerScreen::update()
 			ch2->setCursorAt(p2GSO.cursorPos.first, p2GSO.cursorPos.second);
 
 			updateBlocks();
-
+			
 			if (!p1GSO.clearingBlocks.empty())
 			{
 				for (int i = 0; i < p1GSO.clearingBlocks.size(); i++)
@@ -254,13 +295,185 @@ void MultiplayerScreen::update()
 
 void MultiplayerScreen::updateBlocks()
 {
-	int color1;
-
-	for (int i = 0; i < p1GSO.boardHeight; i++)
+	int color;
+	//fill in temp rows for p1
+	for (int i = 0; i < GameStateObject::boardWidth; i++)
 	{
-		for (int j = 0; j < p1GSO.boardWidth; j++)
+		color = p1GSO.tempRow[i];
+		sf::Color c(0, 0, 0, 200);
+		switch (color)
+		{
+			//if its a 0 its empty?
+		case 0:
+		{
+			p1NextBlocks[i].setFillColor(sf::Color::Transparent);
+			p1NextBlocks[i].setOutlineThickness(-2);
+			p1NextBlocks[i].setOutlineColor(sf::Color::Transparent);
+
+			break;
+		}
+		case 1: //blue case
+		{
+			c.b = 128;
+			p1NextBlocks[i].setFillColor(c);
+			c.a = 255;
+			p1NextBlocks[i].setOutlineThickness(-2);
+			p1NextBlocks[i].setOutlineColor(c);
+
+			break;
+		}
+		case 2: //red case
+		{
+			c.r = 255;
+			p1NextBlocks[i].setFillColor(c);
+			c.a = 255;
+			p1NextBlocks[i].setOutlineThickness(-2);
+			p1NextBlocks[i].setOutlineColor(c);
+
+			break;
+		}
+		case 3://yellow case
+		{
+			c.r = 255;
+			c.g = 140;
+			p1NextBlocks[i].setFillColor(c);
+			c.a = 255;
+			p1NextBlocks[i].setOutlineThickness(-2);
+			p1NextBlocks[i].setOutlineColor(c);
+
+			break;
+		}
+		case 4:// purple case
+		{
+			c.r = 148;
+			c.b = 211;
+			p1NextBlocks[i].setFillColor(c);
+			c.a = 255;
+			p1NextBlocks[i].setOutlineThickness(-2);
+			p1NextBlocks[i].setOutlineColor(c);
+
+			break;
+		}
+		case 5://green case
+		{
+			c.r = 50;
+			c.g = 205;
+			c.b = 50;
+			p1NextBlocks[i].setFillColor(c);
+			c.a = 255;
+			p1NextBlocks[i].setOutlineThickness(-2);
+			p1NextBlocks[i].setOutlineColor(c);
+
+			break;
+		}
+		default: //error case
+		{
+			p1NextBlocks[i].setFillColor(sf::Color::Black);
+			break;
+		}
+		}
+
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+	//fill in temp rows for p2
+	for (int i = 0; i < GameStateObject::boardWidth; i++)
+	{
+		color = p2GSO.tempRow[i];
+		sf::Color c(0, 0, 0, 200);
+		switch (color)
+		{
+			//if its a 0 its empty?
+		case 0:
+		{
+			p2NextBlocks[i].setFillColor(sf::Color::Transparent);
+			p2NextBlocks[i].setOutlineThickness(-2);
+			p2NextBlocks[i].setOutlineColor(sf::Color::Transparent);
+
+			break;
+		}
+		case 1: //blue case
+		{
+			c.b = 128;
+			p2NextBlocks[i].setFillColor(c);
+			c.a = 255;
+			p2NextBlocks[i].setOutlineThickness(-2);
+			p2NextBlocks[i].setOutlineColor(c);
+
+			break;
+		}
+		case 2: //red case
+		{
+			c.r = 255;
+			p2NextBlocks[i].setFillColor(c);
+			c.a = 255;
+			p2NextBlocks[i].setOutlineThickness(-2);
+			p2NextBlocks[i].setOutlineColor(c);
+
+			break;
+		}
+		case 3://yellow case
+		{
+			c.r = 255;
+			c.g = 140;
+			p2NextBlocks[i].setFillColor(c);
+			c.a = 255;
+			p2NextBlocks[i].setOutlineThickness(-2);
+			p2NextBlocks[i].setOutlineColor(c);
+
+			break;
+		}
+		case 4:// purple case
+		{
+			c.r = 148;
+			c.b = 211;
+			p2NextBlocks[i].setFillColor(c);
+			c.a = 255;
+			p2NextBlocks[i].setOutlineThickness(-2);
+			p2NextBlocks[i].setOutlineColor(c);
+
+			break;
+		}
+		case 5://green case
+		{
+			c.r = 50;
+			c.g = 205;
+			c.b = 50;
+			p2NextBlocks[i].setFillColor(c);
+			c.a = 255;
+			p2NextBlocks[i].setOutlineThickness(-2);
+			p2NextBlocks[i].setOutlineColor(c);
+
+			break;
+		}
+		default: //error case
+		{
+			p2NextBlocks[i].setFillColor(sf::Color::Black);
+			break;
+		}
+		}
+
+	}
+
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+	int color1;
+	int color2;
+
+	for (int i = 0; i < GameStateObject::boardHeight; i++)
+	{
+		for (int j = 0; j < GameStateObject::boardWidth; j++)
 		{
 			color1 = p1GSO.gameBoard[i][j];
+			color2 = p2GSO.gameBoard[i][j];
 			sf::Color c(0, 0, 0, 200);
 			switch (color1)
 			{
@@ -327,82 +540,79 @@ void MultiplayerScreen::updateBlocks()
 					   break;
 			}
 			}
-		}
-	}
 
-	for (int i = 0; i < p2GSO.boardHeight; i++)
-	{
-		for (int j = 0; j < p2GSO.boardWidth; j++)
-		{
-			color1 = p2GSO.gameBoard[i][j];
-			sf::Color c(0, 0, 0, 200);
-			switch (color1)
+			c = sf::Color(0, 0, 0, 200);
+			//for player 2
+			switch (color2)
 			{
 				//if its a 0 its empty?
 			case 0:
 			{
-					  p2Blocks[i][j].setFillColor(sf::Color::Transparent);
-					  p2Blocks[i][j].setOutlineThickness(-2);
-					  p2Blocks[i][j].setOutlineColor(sf::Color::Transparent);
-					  break;
+				p2Blocks[i][j].setFillColor(sf::Color::Transparent);
+				p2Blocks[i][j].setOutlineThickness(-2);
+				p2Blocks[i][j].setOutlineColor(sf::Color::Transparent);
+				break;
 			}
 			case 1:
 			{
-					  c.b = 128;
-					  p2Blocks[i][j].setFillColor(c);
-					  c.a = 255;
-					  p2Blocks[i][j].setOutlineThickness(-2);
-					  p2Blocks[i][j].setOutlineColor(c);
-					  break;
+				c.b = 128;
+				p2Blocks[i][j].setFillColor(c);
+				c.a = 255;
+				p2Blocks[i][j].setOutlineThickness(-2);
+				p2Blocks[i][j].setOutlineColor(c);
+				break;
 			}
 			case 2:
 			{
-					  c.r = 255;
-					  p2Blocks[i][j].setFillColor(c);
-					  c.a = 255;
-					  p2Blocks[i][j].setOutlineThickness(-2);
-					  p2Blocks[i][j].setOutlineColor(c);
-					  break;
+				c.r = 255;
+				p2Blocks[i][j].setFillColor(c);
+				c.a = 255;
+				p2Blocks[i][j].setOutlineThickness(-2);
+				p2Blocks[i][j].setOutlineColor(c);
+				break;
 			}
 			case 3:
 			{
-					  c.r = 255;
-					  c.g = 140;
-					  p2Blocks[i][j].setFillColor(c);
-					  c.a = 255;
-					  p2Blocks[i][j].setOutlineThickness(-2);
-					  p2Blocks[i][j].setOutlineColor(c);
-					  break;
+				c.r = 255;
+				c.g = 140;
+				p2Blocks[i][j].setFillColor(c);
+				c.a = 255;
+				p2Blocks[i][j].setOutlineThickness(-2);
+				p2Blocks[i][j].setOutlineColor(c);
+				break;
 			}
 			case 4:
 			{
-					  c.r = 148;
-					  c.b = 211;
-					  p2Blocks[i][j].setFillColor(c);
-					  c.a = 255;
-					  p2Blocks[i][j].setOutlineThickness(-2);
-					  p2Blocks[i][j].setOutlineColor(c);
-					  break;
+				c.r = 148;
+				c.b = 211;
+				p2Blocks[i][j].setFillColor(c);
+				c.a = 255;
+				p2Blocks[i][j].setOutlineThickness(-2);
+				p2Blocks[i][j].setOutlineColor(c);
+				break;
 			}
 			case 5:
 			{
-					  c.r = 50;
-					  c.g = 205;
-					  c.b = 50;
-					  p2Blocks[i][j].setFillColor(c);
-					  c.a = 255;
-					  p2Blocks[i][j].setOutlineThickness(-2);
-					  p2Blocks[i][j].setOutlineColor(c);
-					  break;
+				c.r = 50;
+				c.g = 205;
+				c.b = 50;
+				p2Blocks[i][j].setFillColor(c);
+				c.a = 255;
+				p2Blocks[i][j].setOutlineThickness(-2);
+				p2Blocks[i][j].setOutlineColor(c);
+				break;
 			}
 			default:
 			{
-					   p2Blocks[i][j].setFillColor(sf::Color::Black);
-					   break;
+				p2Blocks[i][j].setFillColor(sf::Color::Black);
+				break;
 			}
 			}
 		}
 	}
+
+		
+	
 }
 void MultiplayerScreen::draw()
 {
@@ -410,6 +620,84 @@ void MultiplayerScreen::draw()
 
 	GraphicsManager::getInstance()->window.draw(p1Outline);
 	GraphicsManager::getInstance()->window.draw(p2Outline);
+	GraphicsManager::getInstance()->window.draw(tempRowRec1);
+	GraphicsManager::getInstance()->window.draw(tempRowRec2);
+	//draw the temp row and overlay the sprite on top for p1
+	for (int i = 0; i < GameStateObject::boardWidth; i++)
+	{
+		GraphicsManager::getInstance()->window.draw(p1NextBlocks[i]);
+		blockShape.setPosition(p1NextBlocks[i].getPosition());
+		switch (p1GSO.tempRow[i])
+		{
+		case 1: //blue case
+			blockShape.setTexture(*_getTexture("Textures/bluestar.png"));
+			//defualt textures are 24 by 24 so scale them to match block size
+			blockShape.setScale(sf::Vector2f((float)blockSize / 24, (float)blockSize / 24));
+			GraphicsManager::getInstance()->window.draw(blockShape);
+			break;
+		case 2: //red case
+			blockShape.setTexture(*_getTexture("Textures/redgear.png"));
+			blockShape.setScale(sf::Vector2f((float)blockSize / 24, (float)blockSize / 24));
+			GraphicsManager::getInstance()->window.draw(blockShape);
+			break;
+		case 3:// yellow case
+			blockShape.setTexture(*_getTexture("Textures/yellowsquare.png"));
+			blockShape.setScale(sf::Vector2f((float)blockSize / 24, (float)blockSize / 24));
+			GraphicsManager::getInstance()->window.draw(blockShape);
+			break;
+		case 4://purple
+			blockShape.setTexture(*_getTexture("Textures/purplespade.png"));
+			blockShape.setScale(sf::Vector2f((float)blockSize / 24, (float)blockSize / 24));
+			GraphicsManager::getInstance()->window.draw(blockShape);
+			break;
+		case 5://green
+			blockShape.setTexture(*_getTexture("Textures/greentriangle.png"));
+			blockShape.setScale(sf::Vector2f((float)blockSize / 24, (float)blockSize / 24));
+			GraphicsManager::getInstance()->window.draw(blockShape);
+			break;
+		default:
+			break;
+		}
+	}
+
+	//draw the temp row and overlay the sprite on top for p1
+	for (int i = 0; i < GameStateObject::boardWidth; i++)
+	{
+		GraphicsManager::getInstance()->window.draw(p2NextBlocks[i]);
+		blockShape.setPosition(p2NextBlocks[i].getPosition());
+		switch (p2GSO.tempRow[i])
+		{
+		case 1: //blue case
+			blockShape.setTexture(*_getTexture("Textures/bluestar.png"));
+			//defualt textures are 24 by 24 so scale them to match block size
+			blockShape.setScale(sf::Vector2f((float)blockSize / 24, (float)blockSize / 24));
+			GraphicsManager::getInstance()->window.draw(blockShape);
+			break;
+		case 2: //red case
+			blockShape.setTexture(*_getTexture("Textures/redgear.png"));
+			blockShape.setScale(sf::Vector2f((float)blockSize / 24, (float)blockSize / 24));
+			GraphicsManager::getInstance()->window.draw(blockShape);
+			break;
+		case 3:// yellow case
+			blockShape.setTexture(*_getTexture("Textures/yellowsquare.png"));
+			blockShape.setScale(sf::Vector2f((float)blockSize / 24, (float)blockSize / 24));
+			GraphicsManager::getInstance()->window.draw(blockShape);
+			break;
+		case 4://purple
+			blockShape.setTexture(*_getTexture("Textures/purplespade.png"));
+			blockShape.setScale(sf::Vector2f((float)blockSize / 24, (float)blockSize / 24));
+			GraphicsManager::getInstance()->window.draw(blockShape);
+			break;
+		case 5://green
+			blockShape.setTexture(*_getTexture("Textures/greentriangle.png"));
+			blockShape.setScale(sf::Vector2f((float)blockSize / 24, (float)blockSize / 24));
+			GraphicsManager::getInstance()->window.draw(blockShape);
+			break;
+		default:
+			break;
+		}
+	}
+
 	//draws blocks on screen
 	for (int i = 0; i < p1GSO.boardHeight; i++)
 	{

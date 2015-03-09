@@ -21,8 +21,8 @@ GameStateObject::GameStateObject(){
 	//*****
 	//set all the rest of the values to 0 here
 	frameNum = 0;
-	cursorPos.first = boardHeight / 2;
-	cursorPos.second = boardWidth / 2;
+	cursorPos.first = (boardWidth / 2) - 1;
+	cursorPos.second = (boardHeight / 2) - 1;
 	rowInsertionCountdown = 0;
 	clearingBlocks.clear();
 	junkRows.clear();
