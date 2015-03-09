@@ -36,6 +36,10 @@ private:
 		loadSound("heya", "Sounds/SSBB_Link_Smash_Down.wav");
 		loadSound("blast", "Sounds/blast.wav");
 		loadSound("charge", "Sounds/TrimmedCharge.ogg");
+
+		addToSongList("Sounds/Slamtris.ogg");
+		addToSongList("Sounds/HardCoreTetris.ogg");
+		addToSongList("Sounds/01 Tetris (Themes B And C).ogg");
 	}                                  // Private constructor
 	~SoundManager();
 	SoundManager(const SoundManager&);                 // Prevent copy-construction

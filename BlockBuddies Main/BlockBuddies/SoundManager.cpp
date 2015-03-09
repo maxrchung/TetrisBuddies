@@ -66,7 +66,7 @@ void SoundManager::playMusicRandom()
 	std::srand(time(NULL));
 	std::string nextSong;
 
-	nextSong = songList[rand() % songList.size];
+	nextSong = songList[rand() % songList.size()];
 	
 	if (music.getStatus() == music.Playing)
 	{
