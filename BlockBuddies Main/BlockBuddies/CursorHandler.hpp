@@ -7,6 +7,7 @@ class CursorHandler
 {
 public:
 	CursorHandler(int sw, int sh, int ww, int wh, int blockS, int offset);
+	CursorHandler(sf::Vector2f orginPos, sf::Vector2f gameScreenPos, int gameScreenHeight, int gameScreenWidth, int blockS);
 	CursorHandler(int sw, int sh, int ww, int wh, int xStart, int yStart, int blockS, int offset);
 	void Left(sf::Keyboard::Key L);
 	void Right(sf::Keyboard::Key R);

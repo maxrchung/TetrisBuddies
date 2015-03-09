@@ -68,7 +68,8 @@ void NetworkedSinglePlayer::initGame()
 	int offset = gameScreenHeight - (blockSizeY * GameStateObject::boardHeight);
 	gameScreenWidth = blockSizeX * gso.boardWidth;
 
-	ch = new CursorHandler(gameScreenWidth, gameScreenHeight, winX, winY, blockSizeX, offset - 2 - blockSizeX/2); //5 is the offset, dunno why yet
+	//ch = new CursorHandler(gameScreenWidth, gameScreenHeight, winX, winY, blockSizeX, -(offset + blockSizeX)); //5 is the offset, dunno why yet
+	
 	rec.setSize(sf::Vector2f(gameScreenWidth, -blockSizeY * GameStateObject::boardHeight));
 	rec.setFillColor(sf::Color::Transparent);
 	rec.setPosition((winX / 2) - gameScreenWidth / 2, (winY - (3 * blockSizeX)));
@@ -98,7 +99,7 @@ void NetworkedSinglePlayer::initGame()
 		gridPosy = 0;
 		gridPosx++;
 	}
-
+	
 	//creates the temp row below this
 	for (int i = 0; i < gso.boardWidth; i++)
 	{
@@ -107,6 +108,12 @@ void NetworkedSinglePlayer::initGame()
 		shape.setFillColor(sf::Color::Transparent);
 		nextBlocks[i] = shape;
 	}
+
+	ch = new CursorHandler(blocks[(GameStateObject::boardHeight / 2) - 1][(GameStateObject::boardWidth / 2) - 1].getPosition(), 
+		rec.getPosition(), gameScreenHeight, gameScreenWidth, blockSizeX);
+	std::cout << rec.getPosition().x << rec.getPosition().y;
+	std::cout << "first block pos" << blocks[9][4].getPosition().x << " " << blocks[9][4].getPosition().y << std::endl;
+	std::cout << "cursor pos " << ch->getMainCursor().getPosition().x << " " << ch->getMainCursor().getPosition().y << std::endl;
 }
 void NetworkedSinglePlayer::update()
 {

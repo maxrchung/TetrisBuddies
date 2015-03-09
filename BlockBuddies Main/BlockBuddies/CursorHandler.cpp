@@ -1,5 +1,5 @@
 #include "CursorHandler.hpp"
-
+#include "GameStateObject.hpp"
 //for single player
 CursorHandler::CursorHandler(int sw, int sh, int ww, int wh, int blockS, int offset)
 	:blockSize(blockS)
@@ -44,7 +44,49 @@ CursorHandler::CursorHandler(int sw, int sh, int ww, int wh, int blockS, int off
 	bottomSquare.setOutlineColor(sf::Color(0, 0, 0, 200));
 
 }
+CursorHandler::CursorHandler(sf::Vector2f originPos, sf::Vector2f gameScreenPos, int gameScreenHeight, int gameScreenWidth, int blockS)
+	:blockSize(blockS)
+{
+	originX = (GameStateObject::boardWidth / 2) - 1;
+	originY = (GameStateObject::boardHeight / 2) - 1;
 
+	xBoundary = gameScreenPos.x;
+	yBoundary = gameScreenPos.y - gameScreenHeight + blockS;
+
+	screenWidth = gameScreenWidth - blockSize;
+	screenHeight = gameScreenHeight - blockSize;
+
+	//inital set up for main square
+	mainSquare.setSize(sf::Vector2f(blockSize, blockSize));
+	mainSquare.setFillColor(sf::Color::Transparent);
+	mainSquare.setPosition(originPos.x, originPos.y);
+	mainSquare.setOutlineThickness(-3);
+	mainSquare.setOutlineColor(sf::Color::Black);
+	//initial set up for right square
+	rightSquare.setSize(sf::Vector2f(blockSize, blockSize));
+	rightSquare.setFillColor(sf::Color::Transparent);
+	rightSquare.setPosition(originPos.x + blockSize, originPos.y);
+	rightSquare.setOutlineThickness(-3);
+	rightSquare.setOutlineColor(sf::Color(0, 0, 0, 200));
+	//inital set up for left square
+	leftSquare.setSize(sf::Vector2f(blockSize, blockSize));
+	leftSquare.setFillColor(sf::Color::Transparent);
+	leftSquare.setPosition(originPos.x - blockSize, originPos.y);
+	leftSquare.setOutlineThickness(-3);
+	leftSquare.setOutlineColor(sf::Color(0, 0, 0, 200));
+	//initial set up for top square
+	topSquare.setSize(sf::Vector2f(blockSize, blockSize));
+	topSquare.setFillColor(sf::Color::Transparent);
+	topSquare.setPosition(originPos.x, originPos.y + blockSize);
+	topSquare.setOutlineThickness(-3);
+	topSquare.setOutlineColor(sf::Color(0, 0, 0, 200));
+	//initial set up for bottom square
+	bottomSquare.setSize(sf::Vector2f(blockSize, blockSize));
+	bottomSquare.setFillColor(sf::Color::Transparent);
+	bottomSquare.setPosition(originPos.x, originPos.y - blockSize);
+	bottomSquare.setOutlineThickness(-3);
+	bottomSquare.setOutlineColor(sf::Color(0, 0, 0, 200));
+}
 //for multiplayer
 CursorHandler::CursorHandler(int sw, int sh, int ww, int wh, int xStart, int yStart, int blockS, int offset)
 	:blockSize(blockS)
