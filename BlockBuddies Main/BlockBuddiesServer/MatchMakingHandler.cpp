@@ -196,11 +196,18 @@ void MatchMakingHandler::sendSingleMessage(sf::Packet& toSend, int player, int p
 	{
 		gameList[position]->player1->playerSocket->send(toSend);
 		gameList[position]->player1->playerSocket->send(empty);
+
+		gameList[position]->player2->playerSocket->send(empty);
+		gameList[position]->player2->playerSocket->send(toSend);
 	}
 	else
 	{
 		gameList[position]->player2->playerSocket->send(empty);
 		gameList[position]->player2->playerSocket->send(toSend);
+
+		gameList[position]->player1->playerSocket->send(toSend);
+		gameList[position]->player1->playerSocket->send(empty);
+
 	}
 }
 
