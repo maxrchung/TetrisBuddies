@@ -126,8 +126,12 @@ void Game::loadingUpdate()
 
     while(isLoading)
     {
-        BlockShowerManager::getInstance()->update();
-        draw();
+        if(Game::getInstance()->frameLimiter.getElapsedTime().asMilliseconds() > 16.67f)
+        {
+            frameLimiter.restart();
+            BlockShowerManager::getInstance()->update();
+            draw();
+        }
     }
 
     GraphicsManager::getInstance()->window.setActive(false);

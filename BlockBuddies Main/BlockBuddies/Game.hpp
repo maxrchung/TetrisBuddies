@@ -28,6 +28,8 @@ public:
     float cursorHideTimer = 0.0f;
     sf::Vector2i prevMousePos;
 
+    sf::Clock frameLimiter;
+
 private:
     Game(){};
     Game(Game const&){};
