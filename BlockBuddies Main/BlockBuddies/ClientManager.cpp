@@ -94,10 +94,25 @@ void ClientManager::update()
 					{
 						packet >> secondGSO;
 						std::cout << "I've got player two's GSO! \n";
-						isUpdated = true;
+						isOpponentUpdated = true;
 						packetCount = 0;
 
 					}
+				}
+				break;
+			}
+
+			case PacketDecode::PACKET_EMPTYGSO:
+			{
+				if (packetCount == 0)
+				{
+					isUpdated = false;
+					packetCount++;
+				}
+				else
+				{
+					isOpponentUpdated = false;
+					packetCount = 0;
 				}
 				break;
 			}

@@ -186,6 +186,23 @@ void MatchMakingHandler::sendPackets(sf::Packet& p1, sf::Packet& p2 , int positi
 	gameList[position]->player2->playerSocket->send(p2);
 	gameList[position]->player2->playerSocket->send(p1);
 }
+//Send the indicated player their gso and the other player an empty gso
+void MatchMakingHandler::sendSingleMessage(sf::Packet& toSend, int player, int position)
+{
+	sf::Packet empty;
+	empty << PacketDecode::PACKET_EMPTYGSO;
+
+	if (player == 1)
+	{
+		gameList[position]->player1->playerSocket->send(toSend);
+		gameList[position]->player1->playerSocket->send(empty);
+	}
+	else
+	{
+		gameList[position]->player2->playerSocket->send(empty);
+		gameList[position]->player2->playerSocket->send(toSend);
+	}
+}
 
 void MatchMakingHandler::sendMessages()
 {
@@ -209,19 +226,17 @@ void MatchMakingHandler::sendMessages()
 		else if (!check->playerOneGame.outgoingMessages.empty() && check->playerTwoGame.outgoingMessages.empty())
 		{
 			p1 = check->playerOneGame.outgoingMessages.front();
-			p2 << check->playerTwoGame.gso;
 			check->playerOneGame.outgoingMessages.pop();
 
-			sendPackets(p1, p2, counter);
+			sendSingleMessage(p1,1,counter);
 
 		}// if player two has updated thier GSO
 		else if (check->playerOneGame.outgoingMessages.empty() && !check->playerTwoGame.outgoingMessages.empty())
 		{
-			p1 << check->playerOneGame.gso;
 			p2 = check->playerTwoGame.outgoingMessages.front();
 			check->playerTwoGame.outgoingMessages.pop();
 
-			sendPackets(p1, p2, counter);
+			sendSingleMessage(p2, 2, counter);
 		}
 		else
 		{

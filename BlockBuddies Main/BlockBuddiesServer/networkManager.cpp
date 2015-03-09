@@ -272,8 +272,6 @@ void NetworkManager::update()
 		   gameTickClock.restart();
 	   }
 
-
-
 	   if (singlePlayer.singlePlayerGames.size() >= 1)
 		   singlePlayer.sendMessages();
 	   if (multiplayer.multiPlayerGames.size() >= 1)
