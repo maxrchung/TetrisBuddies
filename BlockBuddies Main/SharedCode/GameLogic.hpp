@@ -55,13 +55,17 @@ public:
 	
 	bool ClearMatches();
 	bool ClearInitialMatches();
+
+	//returns true if the block is falling
 	bool BlockIsFalling(int rowNum, int colNum) const;
+
+	//returns true if destroyedBlocks has that block
 	bool DestroyedBlockContains(int rowNum, int colNum) const;
 
 	//checks the entire board for matches
 	bool CheckAllBlocksForMatches();
 
-	bool CreateJunkBlocks(int numBlocks);
+
 	bool gameHasStarted;
 	bool isGameOver;
 
@@ -71,6 +75,9 @@ public:
 	//this is used for multiplayer; it says how many junk blocks to send to the other player
 	//it only gets set to nonzero when there's something to send
 	int blocksToSend;
+
+	//where blocks get sent to you
+	int blocksReceived;
 
 	//holds the array that keeps track of the board, as well as the player's score
 	GameStateObject gso;
@@ -99,7 +106,7 @@ private:
 	std::vector<TimedPiece> swappingBlocks;
 	std::vector<TimedPiece> destroyedBlocks;
 
-	//this is used to keep track of when to increast the number of chains: (in ClearBlocks? Wherever they get points?) if it's true, numChains++.  If it's false, = 0.
+	//this is used to keep track of when to increase the number of chains: (in ClearBlocks? Wherever they get points?) if it's true, numChains++.  If it's false, = 0.
 	bool blocksFalling;
 
 	//the number of colors that will be used in the game.
@@ -141,15 +148,14 @@ private:
 	//if the junk timer is expired, drop the junk. Clears junkRows.  Can also cause a game over.
 	bool DropJunk();
 	sf::Clock junkTimer;
-	sf::Time junkDropTime = sf::milliseconds(1500);
+	const sf::Time junkDropTime = sf::milliseconds(2000);
 
+	bool CreateJunkBlocks(int numBlocks);
 
 	//takes a block's row and column, and adds blocks that will be cleared to blocksMarkedForDeletion
 	bool CheckBlockForMatches(int rowNum, int colNum);
 
 
-	//Apples gravity and clears BMFD
-	//bool ClearMatches();
 
 	//if all 3 values are equal, return true
 	//else return false
@@ -158,7 +164,6 @@ private:
 
 	bool CheckSwappingTimers();
 	bool CheckClearingTimers();
-	bool CheckFallingTimers();
 
 
 	sf::Packet StartPacket(){

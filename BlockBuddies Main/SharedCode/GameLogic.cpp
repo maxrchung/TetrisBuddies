@@ -414,18 +414,13 @@ bool GameLogic::CheckBlockForMatches(int rowNum, int colNum){
 		int points = clearedBlocks * 10;
 		int bonusBlocks = clearedBlocks - 3;
 		for (int i = 0; i < bonusBlocks; i++){points += (i * 10);}
+
 		//this shouldn't be here.
 		//if it's here, it updates every time there's a match of 3 or more (in a single direction)
 		gso.numChains++;
+		
 		points = points * gso.numChains;
 		gso.score += points;
-
-
-
-
-
-
-
 
 
 
@@ -448,8 +443,9 @@ bool GameLogic::CheckBlockForMatches(int rowNum, int colNum){
 
 
 	//^ all that * numChains
-	if (clearedBlocks > 3){
-		blocksToSend = clearedBlocks - 3;
+	if (clearedBlocks > 0){
+		//blocksToSend = clearedBlocks - 3;
+		blocksToSend = clearedBlocks;
 	}
 
 
@@ -634,6 +630,8 @@ void GameLogic::GameTick(){
 	gso.clearingBlocks.clear();
 
 	gso.numClearedBlocks = 0;
+	blocksToSend = 0;
+
 
 	remainingRowInsertionTime = totalRowInsertionTime - newRowClock.getElapsedTime();
 
@@ -648,7 +646,7 @@ void GameLogic::GameTick(){
 
 
 
-	
+
 
 	//while messageQueue isn't empty
 	while (!messagesToDecode.empty())
@@ -662,10 +660,10 @@ void GameLogic::GameTick(){
 
 	if (CheckClearingTimers()) { gameStateChanged = true; }
 
-	if (ApplyGravity()){gameStateChanged = true;}
+	if (ApplyGravity()){ gameStateChanged = true; }
 	if (!blocksFalling){ gso.numChains = 0; }
 
-	if ( swappingBlocks.empty() && destroyedBlocks.empty() && !newRowClock.isRunning() ){
+	if (swappingBlocks.empty() && destroyedBlocks.empty() && !newRowClock.isRunning()){
 		//if (!newRowClock.isRunning()){std::cout << "Resuming row insertion counter" << std::endl;}
 		newRowClock.resume();
 		gso.rowInsertionPaused = false;
@@ -680,7 +678,11 @@ void GameLogic::GameTick(){
 
 	CheckAllBlocksForMatches();
 	gso.numClearedBlocks = blocksMarkedForDeletion.size();
-	if (ClearMatches()){gameStateChanged = true;}
+	if (ClearMatches()){ gameStateChanged = true; }
+	if (blocksReceived > 0){
+		CreateJunkBlocks(blocksReceived);
+		gameStateChanged = true;
+	}
 	if (DropJunk()){ gameStateChanged = true; }
 
 
@@ -709,7 +711,16 @@ void GameLogic::GameTick(){
 	//possible packets to send: new GameState, start game, game over
 	//startGame and GameOver are sent by ProcessMessage
 
+	if (blocksToSend > 0){
+	std::cout << "Blocks to send: " << blocksToSend << std::endl;
+	}
 
+	if (blocksReceived > 0){
+		std::cout << "Blocks received: " << blocksReceived << std::endl;
+	}
+
+
+	blocksReceived = 0;
 
 	if (gameStateChanged){
 		sf::Packet p;
@@ -731,7 +742,7 @@ void GameLogic::GameTick(){
 		//p << gso;
 		//outgoingMessages.push(p);
 
-		gso.PrintToFile();
+		//gso.PrintToFile();
 		//int junk;
 		//p >> junk;
 		//p >> newGSO;
@@ -828,17 +839,6 @@ return ret;
 }
 
 
-bool GameLogic::CheckFallingTimers(){
-
-	//(this should be checked on a per-column basis, starting at row 1)
-
-	//if a piece's falling timer is up
-	//move it down one block, reset the falling time
-	//if the piece landed, remove it from the Falling queue
-
-
-	return false;
-}
 
 //A junk row will fall X number of seconds after it's created.  
 //That being the case, you have the time from when it's created to the time it actually falls to fill it out more.
@@ -917,11 +917,30 @@ bool GameLogic::DropJunk(){
 	//if timer hasn't expired, return false
 	if (junkTimer.getElapsedTime() < junkDropTime){ return false; }
 
-	//for each row in junkBlocks:
-		//if there's something in the top row, game over
-		//copy the contents of front junk row to top row
-		//apply gravity
+	//for each row in junkBlocks: (it's a vector of arrays)
+	while (!gso.junkRows.empty()){
+	
+		//if there's something in the top row already, game over (return 1)
+		for (int colNum = 0; colNum < gso.boardWidth; colNum++){
+			if (gso.gameBoard[gso.boardHeight - 1][colNum] != 0) {
+				isGameOver = true;
+				outgoingMessages.push(GameOverPacket());
+				return true;
+			}
+		}
+		
 
+		//copy the contents of  junk row to top row
+		for (int colNum = 0; colNum < gso.boardWidth; colNum++){
+			gso.gameBoard[gso.boardHeight - 1][colNum] = gso.junkRows.at(gso.junkRows.size() - 1).at(colNum);
+		}
+
+		gso.junkRows.pop_back();
+
+
+		//apply gravity
+		ApplyGravity();
+	}
 
 
 	return true;
