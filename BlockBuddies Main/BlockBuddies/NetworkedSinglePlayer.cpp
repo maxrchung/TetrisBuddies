@@ -118,6 +118,11 @@ void NetworkedSinglePlayer::initGame()
 }
 void NetworkedSinglePlayer::update()
 {
+	//if song runs out play rando song
+	if (SoundManager::getInstance().music.getStatus() != SoundManager::getInstance().music.Playing)
+	{
+		SoundManager::getInstance().playMusicRandom();
+	}
 	//takes care of displaying the score.
 	std::string scoreString;
 	int Number = (int)gso.score;

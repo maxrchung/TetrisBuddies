@@ -129,6 +129,12 @@ void MultiplayerScreen::update()
 		reset = false;
 	}
 
+	//if song runs out play rando song
+	if (SoundManager::getInstance().music.getStatus() != SoundManager::getInstance().music.Playing)
+	{
+		SoundManager::getInstance().playMusicRandom();
+	}
+
 	if (!ClientManager::getInstance().gameOver)
 	{
 		//update the game if there is an update available

@@ -121,7 +121,7 @@ void HomeScreen::update()
     if (networkedSinglePlayer->isActivated ||
         (InputManager::getInstance()->enter && networkedSinglePlayer->isSelected))
     {
-        SoundManager::getInstance().playMusic("Sounds/Slamtris.ogg");
+        SoundManager::getInstance().playMusicRandom();
         ClientManager::getInstance().requestStartGame();
         ScreenManager::getInstance()->switchScreen(networkedSinglePlayer->toScreen);
     }
