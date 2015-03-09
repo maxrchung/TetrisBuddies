@@ -12,6 +12,7 @@ public:
 	void Right(sf::Keyboard::Key R);
 	void Up(sf::Keyboard::Key U);
 	void Down(sf::Keyboard::Key D);
+	void setCursorAt(int x, int y);
 	int getCursorX();
 	int getCursorY();
 	sf::RectangleShape getMainCursor();

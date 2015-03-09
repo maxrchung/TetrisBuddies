@@ -33,7 +33,7 @@ void MultiplayerScreen::initGame()
 	int offset = (winX % blockSize);
 
 	ch = new CursorHandler(gbWidth, gbHeight, winX, winY, p1OutlineX, p1OutlineY, blockSize, offset);
-
+	ch2 = new CursorHandler(gbWidth, gbHeight, winX, winY, p2OutlineX, p2OutlineY, blockSize, offset);
 	//draws a large rectangle around the game screen for p1
 	p1Outline.setSize(sf::Vector2f(gbWidth, gbHeight));
 	p1Outline.setFillColor(sf::Color::Transparent);
@@ -97,10 +97,12 @@ void MultiplayerScreen::update()
 			p2GSO = ClientManager::getInstance().secondGSO;
 			ClientManager::getInstance().isUpdated = false;
 
-			if (p1GSO.newRowActive){
+			if (p1GSO.newRowActive)
 				ch->Up(sf::Keyboard::Key::Up);
+			if (p2GSO.newRowActive)
+				ch2->Up(sf::Keyboard::Key::Up);
+			ch2->setCursorAt(p2GSO.cursorPos.first, p2GSO.cursorPos.second);
 
-			}
 			updateBlocks();
 
 			if (!p1GSO.clearingBlocks.empty())
@@ -240,8 +242,6 @@ void MultiplayerScreen::update()
 		}
 		else
 			ScreenManager::getInstance()->switchScreen(OFFLINERESULT);
-
-
 	}
 
     if (InputManager::getInstance()->escape)
@@ -505,6 +505,12 @@ void MultiplayerScreen::draw()
 	GraphicsManager::getInstance()->window.draw(ch->getRightCursor()); //draws right cursor
 	GraphicsManager::getInstance()->window.draw(ch->getTopCursor()); //draws top cursor
 	GraphicsManager::getInstance()->window.draw(ch->getBottomCursor()); //draws bottom cursor
+
+	GraphicsManager::getInstance()->window.draw(ch2->getMainCursor()); //draws p2 main cursor
+	GraphicsManager::getInstance()->window.draw(ch2->getLeftCursor()); //draws p2 left cursor
+	GraphicsManager::getInstance()->window.draw(ch2->getRightCursor()); //draws p2 right cursor
+	GraphicsManager::getInstance()->window.draw(ch2->getTopCursor()); //draws p2 top cursor
+	GraphicsManager::getInstance()->window.draw(ch2->getBottomCursor()); //draws p2 bottom cursor
 
     
 }

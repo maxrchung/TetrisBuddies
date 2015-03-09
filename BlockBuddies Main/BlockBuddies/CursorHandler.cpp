@@ -94,6 +94,17 @@ CursorHandler::CursorHandler(int sw, int sh, int ww, int wh, int xStart, int ySt
 
 }
 
+void CursorHandler::setCursorAt(int x, int y)
+{
+	if (mainSquare.getPosition().x > xBoundary)
+	{
+		mainSquare.setOrigin(x, y);
+		leftSquare.setPosition(mainSquare.getPosition().x - blockSize, mainSquare.getPosition().y);
+		rightSquare.setPosition(mainSquare.getPosition().x + blockSize, mainSquare.getPosition().y);
+		topSquare.setPosition(mainSquare.getPosition().x, mainSquare.getPosition().y - blockSize);
+		bottomSquare.setPosition(mainSquare.getPosition().x, mainSquare.getPosition().y + blockSize);
+	}
+}
 
 void CursorHandler::Left(sf::Keyboard::Key L)
 {

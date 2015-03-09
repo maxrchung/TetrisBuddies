@@ -26,6 +26,7 @@ private:
 	int winY;
 	int blockSize;
 	CursorHandler *ch;
+	CursorHandler *ch2;
 	sf::RectangleShape p1Blocks[GameStateObject::boardHeight][GameStateObject::boardWidth];
 	sf::RectangleShape p2Blocks[GameStateObject::boardHeight][GameStateObject::boardWidth];
 	sf::RectangleShape p1Outline, p2Outline;
