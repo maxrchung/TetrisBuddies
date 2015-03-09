@@ -259,7 +259,12 @@ void MatchMakingHandler::update()
 				sendResults(counter, 1);
 				queueToRemove(check->player1->myAddress, check->player2->myAddress, counter);
 			}
+			//Check to see if junk rows need to be sent over. 
+			if (check->playerOneGame.blocksToSend > 0)
+				check->playerTwoGame.CreateJunkBlocks(check->playerOneGame.blocksToSend);
 
+			if (check->playerTwoGame.blocksToSend > 0)
+				check->playerOneGame.CreateJunkBlocks(check->playerTwoGame.blocksToSend);
 		}
 		else
 		{
