@@ -22,14 +22,19 @@ public:
 	void reload();
 private:
 
-	int winX;
-	int winY;
+	unsigned int winX;
+	unsigned int winY;
+	int gameScreenHeight;
+	int gameScreenWidth;
 	int blockSize;
 	CursorHandler *ch;
 	CursorHandler *ch2;
 	sf::RectangleShape p1Blocks[GameStateObject::boardHeight][GameStateObject::boardWidth];
 	sf::RectangleShape p2Blocks[GameStateObject::boardHeight][GameStateObject::boardWidth];
+	sf::RectangleShape p1NextBlocks[GameStateObject::boardWidth];
+	sf::RectangleShape p2NextBlocks[GameStateObject::boardWidth];
 	sf::RectangleShape p1Outline, p2Outline;
+	sf::RectangleShape tempRowRec1, tempRowRec2;
 	sf::Sprite blockShape;
 	GameStateObject p1GSO;
 	GameStateObject p2GSO;

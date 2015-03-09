@@ -53,6 +53,7 @@ CursorHandler::CursorHandler(sf::Vector2f originPos, sf::Vector2f gameScreenPos,
 	xBoundary = gameScreenPos.x;
 	yBoundary = gameScreenPos.y - gameScreenHeight + blockS;
 
+	screenPos = gameScreenPos;
 	screenWidth = gameScreenWidth - blockSize;
 	screenHeight = gameScreenHeight - blockSize;
 
@@ -138,14 +139,14 @@ CursorHandler::CursorHandler(int sw, int sh, int ww, int wh, int xStart, int ySt
 
 void CursorHandler::setCursorAt(int x, int y)
 {
-	if (mainSquare.getPosition().x > xBoundary)
-	{
-		mainSquare.setOrigin(x, y);
+		originX = x;
+		originY = y;
+		mainSquare.setPosition(screenPos.x + ( x * blockSize), screenPos.y - ((y) * blockSize) - blockSize);
+
 		leftSquare.setPosition(mainSquare.getPosition().x - blockSize, mainSquare.getPosition().y);
 		rightSquare.setPosition(mainSquare.getPosition().x + blockSize, mainSquare.getPosition().y);
 		topSquare.setPosition(mainSquare.getPosition().x, mainSquare.getPosition().y - blockSize);
 		bottomSquare.setPosition(mainSquare.getPosition().x, mainSquare.getPosition().y + blockSize);
-	}
 }
 
 void CursorHandler::Left(sf::Keyboard::Key L)

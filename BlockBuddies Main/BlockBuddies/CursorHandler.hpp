@@ -14,6 +14,7 @@ public:
 	void Up(sf::Keyboard::Key U);
 	void Down(sf::Keyboard::Key D);
 	void setCursorAt(int x, int y);
+	void setCursorAt_v2(int x, int y);
 	int getCursorX();
 	int getCursorY();
 	sf::RectangleShape getMainCursor();
@@ -24,6 +25,7 @@ public:
 	int blockSize;
 private:
 	int xBoundary,yBoundary,screenWidth, screenHeight, originX, originY;
+	sf::Vector2f screenPos;
 	sf::RectangleShape mainSquare;
 	sf::RectangleShape leftSquare;
 	sf::RectangleShape rightSquare;

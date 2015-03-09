@@ -114,6 +114,7 @@ void NetworkedSinglePlayer::initGame()
 	std::cout << rec.getPosition().x << rec.getPosition().y;
 	std::cout << "first block pos" << blocks[9][4].getPosition().x << " " << blocks[9][4].getPosition().y << std::endl;
 	std::cout << "cursor pos " << ch->getMainCursor().getPosition().x << " " << ch->getMainCursor().getPosition().y << std::endl;
+	ch->setCursorAt(0, 0);
 }
 void NetworkedSinglePlayer::update()
 {
