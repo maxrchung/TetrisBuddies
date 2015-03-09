@@ -86,9 +86,9 @@ void ClientManager::update()
 				}
 				else
 				{
-					bool isPlayerTwo;
-					packet >> isPlayerTwo;
-					if (!isPlayerTwo)
+					bool PlayerTwo;
+					packet >> PlayerTwo;
+					if (!PlayerTwo && !isPlayerTwo)
 					{ 
 						std::cout << "I've got player one's GSO! \n";
 						packet >> currentGSO;
@@ -104,6 +104,11 @@ void ClientManager::update()
 						packetCount = 0;
 					}
 				}
+				break;
+			}
+			case PacketDecode::PACKET_PLAYERNUMBER:
+			{
+				packet >> isPlayerTwo;
 				break;
 			}
 

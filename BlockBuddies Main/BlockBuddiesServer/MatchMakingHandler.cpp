@@ -147,7 +147,14 @@ void MatchMakingHandler::makeGame(Player* p1, Player* p2)
 	multiPlayerGames.insert(std::pair<sf::IpAddress, Game*>(p2->myAddress, nGame));
     gameList.push_back(nGame);
     sf::Packet foundGame;
+	sf::Packet isPlayerTwo;
+	sf::Packet isNotPlayerTwo;
     foundGame << PacketDecode::PACKET_FOUNDGAME;
+	isPlayerTwo << PacketDecode::PACKET_PLAYERNUMBER << true;
+	isNotPlayerTwo << PacketDecode::PACKET_PLAYERNUMBER << false;
+
+	p1->playerSocket->send(isNotPlayerTwo);
+	p2->playerSocket->send(isPlayerTwo);
     p1->playerSocket->send(foundGame);
     p2->playerSocket->send(foundGame);
     std::cout << "Sent found game packet" << std::endl;

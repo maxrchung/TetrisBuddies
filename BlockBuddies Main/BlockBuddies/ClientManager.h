@@ -51,6 +51,7 @@ public:
 	int lastScore;
 	bool multiplayer;
 	bool isUpdated;
+	bool isPlayerTwo;
 	bool isOpponentUpdated;
 	bool infoUpdate;
 	void update();
