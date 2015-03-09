@@ -50,10 +50,11 @@ NetworkedSinglePlayer::NetworkedSinglePlayer()
 	miku.addAnim("idle", 0, 0, 20, 20, 10, true);
 	miku.setFrameSize(59, 64);
 	miku.playAnim("idle");
+	centerOrigin(miku);
 	std::function<void()> foo = [&](){ 	miku.setFrameSize(59, 64);
 	miku.playAnim("idle"); };
 	miku.addAnim("scream", 0, 235, 8, 8, 10, false,foo);
-	miku.setPosition(2 * blockSizeX, 4*blockSizeX);
+	miku.setPosition(4 * blockSizeX, 4*blockSizeX);
 	miku.setScale(3, 3);
 }
 
