@@ -13,14 +13,15 @@ GameLogic::GameLogic(){
 	gameHasStarted = false;
 
 
-	//I don't know what a good value for this is.  We can play with it and find out what works.  Also, it will have to decrease as the game goes on. Based on score, maybe? Or game time? Or level?
-	totalRowInsertionTime = sf::milliseconds(16000);
+	//Sets the initial row insertion time
+	totalRowInsertionTime = sf::milliseconds(12000);
 	gso.rowInsertionCountdown = totalRowInsertionTime.asMilliseconds();
 
 	blocksMarkedForDeletion.clear();
 	//messagesToDecode doesn't have a clear
 
 	blocksToSend = 0;
+	blocksFalling = false;
 	remainingRowInsertionTime = sf::Time::Zero;
 
 	totalTimeElapsedClock.restart();
@@ -63,7 +64,7 @@ void GameLogic::ResetGame()
 {
 	gso = GameStateObject();
 	GameLogic::InitialBoardPopulation();
-	totalRowInsertionTime = sf::milliseconds(16000);
+	totalRowInsertionTime = sf::milliseconds(12000);
 }
 
 bool GameLogic::ReceiveMessage(sf::Packet incomingMessage){
@@ -216,23 +217,25 @@ bool GameLogic::InsertBottomRow(){
 
 //ApplyGravity moves all blocks down until they rest on either another block or the bottom row, one block per tick
 
+//put in a boolean check for "piecesFalling"
+//it's true if a piece moved.  If nothing moved, it's false
+//which hopefully means you have one extra tick- the turn a piece lands on the bottom it will still be "true"
+//the turn after that will be false\
 
+//the point of having a piecesFalling is for the combo counter
+//on the turn with 2, its value that it sends to the client should be 2
+//on turn with 3, its value should be 3
 bool GameLogic::ApplyGravity(){
 
 
-	bool blockMoved = false;
+	blocksFalling = false;
 
 	//for every piece on the board, starting at row 1
 	for (int rowNum = 1; rowNum < gso.boardHeight; rowNum++){
 		for (int colNum = 0; colNum < gso.boardWidth; colNum++){
 
 
-
 			int currentBlockRow = rowNum;
-
-			//this is to check if a block moved on this row.
-			//if it did
-			bool currentRowMoved = false;
 
 
 			//if the current block exists and has nothing directly below it, and the row below it is in bounds (as in, not trying to insert into row -1)
@@ -241,8 +244,7 @@ bool GameLogic::ApplyGravity(){
 				&& (!DestroyedBlockContains(rowNum, colNum))
 				){
 
-				blockMoved = true;
-				currentRowMoved = true;
+				blocksFalling = true;
 
 				//the empty space below is set to the current block
 				gso.gameBoard[currentBlockRow - 1][colNum] = gso.gameBoard[currentBlockRow][colNum];
@@ -260,7 +262,7 @@ bool GameLogic::ApplyGravity(){
 		}
 	}
 
-	return blockMoved;
+	return blocksFalling;
 }
 
 
@@ -395,18 +397,57 @@ bool GameLogic::CheckBlockForMatches(int rowNum, int colNum){
 
 
 	//we want to encourage combos > 3, so we will change the scoring values
+	//should be: 3 blocks = 10 pts per block. Every extra = (10 pts per block) + numExtra * 10. 
+	//So the fourth block is worth 20 (10 pts + 10 * 1)
+	//fifth block is worth 30 (10 pts + 10* 2)
+	//sixth block is worth 40 (10 pts + 10 * 3)
+	//then take all that and multiply it by the chain value
 
 	if (clearedBlocks > 0){
-		//this isn't complete yet
+		//old score algorithm:
+		//int bonusBlocks = clearedBlocks - 3;
+		//int points = (clearedBlocks * 10) + (bonusBlocks * 10);
+		//gso.score += points;
+		//
+
+		//new score algorithm:
+		int points = clearedBlocks;
 		int bonusBlocks = clearedBlocks - 3;
-		int points = (clearedBlocks * 10) + (bonusBlocks * 10);
+		for (int i = 0; i < bonusBlocks; i++){points += (i * 10);}
+		//this shouldn't be here.
+		//if it's here, it updates every time there's a match of 3 or more (in a single direction)
+		gso.numChains++;
+		points = points * gso.numChains;
 		gso.score += points;
-		//gso.numClearedBlocks = clearedBlocks;
+
+
+
+
+
+
+
+
+
+
+		//if (blocksFalling){gso.numChains++;}
 
 	}
 
+
+
+	//note: in TA, a single 2x chain with 3 blocks each sends one whole row
+
 	//update blocksToSend here:
 	//right now it's just one block for every one over 3 you do
+
+	//(board is 8 wide)
+	//should be:
+	//4: one block
+	//5: 
+
+
+
+	//^ all that * numChains
 	if (clearedBlocks > 3){
 		blocksToSend = clearedBlocks - 3;
 	}
@@ -593,7 +634,6 @@ void GameLogic::GameTick(){
 	gso.clearingBlocks.clear();
 
 	gso.numClearedBlocks = 0;
-	gso.blockMultiplier = 0;
 
 	remainingRowInsertionTime = totalRowInsertionTime - newRowClock.getElapsedTime();
 
@@ -623,6 +663,7 @@ void GameLogic::GameTick(){
 	if (CheckClearingTimers()) { gameStateChanged = true; }
 
 	if (ApplyGravity()){gameStateChanged = true;}
+	if (!blocksFalling){ gso.numChains = 0; }
 
 	if ( swappingBlocks.empty() && destroyedBlocks.empty() && !newRowClock.isRunning() ){
 		//if (!newRowClock.isRunning()){std::cout << "Resuming row insertion counter" << std::endl;}
@@ -638,22 +679,19 @@ void GameLogic::GameTick(){
 	//swap pieces
 
 	CheckAllBlocksForMatches();
-	//gso.numClearedBlocks = blocksMarkedForDeletion.size();
-
-	//if (ClearInitialMatches()){ gameStateChanged = true; }
+	gso.numClearedBlocks = blocksMarkedForDeletion.size();
 	if (ClearMatches()){gameStateChanged = true;}
+	if (DropJunk()){ gameStateChanged = true; }
 
 
 	//if it's time to insert a new row:
 	//if the insert new row timer is 0;
-
-
 	if (newRowClock.getElapsedTime() > totalRowInsertionTime){
 
 		InsertBottomRow();
 
-		//reduces the total row insertion time by 5% whenever a new row is inserted
-		if (totalRowInsertionTime.asMilliseconds() > 1800){
+		//reduces the total row insertion time by 10% whenever a new row is inserted
+		if (totalRowInsertionTime.asMilliseconds() > 1500){
 			totalRowInsertionTime = totalRowInsertionTime * (float).9;
 		}
 
@@ -693,7 +731,7 @@ void GameLogic::GameTick(){
 		//p << gso;
 		//outgoingMessages.push(p);
 
-		//gso.PrintToFile();
+		gso.PrintToFile();
 		//int junk;
 		//p >> junk;
 		//p >> newGSO;
@@ -861,7 +899,7 @@ bool GameLogic::CreateJunkBlocks(int numBlocks){
 				}
 
 				if (lastRowIsEmpty){ gso.junkRows.pop_back(); }
-
+				junkTimer.restart();
 						return true;
 					}
 				}
@@ -871,6 +909,23 @@ bool GameLogic::CreateJunkBlocks(int numBlocks){
 			return false;
 }
 
+
+bool GameLogic::DropJunk(){
+	//if junk is empty, return false
+	if (gso.junkRows.empty()){ return false; }
+
+	//if timer hasn't expired, return false
+	if (junkTimer.getElapsedTime() < junkDropTime){ return false; }
+
+	//for each row in junkBlocks:
+		//if there's something in the top row, game over
+		//copy the contents of front junk row to top row
+		//apply gravity
+
+
+
+	return true;
+}
 
 bool GameLogic::AllMatch(int a, int b, int c){
 

@@ -99,7 +99,8 @@ private:
 	std::vector<TimedPiece> swappingBlocks;
 	std::vector<TimedPiece> destroyedBlocks;
 
-
+	//this is used to keep track of when to increast the number of chains: (in ClearBlocks? Wherever they get points?) if it's true, numChains++.  If it's false, = 0.
+	bool blocksFalling;
 
 	//the number of colors that will be used in the game.
 	//TA values: easy = 4, normal/hard = 5, multiplayer = 6 (gray blocks that make garbage)
@@ -136,6 +137,12 @@ private:
 
 	//checks the whole board for any pieces that need to be moved down
 	bool ApplyGravity();
+
+	//if the junk timer is expired, drop the junk. Clears junkRows.  Can also cause a game over.
+	bool DropJunk();
+	sf::Clock junkTimer;
+	sf::Time junkDropTime = sf::milliseconds(1500);
+
 
 	//takes a block's row and column, and adds blocks that will be cleared to blocksMarkedForDeletion
 	bool CheckBlockForMatches(int rowNum, int colNum);
