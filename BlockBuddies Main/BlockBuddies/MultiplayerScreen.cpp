@@ -225,7 +225,7 @@ void MultiplayerScreen::update()
 	}
 	else
 	{
-		SoundManager::getInstance().playMusic("Sounds/Slamstorm.ogg");
+		SoundManager::getInstance().playMusic("Sounds/Slamstorm.ogg", false);
 		reset = true;
 		if (ClientManager::getInstance().isConnected)
 		{

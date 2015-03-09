@@ -24,17 +24,19 @@ public:
 	void stopMusic();
 	void setMusicVolume(float);
 	void setMusicLoop(bool);
+	sf::Music music;
 private:
 	SoundManager() {
 		//load initial sounds
 		loadSound("scream", "Sounds/WilhelmScream.wav");
 		loadSound("repressed", "Sounds/repressed.wav");
 		loadSound("heya", "Sounds/SSBB_Link_Smash_Down.wav");
+		loadSound("blast", "Sounds/blast.wav");
 	}                                  // Private constructor
 	~SoundManager();
 	SoundManager(const SoundManager&);                 // Prevent copy-construction
 	SoundManager& operator=(const SoundManager&);
 	//map of sounds
 	std::map < std::string, sf::SoundBuffer* > soundMap;
-	sf::Music music;
+	//sf::Music music;
 };

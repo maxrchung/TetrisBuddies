@@ -28,7 +28,7 @@ GameStateObject::GameStateObject(){
 	junkRows.clear();
 	newRowActive = false;
 	rowInsertionPaused = false;
-	blockMultiplier = 0;
+	numChains = 0;
 	numClearedBlocks = 0;
 }
 
@@ -64,7 +64,7 @@ void GameStateObject::Print(){
 	std::cout << "Frame Number: " << frameNum << std::endl;
 	std::cout << "Timestamp: " << timestamp << std::endl;
 	std::cout << "Number of cleared blocks: " << numClearedBlocks << std::endl;
-	std::cout << "Block Multiplier value: " << blockMultiplier << std::endl;
+	std::cout << "Number of chains: " << numChains << std::endl;
 	std::cout << "Row Insertion Timer paused? " << rowInsertionPaused << std::endl;
 	std::cout << "Row Insertion In: " << rowInsertionCountdown << "ms" << std::endl;
 	std::cout << "New row active? " << newRowActive << std::endl;
@@ -109,12 +109,12 @@ void GameStateObject::PrintToFile(){
 	debugFile << "Frame Number: " << frameNum << std::endl;
 	debugFile << "Timestamp: " << timestamp << std::endl;
 	debugFile << "Number of cleared blocks: " << numClearedBlocks << std::endl;
-	debugFile << "Block Multiplier value: " << blockMultiplier << std::endl; 
+	debugFile << "Number of chains: " << numChains << std::endl;
 	debugFile << "Row Insertion Timer paused? " << rowInsertionPaused << std::endl;
 	debugFile << "Row Insertion In: " << rowInsertionCountdown << "ms" << std::endl;
 	debugFile << "New row active? " << newRowActive << std::endl;
 
-	debugFile << "Temp :| ";
+	debugFile << "Temp  :| ";
 	for (int colNum = 0; colNum < boardWidth; colNum++){
 		debugFile << tempRow[colNum] << " ";
 	}
@@ -122,8 +122,6 @@ void GameStateObject::PrintToFile(){
 
 	//output rows, top to bottom
 	for (int rowNum = boardHeight - 1; rowNum > -1; rowNum--){
-		debugFile << std::endl;
-		debugFile << "Row " << rowNum << ":| ";
 
 		debugFile << "Row ";
 		if (rowNum < 10){ debugFile << "0"; }
@@ -136,7 +134,7 @@ void GameStateObject::PrintToFile(){
 			else{ debugFile << gameBoard[rowNum][colNum] << " "; }
 			
 		}
-		debugFile << "|";
+		debugFile << "|" << std::endl;
 	}
 	debugFile << std::endl;
 
@@ -186,7 +184,7 @@ int, int = cursor row, cursor col
 sf::Uint32 frame number
 sf::Uint32 timestamp;
 int numClearedBlocks
-int blockMultiplier
+int numChains
 bool row insertion paused
 int row insertion countdown
 bool new row active
@@ -220,7 +218,7 @@ GameStateObject& GameStateObject::operator=(GameStateObject& rhs)
 	frameNum = rhs.frameNum;
 	timestamp = rhs.timestamp;
 	numClearedBlocks = rhs.numClearedBlocks;
-	blockMultiplier = rhs.blockMultiplier;
+	numChains = rhs.numChains;
 	rowInsertionPaused = rhs.rowInsertionPaused;
 	rowInsertionCountdown = rhs.rowInsertionCountdown;
 	newRowActive = rhs.newRowActive;
@@ -264,8 +262,8 @@ sf::Packet& operator <<(sf::Packet& packet, const GameStateObject& gso)
 	//int numclearedBlocks
 	packet << gso.numClearedBlocks;
 
-	//int blockMultiplier
-	packet << gso.blockMultiplier;
+	//int numChains
+	packet << gso.numChains;
 
 	//bool row insertion paused
 	packet << gso.rowInsertionPaused;
@@ -352,8 +350,8 @@ sf::Packet& operator >>(sf::Packet& packet, GameStateObject& gso)
 	//int numclearedBlocks
 	packet >> gso.numClearedBlocks;
 
-	//int blockMultiplier
-	packet >> gso.blockMultiplier;
+	//int numChains
+	packet >> gso.numChains;
 
 	//bool row insertion paused
 	packet >> gso.rowInsertionPaused;

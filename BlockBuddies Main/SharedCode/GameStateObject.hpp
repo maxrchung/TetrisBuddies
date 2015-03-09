@@ -67,7 +67,7 @@ public:
 	bool rowInsertionPaused;
 
 	//block multiplier
-	int blockMultiplier;
+	int numChains;
 	//cleared blocks
 	int numClearedBlocks;
 
