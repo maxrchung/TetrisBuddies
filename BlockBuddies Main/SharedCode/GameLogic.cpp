@@ -411,7 +411,7 @@ bool GameLogic::CheckBlockForMatches(int rowNum, int colNum){
 		//
 
 		//new score algorithm:
-		int points = clearedBlocks;
+		int points = clearedBlocks * 10;
 		int bonusBlocks = clearedBlocks - 3;
 		for (int i = 0; i < bonusBlocks; i++){points += (i * 10);}
 		//this shouldn't be here.
