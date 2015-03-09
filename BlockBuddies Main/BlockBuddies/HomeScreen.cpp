@@ -80,6 +80,32 @@ HomeScreen::HomeScreen()
     UIElements.push_back(instruction);
     UIElements.push_back(logout);
 
+    textWrapped.insert(std::pair<UIElement*, TextBox>(NULL, *welcome));
+
+    welcome->message.setString("Play a singleplayer game. Stats will be saved to the profile page.");
+    welcome->textWrap();
+    textWrapped.insert(std::pair<UIElement*, TextBox>(networkedSinglePlayer, *welcome));
+
+    welcome->message.setString("Join the multiplayer queue and look for an available game.");
+    welcome->textWrap();
+    textWrapped.insert(std::pair<UIElement*, TextBox>(multiplayer, *welcome));
+
+    welcome->message.setString("View account stats tracked from singleplayer and multiplayer.");
+    welcome->textWrap();
+    textWrapped.insert(std::pair<UIElement*, TextBox>(profile, *welcome));
+
+    welcome->message.setString("New to the game? Learn how to play.");
+    welcome->textWrap();
+    textWrapped.insert(std::pair<UIElement*, TextBox>(instruction, *welcome));
+
+    welcome->message.setString("Logout of this account and return back to the main menu.");
+    welcome->textWrap();
+    textWrapped.insert(std::pair<UIElement*, TextBox>(logout, *welcome));
+
+    welcome->message.setString("Quit the game.");
+    welcome->textWrap();
+    textWrapped.insert(std::pair<UIElement*, TextBox>(close, *welcome));
+
     selectables = { networkedSinglePlayer,
                     multiplayer,
                     profile,
@@ -124,25 +150,25 @@ void HomeScreen::update()
                                               sf::Mouse::getPosition(GraphicsManager::getInstance()->window).y);
 
     if(networkedSinglePlayer->boundingRect.getGlobalBounds().contains(mousePosition))
-        welcome->message.setString("Play a singleplayer game. Stats will be saved to the profile page.");
+        *welcome = textWrapped.at(networkedSinglePlayer);
 
     else if (multiplayer->boundingRect.getGlobalBounds().contains(mousePosition))
-        welcome->message.setString("Join the multiplayer queue and look for an available game.");
+        *welcome = textWrapped.at(multiplayer);
 
     else if (profile->boundingRect.getGlobalBounds().contains(mousePosition))
-        welcome->message.setString("View account stats tracked from singleplayer and multiplayer.");
+        *welcome = textWrapped.at(profile);
 
     else if (instruction->boundingRect.getGlobalBounds().contains(mousePosition))
-        welcome->message.setString("New to the game? Learn how to play.");
+        *welcome = textWrapped.at(instruction);
 
     else if (logout->boundingRect.getGlobalBounds().contains(mousePosition))
-        welcome->message.setString("Logout of this account and return back to the main menu.");
-    else if(close->boundingRect.getGlobalBounds().contains(mousePosition))
-        welcome->message.setString("Quit the game.");
-    else
-        welcome->message.setString("The game is now connected with the server. Access the multiplayer features from this menu.");
+        *welcome = textWrapped.at(logout);
 
-    welcome->textWrap();
+    else if(close->boundingRect.getGlobalBounds().contains(mousePosition))
+        *welcome = textWrapped.at(close);
+
+    else
+        *welcome = textWrapped.at(NULL);
 
     if(InputManager::getInstance()->escape)
     {

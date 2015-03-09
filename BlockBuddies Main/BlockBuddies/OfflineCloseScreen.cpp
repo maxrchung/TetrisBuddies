@@ -71,6 +71,21 @@ OfflineCloseScreen::OfflineCloseScreen()
     selectables = { login,
                     exit,
                     cancel };
+
+    textWrapped.insert(std::pair<UIElement*, TextBox>(NULL, *status));
+        
+    status->message.setString("Login to the game.");
+    status->textWrap();
+    textWrapped.insert(std::pair<UIElement*, TextBox>(login, *status));
+
+    status->message.setString("Exit the game and closes the program.");
+    status->textWrap();
+    textWrapped.insert(std::pair<UIElement*, TextBox>(exit, *status));
+
+    status->message.setString("Leave the quit screen.");
+    status->textWrap();
+    textWrapped.insert(std::pair<UIElement*, TextBox>(cancel, *status));
+
 }
 
 void OfflineCloseScreen::update()
@@ -106,17 +121,16 @@ void OfflineCloseScreen::update()
                                               sf::Mouse::getPosition(GraphicsManager::getInstance()->window).y);
 
     if(login->boundingRect.getGlobalBounds().contains(mousePosition))
-        status->message.setString("Login to the game.");
+        *status = textWrapped.at(login);
 
     else if (exit->boundingRect.getGlobalBounds().contains(mousePosition))
-        status->message.setString("Exit the game and close the program.");
+        *status = textWrapped.at(exit);
 
     else if (cancel->boundingRect.getGlobalBounds().contains(mousePosition))
-        status->message.setString("Leave the quit screen.");
-    else
-        status->message.setString("Are you sure you want to quit the game?");
+        *status = textWrapped.at(cancel);
 
-    status->textWrap();
+    else
+        *status = textWrapped.at(NULL);
 
     if(InputManager::getInstance()->escape)
     {

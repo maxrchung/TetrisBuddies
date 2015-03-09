@@ -70,9 +70,24 @@ ResultScreen::ResultScreen()
     UIElements.push_back(game);
     UIElements.push_back(home);
 	scoreString = "5000";
+
     selectables = { game,
                     home };
 	updated = false;
+
+    textWrapped.insert(std::pair<UIElement*, TextBox>(NULL, *status));
+
+    status->message.setString("Play another singleplayer game.");
+    status->textWrap();
+    textWrapped.insert(std::pair<UIElement*, TextBox>(game, *status));
+
+    status->message.setString("Return to the home screen.");
+    status->textWrap();
+    textWrapped.insert(std::pair<UIElement*, TextBox>(home, *status));
+
+    status->message.setString("Quit the game.");
+    status->textWrap();
+    textWrapped.insert(std::pair<UIElement*, TextBox>(close, *status));
 }
 
 void ResultScreen::update()
@@ -102,21 +117,21 @@ void ResultScreen::update()
                                               sf::Mouse::getPosition(GraphicsManager::getInstance()->window).y);
 
     if (home->boundingRect.getGlobalBounds().contains(mousePosition))
-        status->message.setString("Return to the home screen.");
-    else if(game->boundingRect.getGlobalBounds().contains(mousePosition))
-        status->message.setString("Play another singleplayer game.");
-    else if(close->boundingRect.getGlobalBounds().contains(mousePosition))
-        status->message.setString("Quit the game.");
-    else
-        status->message.setString("Game over! Play another singleplayer game?");
+        *status = textWrapped.at(home);
 
-    status->textWrap();
+    else if(game->boundingRect.getGlobalBounds().contains(mousePosition))
+        *status = textWrapped.at(game);
+
+    else if(close->boundingRect.getGlobalBounds().contains(mousePosition))
+        *status = textWrapped.at(close);
+
+    else
+        *status = textWrapped.at(NULL);
 
     if(InputManager::getInstance()->escape)
     {
         ScreenManager::getInstance()->addScreen(close->toScreen);
     }
-	
 }
 
 void ResultScreen::draw()

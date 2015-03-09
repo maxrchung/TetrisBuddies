@@ -11,7 +11,9 @@ int main()
 	while (Game::getInstance()->isRunning)
 		// Lets Game handle everything
         if(frameLimiter.getElapsedTime().asMilliseconds() > 16)
+        {
             Game::getInstance()->run();
+        }
 
 	return 0;
 }

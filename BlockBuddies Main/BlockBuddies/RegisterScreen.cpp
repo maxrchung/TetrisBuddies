@@ -109,6 +109,32 @@ RegisterScreen::RegisterScreen()
                     password2,
                     home,
                     login };
+
+    textWrapped.insert(std::pair<UIElement*, TextBox>(NULL, *status));
+        
+    status->message.setString("Enter a username with 5 characters or more.");
+    status->textWrap();
+    textWrapped.insert(std::pair<UIElement*, TextBox>(username, *status));
+
+    status->message.setString("Enter a password with 5 characters or more.");
+    status->textWrap();
+    textWrapped.insert(std::pair<UIElement*, TextBox>(password, *status));
+
+    status->message.setString("Enter password a second time that matches the above password.");
+    status->textWrap();
+    textWrapped.insert(std::pair<UIElement*, TextBox>(password2, *status));
+
+    status->message.setString("Register a new account with the above credentials.");
+    status->textWrap();
+    textWrapped.insert(std::pair<UIElement*, TextBox>(home, *status));
+
+    status->message.setString("Return to the login menu.");
+    status->textWrap();
+    textWrapped.insert(std::pair<UIElement*, TextBox>(login, *status));
+
+    status->message.setString("Quit the game.");
+    status->textWrap();
+    textWrapped.insert(std::pair<UIElement*, TextBox>(close, *status));
 }
 
 void RegisterScreen::update()
@@ -181,19 +207,25 @@ void RegisterScreen::update()
                                               sf::Mouse::getPosition(GraphicsManager::getInstance()->window).y);
 
     if(username->boundingRect.getGlobalBounds().contains(mousePosition))
-        status->message.setString("Enter a username with 5 characters or more.");
+        *status = textWrapped.at(username);
 
     else if (password->boundingRect.getGlobalBounds().contains(mousePosition))
-        status->message.setString("Enter a password with 5 characters or more.");
+        *status = textWrapped.at(password);
 
     else if (password2->boundingRect.getGlobalBounds().contains(mousePosition))
-        status->message.setString("Enter password a second time that matches the above password.");
-    else if(close->boundingRect.getGlobalBounds().contains(mousePosition))
-        status->message.setString("Quit the game.");
-    else
-        status->message.setString("Enter username once and password twice to register an account. Enter a minimum of 5 characters.");
+        *status = textWrapped.at(password2);
 
-    status->textWrap();
+    else if(home->boundingRect.getGlobalBounds().contains(mousePosition))
+        *status = textWrapped.at(home);
+
+    else if(login->boundingRect.getGlobalBounds().contains(mousePosition))
+        *status = textWrapped.at(login);
+
+    else if(close->boundingRect.getGlobalBounds().contains(mousePosition))
+        *status = textWrapped.at(close);
+
+    else
+        *status = textWrapped.at(NULL);
 
     if(InputManager::getInstance()->escape)
     {

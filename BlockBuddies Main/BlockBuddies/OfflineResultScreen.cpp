@@ -69,6 +69,21 @@ OfflineResultScreen::OfflineResultScreen()
 
     selectables = { login,
                     offlineGame };
+
+    textWrapped.insert(std::pair<UIElement*, TextBox>(NULL, *status));
+
+    status->message.setString("Return to the login screen. Results are not saved unless logged into an account.");
+    status->textWrap();
+    textWrapped.insert(std::pair<UIElement*, TextBox>(login, *status));
+
+    status->message.setString("Play another offline game.");
+    status->textWrap();
+    textWrapped.insert(std::pair<UIElement*, TextBox>(offlineGame, *status));
+
+    status->message.setString("Quit the game.");
+    status->textWrap();
+    textWrapped.insert(std::pair<UIElement*, TextBox>(close, *status));
+
 }
 
 void OfflineResultScreen::reload()
@@ -99,15 +114,16 @@ void OfflineResultScreen::update()
                                               sf::Mouse::getPosition(GraphicsManager::getInstance()->window).y);
 
     if(login->boundingRect.getGlobalBounds().contains(mousePosition))
-        status->message.setString("Return to the login screen. Results are not saved unless logged into an account.");
-    else if(offlineGame->boundingRect.getGlobalBounds().contains(mousePosition))
-        status->message.setString("Play another offline game.");
-    else if(close->boundingRect.getGlobalBounds().contains(mousePosition))
-        status->message.setString("Quit the game.");
-    else
-        status->message.setString("Game over! Play another offline game?");
+        *status = textWrapped.at(login);
 
-    status->textWrap();
+    else if(offlineGame->boundingRect.getGlobalBounds().contains(mousePosition))
+        *status = textWrapped.at(offlineGame);
+
+    else if(close->boundingRect.getGlobalBounds().contains(mousePosition))
+        *status = textWrapped.at(close);
+
+    else
+        *status = textWrapped.at(NULL);
 
     if(InputManager::getInstance()->escape)
     {

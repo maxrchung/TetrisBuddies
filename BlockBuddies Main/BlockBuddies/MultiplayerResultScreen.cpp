@@ -66,6 +66,20 @@ MultiplayerResultScreen::MultiplayerResultScreen()
 
     selectables = { game,
                     home };
+
+    textWrapped.insert(std::pair<UIElement*, TextBox>(NULL, *status));
+
+    status->message.setString("Join the queue for a multiplayer game.");
+    status->textWrap();
+    textWrapped.insert(std::pair<UIElement*, TextBox>(game, *status));
+
+    status->message.setString("Return to the home screen.");
+    status->textWrap();
+    textWrapped.insert(std::pair<UIElement*, TextBox>(home, *status));
+
+    status->message.setString("Quit the game.");
+    status->textWrap();
+    textWrapped.insert(std::pair<UIElement*, TextBox>(close, *status));
 }
 
 void MultiplayerResultScreen::update()
@@ -93,15 +107,13 @@ void MultiplayerResultScreen::draw()
                                               sf::Mouse::getPosition(GraphicsManager::getInstance()->window).y);
 
     if (home->boundingRect.getGlobalBounds().contains(mousePosition))
-        status->message.setString("Return to the home screen.");
+        *status = textWrapped.at(home);
     else if(game->boundingRect.getGlobalBounds().contains(mousePosition))
-        status->message.setString("Join the queue for a multiplayer game.");
+        *status = textWrapped.at(game);
     else if(close->boundingRect.getGlobalBounds().contains(mousePosition))
-        status->message.setString("Quit the game.");
+        *status = textWrapped.at(close);
     else
-        status->message.setString("Game over! Play another multiplayer game?");
-
-    status->textWrap();
+        *status = textWrapped.at(NULL);
 }
 
 void MultiplayerResultScreen::reload()

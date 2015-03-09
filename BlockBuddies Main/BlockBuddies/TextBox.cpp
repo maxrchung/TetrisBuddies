@@ -45,8 +45,6 @@ TextBox::TextBox(std::string message,
 
 	textWrap();
 
-	prevMessage = this->message;
-
     if(borderOutline)
     {
         sf::FloatRect messageRect = this->message.getGlobalBounds();
@@ -67,7 +65,7 @@ void TextBox::textWrap()
 	if (message.getString() != prevMessage.getString())
 	{
 		// If the text is greater than the given boundingWidth
-		if (this->message.getLocalBounds().width > boundingWidth)
+		if (message.getLocalBounds().width > boundingWidth)
 		{
 			// We make a variable that will check from the first letter of message
 			// until a letter that goes over the boundingWidth
@@ -75,10 +73,13 @@ void TextBox::textWrap()
 				                GraphicsManager::getInstance()->messageFont,
 								GraphicsManager::getInstance()->messageSize));
 
-			for (int i = 0; i < this->message.getString().getSize(); i++)
+            sf::String checkReturn = sf::String("");
+            sf::String space = sf::String(" ");
+
+			for (int i = 0; i < message.getString().getSize(); i++)
 			{
 				// Add in each letter of the message
-				checkBound.setString(checkBound.getString() + this->message.getString()[i]);
+				checkBound.setString(checkBound.getString() + message.getString()[i]);
 				
 				// If the check goes over the width
 				if (checkBound.getLocalBounds().width > boundingWidth)
@@ -88,14 +89,14 @@ void TextBox::textWrap()
 					for (int j = i - 1; j >= 0; j--)
 					{
 						// Until you find a space
-						if (this->message.getString()[j] == sf::String(" "))
+						if (message.getString()[j] == space)
 						{
 							// Then reset the normal message with a return character at that point
-							sf::String checkReturn(this->message.getString());
+							checkReturn = message.getString();
 							checkReturn.insert(j + 1, "\n"); // +1 to go after the designated point
-							this->message.setString(checkReturn);
+							message.setString(checkReturn);
 							checkBound.setString("");
-							i = j+1;
+							i = j + 1;
 							break;
 						}
 					}
@@ -106,20 +107,20 @@ void TextBox::textWrap()
 		// Because this check indicates that the TextBox has been altered,
 		// we also reset its position accordingly
 		if (textAlignment == Alignments::LEFT)
-			this->message.setOrigin(GraphicsManager::getInstance()->getLeftCenter(this->message));
+			message.setOrigin(GraphicsManager::getInstance()->getLeftCenter(message));
 		else if (textAlignment == Alignments::CENTER)
-			this->message.setOrigin(GraphicsManager::getInstance()->getCenter(this->message));
+			message.setOrigin(GraphicsManager::getInstance()->getCenter(message));
 		message.setPosition(sf::Vector2f(GraphicsManager::getInstance()->window.getSize()) / 2.0f);
 		message.move(targetPosition.x * GraphicsManager::getInstance()->scale, 
 			         targetPosition.y * GraphicsManager::getInstance()->scale);
 
         if (borderOutline)
         {
-            sf::FloatRect messageRect = this->message.getGlobalBounds();
+            sf::FloatRect messageRect = message.getGlobalBounds();
             border = sf::RectangleShape(sf::Vector2f(boundingWidth + 20 * GraphicsManager::getInstance()->scale,
                                         messageRect.height + 20 * GraphicsManager::getInstance()->scale));
             border.setOrigin(GraphicsManager::getInstance()->getCenter(border));
-            border.setPosition(this->message.getPosition());
+            border.setPosition(message.getPosition());
             border.setOutlineColor(GraphicsManager::getInstance()->buttonColor);
             border.setOutlineThickness(2);
             border.setFillColor(sf::Color::Transparent);
@@ -135,8 +136,6 @@ void TextBox::update()
 	// This is needed in cases where, for example, the status is updated
 	// and needs to be rewrapped again
 	textWrap();
-
-	prevMessage = message;
 }
 
 void TextBox::draw()
@@ -178,7 +177,6 @@ void TextBox::draw()
 	GraphicsManager::getInstance()->window.draw(message);
 
     message.setPosition(prevPosition);
-
 }
 
 void TextBox::reload()

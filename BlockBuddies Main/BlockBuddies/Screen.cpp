@@ -15,7 +15,8 @@ Screen::Screen()
                       (GraphicsManager::getInstance()->window.getSize().x / 2.0f) / GraphicsManager::getInstance()->scale - 25.0f,
                       -(GraphicsManager::getInstance()->window.getSize().y / 2.0f) / GraphicsManager::getInstance()->scale + 25.0f,
                       30.0f,
-                      30.0f))
+                      30.0f)),
+     cursorArea(0.0f, 0.0f, 0.0f, 0.0f)
 {
     fade = Fade();
     colorFade = Fade((int)(255 * 0.64f));

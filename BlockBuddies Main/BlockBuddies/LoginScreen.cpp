@@ -126,6 +126,40 @@ LoginScreen::LoginScreen()
 	//set the sound with a soundbuffer from the soundmanager
 	sound.setBuffer(*SoundManager::getInstance().getSound("scream"));
 	SoundManager::getInstance().playMusic("Sounds/Slamstorm.ogg");
+
+    textWrapped.insert(std::pair<UIElement*, TextBox>(NULL, *status));
+
+    status->message.setString("Enter account username.");
+    status->textWrap();
+    textWrapped.insert(std::pair<UIElement*, TextBox>(username, *status));
+
+    status->message.setString("Enter account password.");
+    status->textWrap();
+    textWrapped.insert(std::pair<UIElement*, TextBox>(password, *status));
+
+    status->message.setString("Login with the given username and password.");
+    status->textWrap();
+    textWrapped.insert(std::pair<UIElement*, TextBox>(home, *status));
+
+    status->message.setString("Register a new account.");
+    status->textWrap();
+    textWrapped.insert(std::pair<UIElement*, TextBox>(signup, *status));
+
+    status->message.setString("New to the game? Learn how to play.");
+    status->textWrap();
+    textWrapped.insert(std::pair<UIElement*, TextBox>(instruction, *status));
+
+    status->message.setString("Play a singleplayer offline game. Stats are not saved in this mode.");
+    status->textWrap();
+    textWrapped.insert(std::pair<UIElement*, TextBox>(offlineHome, *status));
+
+    status->message.setString("Exit the program. See you next time!");
+    status->textWrap();
+    textWrapped.insert(std::pair<UIElement*, TextBox>(exit, *status));
+
+    status->message.setString("Quit the game.");
+    status->textWrap();
+    textWrapped.insert(std::pair<UIElement*, TextBox>(close, *status));
 }
 
 void LoginScreen::update()
@@ -224,31 +258,31 @@ void LoginScreen::update()
                                               sf::Mouse::getPosition(GraphicsManager::getInstance()->window).y);
 
     if(home->boundingRect.getGlobalBounds().contains(mousePosition))
-        status->message.setString("Login with the given username and password.");
+        *status = textWrapped.at(home);
 
     else if(signup->boundingRect.getGlobalBounds().contains(mousePosition))
-        status->message.setString("Register a new account.");
+        *status = textWrapped.at(signup);
 
     else if(instruction->boundingRect.getGlobalBounds().contains(mousePosition))
-        status->message.setString("New to the game? Learn how to play.");
+        *status = textWrapped.at(instruction);
 
     else if(offlineHome->boundingRect.getGlobalBounds().contains(mousePosition))
-        status->message.setString("Play a singleplayer offline game. Stats are not saved in this mode.");
+        *status = textWrapped.at(offlineHome);
 
     else if(exit->boundingRect.getGlobalBounds().contains(mousePosition))
-        status->message.setString("Exit the program. See you next time!");
+        *status = textWrapped.at(exit);
 
     else if(username->boundingRect.getGlobalBounds().contains(mousePosition))
-        status->message.setString("Enter account username.");
+        *status = textWrapped.at(username);
 
     else if(password->boundingRect.getGlobalBounds().contains(mousePosition))
-        status->message.setString("Enter account password.");
-    else if(close->boundingRect.getGlobalBounds().contains(mousePosition))
-        status->message.setString("Quit the game.");
-    else
-        status->message.setString("Welcome to the game! Login to access multiplayer.");
+        *status = textWrapped.at(password);
 
-    status->textWrap();
+    else if(close->boundingRect.getGlobalBounds().contains(mousePosition))
+        *status = textWrapped.at(close);
+
+    else
+        *status = textWrapped.at(NULL);
 
     if(InputManager::getInstance()->escape)
     {

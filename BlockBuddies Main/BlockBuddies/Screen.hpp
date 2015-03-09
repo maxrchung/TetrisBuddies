@@ -7,6 +7,9 @@
 #include "UIElement.hpp"
 #include <SFML\Audio.hpp>
 #include "Fade.hpp"
+#include <SFML\Graphics.hpp>
+#include "TextBox.hpp"
+#include <map>
 
 class Button;
 
@@ -54,10 +57,12 @@ public:
     // we want the opacity to be slightly lowered without affecting
     // the scaling or positioning
     Fade colorFade;
+    std::map <UIElement*, TextBox> textWrapped;
 
 protected:
 	std::vector <UIElement*> UIElements;
     std::vector <Selectable*> selectables;
+    sf::FloatRect cursorArea;
 };
 
 #endif//SCREEN_HPP

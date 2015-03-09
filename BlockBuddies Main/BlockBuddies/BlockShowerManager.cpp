@@ -52,8 +52,11 @@ void BlockShowerManager::update()
 
 void BlockShowerManager::draw()
 {
-    for(auto meteor : meteors)
-        meteor.draw();
+    if(fade.state != FadeStates::FADED_OUT)
+    {
+        for (auto meteor : meteors)
+            meteor.draw();
+    }
 }
 
 // When a block goes past the bottom
