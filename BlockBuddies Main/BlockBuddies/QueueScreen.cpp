@@ -5,7 +5,7 @@
 #include "ClientManager.h"
 #include "LoginScreen.hpp"
 #include "BlockShowerManager.hpp"
-
+#include "SoundManager.h"
 QueueScreen::QueueScreen()
 	:backSection(new Section(0.0f,
                              0.0f,
@@ -66,6 +66,7 @@ void QueueScreen::update()
         {
             fade.state = FadeStates::FADING_OUT;
             ScreenManager::getInstance()->switchScreen(Screens::MULTIPLAYER);
+			SoundManager::getInstance().playMusicRandom();
             BlockShowerManager::getInstance()->fade.state = FadeStates::FADING_OUT;
         }
     }

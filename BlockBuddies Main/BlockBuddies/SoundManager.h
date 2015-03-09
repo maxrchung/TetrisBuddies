@@ -5,6 +5,7 @@
 #include <vector>
 #include <map>
 #include <SFML/Audio.hpp>
+#include <random>
 class SoundManager
 {
 
@@ -21,9 +22,11 @@ public:
 	sf::SoundBuffer* getSound(std::string);
 	// play music set to loop by default
 	void playMusic(std::string, bool = true);
+	void playMusicRandom();
 	void stopMusic();
 	void setMusicVolume(float);
 	void setMusicLoop(bool);
+	void addToSongList(std::string songPath);
 	sf::Music music;
 private:
 	SoundManager() {
@@ -39,5 +42,6 @@ private:
 	SoundManager& operator=(const SoundManager&);
 	//map of sounds
 	std::map < std::string, sf::SoundBuffer* > soundMap;
-	//sf::Music music;
+	std::vector<std::string> songList;
+	bool rStarted;
 };
