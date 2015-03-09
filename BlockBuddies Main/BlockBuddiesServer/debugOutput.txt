@@ -1,0 +1,6273 @@
+********************START OF NEW STATE*************************************
+Player score: 0
+Cursor position (row, col): 10,4
+Frame Number: 0
+Timestamp: 3435973836
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 0ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:| 3 1 3 3 1 2 5 4 |
+Row 13:| 4 3 5 5 3 4 1 2 |
+Row 12:| 5 2 3 4 5 3 1 5 |
+Row 11:| 5 3 2 4 2 1 4 5 |
+Row 10:| 3 1 5 5 3 4 2 4 |
+Row 09:| 4 1 1 3 1 1 4 4 |
+Row 08:| 1 4 4 5 3 4 3 5 |
+Row 07:| 5 5 4 4 1 1 3 4 |
+Row 06:| 4 5 2 3 4 5 2 4 |
+Row 05:| 3 2 3 1 1 5 1 2 |
+Row 04:| 5 3 2 2 1 3 1 5 |
+Row 03:| 2 5 1 1 3 2 5 1 |
+Row 02:| 3 5 1 2 3 1 1 5 |
+Row 01:| 1 4 2 5 1 4 2 1 |
+Row 00:| 4 4 2 2 4 3 2 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 0
+Cursor position (row, col): 10,4
+Frame Number: 1036
+Timestamp: 3444
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 8564ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:| 3 1 3 3 1 2 5 4 |
+Row 13:| 4 3 5 5 3 4 1 2 |
+Row 12:| 5 2 3 4 5 3 1 5 |
+Row 11:| 5 3 2 4 2 1 4 5 |
+Row 10:| 3 1 5 5 3 4 2 4 |
+Row 09:| 4 1 1 3 1 1 4 4 |
+Row 08:| 1 4 4 5 3 4 3 5 |
+Row 07:| 5 5 4 4 1 1 3 4 |
+Row 06:| 4 5 2 3 4 5 2 4 |
+Row 05:| 3 2 3 1 1 5 1 2 |
+Row 04:| 5 3 2 2 1 3 1 5 |
+Row 03:| 2 5 1 1 3 2 5 1 |
+Row 02:| 3 5 1 2 3 1 1 5 |
+Row 01:| 1 4 2 5 1 4 2 1 |
+Row 00:| 4 4 2 2 4 3 2 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 3
+Cursor position (row, col): 10,4
+Frame Number: 1114
+Timestamp: 3748
+Number of cleared blocks: 3
+Number of chains: 1
+Row Insertion Timer paused? 1
+Row Insertion In: 8564ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:| 3 1 3 3 1 2 5 4 |
+Row 13:| 4 3 5 5 3 4 1 2 |
+Row 12:| 5 2 3 4 5 3 1 5 |
+Row 11:| 5 3 2 4 2 1 4 5 |
+Row 10:| 3 1 5 5 3 4 2 4 |
+Row 09:| 4 1 1 3 1 1 4 4 |
+Row 08:| 4 1 4 5 3 4 3 5 |
+Row 07:| 5 5 4 4 1 1 3 4 |
+Row 06:| 4 5 2 3 4 5 2 4 |
+Row 05:| 3 2 3 1 1 5 1 2 |
+Row 04:| 5 3 2 2 1 3 1 5 |
+Row 03:| 2 5 1 1 3 2 5 1 |
+Row 02:| 3 5 1 2 3 1 1 5 |
+Row 01:| 1 4 2 5 1 4 2 1 |
+Row 00:| 4 4 2 2 4 3 2 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 3
+Contents of ClearingBlocks: 
+	Row 8, Col 1
+	Row 9, Col 1
+	Row 10, Col 1
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 3
+Cursor position (row, col): 10,4
+Frame Number: 1588
+Timestamp: 5755
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 8561ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:| 3   3 3 1 2 5 4 |
+Row 13:| 4 1 5 5 3 4 1 2 |
+Row 12:| 5 3 3 4 5 3 1 5 |
+Row 11:| 5 2 2 4 2 1 4 5 |
+Row 10:| 3 3 5 5 3 4 2 4 |
+Row 09:| 4   1 3 1 1 4 4 |
+Row 08:| 4   4 5 3 4 3 5 |
+Row 07:| 5 5 4 4 1 1 3 4 |
+Row 06:| 4 5 2 3 4 5 2 4 |
+Row 05:| 3 2 3 1 1 5 1 2 |
+Row 04:| 5 3 2 2 1 3 1 5 |
+Row 03:| 2 5 1 1 3 2 5 1 |
+Row 02:| 3 5 1 2 3 1 1 5 |
+Row 01:| 1 4 2 5 1 4 2 1 |
+Row 00:| 4 4 2 2 4 3 2 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 3
+Cursor position (row, col): 10,4
+Frame Number: 1589
+Timestamp: 5763
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 8553ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:| 3   3 3 1 2 5 4 |
+Row 13:| 4   5 5 3 4 1 2 |
+Row 12:| 5 1 3 4 5 3 1 5 |
+Row 11:| 5 3 2 4 2 1 4 5 |
+Row 10:| 3 2 5 5 3 4 2 4 |
+Row 09:| 4 3 1 3 1 1 4 4 |
+Row 08:| 4   4 5 3 4 3 5 |
+Row 07:| 5 5 4 4 1 1 3 4 |
+Row 06:| 4 5 2 3 4 5 2 4 |
+Row 05:| 3 2 3 1 1 5 1 2 |
+Row 04:| 5 3 2 2 1 3 1 5 |
+Row 03:| 2 5 1 1 3 2 5 1 |
+Row 02:| 3 5 1 2 3 1 1 5 |
+Row 01:| 1 4 2 5 1 4 2 1 |
+Row 00:| 4 4 2 2 4 3 2 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 3
+Cursor position (row, col): 10,4
+Frame Number: 1590
+Timestamp: 5776
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 8540ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:| 3   3 3 1 2 5 4 |
+Row 13:| 4   5 5 3 4 1 2 |
+Row 12:| 5   3 4 5 3 1 5 |
+Row 11:| 5 1 2 4 2 1 4 5 |
+Row 10:| 3 3 5 5 3 4 2 4 |
+Row 09:| 4 2 1 3 1 1 4 4 |
+Row 08:| 4 3 4 5 3 4 3 5 |
+Row 07:| 5 5 4 4 1 1 3 4 |
+Row 06:| 4 5 2 3 4 5 2 4 |
+Row 05:| 3 2 3 1 1 5 1 2 |
+Row 04:| 5 3 2 2 1 3 1 5 |
+Row 03:| 2 5 1 1 3 2 5 1 |
+Row 02:| 3 5 1 2 3 1 1 5 |
+Row 01:| 1 4 2 5 1 4 2 1 |
+Row 00:| 4 4 2 2 4 3 2 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 3
+Cursor position (row, col): 10,4
+Frame Number: 1803
+Timestamp: 6547
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 7769ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:| 3   3 3 1 2 5 4 |
+Row 13:| 4   5 5 3 4 1 2 |
+Row 12:| 5   3 4 5 3 1 5 |
+Row 11:| 5 1 2 4 2 1 4 5 |
+Row 10:| 3 3 5 5 3 4 2 4 |
+Row 09:| 4 2 1 3 1 1 4 4 |
+Row 08:| 4 3 4 5 3 4 3 5 |
+Row 07:| 5 5 4 4 1 1 3 4 |
+Row 06:| 4 5 2 3 4 5 2 4 |
+Row 05:| 3 2 3 1 1 5 1 2 |
+Row 04:| 5 3 2 2 1 3 1 5 |
+Row 03:| 2 5 1 1 3 2 5 1 |
+Row 02:| 3 5 1 2 3 1 1 5 |
+Row 01:| 1 4 2 5 1 4 2 1 |
+Row 00:| 4 4 2 2 4 3 2 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 12
+Cursor position (row, col): 10,4
+Frame Number: 1883
+Timestamp: 6847
+Number of cleared blocks: 6
+Number of chains: 2
+Row Insertion Timer paused? 1
+Row Insertion In: 7769ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:| 3   3 3 1 2 5 4 |
+Row 13:| 4   5 5 3 4 1 2 |
+Row 12:| 5   3 4 5 3 1 5 |
+Row 11:| 5 1 2 4 2 1 4 5 |
+Row 10:| 3 3 5 5 3 4 2 4 |
+Row 09:| 4 2 1 3 1 1 4 4 |
+Row 08:| 4 3 4 5 3 4 3 5 |
+Row 07:| 5 5 4 4 4 1 3 4 |
+Row 06:| 4 5 2 3 1 5 2 4 |
+Row 05:| 3 2 3 1 1 5 1 2 |
+Row 04:| 5 3 2 2 1 3 1 5 |
+Row 03:| 2 5 1 1 3 2 5 1 |
+Row 02:| 3 5 1 2 3 1 1 5 |
+Row 01:| 1 4 2 5 1 4 2 1 |
+Row 00:| 4 4 2 2 4 3 2 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 6
+Contents of ClearingBlocks: 
+	Row 4, Col 4
+	Row 5, Col 4
+	Row 6, Col 4
+	Row 7, Col 2
+	Row 7, Col 3
+	Row 7, Col 4
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 12
+Cursor position (row, col): 10,4
+Frame Number: 2367
+Timestamp: 8851
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 7767ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:| 3         2 5 4 |
+Row 13:| 4   3 3 1 4 1 2 |
+Row 12:| 5   5 5 3 3 1 5 |
+Row 11:| 5 1 3 4 5 1 4 5 |
+Row 10:| 3 3 2 4 2 4 2 4 |
+Row 09:| 4 2 5 5 3 1 4 4 |
+Row 08:| 4 3 1 3 1 4 3 5 |
+Row 07:| 5 5 4 5 3 1 3 4 |
+Row 06:| 4 5 2 3   5 2 4 |
+Row 05:| 3 2 3 1   5 1 2 |
+Row 04:| 5 3 2 2   3 1 5 |
+Row 03:| 2 5 1 1 3 2 5 1 |
+Row 02:| 3 5 1 2 3 1 1 5 |
+Row 01:| 1 4 2 5 1 4 2 1 |
+Row 00:| 4 4 2 2 4 3 2 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 12
+Cursor position (row, col): 10,4
+Frame Number: 2368
+Timestamp: 8858
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 7759ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:| 3         2 5 4 |
+Row 13:| 4   3 3   4 1 2 |
+Row 12:| 5   5 5 1 3 1 5 |
+Row 11:| 5 1 3 4 3 1 4 5 |
+Row 10:| 3 3 2 4 5 4 2 4 |
+Row 09:| 4 2 5 5 2 1 4 4 |
+Row 08:| 4 3 1 3 3 4 3 5 |
+Row 07:| 5 5 4 5 1 1 3 4 |
+Row 06:| 4 5 2 3 3 5 2 4 |
+Row 05:| 3 2 3 1   5 1 2 |
+Row 04:| 5 3 2 2   3 1 5 |
+Row 03:| 2 5 1 1 3 2 5 1 |
+Row 02:| 3 5 1 2 3 1 1 5 |
+Row 01:| 1 4 2 5 1 4 2 1 |
+Row 00:| 4 4 2 2 4 3 2 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 12
+Cursor position (row, col): 10,4
+Frame Number: 2369
+Timestamp: 8865
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 7752ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:| 3         2 5 4 |
+Row 13:| 4   3 3   4 1 2 |
+Row 12:| 5   5 5   3 1 5 |
+Row 11:| 5 1 3 4 1 1 4 5 |
+Row 10:| 3 3 2 4 3 4 2 4 |
+Row 09:| 4 2 5 5 5 1 4 4 |
+Row 08:| 4 3 1 3 2 4 3 5 |
+Row 07:| 5 5 4 5 3 1 3 4 |
+Row 06:| 4 5 2 3 1 5 2 4 |
+Row 05:| 3 2 3 1 3 5 1 2 |
+Row 04:| 5 3 2 2   3 1 5 |
+Row 03:| 2 5 1 1 3 2 5 1 |
+Row 02:| 3 5 1 2 3 1 1 5 |
+Row 01:| 1 4 2 5 1 4 2 1 |
+Row 00:| 4 4 2 2 4 3 2 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 15
+Cursor position (row, col): 10,4
+Frame Number: 2370
+Timestamp: 8876
+Number of cleared blocks: 3
+Number of chains: 1
+Row Insertion Timer paused? 1
+Row Insertion In: 7741ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:| 3         2 5 4 |
+Row 13:| 4   3 3   4 1 2 |
+Row 12:| 5   5 5   3 1 5 |
+Row 11:| 5 1 3 4   1 4 5 |
+Row 10:| 3 3 2 4 1 4 2 4 |
+Row 09:| 4 2 5 5 3 1 4 4 |
+Row 08:| 4 3 1 3 5 4 3 5 |
+Row 07:| 5 5 4 5 2 1 3 4 |
+Row 06:| 4 5 2 3 3 5 2 4 |
+Row 05:| 3 2 3 1 1 5 1 2 |
+Row 04:| 5 3 2 2 3 3 1 5 |
+Row 03:| 2 5 1 1 3 2 5 1 |
+Row 02:| 3 5 1 2 3 1 1 5 |
+Row 01:| 1 4 2 5 1 4 2 1 |
+Row 00:| 4 4 2 2 4 3 2 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 3
+Contents of ClearingBlocks: 
+	Row 2, Col 4
+	Row 3, Col 4
+	Row 4, Col 4
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 15
+Cursor position (row, col): 10,4
+Frame Number: 2908
+Timestamp: 10881
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 7738ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:| 3         2 5 4 |
+Row 13:| 4   3 3   4 1 2 |
+Row 12:| 5   5 5   3 1 5 |
+Row 11:| 5 1 3 4   1 4 5 |
+Row 10:| 3 3 2 4   4 2 4 |
+Row 09:| 4 2 5 5 1 1 4 4 |
+Row 08:| 4 3 1 3 3 4 3 5 |
+Row 07:| 5 5 4 5 5 1 3 4 |
+Row 06:| 4 5 2 3 2 5 2 4 |
+Row 05:| 3 2 3 1 3 5 1 2 |
+Row 04:| 5 3 2 2 1 3 1 5 |
+Row 03:| 2 5 1 1   2 5 1 |
+Row 02:| 3 5 1 2   1 1 5 |
+Row 01:| 1 4 2 5 1 4 2 1 |
+Row 00:| 4 4 2 2 4 3 2 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 15
+Cursor position (row, col): 10,4
+Frame Number: 2909
+Timestamp: 10890
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 7730ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:| 3         2 5 4 |
+Row 13:| 4   3 3   4 1 2 |
+Row 12:| 5   5 5   3 1 5 |
+Row 11:| 5 1 3 4   1 4 5 |
+Row 10:| 3 3 2 4   4 2 4 |
+Row 09:| 4 2 5 5   1 4 4 |
+Row 08:| 4 3 1 3 1 4 3 5 |
+Row 07:| 5 5 4 5 3 1 3 4 |
+Row 06:| 4 5 2 3 5 5 2 4 |
+Row 05:| 3 2 3 1 2 5 1 2 |
+Row 04:| 5 3 2 2 3 3 1 5 |
+Row 03:| 2 5 1 1 1 2 5 1 |
+Row 02:| 3 5 1 2   1 1 5 |
+Row 01:| 1 4 2 5 1 4 2 1 |
+Row 00:| 4 4 2 2 4 3 2 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 24
+Cursor position (row, col): 10,4
+Frame Number: 2910
+Timestamp: 10897
+Number of cleared blocks: 6
+Number of chains: 2
+Row Insertion Timer paused? 1
+Row Insertion In: 7723ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:| 3         2 5 4 |
+Row 13:| 4   3 3   4 1 2 |
+Row 12:| 5   5 5   3 1 5 |
+Row 11:| 5 1 3 4   1 4 5 |
+Row 10:| 3 3 2 4   4 2 4 |
+Row 09:| 4 2 5 5   1 4 4 |
+Row 08:| 4 3 1 3   4 3 5 |
+Row 07:| 5 5 4 5 1 1 3 4 |
+Row 06:| 4 5 2 3 3 5 2 4 |
+Row 05:| 3 2 3 1 5 5 1 2 |
+Row 04:| 5 3 2 2 2 3 1 5 |
+Row 03:| 2 5 1 1 3 2 5 1 |
+Row 02:| 3 5 1 2 1 1 1 5 |
+Row 01:| 1 4 2 5 1 4 2 1 |
+Row 00:| 4 4 2 2 4 3 2 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 6
+Contents of ClearingBlocks: 
+	Row 2, Col 4
+	Row 2, Col 5
+	Row 2, Col 6
+	Row 4, Col 2
+	Row 4, Col 3
+	Row 4, Col 4
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 27
+Cursor position (row, col): 10,4
+Frame Number: 3437
+Timestamp: 12901
+Number of cleared blocks: 3
+Number of chains: 1
+Row Insertion Timer paused? 1
+Row Insertion In: 7720ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:| 3             4 |
+Row 13:| 4         2 5 2 |
+Row 12:| 5   3 3   4 1 5 |
+Row 11:| 5 1 5 5   3 1 5 |
+Row 10:| 3 3 3 4   1 4 4 |
+Row 09:| 4 2 2 4   4 2 4 |
+Row 08:| 4 3 5 5   1 4 5 |
+Row 07:| 5 5 1 3   4 3 4 |
+Row 06:| 4 5 4 5 1 1 3 4 |
+Row 05:| 3 2 2 3 3 5 2 2 |
+Row 04:| 5 3 3 1 5 5 1 5 |
+Row 03:| 2 5 1 1   3 1 1 |
+Row 02:| 3 5 1 2 3 2 5 5 |
+Row 01:| 1 4 2 5 1 4 2 1 |
+Row 00:| 4 4 2 2 4 3 2 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 3
+Contents of ClearingBlocks: 
+	Row 10, Col 0
+	Row 10, Col 1
+	Row 10, Col 2
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 27
+Cursor position (row, col): 10,4
+Frame Number: 3438
+Timestamp: 12911
+Number of cleared blocks: 0
+Number of chains: 1
+Row Insertion Timer paused? 1
+Row Insertion In: 7717ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:| 3             4 |
+Row 13:| 4         2 5 2 |
+Row 12:| 5   3 3   4 1 5 |
+Row 11:| 5 1 5 5   3 1 5 |
+Row 10:| 3 3 3 4   1 4 4 |
+Row 09:| 4 2 2 4   4 2 4 |
+Row 08:| 4 3 5 5   1 4 5 |
+Row 07:| 5 5 1 3   4 3 4 |
+Row 06:| 4 5 4 5   1 3 4 |
+Row 05:| 3 2 2 3 1 5 2 2 |
+Row 04:| 5 3 3 1 3 5 1 5 |
+Row 03:| 2 5 1 1 5 3 1 1 |
+Row 02:| 3 5 1 2 3 2 5 5 |
+Row 01:| 1 4 2 5 1 4 2 1 |
+Row 00:| 4 4 2 2 4 3 2 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 27
+Cursor position (row, col): 10,4
+Frame Number: 3868
+Timestamp: 14402
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 7717ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:| 3             4 |
+Row 13:| 4         2 5 2 |
+Row 12:| 5   3 3   4 1 5 |
+Row 11:| 5 1 5 5   3 1 5 |
+Row 10:| 3 3 3 4   1 4 4 |
+Row 09:| 4 2 2 4   4 2 4 |
+Row 08:| 4 3 5 5   1 4 5 |
+Row 07:| 5 5 1 3   4 3 4 |
+Row 06:| 4 5 4 5   1 3 4 |
+Row 05:| 3 2 2 3 1 5 2 2 |
+Row 04:| 5 3 3 1 3 5 1 5 |
+Row 03:| 2 5 1 1 5 3 1 1 |
+Row 02:| 3 5 1 2 3 2 5 5 |
+Row 01:| 1 4 2 5 1 4 2 1 |
+Row 00:| 4 4 2 2 4 3 2 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 36
+Cursor position (row, col): 10,4
+Frame Number: 3950
+Timestamp: 14705
+Number of cleared blocks: 6
+Number of chains: 2
+Row Insertion Timer paused? 1
+Row Insertion In: 7717ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:| 3             4 |
+Row 13:| 4         2 5 2 |
+Row 12:| 5   3 3   4 1 5 |
+Row 11:| 5 1 5 5   3 1 5 |
+Row 10:| 3 3 3 4   1 4 4 |
+Row 09:| 4 2 2 4   4 2 4 |
+Row 08:| 4 3 5 5   1 4 5 |
+Row 07:| 5 5 1 3   4 3 4 |
+Row 06:| 4 5 4 5   1 3 4 |
+Row 05:| 3 2 2 3 1 5 2 2 |
+Row 04:| 5 3 3 1 3 5 1 5 |
+Row 03:| 2 5 1 1 5 3 1 1 |
+Row 02:| 3 5 2 1 3 2 5 5 |
+Row 01:| 1 4 2 5 1 4 2 1 |
+Row 00:| 4 4 2 2 4 3 2 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 6
+Contents of ClearingBlocks: 
+	Row 0, Col 2
+	Row 1, Col 2
+	Row 2, Col 2
+	Row 2, Col 3
+	Row 3, Col 3
+	Row 4, Col 3
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 36
+Cursor position (row, col): 10,4
+Frame Number: 4003
+Timestamp: 14905
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 7717ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|               4 |
+Row 13:| 3         2 5 2 |
+Row 12:| 4     3   4 1 5 |
+Row 11:| 5   3 5   3 1 5 |
+Row 10:| 5 1 5 4   1 4 4 |
+Row 09:| 4 2 2 4   4 2 4 |
+Row 08:| 4 3 5 5   1 4 5 |
+Row 07:| 5 5 1 3   4 3 4 |
+Row 06:| 4 5 4 5   1 3 4 |
+Row 05:| 3 2 2 3 1 5 2 2 |
+Row 04:| 5 3 3 1 3 5 1 5 |
+Row 03:| 2 5 1 1 5 3 1 1 |
+Row 02:| 3 5 2 1 3 2 5 5 |
+Row 01:| 1 4 2 5 1 4 2 1 |
+Row 00:| 4 4 2 2 4 3 2 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 36
+Cursor position (row, col): 10,4
+Frame Number: 4515
+Timestamp: 16678
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 7717ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|               4 |
+Row 13:| 3         2 5 2 |
+Row 12:| 4     3   4 1 5 |
+Row 11:| 5   3 5   3 1 5 |
+Row 10:| 5 1 5 4   1 4 4 |
+Row 09:| 4 2 2 4   4 2 4 |
+Row 08:| 4 3 5 5   1 4 5 |
+Row 07:| 5 5 1 3   4 3 4 |
+Row 06:| 4 5 4 5   1 3 4 |
+Row 05:| 3 2 2 3 1 5 2 2 |
+Row 04:| 5 3 3 1 3 5 1 5 |
+Row 03:| 2 5 1 1 5 3 1 1 |
+Row 02:| 3 5 2 1 3 2 5 5 |
+Row 01:| 1 4 2 5 1 4 2 1 |
+Row 00:| 4 4 2 2 4 3 2 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 36
+Cursor position (row, col): 10,4
+Frame Number: 4520
+Timestamp: 16711
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 7717ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|               4 |
+Row 13:| 3         2 5 2 |
+Row 12:| 4         4 1 5 |
+Row 11:| 5     3   3 1 5 |
+Row 10:| 5 1 3 5   1 4 4 |
+Row 09:| 4 2 5 4   4 2 4 |
+Row 08:| 4 3 2 4   1 4 5 |
+Row 07:| 5 5 5 5   4 3 4 |
+Row 06:| 4 5 1 3   1 3 4 |
+Row 05:| 3 2 4 5 1 5 2 2 |
+Row 04:| 5 3 2 3 3 5 1 5 |
+Row 03:| 2 5 3   5 3 1 1 |
+Row 02:| 3 5 1   3 2 5 5 |
+Row 01:| 1 4   5 1 4 2 1 |
+Row 00:| 4 4   2 4 3 2 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 36
+Cursor position (row, col): 10,4
+Frame Number: 4521
+Timestamp: 16717
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 7717ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|               4 |
+Row 13:| 3         2 5 2 |
+Row 12:| 4         4 1 5 |
+Row 11:| 5         3 1 5 |
+Row 10:| 5 1   3   1 4 4 |
+Row 09:| 4 2 3 5   4 2 4 |
+Row 08:| 4 3 5 4   1 4 5 |
+Row 07:| 5 5 2 4   4 3 4 |
+Row 06:| 4 5 5 5   1 3 4 |
+Row 05:| 3 2 1 3 1 5 2 2 |
+Row 04:| 5 3 4 5 3 5 1 5 |
+Row 03:| 2 5 2 3 5 3 1 1 |
+Row 02:| 3 5 3   3 2 5 5 |
+Row 01:| 1 4 1 5 1 4 2 1 |
+Row 00:| 4 4   2 4 3 2 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 39
+Cursor position (row, col): 10,4
+Frame Number: 4522
+Timestamp: 16724
+Number of cleared blocks: 3
+Number of chains: 1
+Row Insertion Timer paused? 1
+Row Insertion In: 7717ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|               4 |
+Row 13:| 3         2 5 2 |
+Row 12:| 4         4 1 5 |
+Row 11:| 5         3 1 5 |
+Row 10:| 5 1       1 4 4 |
+Row 09:| 4 2   3   4 2 4 |
+Row 08:| 4 3 3 5   1 4 5 |
+Row 07:| 5 5 5 4   4 3 4 |
+Row 06:| 4 5 2 4   1 3 4 |
+Row 05:| 3 2 5 5 1 5 2 2 |
+Row 04:| 5 3 1 3 3 5 1 5 |
+Row 03:| 2 5 4 5 5 3 1 1 |
+Row 02:| 3 5 2 3 3 2 5 5 |
+Row 01:| 1 4 3 5 1 4 2 1 |
+Row 00:| 4 4 1 2 4 3 2 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 3
+Contents of ClearingBlocks: 
+	Row 7, Col 0
+	Row 7, Col 1
+	Row 7, Col 2
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 42
+Cursor position (row, col): 10,4
+Frame Number: 4598
+Timestamp: 16979
+Number of cleared blocks: 3
+Number of chains: 1
+Row Insertion Timer paused? 1
+Row Insertion In: 7717ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|               4 |
+Row 13:| 3         2 5 2 |
+Row 12:| 4         4 1 5 |
+Row 11:| 5         3 1 5 |
+Row 10:| 5 1       1 4 4 |
+Row 09:| 4 2   3   4 2 4 |
+Row 08:| 4 3 3 5   1 4 5 |
+Row 07:| 5 5 5 4   4 3 4 |
+Row 06:| 4 5 2 4   1 3 4 |
+Row 05:| 3 2 5 5 1 5 2 2 |
+Row 04:| 5 3 1 3 3 5 1 5 |
+Row 03:| 2 5 4 5 5 3 1 1 |
+Row 02:| 3 5 2 3 3 5 2 5 |
+Row 01:| 1 4 3 5 1 4 2 1 |
+Row 00:| 4 4 1 2 4 3 2 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 3
+Contents of ClearingBlocks: 
+	Row 0, Col 6
+	Row 1, Col 6
+	Row 2, Col 6
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 42
+Cursor position (row, col): 10,4
+Frame Number: 4775
+Timestamp: 17567
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 7717ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|               4 |
+Row 13:| 3         2 5 2 |
+Row 12:| 4         4 1 5 |
+Row 11:| 5         3 1 5 |
+Row 10:| 5 1       1 4 4 |
+Row 09:| 4 2   3   4 2 4 |
+Row 08:| 4 3 3 5   1 4 5 |
+Row 07:| 5 5 5 4   4 3 4 |
+Row 06:| 4 5 2 4   1 3 4 |
+Row 05:| 3 2 5 5 1 5 2 2 |
+Row 04:| 5 3 1 3 3 5 1 5 |
+Row 03:| 2 5 4 5 5 3 1 1 |
+Row 02:| 3 5 2 3 3 5 2 5 |
+Row 01:| 1 4 3 5 1 4 2 1 |
+Row 00:| 4 4 1 2 4 3 2 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 53
+Cursor position (row, col): 10,4
+Frame Number: 4869
+Timestamp: 17869
+Number of cleared blocks: 7
+Number of chains: 2
+Row Insertion Timer paused? 1
+Row Insertion In: 7717ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|               4 |
+Row 13:| 3         2 5 2 |
+Row 12:| 4         4 1 5 |
+Row 11:| 5         3 1 5 |
+Row 10:| 5 1       1 4 4 |
+Row 09:| 4 2   3   4 2 4 |
+Row 08:| 4 3 3 5   1 4 5 |
+Row 07:| 5 5 5 4   4 3 4 |
+Row 06:| 4 5 2 4   1 3 4 |
+Row 05:| 3 2 5 5 1 5 2 2 |
+Row 04:| 5 3 1 3 3 5 1 5 |
+Row 03:| 2 5 4 5 3 5 1 1 |
+Row 02:| 3 5 2 3 3 5 2 5 |
+Row 01:| 1 4 3 5 1 4 2 1 |
+Row 00:| 4 4 1 2 4 3 2 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 7
+Contents of ClearingBlocks: 
+	Row 2, Col 4
+	Row 2, Col 5
+	Row 3, Col 4
+	Row 3, Col 5
+	Row 4, Col 4
+	Row 4, Col 5
+	Row 5, Col 5
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 56
+Cursor position (row, col): 10,4
+Frame Number: 5136
+Timestamp: 18729
+Number of cleared blocks: 3
+Number of chains: 1
+Row Insertion Timer paused? 1
+Row Insertion In: 7717ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|               4 |
+Row 13:|           2 5 2 |
+Row 12:| 3         4 1 5 |
+Row 11:| 4         3 1 5 |
+Row 10:| 5         1 4 4 |
+Row 09:| 5 1   3   4 2 4 |
+Row 08:| 4 2   5   1 4 5 |
+Row 07:| 4 3 3 4   4 3 4 |
+Row 06:| 4 5 2 4   1 3 4 |
+Row 05:| 3 2 5 5 1 5 2 2 |
+Row 04:| 5 3 1 3 3 5 1 5 |
+Row 03:| 2 5 4 5 3 5 1 1 |
+Row 02:| 3 5 2 3 3 5 2 5 |
+Row 01:| 1 4 3 5 1 4 2 1 |
+Row 00:| 4 4 1 2 4 3 2 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 3
+Contents of ClearingBlocks: 
+	Row 6, Col 0
+	Row 7, Col 0
+	Row 8, Col 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 56
+Cursor position (row, col): 10,4
+Frame Number: 5218
+Timestamp: 18984
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 7717ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|               4 |
+Row 13:|           2   2 |
+Row 12:| 3         4 5 5 |
+Row 11:| 4         3 1 5 |
+Row 10:| 5         1 1 4 |
+Row 09:| 5 1   3   4 4 4 |
+Row 08:| 4 2   5   1 2 5 |
+Row 07:| 4 3 3 4   4 4 4 |
+Row 06:| 4 5 2 4   1 3 4 |
+Row 05:| 3 2 5 5 1 5 3 2 |
+Row 04:| 5 3 1 3 3 5 2 5 |
+Row 03:| 2 5 4 5 3 5 1 1 |
+Row 02:| 3 5 2 3 3 5 1 5 |
+Row 01:| 1 4 3 5 1 4   1 |
+Row 00:| 4 4 1 2 4 3   4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 56
+Cursor position (row, col): 10,4
+Frame Number: 5219
+Timestamp: 18990
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 7717ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|               4 |
+Row 13:|           2   2 |
+Row 12:| 3         4   5 |
+Row 11:| 4         3 5 5 |
+Row 10:| 5         1 1 4 |
+Row 09:| 5 1   3   4 1 4 |
+Row 08:| 4 2   5   1 4 5 |
+Row 07:| 4 3 3 4   4 2 4 |
+Row 06:| 4 5 2 4   1 4 4 |
+Row 05:| 3 2 5 5 1 5 3 2 |
+Row 04:| 5 3 1 3 3 5 3 5 |
+Row 03:| 2 5 4 5 3 5 2 1 |
+Row 02:| 3 5 2 3 3 5 1 5 |
+Row 01:| 1 4 3 5 1 4 1 1 |
+Row 00:| 4 4 1 2 4 3   4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 59
+Cursor position (row, col): 10,4
+Frame Number: 5220
+Timestamp: 18997
+Number of cleared blocks: 3
+Number of chains: 1
+Row Insertion Timer paused? 1
+Row Insertion In: 7717ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|               4 |
+Row 13:|           2   2 |
+Row 12:| 3         4   5 |
+Row 11:| 4         3   5 |
+Row 10:| 5         1 5 4 |
+Row 09:| 5 1   3   4 1 4 |
+Row 08:| 4 2   5   1 1 5 |
+Row 07:| 4 3 3 4   4 4 4 |
+Row 06:| 4 5 2 4   1 2 4 |
+Row 05:| 3 2 5 5 1 5 4 2 |
+Row 04:| 5 3 1 3 3 5 3 5 |
+Row 03:| 2 5 4 5 3 5 3 1 |
+Row 02:| 3 5 2 3 3 5 2 5 |
+Row 01:| 1 4 3 5 1 4 1 1 |
+Row 00:| 4 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 3
+Contents of ClearingBlocks: 
+	Row 7, Col 5
+	Row 7, Col 6
+	Row 7, Col 7
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 59
+Cursor position (row, col): 10,4
+Frame Number: 5519
+Timestamp: 19874
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 7717ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|               4 |
+Row 13:|           2   2 |
+Row 12:| 3         4   5 |
+Row 11:| 4         3   5 |
+Row 10:| 5         1 5 4 |
+Row 09:| 5 1   3   4 1 4 |
+Row 08:| 4 2   5   1 1 5 |
+Row 07:| 4 3 3 4   4 4 4 |
+Row 06:| 4 5 2 4     2 4 |
+Row 05:| 3 2 5 5   1 4 2 |
+Row 04:| 5 3 1 3 1   3 5 |
+Row 03:| 2 5 4 5     3 1 |
+Row 02:| 3 5 2 3     2 5 |
+Row 01:| 1 4 3 5 1 4 1 1 |
+Row 00:| 4 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 59
+Cursor position (row, col): 10,4
+Frame Number: 5520
+Timestamp: 19882
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 7717ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|               4 |
+Row 13:|           2   2 |
+Row 12:| 3         4   5 |
+Row 11:| 4         3   5 |
+Row 10:| 5         1 5 4 |
+Row 09:| 5 1   3   4 1 4 |
+Row 08:| 4 2   5   1 1 5 |
+Row 07:| 4 3 3 4   4 4 4 |
+Row 06:| 4 5 2 4     2 4 |
+Row 05:| 3 2 5 5     4 2 |
+Row 04:| 5 3 1 3   1 3 5 |
+Row 03:| 2 5 4 5 1   3 1 |
+Row 02:| 3 5 2 3     2 5 |
+Row 01:| 1 4 3 5 1 4 1 1 |
+Row 00:| 4 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 59
+Cursor position (row, col): 10,4
+Frame Number: 5521
+Timestamp: 19888
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 7717ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|               4 |
+Row 13:|           2   2 |
+Row 12:| 3         4   5 |
+Row 11:| 4         3   5 |
+Row 10:| 5         1 5 4 |
+Row 09:| 5 1   3   4 1 4 |
+Row 08:| 4 2   5   1 1 5 |
+Row 07:| 4 3 3 4   4 4 4 |
+Row 06:| 4 5 2 4     2 4 |
+Row 05:| 3 2 5 5     4 2 |
+Row 04:| 5 3 1 3     3 5 |
+Row 03:| 2 5 4 5   1 3 1 |
+Row 02:| 3 5 2 3 1   2 5 |
+Row 01:| 1 4 3 5 1 4 1 1 |
+Row 00:| 4 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 59
+Cursor position (row, col): 10,4
+Frame Number: 5522
+Timestamp: 19893
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 7717ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|               4 |
+Row 13:|           2   2 |
+Row 12:| 3         4   5 |
+Row 11:| 4         3   5 |
+Row 10:| 5         1 5 4 |
+Row 09:| 5 1   3   4 1 4 |
+Row 08:| 4 2   5   1 1 5 |
+Row 07:| 4 3 3 4   4 4 4 |
+Row 06:| 4 5 2 4     2 4 |
+Row 05:| 3 2 5 5     4 2 |
+Row 04:| 5 3 1 3     3 5 |
+Row 03:| 2 5 4 5     3 1 |
+Row 02:| 3 5 2 3 1 1 2 5 |
+Row 01:| 1 4 3 5 1 4 1 1 |
+Row 00:| 4 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 59
+Cursor position (row, col): 10,4
+Frame Number: 5863
+Timestamp: 20731
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 7717ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|               4 |
+Row 13:|           2   2 |
+Row 12:|           4   5 |
+Row 11:| 3         3   5 |
+Row 10:| 4         1 5 4 |
+Row 09:| 5 1   3   4 1 4 |
+Row 08:| 5 2   5   1 1 5 |
+Row 07:|   3 3 4   4 4 4 |
+Row 06:|   5 2 4     2 4 |
+Row 05:| 3 2 5 5     4 2 |
+Row 04:| 5 3 1 3     3 5 |
+Row 03:| 2 5 4 5     3 1 |
+Row 02:| 3 5 2 3 1 1 2 5 |
+Row 01:| 1 4 3 5 1 4 1 1 |
+Row 00:| 4 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 59
+Cursor position (row, col): 10,4
+Frame Number: 5864
+Timestamp: 20737
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 7717ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|               4 |
+Row 13:|           2   2 |
+Row 12:|           4   5 |
+Row 11:|           3   5 |
+Row 10:| 3         1 5 4 |
+Row 09:| 4 1   3   4 1 4 |
+Row 08:| 5 2   5   1 1 5 |
+Row 07:| 5 3 3 4   4 4 4 |
+Row 06:|   5 2 4     2 4 |
+Row 05:| 3 2 5 5     4 2 |
+Row 04:| 5 3 1 3     3 5 |
+Row 03:| 2 5 4 5     3 1 |
+Row 02:| 3 5 2 3 1 1 2 5 |
+Row 01:| 1 4 3 5 1 4 1 1 |
+Row 00:| 4 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 59
+Cursor position (row, col): 10,4
+Frame Number: 5865
+Timestamp: 20743
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 7717ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|               4 |
+Row 13:|           2   2 |
+Row 12:|           4   5 |
+Row 11:|           3   5 |
+Row 10:|           1 5 4 |
+Row 09:| 3 1   3   4 1 4 |
+Row 08:| 4 2   5   1 1 5 |
+Row 07:| 5 3 3 4   4 4 4 |
+Row 06:| 5 5 2 4     2 4 |
+Row 05:| 3 2 5 5     4 2 |
+Row 04:| 5 3 1 3     3 5 |
+Row 03:| 2 5 4 5     3 1 |
+Row 02:| 3 5 2 3 1 1 2 5 |
+Row 01:| 1 4 3 5 1 4 1 1 |
+Row 00:| 4 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 59
+Cursor position (row, col): 10,4
+Frame Number: 5974
+Timestamp: 21004
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 7717ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|               4 |
+Row 12:|           2   2 |
+Row 11:|           4   5 |
+Row 10:|           3   5 |
+Row 09:| 3 1   3   1 5 4 |
+Row 08:| 4 2   5   4 1 4 |
+Row 07:| 5 3 3 4   1 1 5 |
+Row 06:| 5 5 2 4     2 4 |
+Row 05:| 3 2 5 5     4 2 |
+Row 04:| 5 3 1 3     3 5 |
+Row 03:| 2 5 4 5     3 1 |
+Row 02:| 3 5 2 3 1 1 2 5 |
+Row 01:| 1 4 3 5 1 4 1 1 |
+Row 00:| 4 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 59
+Cursor position (row, col): 10,4
+Frame Number: 5975
+Timestamp: 21010
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 7711ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|               4 |
+Row 12:|               2 |
+Row 11:|           2   5 |
+Row 10:|           4   5 |
+Row 09:| 3 1   3   3 5 4 |
+Row 08:| 4 2   5   1 1 4 |
+Row 07:| 5 3 3 4   4 1 5 |
+Row 06:| 5 5 2 4   1 2 4 |
+Row 05:| 3 2 5 5     4 2 |
+Row 04:| 5 3 1 3     3 5 |
+Row 03:| 2 5 4 5     3 1 |
+Row 02:| 3 5 2 3 1 1 2 5 |
+Row 01:| 1 4 3 5 1 4 1 1 |
+Row 00:| 4 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 59
+Cursor position (row, col): 10,4
+Frame Number: 5976
+Timestamp: 21016
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 7705ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|               4 |
+Row 12:|               2 |
+Row 11:|               5 |
+Row 10:|           2   5 |
+Row 09:| 3 1   3   4 5 4 |
+Row 08:| 4 2   5   3 1 4 |
+Row 07:| 5 3 3 4   1 1 5 |
+Row 06:| 5 5 2 4   4 2 4 |
+Row 05:| 3 2 5 5   1 4 2 |
+Row 04:| 5 3 1 3     3 5 |
+Row 03:| 2 5 4 5     3 1 |
+Row 02:| 3 5 2 3 1 1 2 5 |
+Row 01:| 1 4 3 5 1 4 1 1 |
+Row 00:| 4 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 59
+Cursor position (row, col): 10,4
+Frame Number: 5977
+Timestamp: 21024
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 7697ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|               4 |
+Row 12:|               2 |
+Row 11:|               5 |
+Row 10:|               5 |
+Row 09:| 3 1   3   2 5 4 |
+Row 08:| 4 2   5   4 1 4 |
+Row 07:| 5 3 3 4   3 1 5 |
+Row 06:| 5 5 2 4   1 2 4 |
+Row 05:| 3 2 5 5   4 4 2 |
+Row 04:| 5 3 1 3   1 3 5 |
+Row 03:| 2 5 4 5     3 1 |
+Row 02:| 3 5 2 3 1 1 2 5 |
+Row 01:| 1 4 3 5 1 4 1 1 |
+Row 00:| 4 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 59
+Cursor position (row, col): 10,4
+Frame Number: 5978
+Timestamp: 21030
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 7691ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|               4 |
+Row 12:|               2 |
+Row 11:|               5 |
+Row 10:|               5 |
+Row 09:| 3 1   3     5 4 |
+Row 08:| 4 2   5   2 1 4 |
+Row 07:| 5 3 3 4   4 1 5 |
+Row 06:| 5 5 2 4   3 2 4 |
+Row 05:| 3 2 5 5   1 4 2 |
+Row 04:| 5 3 1 3   4 3 5 |
+Row 03:| 2 5 4 5   1 3 1 |
+Row 02:| 3 5 2 3 1 1 2 5 |
+Row 01:| 1 4 3 5 1 4 1 1 |
+Row 00:| 4 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 59
+Cursor position (row, col): 10,4
+Frame Number: 6326
+Timestamp: 21769
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 6952ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|               4 |
+Row 12:|               2 |
+Row 11:|               5 |
+Row 10:|               5 |
+Row 09:| 3 1   3     5 4 |
+Row 08:| 4 2   5   2 1 4 |
+Row 07:| 5 3 3 4   4 1 5 |
+Row 06:| 5 5 2 4   3 2 4 |
+Row 05:| 3 2 5 5   1 4 2 |
+Row 04:| 5 3 1 3   4 3 5 |
+Row 03:| 2 5 4 5   1 3 1 |
+Row 02:| 3 5 2 3 1 1 2 5 |
+Row 01:| 1 4 3 5 1 4 1 1 |
+Row 00:| 4 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 59
+Cursor position (row, col): 10,4
+Frame Number: 6454
+Timestamp: 22051
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 6952ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|               4 |
+Row 12:|               2 |
+Row 11:|               5 |
+Row 10:|               5 |
+Row 09:| 3 1   3     5 4 |
+Row 08:| 4 2   5   2 1 4 |
+Row 07:| 5 3 3 4   4 1 5 |
+Row 06:| 5 5 2 4   3 2 4 |
+Row 05:| 3 2 5 5   1 4 2 |
+Row 04:| 5 3 1 3   4 3 5 |
+Row 03:| 2 5 4 5   1 3 1 |
+Row 02:| 3 5 2 3 1 1 2 5 |
+Row 01:| 1 4 3 5 1 4 1 1 |
+Row 00:| 4 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 59
+Cursor position (row, col): 10,4
+Frame Number: 6461
+Timestamp: 22070
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 6952ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|               4 |
+Row 12:|               2 |
+Row 11:|               5 |
+Row 10:|               5 |
+Row 09:| 3 1   3     5 4 |
+Row 08:| 4 2   5   2 1 4 |
+Row 07:| 5 3 3 4   4 1 5 |
+Row 06:| 5 5 2 4   3 2 4 |
+Row 05:| 3 5 2 5   1 4 2 |
+Row 04:| 5 3 1 3   4 3 5 |
+Row 03:| 2 5 4 5   1 3 1 |
+Row 02:| 3 5 2 3 1 1 2 5 |
+Row 01:| 1 4 3 5 1 4 1 1 |
+Row 00:| 4 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 63
+Cursor position (row, col): 10,4
+Frame Number: 6592
+Timestamp: 22352
+Number of cleared blocks: 4
+Number of chains: 1
+Row Insertion Timer paused? 1
+Row Insertion In: 6952ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|               4 |
+Row 12:|               2 |
+Row 11:|               5 |
+Row 10:|               5 |
+Row 09:| 3 1   3     5 4 |
+Row 08:| 4 2   5   2 1 4 |
+Row 07:| 5 3 3 4   4 1 5 |
+Row 06:| 5 5 2 4   3 2 4 |
+Row 05:| 5 3 2 5   1 4 2 |
+Row 04:| 5 3 1 3   4 3 5 |
+Row 03:| 2 5 4 5   1 3 1 |
+Row 02:| 3 5 2 3 1 1 2 5 |
+Row 01:| 1 4 3 5 1 4 1 1 |
+Row 00:| 4 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 4
+Contents of ClearingBlocks: 
+	Row 4, Col 0
+	Row 5, Col 0
+	Row 6, Col 0
+	Row 7, Col 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 63
+Cursor position (row, col): 10,4
+Frame Number: 7461
+Timestamp: 24356
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 6950ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|               4 |
+Row 12:|               2 |
+Row 11:|               5 |
+Row 10:|               5 |
+Row 09:|   1   3     5 4 |
+Row 08:| 3 2   5   2 1 4 |
+Row 07:| 4 3 3 4   4 1 5 |
+Row 06:|   5 2 4   3 2 4 |
+Row 05:|   3 2 5   1 4 2 |
+Row 04:|   3 1 3   4 3 5 |
+Row 03:| 2 5 4 5   1 3 1 |
+Row 02:| 3 5 2 3 1 1 2 5 |
+Row 01:| 1 4 3 5 1 4 1 1 |
+Row 00:| 4 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 63
+Cursor position (row, col): 10,4
+Frame Number: 7462
+Timestamp: 24362
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 6944ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|               4 |
+Row 12:|               2 |
+Row 11:|               5 |
+Row 10:|               5 |
+Row 09:|   1   3     5 4 |
+Row 08:|   2   5   2 1 4 |
+Row 07:| 3 3 3 4   4 1 5 |
+Row 06:| 4 5 2 4   3 2 4 |
+Row 05:|   3 2 5   1 4 2 |
+Row 04:|   3 1 3   4 3 5 |
+Row 03:| 2 5 4 5   1 3 1 |
+Row 02:| 3 5 2 3 1 1 2 5 |
+Row 01:| 1 4 3 5 1 4 1 1 |
+Row 00:| 4 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 63
+Cursor position (row, col): 10,4
+Frame Number: 7463
+Timestamp: 24373
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 6933ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|               4 |
+Row 12:|               2 |
+Row 11:|               5 |
+Row 10:|               5 |
+Row 09:|   1   3     5 4 |
+Row 08:|   2   5   2 1 4 |
+Row 07:|   3 3 4   4 1 5 |
+Row 06:| 3 5 2 4   3 2 4 |
+Row 05:| 4 3 2 5   1 4 2 |
+Row 04:|   3 1 3   4 3 5 |
+Row 03:| 2 5 4 5   1 3 1 |
+Row 02:| 3 5 2 3 1 1 2 5 |
+Row 01:| 1 4 3 5 1 4 1 1 |
+Row 00:| 4 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 63
+Cursor position (row, col): 10,4
+Frame Number: 7464
+Timestamp: 24377
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 6929ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|               4 |
+Row 12:|               2 |
+Row 11:|               5 |
+Row 10:|               5 |
+Row 09:|   1   3     5 4 |
+Row 08:|   2   5   2 1 4 |
+Row 07:|   3 3 4   4 1 5 |
+Row 06:|   5 2 4   3 2 4 |
+Row 05:| 3 3 2 5   1 4 2 |
+Row 04:| 4 3 1 3   4 3 5 |
+Row 03:| 2 5 4 5   1 3 1 |
+Row 02:| 3 5 2 3 1 1 2 5 |
+Row 01:| 1 4 3 5 1 4 1 1 |
+Row 00:| 4 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 63
+Cursor position (row, col): 10,4
+Frame Number: 7639
+Timestamp: 24727
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 6579ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|               4 |
+Row 12:|               2 |
+Row 11:|               5 |
+Row 10:|               5 |
+Row 09:|   1   3     5 4 |
+Row 08:|   2   5   2 1 4 |
+Row 07:|   3 3 4   4 1 5 |
+Row 06:|   5 2 4   3 2 4 |
+Row 05:| 3 3 2 5   1 4 2 |
+Row 04:| 4 3 1 3   4 3 5 |
+Row 03:| 2 5 4 5   1 3 1 |
+Row 02:| 3 5 2 3 1 1 2 5 |
+Row 01:| 1 4 3 5 1 4 1 1 |
+Row 00:| 4 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 63
+Cursor position (row, col): 10,4
+Frame Number: 7790
+Timestamp: 25028
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 6579ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|               4 |
+Row 12:|               2 |
+Row 11:|               5 |
+Row 10:|               5 |
+Row 09:|   1   3     5 4 |
+Row 08:|   2   5   2 1 4 |
+Row 07:|   3 3 4   1 4 5 |
+Row 06:|   5 2 4   3 2 4 |
+Row 05:| 3 3 2 5   1 4 2 |
+Row 04:| 4 3 1 3   4 3 5 |
+Row 03:| 2 5 4 5   1 3 1 |
+Row 02:| 3 5 2 3 1 1 2 5 |
+Row 01:| 1 4 3 5 1 4 1 1 |
+Row 00:| 4 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 63
+Cursor position (row, col): 10,4
+Frame Number: 7800
+Timestamp: 25059
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 6548ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|               4 |
+Row 12:|               2 |
+Row 11:|               5 |
+Row 10:|               5 |
+Row 09:|   1   3     5 4 |
+Row 08:|   2   5   2 1 4 |
+Row 07:|   3 3 4   1 4 5 |
+Row 06:|   5 2 4   3 2 4 |
+Row 05:| 3 3 2 5   1 4 2 |
+Row 04:| 4 3 1 3   4 3 5 |
+Row 03:| 2 5 4 5   1 3 1 |
+Row 02:| 3 5 2 3 1 1 2 5 |
+Row 01:| 1 4 3 5 1 4 1 1 |
+Row 00:| 4 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 67
+Cursor position (row, col): 10,4
+Frame Number: 7948
+Timestamp: 25359
+Number of cleared blocks: 4
+Number of chains: 1
+Row Insertion Timer paused? 1
+Row Insertion In: 6548ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|               4 |
+Row 12:|               2 |
+Row 11:|               5 |
+Row 10:|               5 |
+Row 09:|   1   3     5 4 |
+Row 08:|   2   5   2 1 4 |
+Row 07:|   3 3 4   1 5 4 |
+Row 06:|   5 2 4   3 2 4 |
+Row 05:| 3 3 2 5   1 4 2 |
+Row 04:| 4 3 1 3   4 3 5 |
+Row 03:| 2 5 4 5   1 3 1 |
+Row 02:| 3 5 2 3 1 1 2 5 |
+Row 01:| 1 4 3 5 1 4 1 1 |
+Row 00:| 4 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 4
+Contents of ClearingBlocks: 
+	Row 6, Col 7
+	Row 7, Col 7
+	Row 8, Col 7
+	Row 9, Col 7
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 67
+Cursor position (row, col): 10,4
+Frame Number: 8873
+Timestamp: 27362
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 6547ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|               4 |
+Row 11:|               2 |
+Row 10:|               5 |
+Row 09:|   1   3     5 5 |
+Row 08:|   2   5   2 1   |
+Row 07:|   3 3 4   1 5   |
+Row 06:|   5 2 4   3 2   |
+Row 05:| 3 3 2 5   1 4 2 |
+Row 04:| 4 3 1 3   4 3 5 |
+Row 03:| 2 5 4 5   1 3 1 |
+Row 02:| 3 5 2 3 1 1 2 5 |
+Row 01:| 1 4 3 5 1 4 1 1 |
+Row 00:| 4 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 67
+Cursor position (row, col): 10,4
+Frame Number: 8874
+Timestamp: 27371
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 6538ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|               4 |
+Row 10:|               2 |
+Row 09:|   1   3     5 5 |
+Row 08:|   2   5   2 1 5 |
+Row 07:|   3 3 4   1 5   |
+Row 06:|   5 2 4   3 2   |
+Row 05:| 3 3 2 5   1 4 2 |
+Row 04:| 4 3 1 3   4 3 5 |
+Row 03:| 2 5 4 5   1 3 1 |
+Row 02:| 3 5 2 3 1 1 2 5 |
+Row 01:| 1 4 3 5 1 4 1 1 |
+Row 00:| 4 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 67
+Cursor position (row, col): 10,4
+Frame Number: 8875
+Timestamp: 27376
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 6538ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|               4 |
+Row 09:|   1   3     5 2 |
+Row 08:|   2   5   2 1 5 |
+Row 07:|   3 3 4   1 5 5 |
+Row 06:|   5 2 4   3 2   |
+Row 05:| 3 3 2 5   1 4 2 |
+Row 04:| 4 3 1 3   4 3 5 |
+Row 03:| 2 5 4 5   1 3 1 |
+Row 02:| 3 5 2 3 1 1 2 5 |
+Row 01:| 1 4 3 5 1 4 1 1 |
+Row 00:| 4 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 67
+Cursor position (row, col): 10,4
+Frame Number: 8876
+Timestamp: 27382
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 6538ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|   1   3     5 4 |
+Row 08:|   2   5   2 1 2 |
+Row 07:|   3 3 4   1 5 5 |
+Row 06:|   5 2 4   3 2 5 |
+Row 05:| 3 3 2 5   1 4 2 |
+Row 04:| 4 3 1 3   4 3 5 |
+Row 03:| 2 5 4 5   1 3 1 |
+Row 02:| 3 5 2 3 1 1 2 5 |
+Row 01:| 1 4 3 5 1 4 1 1 |
+Row 00:| 4 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 70
+Cursor position (row, col): 10,4
+Frame Number: 9035
+Timestamp: 27672
+Number of cleared blocks: 3
+Number of chains: 1
+Row Insertion Timer paused? 1
+Row Insertion In: 6538ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|   1   3     5 4 |
+Row 08:|   2   5   2 1 2 |
+Row 07:|   3 3 4   1 5 5 |
+Row 06:|   5 2 4   3 2 5 |
+Row 05:| 3 3 2 5   1 4 2 |
+Row 04:| 4 3 1 3   4 3 5 |
+Row 03:| 2 5 4 5   1 3 1 |
+Row 02:| 3 5 2 3 1 1 2 5 |
+Row 01:| 1 4 3 5 1 1 4 1 |
+Row 00:| 4 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 3
+Contents of ClearingBlocks: 
+	Row 1, Col 5
+	Row 2, Col 5
+	Row 3, Col 5
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 70
+Cursor position (row, col): 10,4
+Frame Number: 10082
+Timestamp: 29674
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 6536ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|   1   3     5 4 |
+Row 08:|   2   5     1 2 |
+Row 07:|   3 3 4   2 5 5 |
+Row 06:|   5 2 4   1 2 5 |
+Row 05:| 3 3 2 5   3 4 2 |
+Row 04:| 4 3 1 3   1 3 5 |
+Row 03:| 2 5 4 5   4 3 1 |
+Row 02:| 3 5 2 3 1   2 5 |
+Row 01:| 1 4 3 5 1   4 1 |
+Row 00:| 4 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 70
+Cursor position (row, col): 10,4
+Frame Number: 10083
+Timestamp: 29680
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 6530ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|   1   3     5 4 |
+Row 08:|   2   5     1 2 |
+Row 07:|   3 3 4     5 5 |
+Row 06:|   5 2 4   2 2 5 |
+Row 05:| 3 3 2 5   1 4 2 |
+Row 04:| 4 3 1 3   3 3 5 |
+Row 03:| 2 5 4 5   1 3 1 |
+Row 02:| 3 5 2 3 1 4 2 5 |
+Row 01:| 1 4 3 5 1   4 1 |
+Row 00:| 4 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 70
+Cursor position (row, col): 10,4
+Frame Number: 10084
+Timestamp: 29685
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 6525ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|   1   3     5 4 |
+Row 08:|   2   5     1 2 |
+Row 07:|   3 3 4     5 5 |
+Row 06:|   5 2 4     2 5 |
+Row 05:| 3 3 2 5   2 4 2 |
+Row 04:| 4 3 1 3   1 3 5 |
+Row 03:| 2 5 4 5   3 3 1 |
+Row 02:| 3 5 2 3 1 1 2 5 |
+Row 01:| 1 4 3 5 1 4 4 1 |
+Row 00:| 4 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 70
+Cursor position (row, col): 10,4
+Frame Number: 10422
+Timestamp: 30266
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 5945ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|   1   3     5 4 |
+Row 08:|   2   5     1 2 |
+Row 07:|   3 3 4     5 5 |
+Row 06:|   5 2 4     2 5 |
+Row 05:| 3 3 2 5   2 4 2 |
+Row 04:| 4 3 1 3   1 3 5 |
+Row 03:| 2 5 4 5   3 3 1 |
+Row 02:| 3 5 2 3 1 1 2 5 |
+Row 01:| 1 4 3 5 1 4 4 1 |
+Row 00:| 4 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 70
+Cursor position (row, col): 10,4
+Frame Number: 10600
+Timestamp: 30570
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 5945ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|   1   3     5 4 |
+Row 08:|   2   5     1 2 |
+Row 07:|   3 3 4     5 5 |
+Row 06:|   5 2 4     2 5 |
+Row 05:| 3 3 2 5   2 4 2 |
+Row 04:| 4 3 1 3   1 3 5 |
+Row 03:| 2 5 4 5   3 3 1 |
+Row 02:| 3 5 2 3 1 1 2 5 |
+Row 01:| 4 4 3 5 1 4 4 1 |
+Row 00:| 1 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 70
+Cursor position (row, col): 10,4
+Frame Number: 10609
+Timestamp: 30591
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 5923ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|   1   3     5 4 |
+Row 08:|   2   5     1 2 |
+Row 07:|   3 3 4     5 5 |
+Row 06:|   5 2 4     2 5 |
+Row 05:| 3 3 2 5   2 4 2 |
+Row 04:| 4 3 1 3   1 3 5 |
+Row 03:| 2 5 4 5   3 3 1 |
+Row 02:| 3 5 2 3 1 1 2 5 |
+Row 01:| 4 4 3 5 1 4 4 1 |
+Row 00:| 1 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 70
+Cursor position (row, col): 10,4
+Frame Number: 10780
+Timestamp: 30891
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 5923ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|   1   3     5 4 |
+Row 08:|   2   5     1 2 |
+Row 07:|   3 3 4     5 5 |
+Row 06:|   5 2 4     2 5 |
+Row 05:| 3 3 2 5   2 4 2 |
+Row 04:| 4 3 1 3   1 3 5 |
+Row 03:| 2 5 4 5   3 3 1 |
+Row 02:| 4 5 2 3 1 1 2 5 |
+Row 01:| 3 4 3 5 1 4 4 1 |
+Row 00:| 1 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 70
+Cursor position (row, col): 10,4
+Frame Number: 11402
+Timestamp: 31959
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 4856ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|   1   3     5 4 |
+Row 08:|   2   5     1 2 |
+Row 07:|   3 3 4     5 5 |
+Row 06:|   5 2 4     2 5 |
+Row 05:| 3 3 2 5   2 4 2 |
+Row 04:| 4 3 1 3   1 3 5 |
+Row 03:| 2 5 4 5   3 3 1 |
+Row 02:| 4 5 2 3 1 1 2 5 |
+Row 01:| 3 4 3 5 1 4 4 1 |
+Row 00:| 1 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 73
+Cursor position (row, col): 10,4
+Frame Number: 11576
+Timestamp: 32262
+Number of cleared blocks: 3
+Number of chains: 1
+Row Insertion Timer paused? 1
+Row Insertion In: 4856ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|   1   3     5 4 |
+Row 08:|   2   5     1 2 |
+Row 07:|   3 3 4     5 5 |
+Row 06:|   5 2 4     2 5 |
+Row 05:| 3 3 2 5   2 4 2 |
+Row 04:| 4 3 1 3   1 3 5 |
+Row 03:| 2 5 4 5   3 3 1 |
+Row 02:| 5 4 2 3 1 1 2 5 |
+Row 01:| 3 4 3 5 1 4 4 1 |
+Row 00:| 1 4 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 3
+Contents of ClearingBlocks: 
+	Row 0, Col 1
+	Row 1, Col 1
+	Row 2, Col 1
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 73
+Cursor position (row, col): 10,4
+Frame Number: 12718
+Timestamp: 34264
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 4854ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|       3     5 4 |
+Row 08:|   1   5     1 2 |
+Row 07:|   2 3 4     5 5 |
+Row 06:|   3 2 4     2 5 |
+Row 05:| 3 5 2 5   2 4 2 |
+Row 04:| 4 3 1 3   1 3 5 |
+Row 03:| 2 3 4 5   3 3 1 |
+Row 02:| 5 5 2 3 1 1 2 5 |
+Row 01:| 3   3 5 1 4 4 1 |
+Row 00:| 1   1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 73
+Cursor position (row, col): 10,4
+Frame Number: 12719
+Timestamp: 34269
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 4849ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|       3     5 4 |
+Row 08:|       5     1 2 |
+Row 07:|   1 3 4     5 5 |
+Row 06:|   2 2 4     2 5 |
+Row 05:| 3 3 2 5   2 4 2 |
+Row 04:| 4 5 1 3   1 3 5 |
+Row 03:| 2 3 4 5   3 3 1 |
+Row 02:| 5 3 2 3 1 1 2 5 |
+Row 01:| 3 5 3 5 1 4 4 1 |
+Row 00:| 1   1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 76
+Cursor position (row, col): 10,4
+Frame Number: 12720
+Timestamp: 34279
+Number of cleared blocks: 3
+Number of chains: 1
+Row Insertion Timer paused? 1
+Row Insertion In: 4840ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|       3     5 4 |
+Row 08:|       5     1 2 |
+Row 07:|     3 4     5 5 |
+Row 06:|   1 2 4     2 5 |
+Row 05:| 3 2 2 5   2 4 2 |
+Row 04:| 4 3 1 3   1 3 5 |
+Row 03:| 2 5 4 5   3 3 1 |
+Row 02:| 5 3 2 3 1 1 2 5 |
+Row 01:| 3 3 3 5 1 4 4 1 |
+Row 00:| 1 5 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 3
+Contents of ClearingBlocks: 
+	Row 1, Col 0
+	Row 1, Col 1
+	Row 1, Col 2
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 76
+Cursor position (row, col): 10,4
+Frame Number: 12725
+Timestamp: 34296
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 4838ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|       3     5 4 |
+Row 08:|       5     1 2 |
+Row 07:|     3 4     5 5 |
+Row 06:|   1 2 4     2 5 |
+Row 05:| 3 2 2 5   2 4 2 |
+Row 04:| 4 3 1 3   1 3 5 |
+Row 03:| 2 5 4 5   3 3 1 |
+Row 02:| 5 3 2 3 1 1 2 5 |
+Row 01:| 3 3 3 5 1 4 4 1 |
+Row 00:| 1 5 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 76
+Cursor position (row, col): 10,4
+Frame Number: 12883
+Timestamp: 34576
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 4838ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|       3     5 4 |
+Row 08:|       5     1 2 |
+Row 07:|     3 4     5 5 |
+Row 06:|   1 2 4     2 5 |
+Row 05:| 3 2 2 5   2 4 2 |
+Row 04:| 4 3 1 3   1 3 5 |
+Row 03:| 2 5 4 5   3 3 1 |
+Row 02:| 5 3 2 3 1 1 2 5 |
+Row 01:| 3 3 3 5 1 4 4 1 |
+Row 00:| 1 5 1 2 4 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 76
+Cursor position (row, col): 10,4
+Frame Number: 12892
+Timestamp: 34598
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 4838ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|       3     5 4 |
+Row 08:|       5     1 2 |
+Row 07:|     3 4     5 5 |
+Row 06:|   1 2 4     2 5 |
+Row 05:| 3 2 2 5   2 4 2 |
+Row 04:| 4 3 1 3   1 3 5 |
+Row 03:| 2 5 4 5   3 3 1 |
+Row 02:| 5 3 2 3 1 1 2 5 |
+Row 01:| 3 3 3 5 1 4 4 1 |
+Row 00:| 1 5 1 2 4 1 3 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 79
+Cursor position (row, col): 10,4
+Frame Number: 13053
+Timestamp: 34878
+Number of cleared blocks: 3
+Number of chains: 1
+Row Insertion Timer paused? 1
+Row Insertion In: 4838ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|       3     5 4 |
+Row 08:|       5     1 2 |
+Row 07:|     3 4     5 5 |
+Row 06:|   1 2 4     2 5 |
+Row 05:| 3 2 2 5   2 4 2 |
+Row 04:| 4 3 1 3   1 3 5 |
+Row 03:| 2 5 4 5   3 3 1 |
+Row 02:| 5 3 2 3 1 1 2 5 |
+Row 01:| 3 3 3 5 1 4 4 1 |
+Row 00:| 1 5 1 2 1 4 3 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 3
+Contents of ClearingBlocks: 
+	Row 0, Col 4
+	Row 1, Col 4
+	Row 2, Col 4
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 79
+Cursor position (row, col): 10,4
+Frame Number: 13882
+Timestamp: 36284
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 4838ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|       3     5 4 |
+Row 08:|       5     1 2 |
+Row 07:|       4     5 5 |
+Row 06:|     3 4     2 5 |
+Row 05:|   1 2 5   2 4 2 |
+Row 04:| 3 2 2 3   1 3 5 |
+Row 03:| 4 3 1 5   3 3 1 |
+Row 02:| 2 5 4 3 1 1 2 5 |
+Row 01:| 5 3 2 5 1 4 4 1 |
+Row 00:| 1 5 1 2 1 4 3 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 79
+Cursor position (row, col): 10,4
+Frame Number: 14269
+Timestamp: 36880
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 4838ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|       3     5 4 |
+Row 08:|       5     1 2 |
+Row 07:|       4     5 5 |
+Row 06:|     3 4     2 5 |
+Row 05:|   1 2 5   2 4 2 |
+Row 04:| 3 2 2 3   1 3 5 |
+Row 03:| 4 3 1 5   3 3 1 |
+Row 02:| 2 5 4 3   1 2 5 |
+Row 01:| 5 3 2 5   4 4 1 |
+Row 00:| 1 5 1 2   4 3 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 79
+Cursor position (row, col): 10,4
+Frame Number: 14396
+Timestamp: 37069
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 4650ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|       3     5 4 |
+Row 08:|       5     1 2 |
+Row 07:|       4     5 5 |
+Row 06:|     3 4     2 5 |
+Row 05:|   1 2 5   2 4 2 |
+Row 04:| 3 2 2 3   1 3 5 |
+Row 03:| 4 3 1 5   3 3 1 |
+Row 02:| 2 5 4 3   1 2 5 |
+Row 01:| 5 3 2 5   4 4 1 |
+Row 00:| 1 5 1 2   4 3 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 79
+Cursor position (row, col): 10,4
+Frame Number: 14607
+Timestamp: 37369
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 4650ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|       3     5 4 |
+Row 08:|       5     1 2 |
+Row 07:|       4     5 5 |
+Row 06:|     3 4     2 5 |
+Row 05:|   1 2 5   2 4 2 |
+Row 04:| 3 2 2 3   1 3 5 |
+Row 03:| 4 3 1 5   3 3 1 |
+Row 02:| 2 5 4 3   2 1 5 |
+Row 01:| 5 3 2 5   4 4 1 |
+Row 00:| 1 5 1 2   4 3 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 79
+Cursor position (row, col): 10,4
+Frame Number: 14636
+Timestamp: 37418
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 4601ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|       3     5 4 |
+Row 08:|       5     1 2 |
+Row 07:|       4     5 5 |
+Row 06:|     3 4     2 5 |
+Row 05:|   1 2 5   2 4 2 |
+Row 04:| 3 2 2 3   1 3 5 |
+Row 03:| 4 3 1 5   3 3 1 |
+Row 02:| 2 5 4 3   2 1 5 |
+Row 01:| 5 3 2 5   4 4 1 |
+Row 00:| 1 5 1 2   4 3 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 82
+Cursor position (row, col): 10,4
+Frame Number: 14851
+Timestamp: 37718
+Number of cleared blocks: 3
+Number of chains: 1
+Row Insertion Timer paused? 1
+Row Insertion In: 4601ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|       3     5 4 |
+Row 08:|       5     1 2 |
+Row 07:|       4     5 5 |
+Row 06:|     3 4     2 5 |
+Row 05:|   1 2 5   2 4 2 |
+Row 04:| 3 2 2 3   1 3 5 |
+Row 03:| 4 3 1 5   3 3 1 |
+Row 02:| 2 5 4 3   2 5 1 |
+Row 01:| 5 3 2 5   4 4 1 |
+Row 00:| 1 5 1 2   4 3 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 3
+Contents of ClearingBlocks: 
+	Row 1, Col 7
+	Row 2, Col 7
+	Row 3, Col 7
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 82
+Cursor position (row, col): 10,4
+Frame Number: 16191
+Timestamp: 39720
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 4600ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|       3     5   |
+Row 08:|       5     1 4 |
+Row 07:|       4     5 2 |
+Row 06:|     3 4     2 5 |
+Row 05:|   1 2 5   2 4 5 |
+Row 04:| 3 2 2 3   1 3 2 |
+Row 03:| 4 3 1 5   3 3 5 |
+Row 02:| 2 5 4 3   2 5   |
+Row 01:| 5 3 2 5   4 4   |
+Row 00:| 1 5 1 2   4 3 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 82
+Cursor position (row, col): 10,4
+Frame Number: 16192
+Timestamp: 39725
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 4595ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|       3     5   |
+Row 08:|       5     1   |
+Row 07:|       4     5 4 |
+Row 06:|     3 4     2 2 |
+Row 05:|   1 2 5   2 4 5 |
+Row 04:| 3 2 2 3   1 3 5 |
+Row 03:| 4 3 1 5   3 3 2 |
+Row 02:| 2 5 4 3   2 5 5 |
+Row 01:| 5 3 2 5   4 4   |
+Row 00:| 1 5 1 2   4 3 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 82
+Cursor position (row, col): 10,4
+Frame Number: 16193
+Timestamp: 39730
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 4590ms
+New row active? 0
+Temp  :| 4 1 4 4 2 4 5 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|       3     5   |
+Row 08:|       5     1   |
+Row 07:|       4     5   |
+Row 06:|     3 4     2 4 |
+Row 05:|   1 2 5   2 4 2 |
+Row 04:| 3 2 2 3   1 3 5 |
+Row 03:| 4 3 1 5   3 3 5 |
+Row 02:| 2 5 4 3   2 5 2 |
+Row 01:| 5 3 2 5   4 4 5 |
+Row 00:| 1 5 1 2   4 3 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 85
+Cursor position (row, col): 10,4
+Frame Number: 17100
+Timestamp: 40911
+Number of cleared blocks: 3
+Number of chains: 1
+Row Insertion Timer paused? 1
+Row Insertion In: 3409ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|       3     5   |
+Row 09:|       5     1   |
+Row 08:|       4     5   |
+Row 07:|     3 4     2 4 |
+Row 06:|   1 2 5   2 4 2 |
+Row 05:| 3 2 2 3   1 3 5 |
+Row 04:| 4 3 1 5   3 3 5 |
+Row 03:| 2 5 4 3   2 5 2 |
+Row 02:| 5 3 2 5   4 4 5 |
+Row 01:| 1 5 1 2   4 3 4 |
+Row 00:| 4 1 4 4 2 4 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 3
+Contents of ClearingBlocks: 
+	Row 0, Col 5
+	Row 1, Col 5
+	Row 2, Col 5
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 85
+Cursor position (row, col): 10,4
+Frame Number: 18365
+Timestamp: 42914
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 11998ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|       3     5   |
+Row 09:|       5     1   |
+Row 08:|       4     5   |
+Row 07:|     3 4     2 4 |
+Row 06:|   1 2 5     4 2 |
+Row 05:| 3 2 2 3   2 3 5 |
+Row 04:| 4 3 1 5   1 3 5 |
+Row 03:| 2 5 4 3   3 5 2 |
+Row 02:| 5 3 2 5   2 4 5 |
+Row 01:| 1 5 1 2     3 4 |
+Row 00:| 4 1 4 4 2   5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 85
+Cursor position (row, col): 10,4
+Frame Number: 18366
+Timestamp: 42919
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 11993ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|       3     5   |
+Row 09:|       5     1   |
+Row 08:|       4     5   |
+Row 07:|     3 4     2 4 |
+Row 06:|   1 2 5     4 2 |
+Row 05:| 3 2 2 3     3 5 |
+Row 04:| 4 3 1 5   2 3 5 |
+Row 03:| 2 5 4 3   1 5 2 |
+Row 02:| 5 3 2 5   3 4 5 |
+Row 01:| 1 5 1 2   2 3 4 |
+Row 00:| 4 1 4 4 2   5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 85
+Cursor position (row, col): 10,4
+Frame Number: 18367
+Timestamp: 42924
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 11988ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|       3     5   |
+Row 09:|       5     1   |
+Row 08:|       4     5   |
+Row 07:|     3 4     2 4 |
+Row 06:|   1 2 5     4 2 |
+Row 05:| 3 2 2 3     3 5 |
+Row 04:| 4 3 1 5     3 5 |
+Row 03:| 2 5 4 3   2 5 2 |
+Row 02:| 5 3 2 5   1 4 5 |
+Row 01:| 1 5 1 2   3 3 4 |
+Row 00:| 4 1 4 4 2 2 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 85
+Cursor position (row, col): 10,4
+Frame Number: 18454
+Timestamp: 43062
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 11850ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|       3     5   |
+Row 09:|       5     1   |
+Row 08:|       4     5   |
+Row 07:|     3 4     2 4 |
+Row 06:|   1 2 5     4 2 |
+Row 05:| 3 2 2 3     3 5 |
+Row 04:| 4 3 1 5     3 5 |
+Row 03:| 2 5 4 3   2 5 2 |
+Row 02:| 5 3 2 5   1 4 5 |
+Row 01:| 1 5 1 2   3 3 4 |
+Row 00:| 4 1 4 4 2 2 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 88
+Cursor position (row, col): 10,4
+Frame Number: 18660
+Timestamp: 43363
+Number of cleared blocks: 3
+Number of chains: 1
+Row Insertion Timer paused? 1
+Row Insertion In: 11850ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|       3     5   |
+Row 09:|       5     1   |
+Row 08:|       4     5   |
+Row 07:|     3 4     2 4 |
+Row 06:|   1 2 5     4 2 |
+Row 05:| 3 2 2 3     3 5 |
+Row 04:| 4 3 1 5     3 5 |
+Row 03:| 2 5 4 3   2 5 2 |
+Row 02:| 5 3 2 5   1 4 5 |
+Row 01:| 1 1 1 2   3 3 4 |
+Row 00:| 4 5 4 4 2 2 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 3
+Contents of ClearingBlocks: 
+	Row 1, Col 0
+	Row 1, Col 1
+	Row 1, Col 2
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 88
+Cursor position (row, col): 10,4
+Frame Number: 19967
+Timestamp: 45368
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 11848ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|       3     5   |
+Row 09:|       5     1   |
+Row 08:|       4     5   |
+Row 07:|       4     2 4 |
+Row 06:|     3 5     4 2 |
+Row 05:|   1 2 3     3 5 |
+Row 04:| 3 2 2 5     3 5 |
+Row 03:| 4 3 1 3   2 5 2 |
+Row 02:| 2 5 4 5   1 4 5 |
+Row 01:| 5 3 2 2   3 3 4 |
+Row 00:| 4 5 4 4 2 2 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 88
+Cursor position (row, col): 10,4
+Frame Number: 20557
+Timestamp: 46193
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 11023ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|       3     5   |
+Row 09:|       5     1   |
+Row 08:|       4     5   |
+Row 07:|       4     2 4 |
+Row 06:|     3 5     4 2 |
+Row 05:|   1 2 3     3 5 |
+Row 04:| 3 2 2 5     3 5 |
+Row 03:| 4 3 1 3   2 5 2 |
+Row 02:| 2 5 4 5   1 4 5 |
+Row 01:| 5 3 2 2   3 3 4 |
+Row 00:| 4 5 4 4 2 2 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 91
+Cursor position (row, col): 10,4
+Frame Number: 20769
+Timestamp: 46494
+Number of cleared blocks: 3
+Number of chains: 1
+Row Insertion Timer paused? 1
+Row Insertion In: 11023ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|       3     5   |
+Row 09:|       5     1   |
+Row 08:|       4     5   |
+Row 07:|       4     2 4 |
+Row 06:|     3 5     4 2 |
+Row 05:|   1 2 3     3 5 |
+Row 04:| 3 2 2 5     3 5 |
+Row 03:| 4 3 1 3   2 5 2 |
+Row 02:| 2 5 4 5   1 4 5 |
+Row 01:| 5 3 2 4   3 3 4 |
+Row 00:| 4 5 4 2 2 2 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 3
+Contents of ClearingBlocks: 
+	Row 0, Col 3
+	Row 0, Col 4
+	Row 0, Col 5
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 91
+Cursor position (row, col): 10,4
+Frame Number: 20892
+Timestamp: 46675
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 11022ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|       3     5   |
+Row 09:|       5     1   |
+Row 08:|       4     5   |
+Row 07:|       4     2 4 |
+Row 06:|     3 5     4 2 |
+Row 05:|   1 2 3     3 5 |
+Row 04:| 3 2 2 5     3 5 |
+Row 03:| 4 3 1 3   2 5 2 |
+Row 02:| 2 5 4 5   1 4 5 |
+Row 01:| 5 3 2 4   3 3 4 |
+Row 00:| 4 5 4 2 2 2 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 91
+Cursor position (row, col): 10,4
+Frame Number: 21101
+Timestamp: 46976
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 11022ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|       3     5   |
+Row 09:|       5     1   |
+Row 08:|       4     5   |
+Row 07:|       4     2 4 |
+Row 06:|     3 5     4 2 |
+Row 05:|   1 2 3     3 5 |
+Row 04:| 3 2 2 5     3 5 |
+Row 03:| 4 3 1 3   2 5 2 |
+Row 02:| 2 5 4 5   1 4 5 |
+Row 01:| 5 3 4 4   3 3 4 |
+Row 00:| 4 5 2 2 2 2 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 91
+Cursor position (row, col): 10,4
+Frame Number: 22158
+Timestamp: 48496
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 11022ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|             5   |
+Row 09:|       3     1   |
+Row 08:|       5     5   |
+Row 07:|       4     2 4 |
+Row 06:|     3 4     4 2 |
+Row 05:|   1 2 5     3 5 |
+Row 04:| 3 2 2 3     3 5 |
+Row 03:| 4 3 1 5     5 2 |
+Row 02:| 2 5 4 3   2 4 5 |
+Row 01:| 5 3 4 5   1 3 4 |
+Row 00:| 4 5 2 4   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 91
+Cursor position (row, col): 10,4
+Frame Number: 22759
+Timestamp: 49271
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 10247ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|             5   |
+Row 09:|       3     1   |
+Row 08:|       5     5   |
+Row 07:|       4     2 4 |
+Row 06:|     3 4     4 2 |
+Row 05:|   1 2 5     3 5 |
+Row 04:| 3 2 2 3     3 5 |
+Row 03:| 4 3 1 5     5 2 |
+Row 02:| 2 5 4 3   2 4 5 |
+Row 01:| 5 3 4 5   1 3 4 |
+Row 00:| 4 5 2 4   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 94
+Cursor position (row, col): 10,4
+Frame Number: 23000
+Timestamp: 49572
+Number of cleared blocks: 3
+Number of chains: 1
+Row Insertion Timer paused? 1
+Row Insertion In: 10247ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|             5   |
+Row 09:|       3     1   |
+Row 08:|       5     5   |
+Row 07:|       4     2 4 |
+Row 06:|     3 4     4 2 |
+Row 05:|   1 2 5     3 5 |
+Row 04:| 3 2 2 3     3 5 |
+Row 03:| 4 3 1 5     5 2 |
+Row 02:| 2 5 4 3   2 4 5 |
+Row 01:| 5 3 4 5   1 3 4 |
+Row 00:| 4 5 4 2   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 3
+Contents of ClearingBlocks: 
+	Row 0, Col 2
+	Row 1, Col 2
+	Row 2, Col 2
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 94
+Cursor position (row, col): 10,4
+Frame Number: 24526
+Timestamp: 51573
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 10246ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|             5   |
+Row 09:|       3     1   |
+Row 08:|       5     5   |
+Row 07:|       4     2 4 |
+Row 06:|       4     4 2 |
+Row 05:|   1 3 5     3 5 |
+Row 04:| 3 2 2 3     3 5 |
+Row 03:| 4 3 2 5     5 2 |
+Row 02:| 2 5 1 3   2 4 5 |
+Row 01:| 5 3   5   1 3 4 |
+Row 00:| 4 5   2   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 94
+Cursor position (row, col): 10,4
+Frame Number: 24527
+Timestamp: 51578
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 10241ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|             5   |
+Row 09:|       3     1   |
+Row 08:|       5     5   |
+Row 07:|       4     2 4 |
+Row 06:|       4     4 2 |
+Row 05:|   1   5     3 5 |
+Row 04:| 3 2 3 3     3 5 |
+Row 03:| 4 3 2 5     5 2 |
+Row 02:| 2 5 2 3   2 4 5 |
+Row 01:| 5 3 1 5   1 3 4 |
+Row 00:| 4 5   2   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 94
+Cursor position (row, col): 10,4
+Frame Number: 24528
+Timestamp: 51583
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 10236ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|             5   |
+Row 09:|       3     1   |
+Row 08:|       5     5   |
+Row 07:|       4     2 4 |
+Row 06:|       4     4 2 |
+Row 05:|   1   5     3 5 |
+Row 04:| 3 2   3     3 5 |
+Row 03:| 4 3 3 5     5 2 |
+Row 02:| 2 5 2 3   2 4 5 |
+Row 01:| 5 3 2 5   1 3 4 |
+Row 00:| 4 5 1 2   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 94
+Cursor position (row, col): 10,4
+Frame Number: 24825
+Timestamp: 51946
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 9873ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|             5   |
+Row 09:|       3     1   |
+Row 08:|       5     5   |
+Row 07:|       4     2 4 |
+Row 06:|       4     4 2 |
+Row 05:|   1   5     3 5 |
+Row 04:| 3 2   3     3 5 |
+Row 03:| 4 3 3 5     5 2 |
+Row 02:| 2 5 2 3   2 4 5 |
+Row 01:| 5 3 2 5   1 3 4 |
+Row 00:| 4 5 1 2   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 94
+Cursor position (row, col): 10,4
+Frame Number: 25077
+Timestamp: 52248
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 9873ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|             5   |
+Row 09:|       3     1   |
+Row 08:|       5     5   |
+Row 07:|       4     2 4 |
+Row 06:|       4     4 2 |
+Row 05:|   1   5     3 5 |
+Row 04:| 3 2   3     3 5 |
+Row 03:| 4 3 3 5     5 2 |
+Row 02:| 2 5 2 3   2 4 5 |
+Row 01:| 5 3 5 2   1 3 4 |
+Row 00:| 4 5 1 2   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 94
+Cursor position (row, col): 10,4
+Frame Number: 25090
+Timestamp: 52271
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 9850ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|             5   |
+Row 09:|       3     1   |
+Row 08:|       5     5   |
+Row 07:|       4     2 4 |
+Row 06:|       4     4 2 |
+Row 05:|   1   5     3 5 |
+Row 04:| 3 2   3     3 5 |
+Row 03:| 4 3 3 5     5 2 |
+Row 02:| 2 5 2 3   2 4 5 |
+Row 01:| 5 3 5 2   1 3 4 |
+Row 00:| 4 5 1 2   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 97
+Cursor position (row, col): 10,4
+Frame Number: 25341
+Timestamp: 52571
+Number of cleared blocks: 3
+Number of chains: 1
+Row Insertion Timer paused? 1
+Row Insertion In: 9850ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|             5   |
+Row 09:|       3     1   |
+Row 08:|       5     5   |
+Row 07:|       4     2 4 |
+Row 06:|       4     4 2 |
+Row 05:|   1   5     3 5 |
+Row 04:| 3 2   3     3 5 |
+Row 03:| 4 3 3 5     5 2 |
+Row 02:| 2 5 2 3   2 4 5 |
+Row 01:| 5 5 3 2   1 3 4 |
+Row 00:| 4 5 1 2   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 3
+Contents of ClearingBlocks: 
+	Row 0, Col 1
+	Row 1, Col 1
+	Row 2, Col 1
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 97
+Cursor position (row, col): 10,4
+Frame Number: 26193
+Timestamp: 53629
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 9849ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|             5   |
+Row 09:|       3     1   |
+Row 08:|       5     5   |
+Row 07:|       4     2 4 |
+Row 06:|       4     4 2 |
+Row 05:|   1   5     3 5 |
+Row 04:| 3 2   3     3 5 |
+Row 03:| 4 3 3 5     5 2 |
+Row 02:| 2 5 2 3   2 4 5 |
+Row 01:| 5 5 3 2   1 3 4 |
+Row 00:| 4 5 1 2   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 106
+Cursor position (row, col): 10,4
+Frame Number: 26435
+Timestamp: 53929
+Number of cleared blocks: 6
+Number of chains: 2
+Row Insertion Timer paused? 1
+Row Insertion In: 9849ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|             5   |
+Row 09:|       3     1   |
+Row 08:|       5     5   |
+Row 07:|       4     2 4 |
+Row 06:|       4     4 2 |
+Row 05:|   1   5     3 5 |
+Row 04:| 3 2   3     3 5 |
+Row 03:| 4 3 3 5     5 2 |
+Row 02:| 2 5 3 2   2 4 5 |
+Row 01:| 5 5 3 2   1 3 4 |
+Row 00:| 4 5 1 2   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 6
+Contents of ClearingBlocks: 
+	Row 0, Col 3
+	Row 1, Col 2
+	Row 1, Col 3
+	Row 2, Col 2
+	Row 2, Col 3
+	Row 3, Col 2
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 106
+Cursor position (row, col): 10,4
+Frame Number: 26963
+Timestamp: 54573
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 9849ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|             5   |
+Row 09:|       3     1   |
+Row 08:|       5     5   |
+Row 07:|       4     2 4 |
+Row 06:|       4     4 2 |
+Row 05:|       5     3 5 |
+Row 04:| 3 1   3     3 5 |
+Row 03:| 4 2 3 5     5 2 |
+Row 02:| 2 3 3 2   2 4 5 |
+Row 01:| 5   3 2   1 3 4 |
+Row 00:| 4   1 2   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 106
+Cursor position (row, col): 10,4
+Frame Number: 26964
+Timestamp: 54577
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 9849ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|             5   |
+Row 09:|       3     1   |
+Row 08:|       5     5   |
+Row 07:|       4     2 4 |
+Row 06:|       4     4 2 |
+Row 05:|       5     3 5 |
+Row 04:| 3     3     3 5 |
+Row 03:| 4 1 3 5     5 2 |
+Row 02:| 2 2 3 2   2 4 5 |
+Row 01:| 5 3 3 2   1 3 4 |
+Row 00:| 4   1 2   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 106
+Cursor position (row, col): 10,4
+Frame Number: 26965
+Timestamp: 54582
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 9849ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|             5   |
+Row 09:|       3     1   |
+Row 08:|       5     5   |
+Row 07:|       4     2 4 |
+Row 06:|       4     4 2 |
+Row 05:|       5     3 5 |
+Row 04:| 3     3     3 5 |
+Row 03:| 4   3 5     5 2 |
+Row 02:| 2 1 3 2   2 4 5 |
+Row 01:| 5 2 3 2   1 3 4 |
+Row 00:| 4 3 1 2   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 106
+Cursor position (row, col): 10,4
+Frame Number: 27632
+Timestamp: 55351
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 9849ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|             5   |
+Row 09:|       3     1   |
+Row 08:|       5     5   |
+Row 07:|       4     2 4 |
+Row 06:|       4     4 2 |
+Row 05:|       5     3 5 |
+Row 04:| 3     3     3 5 |
+Row 03:| 4   3 5     5 2 |
+Row 02:| 2 1 3 2   2 4 5 |
+Row 01:| 5 2 3 2   1 3 4 |
+Row 00:| 4 3 1 2   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 110
+Cursor position (row, col): 10,4
+Frame Number: 27898
+Timestamp: 55651
+Number of cleared blocks: 4
+Number of chains: 1
+Row Insertion Timer paused? 1
+Row Insertion In: 9849ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|             5   |
+Row 09:|       3     1   |
+Row 08:|       5     5   |
+Row 07:|       4     2 4 |
+Row 06:|       4     4 2 |
+Row 05:|       5     3 5 |
+Row 04:| 3     3     3 5 |
+Row 03:| 4   3 5     2 5 |
+Row 02:| 2 1 3 2   2 4 5 |
+Row 01:| 5 2 3 2   1 3 4 |
+Row 00:| 4 3 1 2   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 4
+Contents of ClearingBlocks: 
+	Row 2, Col 7
+	Row 3, Col 7
+	Row 4, Col 7
+	Row 5, Col 7
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 110
+Cursor position (row, col): 10,4
+Frame Number: 28133
+Timestamp: 55933
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 9849ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|             5   |
+Row 09:|             1   |
+Row 08:|       3     5   |
+Row 07:|       5     2 4 |
+Row 06:|       4     4 2 |
+Row 05:|       4     3 5 |
+Row 04:| 3     5     3 5 |
+Row 03:| 4     3     2 5 |
+Row 02:| 2 1   5   2 4 5 |
+Row 01:| 5 2       1 3 4 |
+Row 00:| 4 3 1     3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 110
+Cursor position (row, col): 10,4
+Frame Number: 28134
+Timestamp: 55937
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 9849ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|             5   |
+Row 09:|             1   |
+Row 08:|             5   |
+Row 07:|       3     2 4 |
+Row 06:|       5     4 2 |
+Row 05:|       4     3 5 |
+Row 04:| 3     4     3 5 |
+Row 03:| 4     5     2 5 |
+Row 02:| 2 1   3   2 4 5 |
+Row 01:| 5 2   5   1 3 4 |
+Row 00:| 4 3 1     3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 110
+Cursor position (row, col): 10,4
+Frame Number: 28135
+Timestamp: 55941
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 9849ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|             5   |
+Row 09:|             1   |
+Row 08:|             5   |
+Row 07:|             2 4 |
+Row 06:|       3     4 2 |
+Row 05:|       5     3 5 |
+Row 04:| 3     4     3 5 |
+Row 03:| 4     4     2 5 |
+Row 02:| 2 1   5   2 4 5 |
+Row 01:| 5 2   3   1 3 4 |
+Row 00:| 4 3 1 5   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 110
+Cursor position (row, col): 10,4
+Frame Number: 29388
+Timestamp: 57141
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 9849ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|             5   |
+Row 09:|             1   |
+Row 08:|             5   |
+Row 07:|             2 4 |
+Row 06:|       3     4 2 |
+Row 05:|       5     3 5 |
+Row 04:| 3     4     3 5 |
+Row 03:| 4     4     2 5 |
+Row 02:| 2 1   5   2 4 5 |
+Row 01:| 5 2   3   1 3 4 |
+Row 00:| 4 3 1 5   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 110
+Cursor position (row, col): 10,4
+Frame Number: 29698
+Timestamp: 57441
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 9849ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|             5   |
+Row 09:|             1   |
+Row 08:|             5   |
+Row 07:|             2 4 |
+Row 06:|       3     4 2 |
+Row 05:|       5     3 5 |
+Row 04:| 3     4     3 5 |
+Row 03:| 4     4     2 5 |
+Row 02:| 2 1   5   2 3 5 |
+Row 01:| 5 2   3   1 4 4 |
+Row 00:| 4 3 1 5   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 110
+Cursor position (row, col): 10,4
+Frame Number: 29794
+Timestamp: 57547
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 9849ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|             5   |
+Row 09:|             1   |
+Row 08:|             5   |
+Row 07:|             2 4 |
+Row 06:|       3     4 2 |
+Row 05:|       5     3 5 |
+Row 04:| 3     4     3 5 |
+Row 03:| 4     4     2 5 |
+Row 02:| 2 1   5   2 3 5 |
+Row 01:| 5 2   3   1 4 4 |
+Row 00:| 4 3 1 5   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 110
+Cursor position (row, col): 10,4
+Frame Number: 29896
+Timestamp: 57653
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 9849ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|             5   |
+Row 09:|             1   |
+Row 08:|             5   |
+Row 07:|             2   |
+Row 06:|       3     4 4 |
+Row 05:|       5     3 2 |
+Row 04:| 3     4     3   |
+Row 03:| 4     4     2   |
+Row 02:| 2 1   5   2 3   |
+Row 01:| 5 2   3   1 4 4 |
+Row 00:| 4 3 1 5   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 110
+Cursor position (row, col): 10,4
+Frame Number: 29897
+Timestamp: 57657
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 9849ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|             5   |
+Row 09:|             1   |
+Row 08:|             5   |
+Row 07:|             2   |
+Row 06:|       3     4   |
+Row 05:|       5     3 4 |
+Row 04:| 3     4     3 2 |
+Row 03:| 4     4     2   |
+Row 02:| 2 1   5   2 3   |
+Row 01:| 5 2   3   1 4 4 |
+Row 00:| 4 3 1 5   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 110
+Cursor position (row, col): 10,4
+Frame Number: 29898
+Timestamp: 57665
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 9849ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|             5   |
+Row 09:|             1   |
+Row 08:|             5   |
+Row 07:|             2   |
+Row 06:|       3     4   |
+Row 05:|       5     3   |
+Row 04:| 3     4     3 4 |
+Row 03:| 4     4     2 2 |
+Row 02:| 2 1   5   2 3   |
+Row 01:| 5 2   3   1 4 4 |
+Row 00:| 4 3 1 5   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 110
+Cursor position (row, col): 10,4
+Frame Number: 29899
+Timestamp: 57669
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 9849ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|             5   |
+Row 09:|             1   |
+Row 08:|             5   |
+Row 07:|             2   |
+Row 06:|       3     4   |
+Row 05:|       5     3   |
+Row 04:| 3     4     3   |
+Row 03:| 4     4     2 4 |
+Row 02:| 2 1   5   2 3 2 |
+Row 01:| 5 2   3   1 4 4 |
+Row 00:| 4 3 1 5   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 119
+Cursor position (row, col): 10,4
+Frame Number: 30101
+Timestamp: 57847
+Number of cleared blocks: 6
+Number of chains: 2
+Row Insertion Timer paused? 1
+Row Insertion In: 9849ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|             5   |
+Row 09:|             1   |
+Row 08:|             5   |
+Row 07:|             2   |
+Row 06:|       3     4   |
+Row 05:|       5     3   |
+Row 04:| 3     4     3   |
+Row 03:| 4     4     3 4 |
+Row 02:| 2 1   5   2 2 2 |
+Row 01:| 5 2   3   1 4 4 |
+Row 00:| 4 3 1 5   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 6
+Contents of ClearingBlocks: 
+	Row 2, Col 5
+	Row 2, Col 6
+	Row 2, Col 7
+	Row 3, Col 6
+	Row 4, Col 6
+	Row 5, Col 6
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 119
+Cursor position (row, col): 10,4
+Frame Number: 32473
+Timestamp: 59849
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 9848ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|             5   |
+Row 08:|             1   |
+Row 07:|             5   |
+Row 06:|       3     2   |
+Row 05:|       5     4   |
+Row 04:| 3     4         |
+Row 03:| 4     4         |
+Row 02:| 2 1   5       4 |
+Row 01:| 5 2   3   1 4 4 |
+Row 00:| 4 3 1 5   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 119
+Cursor position (row, col): 10,4
+Frame Number: 32474
+Timestamp: 59853
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 9844ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|             5   |
+Row 07:|             1   |
+Row 06:|       3     5   |
+Row 05:|       5     2   |
+Row 04:| 3     4     4   |
+Row 03:| 4     4         |
+Row 02:| 2 1   5       4 |
+Row 01:| 5 2   3   1 4 4 |
+Row 00:| 4 3 1 5   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 119
+Cursor position (row, col): 10,4
+Frame Number: 32475
+Timestamp: 59857
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 9840ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|             5   |
+Row 06:|       3     1   |
+Row 05:|       5     5   |
+Row 04:| 3     4     2   |
+Row 03:| 4     4     4   |
+Row 02:| 2 1   5       4 |
+Row 01:| 5 2   3   1 4 4 |
+Row 00:| 4 3 1 5   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 119
+Cursor position (row, col): 10,4
+Frame Number: 32476
+Timestamp: 59865
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 9832ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|       3     5   |
+Row 05:|       5     1   |
+Row 04:| 3     4     5   |
+Row 03:| 4     4     2   |
+Row 02:| 2 1   5     4 4 |
+Row 01:| 5 2   3   1 4 4 |
+Row 00:| 4 3 1 5   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 119
+Cursor position (row, col): 10,4
+Frame Number: 34397
+Timestamp: 61272
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 8425ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|       3     5   |
+Row 05:|       5     1   |
+Row 04:| 3     4     5   |
+Row 03:| 4     4     2   |
+Row 02:| 2 1   5     4 4 |
+Row 01:| 5 2   3   1 4 4 |
+Row 00:| 4 3 1 5   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 119
+Cursor position (row, col): 10,4
+Frame Number: 34803
+Timestamp: 61573
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 8425ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|       3         |
+Row 05:|       5     5   |
+Row 04:| 3     4     1   |
+Row 03:| 4     4     5   |
+Row 02:| 2 1   5   4 2 4 |
+Row 01:| 5 2   3   1 4 4 |
+Row 00:| 4 3 1 5   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 119
+Cursor position (row, col): 10,4
+Frame Number: 35256
+Timestamp: 61898
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 8099ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|       3         |
+Row 05:|       5     5   |
+Row 04:| 3     4     1   |
+Row 03:| 4     4     5   |
+Row 02:| 2 1   5   4 2 4 |
+Row 01:| 5 2   3   1 4 4 |
+Row 00:| 4 3 1 5   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 122
+Cursor position (row, col): 10,4
+Frame Number: 35679
+Timestamp: 62199
+Number of cleared blocks: 3
+Number of chains: 1
+Row Insertion Timer paused? 1
+Row Insertion In: 8099ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|       3         |
+Row 05:|       5     5   |
+Row 04:| 3     4     1   |
+Row 03:| 4     4     5   |
+Row 02:| 2 1   5   1 2 4 |
+Row 01:| 5 2   3   4 4 4 |
+Row 00:| 4 3 1 5   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 3
+Contents of ClearingBlocks: 
+	Row 1, Col 5
+	Row 1, Col 6
+	Row 1, Col 7
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 122
+Cursor position (row, col): 10,4
+Frame Number: 37394
+Timestamp: 63382
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 8099ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|       3         |
+Row 05:|       5     5   |
+Row 04:| 3     4     1   |
+Row 03:| 4     4     5   |
+Row 02:| 2 1   5   1 2 4 |
+Row 01:| 5 2   3   4 4 4 |
+Row 00:| 4 3 1 5   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 122
+Cursor position (row, col): 10,4
+Frame Number: 37826
+Timestamp: 63686
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 8099ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|       3     5   |
+Row 04:| 3     5     1   |
+Row 03:| 4     4     5   |
+Row 02:| 2 1   4   1 2 4 |
+Row 01:| 5 2   3 5 4 4 4 |
+Row 00:| 4 3 1 5   3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 122
+Cursor position (row, col): 10,4
+Frame Number: 37827
+Timestamp: 63690
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 8099ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|       3     5   |
+Row 04:| 3     5     1   |
+Row 03:| 4     4     5   |
+Row 02:| 2 1   4   1 2 4 |
+Row 01:| 5 2   3   4 4 4 |
+Row 00:| 4 3 1 5 5 3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 122
+Cursor position (row, col): 10,4
+Frame Number: 38539
+Timestamp: 64200
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 8099ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|       3         |
+Row 04:| 3     5     5   |
+Row 03:| 4     4     1   |
+Row 02:| 2 1   4     5   |
+Row 01:| 5 2   3   1 2 4 |
+Row 00:| 4 3 1 5 5 3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 122
+Cursor position (row, col): 10,4
+Frame Number: 40780
+Timestamp: 65591
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 6708ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|       3         |
+Row 04:| 3     5     5   |
+Row 03:| 4     4     1   |
+Row 02:| 2 1   4     5   |
+Row 01:| 5 2   3   1 2 4 |
+Row 00:| 4 3 1 5 5 3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 122
+Cursor position (row, col): 10,4
+Frame Number: 41261
+Timestamp: 65891
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 6708ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|       3         |
+Row 04:| 3     5     5   |
+Row 03:| 4     4     1   |
+Row 02:| 2 1   4     2   |
+Row 01:| 5 2   3   1 5 4 |
+Row 00:| 4 3 1 5 5 3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 122
+Cursor position (row, col): 10,4
+Frame Number: 41338
+Timestamp: 65947
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 6652ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|       3         |
+Row 04:| 3     5     5   |
+Row 03:| 4     4     1   |
+Row 02:| 2 1   4     2   |
+Row 01:| 5 2   3   1 5 4 |
+Row 00:| 4 3 1 5 5 3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 122
+Cursor position (row, col): 10,4
+Frame Number: 41809
+Timestamp: 66247
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 6652ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|       3         |
+Row 04:| 3     5     5   |
+Row 03:| 4     4     1   |
+Row 02:| 2 1   4     2   |
+Row 01:| 5 2   3   5 1 4 |
+Row 00:| 4 3 1 5 5 3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 122
+Cursor position (row, col): 10,4
+Frame Number: 42002
+Timestamp: 66372
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 6528ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|       3         |
+Row 04:| 3     5     5   |
+Row 03:| 4     4     1   |
+Row 02:| 2 1   4     2   |
+Row 01:| 5 2   3   5 1 4 |
+Row 00:| 4 3 1 5 5 3 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 137
+Cursor position (row, col): 10,4
+Frame Number: 42479
+Timestamp: 66674
+Number of cleared blocks: 5
+Number of chains: 1
+Row Insertion Timer paused? 1
+Row Insertion In: 6528ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|       3         |
+Row 04:| 3     5     5   |
+Row 03:| 4     4     1   |
+Row 02:| 2 1   4     2   |
+Row 01:| 5 2   3   3 1 4 |
+Row 00:| 4 3 1 5 5 5 5 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 5
+Contents of ClearingBlocks: 
+	Row 0, Col 3
+	Row 0, Col 4
+	Row 0, Col 5
+	Row 0, Col 6
+	Row 0, Col 7
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 137
+Cursor position (row, col): 10,4
+Frame Number: 45978
+Timestamp: 68675
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 6527ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:| 3     3         |
+Row 03:| 4     5     5   |
+Row 02:| 2 1   4     1   |
+Row 01:| 5 2   4     2   |
+Row 00:| 4 3 1 3   3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 137
+Cursor position (row, col): 10,4
+Frame Number: 46189
+Timestamp: 68787
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 6415ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:| 3     3         |
+Row 03:| 4     5     5   |
+Row 02:| 2 1   4     1   |
+Row 01:| 5 2   4     2   |
+Row 00:| 4 3 1 3   3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 137
+Cursor position (row, col): 10,4
+Frame Number: 46810
+Timestamp: 69087
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 6415ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:| 3     3         |
+Row 03:| 4     5     5   |
+Row 02:| 2     4     1   |
+Row 01:| 5 2 1 4     2   |
+Row 00:| 4 3 1 3   3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 137
+Cursor position (row, col): 10,4
+Frame Number: 48874
+Timestamp: 70121
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 5382ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:| 3     3         |
+Row 03:| 4     5     5   |
+Row 02:| 2     4     1   |
+Row 01:| 5 2 1 4     2   |
+Row 00:| 4 3 1 3   3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 137
+Cursor position (row, col): 10,4
+Frame Number: 49478
+Timestamp: 70421
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 5382ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:| 3     3         |
+Row 03:| 4     5     5   |
+Row 02:| 2     4     1   |
+Row 01:| 5 2 1 4     2   |
+Row 00:| 4 3 1 3   3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 137
+Cursor position (row, col): 10,4
+Frame Number: 50878
+Timestamp: 71124
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 4679ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:| 3     3         |
+Row 03:| 4     5     5   |
+Row 02:| 2     4     1   |
+Row 01:| 5 2 1 4     2   |
+Row 00:| 4 3 1 3   3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 137
+Cursor position (row, col): 10,4
+Frame Number: 51479
+Timestamp: 71424
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 4679ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:| 3               |
+Row 03:| 4     3     5   |
+Row 02:| 2     5     1   |
+Row 01:| 5 2 1 4     2   |
+Row 00:| 4 3 1 4 3 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 137
+Cursor position (row, col): 10,4
+Frame Number: 55119
+Timestamp: 73265
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 2838ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:| 3               |
+Row 03:| 4     3     5   |
+Row 02:| 2     5     1   |
+Row 01:| 5 2 1 4     2   |
+Row 00:| 4 3 1 4 3 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 137
+Cursor position (row, col): 10,4
+Frame Number: 55702
+Timestamp: 73565
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 2838ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:| 3               |
+Row 03:| 4     3     5   |
+Row 02:| 2     5     1   |
+Row 01:| 5 2 1 4     2   |
+Row 00:| 4 1 3 4 3 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 137
+Cursor position (row, col): 10,4
+Frame Number: 56156
+Timestamp: 73794
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 2609ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:| 3               |
+Row 03:| 4     3     5   |
+Row 02:| 2     5     1   |
+Row 01:| 5 2 1 4     2   |
+Row 00:| 4 1 3 4 3 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 140
+Cursor position (row, col): 10,4
+Frame Number: 56769
+Timestamp: 74094
+Number of cleared blocks: 3
+Number of chains: 1
+Row Insertion Timer paused? 1
+Row Insertion In: 2609ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:| 3               |
+Row 03:| 4     3     5   |
+Row 02:| 2     5     1   |
+Row 01:| 5 2 1 4     2   |
+Row 00:| 4 1 4 3 3 3 1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 3
+Contents of ClearingBlocks: 
+	Row 0, Col 3
+	Row 0, Col 4
+	Row 0, Col 5
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 140
+Cursor position (row, col): 10,4
+Frame Number: 61206
+Timestamp: 76095
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 2608ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:| 3               |
+Row 03:| 4           5   |
+Row 02:| 2     3     1   |
+Row 01:| 5 2 1 5     2   |
+Row 00:| 4 1 4 4     1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 140
+Cursor position (row, col): 10,4
+Frame Number: 64819
+Timestamp: 77584
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 1119ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:| 3               |
+Row 03:| 4           5   |
+Row 02:| 2     3     1   |
+Row 01:| 5 2 1 5     2   |
+Row 00:| 4 1 4 4     1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 143
+Cursor position (row, col): 10,4
+Frame Number: 65541
+Timestamp: 77884
+Number of cleared blocks: 3
+Number of chains: 1
+Row Insertion Timer paused? 1
+Row Insertion In: 1119ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:| 3               |
+Row 03:| 4           5   |
+Row 02:| 2     3     1   |
+Row 01:| 5 2 1 5     2   |
+Row 00:| 1 4 4 4     1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 3
+Contents of ClearingBlocks: 
+	Row 0, Col 1
+	Row 0, Col 2
+	Row 0, Col 3
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 143
+Cursor position (row, col): 10,4
+Frame Number: 70863
+Timestamp: 79885
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 1119ms
+New row active? 0
+Temp  :| 5 4 2 1 5 1 3 5 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:|                 |
+Row 04:| 3               |
+Row 03:| 4           5   |
+Row 02:| 2           1   |
+Row 01:| 5     3     2   |
+Row 00:| 1 2 1 5     1 4 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 143
+Cursor position (row, col): 10,4
+Frame Number: 74250
+Timestamp: 81004
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 10799ms
+New row active? 1
+Temp  :| 1 5 4 5 5 4 1 3 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:| 3               |
+Row 04:| 4           5   |
+Row 03:| 2           1   |
+Row 02:| 5     3     2   |
+Row 01:| 1 2 1 5     1 4 |
+Row 00:| 5 4 2 1 5 1 3 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 143
+Cursor position (row, col): 10,4
+Frame Number: 76944
+Timestamp: 82392
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 9412ms
+New row active? 0
+Temp  :| 1 5 4 5 5 4 1 3 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:| 3               |
+Row 04:| 4           5   |
+Row 03:| 2           1   |
+Row 02:| 5     3     2   |
+Row 01:| 1 2 1 5     1 4 |
+Row 00:| 5 4 2 1 5 1 3 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 143
+Cursor position (row, col): 10,4
+Frame Number: 77523
+Timestamp: 82692
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 9412ms
+New row active? 0
+Temp  :| 1 5 4 5 5 4 1 3 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:| 3               |
+Row 04:| 4           5   |
+Row 03:| 2           1   |
+Row 02:| 5     3     2   |
+Row 01:| 1 2 1 1     1 4 |
+Row 00:| 5 4 2 5 5 1 3 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 143
+Cursor position (row, col): 10,4
+Frame Number: 79602
+Timestamp: 83804
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 8300ms
+New row active? 0
+Temp  :| 1 5 4 5 5 4 1 3 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:| 3               |
+Row 04:| 4           5   |
+Row 03:| 2           1   |
+Row 02:| 5     3     2   |
+Row 01:| 1 2 1 1     1 4 |
+Row 00:| 5 4 2 5 5 1 3 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 143
+Cursor position (row, col): 10,4
+Frame Number: 80158
+Timestamp: 84106
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 8300ms
+New row active? 0
+Temp  :| 1 5 4 5 5 4 1 3 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:| 3               |
+Row 04:| 4           5   |
+Row 03:| 2           1   |
+Row 02:| 5     3     2   |
+Row 01:| 1 2 1 1     1 4 |
+Row 00:| 4 5 2 5 5 1 3 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 143
+Cursor position (row, col): 10,4
+Frame Number: 80368
+Timestamp: 84225
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 8180ms
+New row active? 0
+Temp  :| 1 5 4 5 5 4 1 3 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:| 3               |
+Row 04:| 4           5   |
+Row 03:| 2           1   |
+Row 02:| 5     3     2   |
+Row 01:| 1 2 1 1     1 4 |
+Row 00:| 4 5 2 5 5 1 3 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 146
+Cursor position (row, col): 10,4
+Frame Number: 80916
+Timestamp: 84525
+Number of cleared blocks: 3
+Number of chains: 1
+Row Insertion Timer paused? 1
+Row Insertion In: 8180ms
+New row active? 0
+Temp  :| 1 5 4 5 5 4 1 3 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:| 3               |
+Row 04:| 4           5   |
+Row 03:| 2           1   |
+Row 02:| 5     3     2   |
+Row 01:| 1 2 1 1     1 4 |
+Row 00:| 4 2 5 5 5 1 3 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 3
+Contents of ClearingBlocks: 
+	Row 0, Col 2
+	Row 0, Col 3
+	Row 0, Col 4
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 146
+Cursor position (row, col): 10,4
+Frame Number: 84654
+Timestamp: 86526
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 8180ms
+New row active? 0
+Temp  :| 1 5 4 5 5 4 1 3 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:| 3               |
+Row 04:| 4           5   |
+Row 03:| 2           1   |
+Row 02:| 5           2   |
+Row 01:| 1 2   3     1 4 |
+Row 00:| 4 2 1 1   1 3 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 146
+Cursor position (row, col): 10,4
+Frame Number: 85579
+Timestamp: 86970
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 7736ms
+New row active? 0
+Temp  :| 1 5 4 5 5 4 1 3 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:| 3               |
+Row 04:| 4           5   |
+Row 03:| 2           1   |
+Row 02:| 5           2   |
+Row 01:| 1 2   3     1 4 |
+Row 00:| 4 2 1 1   1 3 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 146
+Cursor position (row, col): 10,4
+Frame Number: 86206
+Timestamp: 87270
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 7736ms
+New row active? 0
+Temp  :| 1 5 4 5 5 4 1 3 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:| 3               |
+Row 04:| 4               |
+Row 03:| 2           5   |
+Row 02:| 5           1   |
+Row 01:| 1 2   3   1 2 4 |
+Row 00:| 4 2 1 1   1 3 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 146
+Cursor position (row, col): 10,4
+Frame Number: 86373
+Timestamp: 87354
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 1
+Row Insertion In: 7652ms
+New row active? 0
+Temp  :| 1 5 4 5 5 4 1 3 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:| 3               |
+Row 04:| 4               |
+Row 03:| 2           5   |
+Row 02:| 5           1   |
+Row 01:| 1 2   3   1 2 4 |
+Row 00:| 4 2 1 1   1 3 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 150
+Cursor position (row, col): 10,4
+Frame Number: 86982
+Timestamp: 87654
+Number of cleared blocks: 4
+Number of chains: 1
+Row Insertion Timer paused? 1
+Row Insertion In: 7652ms
+New row active? 0
+Temp  :| 1 5 4 5 5 4 1 3 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:| 3               |
+Row 04:| 4               |
+Row 03:| 2           5   |
+Row 02:| 5           1   |
+Row 01:| 1 2   3     2 4 |
+Row 00:| 4 2 1 1 1 1 3 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 4
+Contents of ClearingBlocks: 
+	Row 0, Col 2
+	Row 0, Col 3
+	Row 0, Col 4
+	Row 0, Col 5
+***********************************************************************
+
+********************START OF NEW STATE*************************************
+Player score: 150
+Cursor position (row, col): 10,4
+Frame Number: 91624
+Timestamp: 89655
+Number of cleared blocks: 0
+Number of chains: 0
+Row Insertion Timer paused? 0
+Row Insertion In: 7652ms
+New row active? 0
+Temp  :| 1 5 4 5 5 4 1 3 |
+Row 19:|                 |
+Row 18:|                 |
+Row 17:|                 |
+Row 16:|                 |
+Row 15:|                 |
+Row 14:|                 |
+Row 13:|                 |
+Row 12:|                 |
+Row 11:|                 |
+Row 10:|                 |
+Row 09:|                 |
+Row 08:|                 |
+Row 07:|                 |
+Row 06:|                 |
+Row 05:| 3               |
+Row 04:| 4               |
+Row 03:| 2           5   |
+Row 02:| 5           1   |
+Row 01:| 1 2         2 4 |
+Row 00:| 4 2   3     3 5 |
+
+Number of rows in junkRows: 0
+Size of ClearingBlocks: 0
+***********************************************************************
+

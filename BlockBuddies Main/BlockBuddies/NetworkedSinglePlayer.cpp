@@ -55,40 +55,57 @@ void NetworkedSinglePlayer::initGame()
 	
 	winX = GraphicsManager::getInstance()->window.getSize().x;
 	winY = GraphicsManager::getInstance()->window.getSize().y;
+	gameScreenHeight = (int)(winY * 0.8);
 	//fill in initial board
 	int gridPosy = 0;
 	int gridPosx = 0;
-	blockSizeX = (int)(winY / gso.boardHeight);
-	blockSizeY = (int)(winY / gso.boardHeight);
+	blockSizeX = std::floor((float)gameScreenHeight / gso.boardHeight);
+	blockSizeY = std::floor((float)gameScreenHeight / gso.boardHeight);
 
 	AnimationManager::getInstance()->setBlockSize(blockSizeX);
 
 	//draws a large rectangle around the game screen
-	gameScreenHeight = blockSizeX * gso.boardHeight;
-	int offset = winY - gameScreenHeight;
+	int offset = gameScreenHeight - (blockSizeY * GameStateObject::boardHeight);
 	gameScreenWidth = blockSizeX * gso.boardWidth;
 
-	ch = new CursorHandler(gameScreenWidth, gameScreenHeight, winX, winY, blockSizeX, -offset); //5 is the offset, dunno why yet
-	rec.setSize(sf::Vector2f(gameScreenWidth, gameScreenHeight - offset));
+	ch = new CursorHandler(gameScreenWidth, gameScreenHeight, winX, winY, blockSizeX, offset - 2 - blockSizeX/2); //5 is the offset, dunno why yet
+	rec.setSize(sf::Vector2f(gameScreenWidth, -blockSizeY * GameStateObject::boardHeight));
 	rec.setFillColor(sf::Color::Transparent);
-	rec.setPosition((winX / 2) - gameScreenWidth / 2, (winY / 2 - gameScreenHeight / 2));
-	rec.setOutlineThickness(blockSizeX);
+	rec.setPosition((winX / 2) - gameScreenWidth / 2, (winY - (3 * blockSizeX)));
+	rec.setOutlineThickness(blockSizeX/2);
 	rec.setOutlineColor(sf::Color::Black);
 	
+	//the row that holds the temp row
+	tempRowRec.setSize(sf::Vector2f(gameScreenWidth, blockSizeX));
+	tempRowRec.setFillColor(sf::Color::Transparent);
+	tempRowRec.setPosition((winX / 2) - gameScreenWidth / 2, (winY - (2.5 * blockSizeX)));
+	tempRowRec.setOutlineThickness(blockSizeX / 3);
+	tempRowRec.setOutlineColor(sf::Color::Black);
 
 	//creates blocks and puts them in 2D array
-	for (int i = gameScreenHeight; i > 0; i -= blockSizeY)
+	for (int i = 0; i < GameStateObject::boardHeight; i++)
 	{
-		for (int j = 0; j < gameScreenWidth; j += blockSizeX)
+		for (int j = 0; j < GameStateObject::boardWidth; j++)
 		{
 			sf::RectangleShape shape(sf::Vector2f(blockSizeX, blockSizeY));
-			shape.setPosition(j + (winX / 2 - gameScreenWidth / 2), i - (winY / 2 - gameScreenHeight / 2) - blockSizeX); //puts it in the middle of the screen
+			shape.setPosition(rec.getPosition().x + (j * blockSizeX), rec.getPosition().y - (i * blockSizeX) -blockSizeX);
+			//shape.setPosition(j + (winX / 2 - gameScreenWidth / 2), i - (winY / 2 - gameScreenHeight / 2) - blockSizeX); //puts it in the middle of the screen
 			shape.setFillColor(sf::Color::Transparent); //transparent blocks to appear as empty space
 			blocks[gridPosx][gridPosy] = shape;
 			gridPosy++;
+			
 		}
 		gridPosy = 0;
 		gridPosx++;
+	}
+
+	//creates the temp row below this
+	for (int i = 0; i < gso.boardWidth; i++)
+	{
+		sf::RectangleShape shape(sf::Vector2f(blockSizeX, blockSizeY));
+		shape.setPosition(tempRowRec.getPosition().x + (i * blockSizeX), tempRowRec.getPosition().y);
+		shape.setFillColor(sf::Color::Transparent);
+		nextBlocks[i] = shape;
 	}
 }
 void NetworkedSinglePlayer::update()
@@ -269,6 +286,85 @@ void NetworkedSinglePlayer::updateBlocks()
 	//std::cout << "changing it on the screen now";
 	//gso.Print();
 	//take this new gso and apply it to our board
+	//fill in temp rows
+	for (int i = 0; i < gso.boardWidth; i++)
+	{
+		color = gso.tempRow[i];
+		sf::Color c(0, 0, 0, 200);
+		switch (color)
+		{
+			//if its a 0 its empty?
+		case 0:
+		{
+			nextBlocks[i].setFillColor(sf::Color::Transparent);
+			nextBlocks[i].setOutlineThickness(-2);
+			nextBlocks[i].setOutlineColor(sf::Color::Transparent);
+
+			break;
+		}
+		case 1: //blue case
+		{
+			c.b = 128;
+			nextBlocks[i].setFillColor(c);
+			c.a = 255;
+			nextBlocks[i].setOutlineThickness(-2);
+			nextBlocks[i].setOutlineColor(c);
+
+			break;
+		}
+		case 2: //red case
+		{
+			c.r = 255;
+			nextBlocks[i].setFillColor(c);
+			c.a = 255;
+			nextBlocks[i].setOutlineThickness(-2);
+			nextBlocks[i].setOutlineColor(c);
+
+			break;
+		}
+		case 3://yellow case
+		{
+			c.r = 255;
+			c.g = 140;
+			nextBlocks[i].setFillColor(c);
+			c.a = 255;
+			nextBlocks[i].setOutlineThickness(-2);
+			nextBlocks[i].setOutlineColor(c);
+
+			break;
+		}
+		case 4:// purple case
+		{
+			c.r = 148;
+			c.b = 211;
+			nextBlocks[i].setFillColor(c);
+			c.a = 255;
+			nextBlocks[i].setOutlineThickness(-2);
+			nextBlocks[i].setOutlineColor(c);
+
+			break;
+		}
+		case 5://green case
+		{
+			c.r = 50;
+			c.g = 205;
+			c.b = 50;
+			nextBlocks[i].setFillColor(c);
+			c.a = 255;
+			nextBlocks[i].setOutlineThickness(-2);
+			nextBlocks[i].setOutlineColor(c);
+
+			break;
+		}
+		default: //error case
+		{
+			nextBlocks[i].setFillColor(sf::Color::Black);
+			break;
+		}
+		}
+
+	}
+	//fill in main board
 	for (int i = 0; i < gso.boardHeight; i++)
 	{
 		for (int j = 0; j < gso.boardWidth; j++)
@@ -356,7 +452,45 @@ void NetworkedSinglePlayer::draw()
 	Screen::draw();
 
 	GraphicsManager::getInstance()->window.draw(rec);
-	
+	GraphicsManager::getInstance()->window.draw(tempRowRec);
+	//draw the temp row and overlay the sprite on top
+	for (int i = 0; i < GameStateObject::boardWidth; i++)
+	{
+		GraphicsManager::getInstance()->window.draw(nextBlocks[i]);
+		blockShape.setPosition(nextBlocks[i].getPosition());
+		switch (gso.tempRow[i])
+		{
+		case 1: //blue case
+			blockShape.setTexture(*_getTexture("Textures/bluestar.png"));
+			//defualt textures are 24 by 24 so scale them to match block size
+			blockShape.setScale(sf::Vector2f((float)blockSizeX / 24, (float)blockSizeY / 24));
+			GraphicsManager::getInstance()->window.draw(blockShape);
+			break;
+		case 2: //red case
+			blockShape.setTexture(*_getTexture("Textures/redgear.png"));
+			blockShape.setScale(sf::Vector2f((float)blockSizeX / 24, (float)blockSizeY / 24));
+			GraphicsManager::getInstance()->window.draw(blockShape);
+			break;
+		case 3:// yellow case
+			blockShape.setTexture(*_getTexture("Textures/yellowsquare.png"));
+			blockShape.setScale(sf::Vector2f((float)blockSizeX / 24, (float)blockSizeY / 24));
+			GraphicsManager::getInstance()->window.draw(blockShape);
+			break;
+		case 4://purple
+			blockShape.setTexture(*_getTexture("Textures/purplespade.png"));
+			blockShape.setScale(sf::Vector2f((float)blockSizeX / 24, (float)blockSizeY / 24));
+			GraphicsManager::getInstance()->window.draw(blockShape);
+			break;
+		case 5://green
+			blockShape.setTexture(*_getTexture("Textures/greentriangle.png"));
+			blockShape.setScale(sf::Vector2f((float)blockSizeX / 24, (float)blockSizeY / 24));
+			GraphicsManager::getInstance()->window.draw(blockShape);
+			break;
+		default:
+			break;
+		}
+	}
+	//draw the board and overlay the sprite on top
 	for (int i = 0; i < GameStateObject::boardHeight; i++)
 	{
 		for (int j = 0; j < GameStateObject::boardWidth; j++)
@@ -364,7 +498,7 @@ void NetworkedSinglePlayer::draw()
 			GraphicsManager::getInstance()->window.draw(blocks[i][j]);
 			//set the shape on the block
 			blockShape.setPosition(blocks[i][j].getPosition());
-		
+			//std::cout << "block: " << i << ", " << j << " is at position" << blocks[i][j].getPosition().x << " " << blocks[i][j].getPosition().y << std::endl;
 			switch (gso.gameBoard[i][j])
 			{
 			//
@@ -397,8 +531,6 @@ void NetworkedSinglePlayer::draw()
 			default:
 				break;
 			}
-			
-			
 		}
 	}
 	

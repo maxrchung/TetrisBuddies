@@ -21,6 +21,7 @@ public:
 	void draw();
     void reload();
 	sf::RectangleShape blocks[GameStateObject::boardHeight][GameStateObject::boardWidth];
+	sf::RectangleShape nextBlocks[GameStateObject::boardWidth];
 	//number of different sprite shapes
 	
 private:
@@ -30,6 +31,7 @@ private:
 	CursorHandler *ch;
 	bool pressed, pressed2;
 	sf::RectangleShape rec;
+	sf::RectangleShape tempRowRec;
 	sf::Clock clock;
 	sf::Time timer;
 	unsigned int winX;
