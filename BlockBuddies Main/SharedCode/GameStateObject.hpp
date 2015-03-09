@@ -40,6 +40,9 @@ public:
 	//static const int boardHeight = 12;
 	//static const int boardWidth = 6;
 
+
+	bool isPlayer2;
+
 	int gameBoard[boardHeight][boardWidth];
 
 	int tempRow[boardWidth];

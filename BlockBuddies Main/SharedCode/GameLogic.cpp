@@ -83,7 +83,7 @@ void GameLogic::InitialBoardPopulation(){
 
 
 	//want at least 5 empty rows
-	int initHeight = gso.boardHeight - 5;
+	int initHeight = gso.boardHeight / 2;
 
 	//clear board first
 	//clear the gameBoard
@@ -443,9 +443,8 @@ bool GameLogic::CheckBlockForMatches(int rowNum, int colNum){
 
 
 	//^ all that * numChains
-	if (clearedBlocks > 0){
-		//blocksToSend = clearedBlocks - 3;
-		blocksToSend = clearedBlocks;
+	if (clearedBlocks > 3){
+		blocksToSend = clearedBlocks - 3;
 	}
 
 
@@ -918,7 +917,7 @@ bool GameLogic::DropJunk(){
 	if (junkTimer.getElapsedTime() < junkDropTime){ return false; }
 
 	//for each row in junkBlocks: (it's a vector of arrays)
-	while (!gso.junkRows.empty()){
+	if (!gso.junkRows.empty()){
 	
 		//if there's something in the top row already, game over (return 1)
 		for (int colNum = 0; colNum < gso.boardWidth; colNum++){
@@ -941,7 +940,7 @@ bool GameLogic::DropJunk(){
 		//apply gravity
 		ApplyGravity();
 	}
-
+	junkTimer.restart();
 
 	return true;
 }

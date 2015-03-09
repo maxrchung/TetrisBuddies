@@ -30,6 +30,7 @@ GameStateObject::GameStateObject(){
 	rowInsertionPaused = false;
 	numChains = 0;
 	numClearedBlocks = 0;
+	isPlayer2 = false;
 }
 
 
@@ -110,6 +111,7 @@ void GameStateObject::PrintToFile(){
 	debugFile << "Timestamp: " << timestamp << std::endl;
 	debugFile << "Number of cleared blocks: " << numClearedBlocks << std::endl;
 	debugFile << "Number of chains: " << numChains << std::endl;
+	debugFile << "Are you Player 2? " << isPlayer2 << std::endl;
 	debugFile << "Row Insertion Timer paused? " << rowInsertionPaused << std::endl;
 	debugFile << "Row Insertion In: " << rowInsertionCountdown << "ms" << std::endl;
 	debugFile << "New row active? " << newRowActive << std::endl;
@@ -179,6 +181,7 @@ PACKET STRUCTURE:
 
 //format:
 //uint8: command
+//bool: isPlayer2
 //uint32: score
 int, int = cursor row, cursor col
 sf::Uint32 frame number
@@ -222,6 +225,7 @@ GameStateObject& GameStateObject::operator=(GameStateObject& rhs)
 	rowInsertionPaused = rhs.rowInsertionPaused;
 	rowInsertionCountdown = rhs.rowInsertionCountdown;
 	newRowActive = rhs.newRowActive;
+	isPlayer2 = rhs.isPlayer2;
 
 	for (int colNum = 0; colNum < boardWidth; colNum++){
 		tempRow[colNum] = rhs.tempRow[colNum];
@@ -247,6 +251,8 @@ GameStateObject& GameStateObject::operator=(GameStateObject& rhs)
 sf::Packet& operator <<(sf::Packet& packet, const GameStateObject& gso)
 {
 	packet << PacketDecode::PACKET_GAMESTATE;
+
+	packet << gso.isPlayer2;
 
 	packet << gso.score;
 
@@ -334,6 +340,8 @@ sf::Packet& operator <<(sf::Packet& packet, const GameStateObject& gso)
 //(extraction operator)
 sf::Packet& operator >>(sf::Packet& packet, GameStateObject& gso)
 {
+	packet >> gso.isPlayer2;
+
 	packet >> gso.score;
 
 	//  int, int = cursor row, cursor col
