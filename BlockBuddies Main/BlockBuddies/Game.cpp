@@ -126,7 +126,7 @@ void Game::loadingUpdate()
 
     while(isLoading)
     {
-        if(Game::getInstance()->frameLimiter.getElapsedTime().asMilliseconds() > 16.67f)
+        if(frameLimiter.getElapsedTime().asMilliseconds() > 16.67f)
         {
             frameLimiter.restart();
             BlockShowerManager::getInstance()->update();
