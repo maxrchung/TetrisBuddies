@@ -47,10 +47,6 @@ public:
 	sf::Uint32 score;
 
 
-
-///// NEW STUFF:
-
-
 	//cursor item here
 	//first = rowNum
 	//second = colNum

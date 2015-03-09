@@ -1,6 +1,9 @@
 #include "AnimationManager.hpp"
 #include "TextureManager.hpp"
 #include "GraphicsManager.hpp"
+#include "ScreenManager.hpp"
+#include "SoundManager.h"
+
 #include <iostream>
 AnimationManager* AnimationManager::instance;
 
@@ -17,6 +20,10 @@ void AnimationManager::init()
 	speed = (rand() % 300 + 200) / 100.0f;
 	fade = true;
 	clearAddFinish = false;
+	clearSound.setBuffer(*SoundManager::getInstance().getSound("blast"));
+	matchFlashing.setBuffer(*SoundManager::getInstance().getSound("charge"));
+	matchFlashing2.setBuffer(*SoundManager::getInstance().getSound("charge"));
+	matchFlashing3.setBuffer(*SoundManager::getInstance().getSound("charge"));
 }
 
 void AnimationManager::update()
@@ -80,6 +87,12 @@ void AnimationManager::clear()
 					sf::Color color = clearBlocks.at(i).first.getFillColor();
 					color.a = color.a - ctime.at(i).asSeconds()*blockSize;
 					clearBlocks.at(i).first.setFillColor(color);
+
+					if (ctime.at(i).asMilliseconds() <= 1999 && ctime.at(i).asMilliseconds() >= 1970)
+					{
+						ScreenManager::getInstance()->shake(.5);
+						clearSound.play();
+					}
 				}
 			}
 		}
@@ -210,6 +223,11 @@ void AnimationManager::addClear(sf::RectangleShape b)
 	ctemp.push_back(b);
 }
 
+void AnimationManager::addDanger(sf::RectangleShape d)
+{
+
+}
+
 void AnimationManager::setBlockSize(int size)
 {
 	blockSize = size;
@@ -218,6 +236,13 @@ void AnimationManager::setBlockSize(int size)
 
 void AnimationManager::setClearingAdd()
 {
+		if (matchFlashing.getStatus() != matchFlashing.Playing)
+			matchFlashing.play();
+		else if (matchFlashing2.getStatus() != matchFlashing2.Playing)
+			matchFlashing2.play();
+		else if (matchFlashing3.getStatus() != matchFlashing3.Playing)
+			matchFlashing3.play();
+
 		sf::Clock clock;
 		sf::Time time;
 		time = clock.getElapsedTime();

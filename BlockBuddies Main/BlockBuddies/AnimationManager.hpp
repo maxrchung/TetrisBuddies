@@ -2,6 +2,7 @@
 #define ANIMATIONMANAGER_HPP
 
 #include "SFML/Graphics.hpp"
+#include <SFML/Audio.hpp>
 #include <vector>
 
 class AnimationManager
@@ -13,7 +14,7 @@ public:
 	void draw();
 	void addSwap(sf::RectangleShape r, sf::RectangleShape r2);
 	void addClear(sf::RectangleShape b);
-	void addDanger();
+	void addDanger(sf::RectangleShape d);
 	void setBlockSize(int size);
 	void setClearingAdd();
 private:
@@ -31,6 +32,7 @@ private:
 	std::vector <sf::Clock> cclock;
 	sf::Time stime;
 	sf::Clock sclock;
+	sf::Sound clearSound, matchFlashing, matchFlashing2, matchFlashing3;
 	int blockx, blocky, blockx2, blocky2;
 	int blockSize;
 	bool stop, fade, clearAddFinish;

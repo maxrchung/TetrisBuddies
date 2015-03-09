@@ -32,6 +32,7 @@ private:
 		loadSound("repressed", "Sounds/repressed.wav");
 		loadSound("heya", "Sounds/SSBB_Link_Smash_Down.wav");
 		loadSound("blast", "Sounds/blast.wav");
+		loadSound("charge", "Sounds/TrimmedCharge.ogg");
 	}                                  // Private constructor
 	~SoundManager();
 	SoundManager(const SoundManager&);                 // Prevent copy-construction

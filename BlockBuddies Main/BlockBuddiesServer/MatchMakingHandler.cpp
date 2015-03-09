@@ -261,10 +261,10 @@ void MatchMakingHandler::update()
 			}
 			//Check to see if junk rows need to be sent over. 
 			if (check->playerOneGame.blocksToSend > 0)
-				check->playerTwoGame.CreateJunkBlocks(check->playerOneGame.blocksToSend);
+				check->playerTwoGame.blocksReceived = (check->playerOneGame.blocksToSend);
 
 			if (check->playerTwoGame.blocksToSend > 0)
-				check->playerOneGame.CreateJunkBlocks(check->playerTwoGame.blocksToSend);
+				check->playerOneGame.blocksReceived = (check->playerTwoGame.blocksToSend);
 		}
 		else
 		{
