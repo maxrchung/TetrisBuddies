@@ -119,6 +119,7 @@ void MultiplayerScreen::update()
 			if (pressed == false)
 			{
 				ch->Left(sf::Keyboard::Key::Left);
+				ClientManager::getInstance().sendCursorUpdate(ch->getCursorX(), ch->getCursorY());
 				pressed = true; // Cannot hold right to move
 			}
 
@@ -128,6 +129,7 @@ void MultiplayerScreen::update()
 			if (pressed == false)
 			{
 				ch->Right(sf::Keyboard::Key::Right);
+				ClientManager::getInstance().sendCursorUpdate(ch->getCursorX(), ch->getCursorY());
 				pressed = true; // Cannot hold right to move
 			}
 		}
@@ -136,6 +138,7 @@ void MultiplayerScreen::update()
 			if (pressed == false)
 			{
 				ch->Up(sf::Keyboard::Key::Up);
+				ClientManager::getInstance().sendCursorUpdate(ch->getCursorX(), ch->getCursorY());
 				pressed = true; // Cannot hold right to move
 			}
 		}
@@ -144,6 +147,7 @@ void MultiplayerScreen::update()
 			if (pressed == false)
 			{
 				ch->Down(sf::Keyboard::Key::Down);
+				ClientManager::getInstance().sendCursorUpdate(ch->getCursorX(), ch->getCursorY());
 				pressed = true; // Cannot hold right to move
 			}
 		}
