@@ -4,24 +4,44 @@
 #include <cmath>
 MultiplayerScreen::MultiplayerScreen()
 :blockSwitch(false), pressed(false), pressed2(false), reset(false),
-playerOneName(new TextBox("PlayerOneGoesHere",
--590.0f,
--350.0f,
-600.0f)),
-playerTwoName(new TextBox("PlayerOneGoesHere",
+ playerOneName(new TextBox("PlayerOneGoesHere",
+ -590.0f,
+ -350.0f,
+ 600.0f)),
+ playerTwoName(new TextBox("PlayerOneGoesHere",
  450.0f,
--350.0f,
-600.0f)),
-timer(new TextBox("01:27",
+ -350.0f,
+ 600.0f)),
+ timer(new TextBox("01:27",
  -10.0f,
--380.0f,
-600.0f))
+ -380.0f,
+ 600.0f)),
+ nextRowLeft(new TextBox("Next",
+ -680.0f,
+ 330.0f,
+ 600.0f)),
+ nextRowL2(new TextBox("Row",
+ -680.0f,
+ 345.0f,
+ 600.0f)),
+ nextRowRight(new TextBox("Next",
+ 360.0f,
+ 330.0f,
+ 600.0f)),
+ nextRowR2(new TextBox("Row",
+ 360.0f,
+ 345.0f,
+ 600.0f))
 {
 	initGame();
 	swapSound.setBuffer(*SoundManager::getInstance().getSound("heya"));
 	UIElements.push_back(playerOneName);
 	UIElements.push_back(playerTwoName);
 	UIElements.push_back(timer);
+	UIElements.push_back(nextRowLeft);
+	UIElements.push_back(nextRowL2);
+	UIElements.push_back(nextRowRight);
+	UIElements.push_back(nextRowR2);
 
 }
 
@@ -829,6 +849,10 @@ void MultiplayerScreen::draw()
 	playerOneName->message.setColor(sf::Color::Black);
 	playerTwoName->message.setColor(sf::Color::Black);
 	timer->message.setColor(sf::Color::Black);
+	nextRowLeft->message.setColor(sf::Color::Black);
+	nextRowL2->message.setColor(sf::Color::Black);
+	nextRowRight->message.setColor(sf::Color::Black);
+	nextRowR2->message.setColor(sf::Color::Black);
     
 }
 

@@ -25,6 +25,10 @@ private:
 	TextBox* playerOneName;
 	TextBox* playerTwoName;
 	TextBox* timer;
+	TextBox* nextRowLeft;
+	TextBox* nextRowL2;
+	TextBox* nextRowRight;
+	TextBox* nextRowR2;
 	TextBox* isPaused;
 	TextBox* nextRowIn;
 
