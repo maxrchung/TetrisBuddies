@@ -2,13 +2,16 @@
 #include "BlockShowerManager.hpp"
 #include "AnimationManager.hpp"
 #include <cmath>
+
+//Bigger the Y value, the lower it'll be
+//The smaller the x value, the more left.
 MultiplayerScreen::MultiplayerScreen()
 :blockSwitch(false), pressed(false), pressed2(false), reset(false),
- playerOneName(new TextBox("PlayerOneGoesHere",
+ playerOneName(new TextBox("Replace me!",
  -590.0f,
  -350.0f,
  600.0f)),
- playerTwoName(new TextBox("PlayerOneGoesHere",
+ playerTwoName(new TextBox("And me!",
  450.0f,
  -350.0f,
  600.0f)),
@@ -31,7 +34,12 @@ MultiplayerScreen::MultiplayerScreen()
  nextRowR2(new TextBox("Row",
  360.0f,
  345.0f,
+ 600.0f)),
+ comboCounter(new TextBox("3x!",
+ -365.0f,
+ -325.0f,
  600.0f))
+
 {
 	initGame();
 	swapSound.setBuffer(*SoundManager::getInstance().getSound("heya"));
@@ -42,7 +50,7 @@ MultiplayerScreen::MultiplayerScreen()
 	UIElements.push_back(nextRowL2);
 	UIElements.push_back(nextRowRight);
 	UIElements.push_back(nextRowR2);
-
+	UIElements.push_back(comboCounter);
 }
 
 void MultiplayerScreen::initGame()
@@ -853,6 +861,7 @@ void MultiplayerScreen::draw()
 	nextRowL2->message.setColor(sf::Color::Black);
 	nextRowRight->message.setColor(sf::Color::Black);
 	nextRowR2->message.setColor(sf::Color::Black);
+	comboCounter->message.setColor(sf::Color::Black);
     
 }
 

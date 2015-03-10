@@ -31,6 +31,7 @@ private:
 	TextBox* nextRowR2;
 	TextBox* isPaused;
 	TextBox* nextRowIn;
+	TextBox* comboCounter;
 
 	unsigned int winX;
 	unsigned int winY;
