@@ -252,7 +252,8 @@ sf::Packet& operator <<(sf::Packet& packet, const GameStateObject& gso)
 {
 	packet << PacketDecode::PACKET_GAMESTATE;
 
-	//packet << gso.isPlayer2;
+	packet << gso.isPlayer2;
+
 	packet << gso.score;
 
 	//  int, int = cursor row, cursor col
@@ -339,7 +340,7 @@ sf::Packet& operator <<(sf::Packet& packet, const GameStateObject& gso)
 //(extraction operator)
 sf::Packet& operator >>(sf::Packet& packet, GameStateObject& gso)
 {
-	packet >> gso.isPlayer2;
+	//packet >> gso.isPlayer2;
 
 	packet >> gso.score;
 
