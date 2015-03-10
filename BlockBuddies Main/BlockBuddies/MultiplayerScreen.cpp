@@ -64,6 +64,7 @@ void MultiplayerScreen::initGame()
 	blockSize = std::floor((float)gameScreenHeight / GameStateObject::boardHeight);
 
 	AnimationManager::getInstance()->setBlockSize(blockSize);
+	dangerColumnCounter = 0;
 
 	int offset = gameScreenHeight - (blockSize * GameStateObject::boardHeight);
 	gameScreenWidth = blockSize * GameStateObject::boardWidth;
@@ -219,6 +220,33 @@ void MultiplayerScreen::update()
 				AnimationManager::getInstance()->setClearingAdd();
 			}
 
+			AnimationManager::getInstance()->clearDangerBlocks();
+
+			dangerColumns.clear();
+			dangerColumnCounter = 0;
+			for (int row = 0; row < GameStateObject::boardWidth; row++)
+			{
+				if (p1Blocks[GameStateObject::boardHeight - 4][row].getFillColor() != sf::Color::Transparent)
+					dangerMark.push_back(row);
+				else
+					dangerMark.push_back(-1);
+			}
+
+			for (int col = 0; col < GameStateObject::boardHeight; col++)
+			{
+				for (int row = 0; row < GameStateObject::boardWidth; row++)
+				{
+					if (dangerMark.at(row) != -1 && p1Blocks[col][row].getFillColor() != sf::Color::Transparent)
+					{
+						AnimationManager::getInstance()->addDanger(p1Blocks[col][row]);
+						dangerColumns.push_back(std::make_pair(col, row));
+					}
+				}
+			}
+			dangerMark.clear();
+
+			AnimationManager::getInstance()->setTextureDanger();
+
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
@@ -278,7 +306,7 @@ void MultiplayerScreen::update()
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) //swaps the main block with the right block
 		{
-			if (pressed2 == false && ch->getCursorX() < 15)//cant switch if right block is off screen
+			if (pressed2 == false && ch->getCursorX() < ch->getCursorX() < GameStateObject::boardWidth - 1)//cant switch if right block is off screen
 			{
 				ClientManager::getInstance().requestSwap(ch->getCursorY(), ch->getCursorX(), ch->getCursorY(), ch->getCursorX() + 1);
 				pressed2 = true;
@@ -295,7 +323,7 @@ void MultiplayerScreen::update()
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) //swaps the main block with the top block
 		{
-			if (pressed2 == false && ch->getCursorY() < 19) // cant switch if top block is offscreen
+			if (pressed2 == false && ch->getCursorY() < GameStateObject::boardHeight - 1) // cant switch if top block is offscreen
 			{
 				ClientManager::getInstance().requestSwap(ch->getCursorY(), ch->getCursorX(), ch->getCursorY() + 1, ch->getCursorX());
 				pressed2 = true;
@@ -336,6 +364,9 @@ void MultiplayerScreen::update()
 	}
 	else
 	{
+		AnimationManager::getInstance()->clearDangerBlocks();
+		dangerColumns.clear();
+		dangerMark.clear();
 		SoundManager::getInstance().playMusic("Sounds/Slamstorm.ogg", false);
 		reset = true;
 		if (ClientManager::getInstance().isConnected)
@@ -349,9 +380,12 @@ void MultiplayerScreen::update()
 			ScreenManager::getInstance()->switchScreen(OFFLINERESULT);
 	}
 
+	AnimationManager::getInstance()->unpauseAnimation();
+
     if (InputManager::getInstance()->escape)
     {
         ScreenManager::getInstance()->addScreen(close->toScreen);
+		AnimationManager::getInstance()->pauseAnimation();
     }
 
     Screen::update();
@@ -381,7 +415,7 @@ void MultiplayerScreen::updateBlocks()
 			c.b = 128;
 			p1NextBlocks[i].setFillColor(c);
 			c.a = 255;
-			p1NextBlocks[i].setOutlineThickness(-2);
+			p1NextBlocks[i].setOutlineThickness(-blockSize / 8);
 			p1NextBlocks[i].setOutlineColor(c);
 
 			break;
@@ -391,7 +425,7 @@ void MultiplayerScreen::updateBlocks()
 			c.r = 255;
 			p1NextBlocks[i].setFillColor(c);
 			c.a = 255;
-			p1NextBlocks[i].setOutlineThickness(-2);
+			p1NextBlocks[i].setOutlineThickness(-blockSize / 8);
 			p1NextBlocks[i].setOutlineColor(c);
 
 			break;
@@ -402,7 +436,7 @@ void MultiplayerScreen::updateBlocks()
 			c.g = 140;
 			p1NextBlocks[i].setFillColor(c);
 			c.a = 255;
-			p1NextBlocks[i].setOutlineThickness(-2);
+			p1NextBlocks[i].setOutlineThickness(-blockSize / 8);
 			p1NextBlocks[i].setOutlineColor(c);
 
 			break;
@@ -413,7 +447,7 @@ void MultiplayerScreen::updateBlocks()
 			c.b = 211;
 			p1NextBlocks[i].setFillColor(c);
 			c.a = 255;
-			p1NextBlocks[i].setOutlineThickness(-2);
+			p1NextBlocks[i].setOutlineThickness(-blockSize / 8);
 			p1NextBlocks[i].setOutlineColor(c);
 
 			break;
@@ -425,7 +459,7 @@ void MultiplayerScreen::updateBlocks()
 			c.b = 50;
 			p1NextBlocks[i].setFillColor(c);
 			c.a = 255;
-			p1NextBlocks[i].setOutlineThickness(-2);
+			p1NextBlocks[i].setOutlineThickness(-blockSize / 8);
 			p1NextBlocks[i].setOutlineColor(c);
 
 			break;
@@ -455,7 +489,7 @@ void MultiplayerScreen::updateBlocks()
 		case 0:
 		{
 			p2NextBlocks[i].setFillColor(sf::Color::Transparent);
-			p2NextBlocks[i].setOutlineThickness(-2);
+			p2NextBlocks[i].setOutlineThickness(-blockSize / 8);
 			p2NextBlocks[i].setOutlineColor(sf::Color::Transparent);
 
 			break;
@@ -465,7 +499,7 @@ void MultiplayerScreen::updateBlocks()
 			c.b = 128;
 			p2NextBlocks[i].setFillColor(c);
 			c.a = 255;
-			p2NextBlocks[i].setOutlineThickness(-2);
+			p2NextBlocks[i].setOutlineThickness(-blockSize / 8);
 			p2NextBlocks[i].setOutlineColor(c);
 
 			break;
@@ -475,7 +509,7 @@ void MultiplayerScreen::updateBlocks()
 			c.r = 255;
 			p2NextBlocks[i].setFillColor(c);
 			c.a = 255;
-			p2NextBlocks[i].setOutlineThickness(-2);
+			p2NextBlocks[i].setOutlineThickness(-blockSize / 8);
 			p2NextBlocks[i].setOutlineColor(c);
 
 			break;
@@ -486,7 +520,7 @@ void MultiplayerScreen::updateBlocks()
 			c.g = 140;
 			p2NextBlocks[i].setFillColor(c);
 			c.a = 255;
-			p2NextBlocks[i].setOutlineThickness(-2);
+			p2NextBlocks[i].setOutlineThickness(-blockSize / 8);
 			p2NextBlocks[i].setOutlineColor(c);
 
 			break;
@@ -497,7 +531,7 @@ void MultiplayerScreen::updateBlocks()
 			c.b = 211;
 			p2NextBlocks[i].setFillColor(c);
 			c.a = 255;
-			p2NextBlocks[i].setOutlineThickness(-2);
+			p2NextBlocks[i].setOutlineThickness(-blockSize / 8);
 			p2NextBlocks[i].setOutlineColor(c);
 
 			break;
@@ -509,7 +543,7 @@ void MultiplayerScreen::updateBlocks()
 			c.b = 50;
 			p2NextBlocks[i].setFillColor(c);
 			c.a = 255;
-			p2NextBlocks[i].setOutlineThickness(-2);
+			p2NextBlocks[i].setOutlineThickness(-blockSize / 8);
 			p2NextBlocks[i].setOutlineColor(c);
 
 			break;
@@ -545,7 +579,7 @@ void MultiplayerScreen::updateBlocks()
 			case 0:
 			{
 					  p1Blocks[i][j].setFillColor(sf::Color::Transparent);
-					  p1Blocks[i][j].setOutlineThickness(-2);
+					  p1Blocks[i][j].setOutlineThickness(-blockSize / 8);
 					  p1Blocks[i][j].setOutlineColor(sf::Color::Transparent);
 					  break;
 			}
@@ -554,7 +588,7 @@ void MultiplayerScreen::updateBlocks()
 					  c.b = 128;
 					  p1Blocks[i][j].setFillColor(c);
 					  c.a = 255;
-					  p1Blocks[i][j].setOutlineThickness(-2);
+					  p1Blocks[i][j].setOutlineThickness(-blockSize / 8);
 					  p1Blocks[i][j].setOutlineColor(c);
 					  break;
 			}
@@ -563,7 +597,7 @@ void MultiplayerScreen::updateBlocks()
 					  c.r = 255;
 					  p1Blocks[i][j].setFillColor(c);
 					  c.a = 255;
-					  p1Blocks[i][j].setOutlineThickness(-2);
+					  p1Blocks[i][j].setOutlineThickness(-blockSize / 8);
 					  p1Blocks[i][j].setOutlineColor(c);
 					  break;
 			}
@@ -573,7 +607,7 @@ void MultiplayerScreen::updateBlocks()
 					  c.g = 140;
 					  p1Blocks[i][j].setFillColor(c);
 					  c.a = 255;
-					  p1Blocks[i][j].setOutlineThickness(-2);
+					  p1Blocks[i][j].setOutlineThickness(-blockSize / 8);
 					  p1Blocks[i][j].setOutlineColor(c);
 					  break;
 			}
@@ -583,7 +617,7 @@ void MultiplayerScreen::updateBlocks()
 					  c.b = 211;
 					  p1Blocks[i][j].setFillColor(c);
 					  c.a = 255;
-					  p1Blocks[i][j].setOutlineThickness(-2);
+					  p1Blocks[i][j].setOutlineThickness(-blockSize / 8);
 					  p1Blocks[i][j].setOutlineColor(c);
 					  break;
 			}
@@ -594,7 +628,7 @@ void MultiplayerScreen::updateBlocks()
 					  c.b = 50;
 					  p1Blocks[i][j].setFillColor(c);
 					  c.a = 255;
-					  p1Blocks[i][j].setOutlineThickness(-2);
+					  p1Blocks[i][j].setOutlineThickness(-blockSize / 8);
 					  p1Blocks[i][j].setOutlineColor(c);
 					  break;
 			}
@@ -613,7 +647,7 @@ void MultiplayerScreen::updateBlocks()
 			case 0:
 			{
 				p2Blocks[i][j].setFillColor(sf::Color::Transparent);
-				p2Blocks[i][j].setOutlineThickness(-2);
+				p2Blocks[i][j].setOutlineThickness(-blockSize / 8);
 				p2Blocks[i][j].setOutlineColor(sf::Color::Transparent);
 				break;
 			}
@@ -622,7 +656,7 @@ void MultiplayerScreen::updateBlocks()
 				c.b = 128;
 				p2Blocks[i][j].setFillColor(c);
 				c.a = 255;
-				p2Blocks[i][j].setOutlineThickness(-2);
+				p2Blocks[i][j].setOutlineThickness(-blockSize / 8);
 				p2Blocks[i][j].setOutlineColor(c);
 				break;
 			}
@@ -631,7 +665,7 @@ void MultiplayerScreen::updateBlocks()
 				c.r = 255;
 				p2Blocks[i][j].setFillColor(c);
 				c.a = 255;
-				p2Blocks[i][j].setOutlineThickness(-2);
+				p2Blocks[i][j].setOutlineThickness(-blockSize / 8);
 				p2Blocks[i][j].setOutlineColor(c);
 				break;
 			}
@@ -641,7 +675,7 @@ void MultiplayerScreen::updateBlocks()
 				c.g = 140;
 				p2Blocks[i][j].setFillColor(c);
 				c.a = 255;
-				p2Blocks[i][j].setOutlineThickness(-2);
+				p2Blocks[i][j].setOutlineThickness(-blockSize / 8);
 				p2Blocks[i][j].setOutlineColor(c);
 				break;
 			}
@@ -651,7 +685,7 @@ void MultiplayerScreen::updateBlocks()
 				c.b = 211;
 				p2Blocks[i][j].setFillColor(c);
 				c.a = 255;
-				p2Blocks[i][j].setOutlineThickness(-2);
+				p2Blocks[i][j].setOutlineThickness(-blockSize / 8);
 				p2Blocks[i][j].setOutlineColor(c);
 				break;
 			}
@@ -662,7 +696,7 @@ void MultiplayerScreen::updateBlocks()
 				c.b = 50;
 				p2Blocks[i][j].setFillColor(c);
 				c.a = 255;
-				p2Blocks[i][j].setOutlineThickness(-2);
+				p2Blocks[i][j].setOutlineThickness(-blockSize / 8);
 				p2Blocks[i][j].setOutlineColor(c);
 				break;
 			}
@@ -724,7 +758,7 @@ void MultiplayerScreen::draw()
 		}
 	}
 
-	//draw the temp row and overlay the sprite on top for p1
+	//draw the temp row and overlay the sprite on top for p2
 	for (int i = 0; i < GameStateObject::boardWidth; i++)
 	{
 		GraphicsManager::getInstance()->window.draw(p2NextBlocks[i]);
@@ -768,42 +802,51 @@ void MultiplayerScreen::draw()
 		for (int j = 0; j < p1GSO.boardWidth; j++)
 		{
 			GraphicsManager::getInstance()->window.draw(p1Blocks[i][j]);
-			//set the shape on the block
-			blockShape.setPosition(p1Blocks[i][j].getPosition());
-			//grab the color from gamestate
-			switch (p1GSO.gameBoard[i][j])
+			
+			if (!dangerColumns.empty() && dangerColumns.at(dangerColumnCounter).first == i && dangerColumns.at(dangerColumnCounter).second == j)
 			{
-				//
-			case 1: //blue case
-				blockShape.setTexture(*_getTexture("Textures/bluestar.png"));
-				//defualt textures are 24 by 24 so scale them to match block size
-				blockShape.setScale(sf::Vector2f((float)blockSize / 24, (float)blockSize / 24));
-				GraphicsManager::getInstance()->window.draw(blockShape);
-				break;
-			case 2: //red case
-				blockShape.setTexture(*_getTexture("Textures/redgear.png"));
-				blockShape.setScale(sf::Vector2f((float)blockSize / 24, (float)blockSize / 24));
-				GraphicsManager::getInstance()->window.draw(blockShape);
-				break;
-			case 3:// yellow case
-				blockShape.setTexture(*_getTexture("Textures/yellowsquare.png"));
-				blockShape.setScale(sf::Vector2f((float)blockSize / 24, (float)blockSize / 24));
-				GraphicsManager::getInstance()->window.draw(blockShape);
-				break;
-			case 4://purple
-				blockShape.setTexture(*_getTexture("Textures/purplespade.png"));
-				blockShape.setScale(sf::Vector2f((float)blockSize / 24, (float)blockSize / 24));
-				GraphicsManager::getInstance()->window.draw(blockShape);
-				break;
-			case 5://green
-				blockShape.setTexture(*_getTexture("Textures/greentriangle.png"));
-				blockShape.setScale(sf::Vector2f((float)blockSize / 24, (float)blockSize / 24));
-				GraphicsManager::getInstance()->window.draw(blockShape);
-				break;
-			default:
-				break;
+				if (dangerColumnCounter < dangerColumns.size() - 1)
+					dangerColumnCounter++;
+				else
+					dangerColumnCounter = 0;
 			}
-
+			else
+			{//set the shape on the block
+				blockShape.setPosition(p1Blocks[i][j].getPosition());
+				//grab the color from gamestate
+				switch (p1GSO.gameBoard[i][j])
+				{
+					//
+				case 1: //blue case
+					blockShape.setTexture(*_getTexture("Textures/bluestar.png"));
+					//defualt textures are 24 by 24 so scale them to match block size
+					blockShape.setScale(sf::Vector2f((float)blockSize / 24, (float)blockSize / 24));
+					GraphicsManager::getInstance()->window.draw(blockShape);
+					break;
+				case 2: //red case
+					blockShape.setTexture(*_getTexture("Textures/redgear.png"));
+					blockShape.setScale(sf::Vector2f((float)blockSize / 24, (float)blockSize / 24));
+					GraphicsManager::getInstance()->window.draw(blockShape);
+					break;
+				case 3:// yellow case
+					blockShape.setTexture(*_getTexture("Textures/yellowsquare.png"));
+					blockShape.setScale(sf::Vector2f((float)blockSize / 24, (float)blockSize / 24));
+					GraphicsManager::getInstance()->window.draw(blockShape);
+					break;
+				case 4://purple
+					blockShape.setTexture(*_getTexture("Textures/purplespade.png"));
+					blockShape.setScale(sf::Vector2f((float)blockSize / 24, (float)blockSize / 24));
+					GraphicsManager::getInstance()->window.draw(blockShape);
+					break;
+				case 5://green
+					blockShape.setTexture(*_getTexture("Textures/greentriangle.png"));
+					blockShape.setScale(sf::Vector2f((float)blockSize / 24, (float)blockSize / 24));
+					GraphicsManager::getInstance()->window.draw(blockShape);
+					break;
+				default:
+					break;
+				}
+			}
 
 		}
 	}
@@ -853,16 +896,24 @@ void MultiplayerScreen::draw()
 	}
 
 	GraphicsManager::getInstance()->window.draw(ch->getMainCursor()); //draws main cursor
-	GraphicsManager::getInstance()->window.draw(ch->getLeftCursor()); //draws left cursor
-	GraphicsManager::getInstance()->window.draw(ch->getRightCursor()); //draws right cursor
-	GraphicsManager::getInstance()->window.draw(ch->getTopCursor()); //draws top cursor
-	GraphicsManager::getInstance()->window.draw(ch->getBottomCursor()); //draws bottom cursor
+	if (ch->getCursorX() > 0)
+		GraphicsManager::getInstance()->window.draw(ch->getLeftCursor()); //draws left cursor
+	if (ch->getCursorX() < GameStateObject::boardWidth - 1)
+		GraphicsManager::getInstance()->window.draw(ch->getRightCursor()); //draws right cursor
+	if (ch->getCursorY() < GameStateObject::boardHeight - 1)
+		GraphicsManager::getInstance()->window.draw(ch->getTopCursor()); //draws top cursor
+	if (ch->getCursorY() > 0)
+		GraphicsManager::getInstance()->window.draw(ch->getBottomCursor()); //draws bottom cursor
 
 	GraphicsManager::getInstance()->window.draw(ch2->getMainCursor()); //draws p2 main cursor
-	GraphicsManager::getInstance()->window.draw(ch2->getLeftCursor()); //draws p2 left cursor
-	GraphicsManager::getInstance()->window.draw(ch2->getRightCursor()); //draws p2 right cursor
-	GraphicsManager::getInstance()->window.draw(ch2->getTopCursor()); //draws p2 top cursor
-	GraphicsManager::getInstance()->window.draw(ch2->getBottomCursor()); //draws p2 bottom cursor
+	if (ch2->getCursorX() > 0)
+		GraphicsManager::getInstance()->window.draw(ch2->getLeftCursor()); //draws p2 left cursor
+	if (ch2->getCursorX() < GameStateObject::boardWidth - 1)
+		GraphicsManager::getInstance()->window.draw(ch2->getRightCursor()); //draws p2 right cursor
+	if (ch2->getCursorY() < GameStateObject::boardHeight - 1)
+		GraphicsManager::getInstance()->window.draw(ch2->getTopCursor()); //draws p2 top cursor
+	if (ch2->getCursorY() > 0)
+		GraphicsManager::getInstance()->window.draw(ch2->getBottomCursor()); //draws p2 bottom cursor
 
 	playerOneName->message.setColor(sf::Color::Black);
 	playerTwoName->message.setColor(sf::Color::Black);

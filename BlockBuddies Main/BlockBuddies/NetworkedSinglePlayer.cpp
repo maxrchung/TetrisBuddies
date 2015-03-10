@@ -79,7 +79,7 @@ void NetworkedSinglePlayer::initGame()
 	blockSizeY = std::floor((float)gameScreenHeight / gso.boardHeight);
 
 	AnimationManager::getInstance()->setBlockSize(blockSizeX);
-
+	dangerColumnCounter = 0;
 	//draws a large rectangle around the game screen
 	int offset = gameScreenHeight - (blockSizeY * GameStateObject::boardHeight);
 	gameScreenWidth = blockSizeX * gso.boardWidth;
@@ -179,6 +179,33 @@ void NetworkedSinglePlayer::update()
 				AnimationManager::getInstance()->setClearingAdd();
 			}
 
+			AnimationManager::getInstance()->clearDangerBlocks();
+
+			dangerColumns.clear();
+			dangerColumnCounter = 0;
+			for (int row = 0; row < GameStateObject::boardWidth; row++)
+			{
+				if (blocks[GameStateObject::boardHeight - 4][row].getFillColor() != sf::Color::Transparent)
+					dangerMark.push_back(row);
+				else
+					dangerMark.push_back(-1);
+			}
+
+			for (int col = 0; col < GameStateObject::boardHeight; col++)
+			{
+				for (int row = 0; row < GameStateObject::boardWidth; row++)
+				{
+					if (dangerMark.at(row) != -1 && blocks[col][row].getFillColor() != sf::Color::Transparent)
+					{
+						AnimationManager::getInstance()->addDanger(blocks[col][row]);
+						dangerColumns.push_back(std::make_pair(col, row));
+					}
+				}
+			}
+			dangerMark.clear();
+
+			AnimationManager::getInstance()->setTextureDanger();
+
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
@@ -238,7 +265,7 @@ void NetworkedSinglePlayer::update()
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) //swaps the main block with the right block
 		{
-			if (pressed2 == false && ch->getCursorX() < 15)//cant switch if right block is off screen
+			if (pressed2 == false && ch->getCursorX() < GameStateObject::boardWidth - 1)//cant switch if right block is off screen
 			{
 				ClientManager::getInstance().requestSwap(ch->getCursorY(), ch->getCursorX(), ch->getCursorY(), ch->getCursorX() + 1);
 				pressed2 = true;
@@ -255,7 +282,7 @@ void NetworkedSinglePlayer::update()
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) //swaps the main block with the top block
 		{
-			if (pressed2 == false && ch->getCursorY() < 19) // cant switch if top block is offscreen
+			if (pressed2 == false && ch->getCursorY() < GameStateObject::boardHeight - 1) // cant switch if top block is offscreen
 			{
 				ClientManager::getInstance().requestSwap(ch->getCursorY(), ch->getCursorX(), ch->getCursorY() + 1, ch->getCursorX());
 				pressed2 = true;
@@ -296,6 +323,9 @@ void NetworkedSinglePlayer::update()
 	}
 	else
 	{
+		AnimationManager::getInstance()->clearDangerBlocks();
+		dangerColumns.clear();
+		dangerMark.clear();
 		SoundManager::getInstance().playMusic("Sounds/Slamstorm.ogg", false);
 		reset = true;
 		if (ClientManager::getInstance().isConnected)
@@ -306,14 +336,16 @@ void NetworkedSinglePlayer::update()
 		}
 		else
 			ScreenManager::getInstance()->switchScreen(OFFLINERESULT);
-
 		
 	}
+
+	AnimationManager::getInstance()->unpauseAnimation();
 
     if(InputManager::getInstance()->escape)
     {
         ScreenManager::getInstance()->addScreen(close->toScreen);
-    }
+		AnimationManager::getInstance()->pauseAnimation();
+	}
 
     Screen::update();
 }
@@ -335,7 +367,7 @@ void NetworkedSinglePlayer::updateBlocks()
 		case 0:
 		{
 			nextBlocks[i].setFillColor(sf::Color::Transparent);
-			nextBlocks[i].setOutlineThickness(-2);
+			nextBlocks[i].setOutlineThickness(-blockSizeX / 8);
 			nextBlocks[i].setOutlineColor(sf::Color::Transparent);
 
 			break;
@@ -345,7 +377,7 @@ void NetworkedSinglePlayer::updateBlocks()
 			c.b = 128;
 			nextBlocks[i].setFillColor(c);
 			c.a = 255;
-			nextBlocks[i].setOutlineThickness(-2);
+			nextBlocks[i].setOutlineThickness(-blockSizeX / 8);
 			nextBlocks[i].setOutlineColor(c);
 
 			break;
@@ -355,7 +387,7 @@ void NetworkedSinglePlayer::updateBlocks()
 			c.r = 255;
 			nextBlocks[i].setFillColor(c);
 			c.a = 255;
-			nextBlocks[i].setOutlineThickness(-2);
+			nextBlocks[i].setOutlineThickness(-blockSizeX / 8);
 			nextBlocks[i].setOutlineColor(c);
 
 			break;
@@ -366,7 +398,7 @@ void NetworkedSinglePlayer::updateBlocks()
 			c.g = 140;
 			nextBlocks[i].setFillColor(c);
 			c.a = 255;
-			nextBlocks[i].setOutlineThickness(-2);
+			nextBlocks[i].setOutlineThickness(-blockSizeX / 8);
 			nextBlocks[i].setOutlineColor(c);
 
 			break;
@@ -377,7 +409,7 @@ void NetworkedSinglePlayer::updateBlocks()
 			c.b = 211;
 			nextBlocks[i].setFillColor(c);
 			c.a = 255;
-			nextBlocks[i].setOutlineThickness(-2);
+			nextBlocks[i].setOutlineThickness(-blockSizeX / 8);
 			nextBlocks[i].setOutlineColor(c);
 
 			break;
@@ -389,7 +421,7 @@ void NetworkedSinglePlayer::updateBlocks()
 			c.b = 50;
 			nextBlocks[i].setFillColor(c);
 			c.a = 255;
-			nextBlocks[i].setOutlineThickness(-2);
+			nextBlocks[i].setOutlineThickness(-blockSizeX / 8);
 			nextBlocks[i].setOutlineColor(c);
 
 			break;
@@ -415,7 +447,7 @@ void NetworkedSinglePlayer::updateBlocks()
 			case 0:
 			{
 				blocks[i][j].setFillColor(sf::Color::Transparent);
-				blocks[i][j].setOutlineThickness(-2);
+				blocks[i][j].setOutlineThickness(-blockSizeX / 8);
 				blocks[i][j].setOutlineColor(sf::Color::Transparent);
 				
 				break;
@@ -425,7 +457,7 @@ void NetworkedSinglePlayer::updateBlocks()
 				c.b = 128;
 				blocks[i][j].setFillColor(c);
 				c.a = 255;
-				blocks[i][j].setOutlineThickness(-2);
+				blocks[i][j].setOutlineThickness(-blockSizeX / 8);
 				blocks[i][j].setOutlineColor(c);
 				
 				break;
@@ -435,7 +467,7 @@ void NetworkedSinglePlayer::updateBlocks()
 				c.r = 255;
 				blocks[i][j].setFillColor(c);
 				c.a = 255;
-				blocks[i][j].setOutlineThickness(-2);
+				blocks[i][j].setOutlineThickness(-blockSizeX / 8);
 				blocks[i][j].setOutlineColor(c);
 				
 				break;
@@ -446,7 +478,7 @@ void NetworkedSinglePlayer::updateBlocks()
 				c.g = 140;
 				blocks[i][j].setFillColor(c);
 				c.a = 255;
-				blocks[i][j].setOutlineThickness(-2);
+				blocks[i][j].setOutlineThickness(-blockSizeX / 8);
 				blocks[i][j].setOutlineColor(c);
 				
 				break;
@@ -457,7 +489,7 @@ void NetworkedSinglePlayer::updateBlocks()
 				c.b = 211;
 				blocks[i][j].setFillColor(c);
 				c.a = 255;
-				blocks[i][j].setOutlineThickness(-2);
+				blocks[i][j].setOutlineThickness(-blockSizeX / 8);
 				blocks[i][j].setOutlineColor(c);
 				
 				break;
@@ -469,7 +501,7 @@ void NetworkedSinglePlayer::updateBlocks()
 				c.b = 50;
 				blocks[i][j].setFillColor(c);
 				c.a = 255;
-				blocks[i][j].setOutlineThickness(-2);
+				blocks[i][j].setOutlineThickness(-blockSizeX / 8);
 				blocks[i][j].setOutlineColor(c);
 				
 				break;
@@ -534,50 +566,65 @@ void NetworkedSinglePlayer::draw()
 		for (int j = 0; j < GameStateObject::boardWidth; j++)
 		{
 			GraphicsManager::getInstance()->window.draw(blocks[i][j]);
-			//set the shape on the block
-			blockShape.setPosition(blocks[i][j].getPosition());
-			//std::cout << "block: " << i << ", " << j << " is at position" << blocks[i][j].getPosition().x << " " << blocks[i][j].getPosition().y << std::endl;
-			switch (gso.gameBoard[i][j])
+			
+			if (!dangerColumns.empty() && dangerColumns.at(dangerColumnCounter).first == i && dangerColumns.at(dangerColumnCounter).second == j)
 			{
-			//
-			case 1: //blue case
-				blockShape.setTexture(*_getTexture("Textures/bluestar.png"));
-				//defualt textures are 24 by 24 so scale them to match block size
-				blockShape.setScale(sf::Vector2f((float)blockSizeX / 24, (float)blockSizeY / 24));
-				GraphicsManager::getInstance()->window.draw(blockShape);
-				break;
-			case 2: //red case
-				blockShape.setTexture(*_getTexture("Textures/redgear.png"));
-				blockShape.setScale(sf::Vector2f((float)blockSizeX / 24, (float)blockSizeY / 24));
-				GraphicsManager::getInstance()->window.draw(blockShape);
-				break;
-			case 3:// yellow case
-				blockShape.setTexture(*_getTexture("Textures/yellowsquare.png"));
-				blockShape.setScale(sf::Vector2f((float)blockSizeX / 24, (float)blockSizeY / 24));
-				GraphicsManager::getInstance()->window.draw(blockShape);
-				break;
-			case 4://purple
-				blockShape.setTexture(*_getTexture("Textures/purplespade.png"));
-				blockShape.setScale(sf::Vector2f((float)blockSizeX / 24, (float)blockSizeY / 24));
-				GraphicsManager::getInstance()->window.draw(blockShape);
-				break;
-			case 5://green
-				blockShape.setTexture(*_getTexture("Textures/greentriangle.png"));
-				blockShape.setScale(sf::Vector2f((float)blockSizeX / 24, (float)blockSizeY / 24));
-				GraphicsManager::getInstance()->window.draw(blockShape);
-				break;
-			default:
-				break;
+				if (dangerColumnCounter < dangerColumns.size() - 1)
+					dangerColumnCounter++;
+				else
+					dangerColumnCounter = 0;
+			}
+			else
+			{
+				//set the shape on the block
+				blockShape.setPosition(blocks[i][j].getPosition());
+				//std::cout << "block: " << i << ", " << j << " is at position" << blocks[i][j].getPosition().x << " " << blocks[i][j].getPosition().y << std::endl;
+				switch (gso.gameBoard[i][j])
+				{
+					//
+				case 1: //blue case
+					blockShape.setTexture(*_getTexture("Textures/bluestar.png"));
+					//defualt textures are 24 by 24 so scale them to match block size
+					blockShape.setScale(sf::Vector2f((float)blockSizeX / 24, (float)blockSizeY / 24));
+					GraphicsManager::getInstance()->window.draw(blockShape);
+					break;
+				case 2: //red case
+					blockShape.setTexture(*_getTexture("Textures/redgear.png"));
+					blockShape.setScale(sf::Vector2f((float)blockSizeX / 24, (float)blockSizeY / 24));
+					GraphicsManager::getInstance()->window.draw(blockShape);
+					break;
+				case 3:// yellow case
+					blockShape.setTexture(*_getTexture("Textures/yellowsquare.png"));
+					blockShape.setScale(sf::Vector2f((float)blockSizeX / 24, (float)blockSizeY / 24));
+					GraphicsManager::getInstance()->window.draw(blockShape);
+					break;
+				case 4://purple
+					blockShape.setTexture(*_getTexture("Textures/purplespade.png"));
+					blockShape.setScale(sf::Vector2f((float)blockSizeX / 24, (float)blockSizeY / 24));
+					GraphicsManager::getInstance()->window.draw(blockShape);
+					break;
+				case 5://green
+					blockShape.setTexture(*_getTexture("Textures/greentriangle.png"));
+					blockShape.setScale(sf::Vector2f((float)blockSizeX / 24, (float)blockSizeY / 24));
+					GraphicsManager::getInstance()->window.draw(blockShape);
+					break;
+				default:
+					break;
+				}
 			}
 		}
 	}
 	
 
 	GraphicsManager::getInstance()->window.draw(ch->getMainCursor()); //draws main cursor
-	GraphicsManager::getInstance()->window.draw(ch->getLeftCursor()); //draws left cursor
-	GraphicsManager::getInstance()->window.draw(ch->getRightCursor()); //draws right cursor
-	GraphicsManager::getInstance()->window.draw(ch->getTopCursor()); //draws top cursor
-	GraphicsManager::getInstance()->window.draw(ch->getBottomCursor()); //draws bottom cursor
+	if (ch->getCursorX() > 0)
+		GraphicsManager::getInstance()->window.draw(ch->getLeftCursor()); //draws left cursor
+	if (ch->getCursorX() < GameStateObject::boardWidth - 1)
+		GraphicsManager::getInstance()->window.draw(ch->getRightCursor()); //draws right cursor
+	if (ch->getCursorY() < GameStateObject::boardHeight - 1)
+		GraphicsManager::getInstance()->window.draw(ch->getTopCursor()); //draws top cursor
+	if (ch->getCursorY() > 0)
+		GraphicsManager::getInstance()->window.draw(ch->getBottomCursor()); //draws bottom cursor
 	highScore->message.setColor(sf::Color::Black);
 	oldHighScore->message.setColor(sf::Color::Black);
 	scoreToBeat->message.setColor(sf::Color::Black);

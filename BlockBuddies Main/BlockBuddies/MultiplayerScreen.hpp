@@ -33,11 +33,14 @@ private:
 	TextBox* nextRowIn;
 	TextBox* comboCounter;
 
+	std::vector <std::pair<int, int>> dangerColumns;
+	std::vector <int> dangerMark;
 	unsigned int winX;
 	unsigned int winY;
 	int gameScreenHeight;
 	int gameScreenWidth;
 	int blockSize;
+	int dangerColumnCounter;
 	CursorHandler *ch;
 	CursorHandler *ch2;
 	sf::RectangleShape p1Blocks[GameStateObject::boardHeight][GameStateObject::boardWidth];

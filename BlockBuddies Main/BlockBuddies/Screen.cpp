@@ -8,6 +8,7 @@
 #include "RegisterScreen.hpp"
 #include "LoginScreen.hpp"
 #include "CloseScreen.hpp"
+#include "AnimationManager.hpp"
 
 Screen::Screen()
     :close(new Button(Screens::CLOSE,
@@ -29,6 +30,7 @@ void Screen::update()
 {
     if (close->isActivated)
     {
+		AnimationManager::getInstance()->pauseAnimation();
         close->isActivated = false;
 
         if(ClientManager::getInstance().isConnected)

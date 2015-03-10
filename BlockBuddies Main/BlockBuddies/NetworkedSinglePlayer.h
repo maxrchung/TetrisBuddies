@@ -26,6 +26,8 @@ public:
 	//number of different sprite shapes
 	
 private:
+	std::vector <std::pair<int, int>> dangerColumns;
+	std::vector <int> dangerMark;
 	AnimatedSprite miku;
 	void playThis();
 	CursorHandler *ch;
@@ -42,6 +44,7 @@ private:
 	GameStateObject gso;
 	int blockSizeX;
 	int blockSizeY;
+	int dangerColumnCounter;
 	void initGame();
 	void updateBlocks();
 	bool reset;

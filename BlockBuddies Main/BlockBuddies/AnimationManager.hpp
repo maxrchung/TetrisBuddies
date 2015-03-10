@@ -17,6 +17,10 @@ public:
 	void addDanger(sf::RectangleShape d);
 	void setBlockSize(int size);
 	void setClearingAdd();
+	void clearDangerBlocks();
+	void pauseAnimation();
+	void unpauseAnimation();
+	void setTextureDanger();
 private:
 	void swap();
 	void clear();
@@ -24,9 +28,10 @@ private:
 	void setTextureSwap(int index);
 	std::vector <sf::Sprite> swapSprites;
 	std::vector <sf::RectangleShape> s;
-	std::vector <sf::RectangleShape> dangerBlocks;
-	std::vector <std::pair<sf::RectangleShape,int>> clearBlocks;
-	std::vector <sf::RectangleShape> ctemp; 
+	std::vector <std::pair<sf::Sprite, int >> dangerSprites;
+	std::vector <sf::Color> dangerBlocks;
+	std::vector <std::pair<sf::RectangleShape, int>> clearBlocks;
+	std::vector <sf::RectangleShape> ctemp;
 	std::vector <float> acceleration;
 	std::vector <sf::Time> ctime;
 	std::vector <sf::Clock> cclock;
@@ -35,7 +40,7 @@ private:
 	sf::Sound clearSound, matchFlashing, matchFlashing2, matchFlashing3;
 	int blockx, blocky, blockx2, blocky2;
 	int blockSize;
-	bool stop, fade, clearAddFinish;
+	bool stop, dangerUp, clearAddFinish, pause;
 	float speed;
 	static AnimationManager* instance;
 };
