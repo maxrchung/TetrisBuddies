@@ -110,10 +110,6 @@ void ClientManager::update()
 				bool temp;
 				packet >> temp;
 				isPlayerTwo = temp;
-				if (!isPlayerTwo)
-					std::cout << "I'm player oneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee" << std::endl;
-				else
-					std::cout << "I'm player twoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo" << std::endl;
 
 				break;
 			}
@@ -148,6 +144,11 @@ void ClientManager::update()
 				packet >> player;
 				player.username = saveName;
 				infoUpdate = true;
+				break;
+			}
+			case PacketDecode::PACKET_OPPONENTSNAME:
+			{
+				packet >> opponentsName;
 				break;
 			}
 			case PacketDecode::PACKET_WINNER:

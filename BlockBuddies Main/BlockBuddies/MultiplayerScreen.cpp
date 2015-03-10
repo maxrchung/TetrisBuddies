@@ -714,6 +714,9 @@ void MultiplayerScreen::updateBlocks()
 }
 void MultiplayerScreen::draw()
 {
+	playerOneName->message.setString(ClientManager::getInstance().player.username);
+	playerTwoName->message.setString(ClientManager::getInstance().opponentsName);
+
 	Screen::draw();
 
 	GraphicsManager::getInstance()->window.draw(p1Outline);

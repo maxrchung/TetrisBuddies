@@ -45,6 +45,7 @@ public:
 
 	ClientMessages messageMaker;
 	UserInfo player;
+	std::string opponentsName;
 	GameStateObject currentGSO;
 	GameStateObject secondGSO;
 	int packetCount = 0;
