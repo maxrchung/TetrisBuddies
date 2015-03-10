@@ -100,7 +100,6 @@ void ClientManager::update()
 						packet >> secondGSO;
 						std::cout << "I've got player two's GSO! \n";
 						isOpponentUpdated = true;
-						isUpdated = true;
 						packetCount = 0;
 					}
 				}
@@ -111,6 +110,11 @@ void ClientManager::update()
 				bool temp;
 				packet >> temp;
 				isPlayerTwo = temp;
+				if (!isPlayerTwo)
+					std::cout << "I'm player oneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee" << std::endl;
+				else
+					std::cout << "I'm player twoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo" << std::endl;
+
 				break;
 			}
 

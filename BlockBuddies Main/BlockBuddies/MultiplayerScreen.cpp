@@ -149,6 +149,8 @@ void MultiplayerScreen::initGame()
 		gridPosx++;
 	}
 
+	ClientManager::getInstance().multiplayer = true;
+
 	//creates the temp row below this
 	for (int i = 0; i < GameStateObject::boardWidth; i++)
 	{
@@ -185,9 +187,17 @@ void MultiplayerScreen::update()
 		{
 
 			if (!ClientManager::getInstance().isPlayerTwo)
+			{
 				p1GSO = ClientManager::getInstance().currentGSO;
-			else
 				p2GSO = ClientManager::getInstance().secondGSO;
+
+			}
+			else
+			{
+				p1GSO = ClientManager::getInstance().secondGSO;
+				p2GSO = ClientManager::getInstance().currentGSO;
+			}
+				
 
 			ClientManager::getInstance().isUpdated = false;
 
