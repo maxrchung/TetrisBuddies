@@ -86,9 +86,7 @@ void ClientManager::update()
 				}
 				else
 				{
-					bool PlayerTwo;
-					packet >> PlayerTwo;
-					if (!PlayerTwo && !isPlayerTwo)
+					if (packetCount == 0)
 					{ 
 						std::cout << "I've got player one's GSO! \n";
 						packet >> currentGSO;
@@ -99,7 +97,7 @@ void ClientManager::update()
 					{
 						packet >> secondGSO;
 						std::cout << "I've got player two's GSO! \n";
-						isOpponentUpdated = true;
+						isUpdated = true;
 						packetCount = 0;
 					}
 				}

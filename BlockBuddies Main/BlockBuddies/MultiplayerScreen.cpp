@@ -187,19 +187,8 @@ void MultiplayerScreen::update()
 		if (ClientManager::getInstance().isUpdated)
 		{
 
-			if (!ClientManager::getInstance().isPlayerTwo)
-			{
-				p1GSO = ClientManager::getInstance().currentGSO;
-				p2GSO = ClientManager::getInstance().secondGSO;
-
-			}
-			else
-			{
-				p1GSO = ClientManager::getInstance().secondGSO;
-				p2GSO = ClientManager::getInstance().currentGSO;
-			}
-				
-
+			p1GSO = ClientManager::getInstance().currentGSO;
+			p2GSO = ClientManager::getInstance().secondGSO;
 			ClientManager::getInstance().isUpdated = false;
 
 			if (p1GSO.newRowActive)

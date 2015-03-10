@@ -235,16 +235,18 @@ void MatchMakingHandler::sendMessages()
 		{
 			p1 = check->playerOneGame.outgoingMessages.front();
 			check->playerOneGame.outgoingMessages.pop();
+			p2 << check->playerTwoGame.gso;
 
-			sendSingleMessage(p1,counter);
+			sendPackets(p1, p2, counter);
 
 		}// if player two has updated thier GSO
 		else if (check->playerOneGame.outgoingMessages.empty() && !check->playerTwoGame.outgoingMessages.empty())
 		{
+			p1 << check->playerOneGame.gso;
 			p2 = check->playerTwoGame.outgoingMessages.front();
 			check->playerTwoGame.outgoingMessages.pop();
 
-			sendSingleMessage(p2, counter);
+			sendPackets(p1, p2, counter);
 		}
 		else
 		{
