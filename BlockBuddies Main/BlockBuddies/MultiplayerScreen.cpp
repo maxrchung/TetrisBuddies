@@ -710,6 +710,38 @@ void MultiplayerScreen::updateBlocks()
 }
 void MultiplayerScreen::draw()
 {
+	if (firstRun)
+	{
+		firstRun = false;
+		currentTime = sf::Time::Zero;
+		timePiece.restart();
+	}
+	else
+		currentTime += timePiece.getElapsedTime();
+	
+	std::string time;
+	float temp = 0;
+	int temp2 = 0;
+	int minutes;
+	temp = currentTime.asSeconds() ;
+
+	//Not sure why but I need to do this. 
+	temp = temp / 60;
+
+	//This is now the stored value of seconds 
+	int seconds = temp;
+	seconds = seconds / 60;
+
+	//Mod it in order to get seconds
+	//Diviide secounds my 60 to get minutes
+	temp2 = seconds % 60;
+	minutes = seconds / 60;
+
+	time += std::to_string(minutes);
+	time += ":";
+	time += std::to_string(temp2);
+
+	timer->message.setString(time);
 	playerOneName->message.setString(ClientManager::getInstance().player.username);
 	playerTwoName->message.setString(ClientManager::getInstance().opponentsName);
 

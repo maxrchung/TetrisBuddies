@@ -21,6 +21,9 @@ public:
 	void draw();
 	void reload();
 private:
+	bool firstRun = true;
+	sf::Clock timePiece;
+	sf::Time currentTime;
 	//Display info
 	TextBox* playerOneName;
 	TextBox* playerTwoName;
