@@ -78,8 +78,6 @@ void ClientManager::update()
 				if (!multiplayer)
 				{
 					//Temp storage. Does nothing
-					bool temp;
-					packet >> temp;
 					packet >> currentGSO;
 					isUpdated = true;
 					std::cout << "were updating the gso \n";
