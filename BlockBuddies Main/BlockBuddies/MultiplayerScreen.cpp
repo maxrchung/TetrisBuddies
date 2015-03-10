@@ -3,10 +3,25 @@
 #include "AnimationManager.hpp"
 #include <cmath>
 MultiplayerScreen::MultiplayerScreen()
-:blockSwitch(false), pressed(false), pressed2(false), reset(false)
+:blockSwitch(false), pressed(false), pressed2(false), reset(false),
+playerOneName(new TextBox("PlayerOneGoesHere",
+-590.0f,
+-350.0f,
+600.0f)),
+playerTwoName(new TextBox("PlayerOneGoesHere",
+ 450.0f,
+-350.0f,
+600.0f)),
+timer(new TextBox("01:27",
+ -10.0f,
+-380.0f,
+600.0f))
 {
 	initGame();
 	swapSound.setBuffer(*SoundManager::getInstance().getSound("heya"));
+	UIElements.push_back(playerOneName);
+	UIElements.push_back(playerTwoName);
+	UIElements.push_back(timer);
 
 }
 
@@ -811,6 +826,9 @@ void MultiplayerScreen::draw()
 	GraphicsManager::getInstance()->window.draw(ch2->getTopCursor()); //draws p2 top cursor
 	GraphicsManager::getInstance()->window.draw(ch2->getBottomCursor()); //draws p2 bottom cursor
 
+	playerOneName->message.setColor(sf::Color::Black);
+	playerTwoName->message.setColor(sf::Color::Black);
+	timer->message.setColor(sf::Color::Black);
     
 }
 

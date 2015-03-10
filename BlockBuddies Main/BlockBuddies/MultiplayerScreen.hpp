@@ -21,6 +21,12 @@ public:
 	void draw();
 	void reload();
 private:
+	//Display info
+	TextBox* playerOneName;
+	TextBox* playerTwoName;
+	TextBox* timer;
+	TextBox* isPaused;
+	TextBox* nextRowIn;
 
 	unsigned int winX;
 	unsigned int winY;
