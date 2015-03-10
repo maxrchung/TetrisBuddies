@@ -38,6 +38,14 @@ MultiplayerScreen::MultiplayerScreen()
  comboCounter(new TextBox("3x!",
  -365.0f,
  -325.0f,
+ 600.0f)),
+ isPaused(new TextBox("||",
+ -365.0f,
+ 345.0f,
+ 600.0f)),
+ nextRowIn(new TextBox("in xx seconds",
+ -290.0f,
+ 345.0f,
  600.0f))
 
 {
@@ -51,6 +59,8 @@ MultiplayerScreen::MultiplayerScreen()
 	UIElements.push_back(nextRowRight);
 	UIElements.push_back(nextRowR2);
 	UIElements.push_back(comboCounter);
+	UIElements.push_back(isPaused);
+	UIElements.push_back(nextRowIn);
 }
 
 void MultiplayerScreen::initGame()
@@ -701,8 +711,6 @@ void MultiplayerScreen::updateBlocks()
 			}
 		}
 	}
-
-		
 	
 }
 void MultiplayerScreen::draw()
@@ -741,6 +749,15 @@ void MultiplayerScreen::draw()
 	timer->message.setString(time);
 	playerOneName->message.setString(ClientManager::getInstance().player.username);
 	playerTwoName->message.setString(ClientManager::getInstance().opponentsName);
+	if (ClientManager::getInstance().currentGSO.rowInsertionPaused)
+		isPaused->message.setString("|\|");
+	else
+		isPaused->message.setString("");
+
+	std::string nextRowInString = "in ";
+	nextRowInString += std::to_string(ClientManager::getInstance().currentGSO.rowInsertionCountdown);
+	nextRowInString += " seconds";
+	nextRowIn->message.setString(nextRowInString);
 
 	Screen::draw();
 
@@ -950,7 +967,9 @@ void MultiplayerScreen::draw()
 	nextRowL2->message.setColor(sf::Color::Black);
 	nextRowRight->message.setColor(sf::Color::Black);
 	nextRowR2->message.setColor(sf::Color::Black);
-	comboCounter->message.setColor(sf::Color::Black);
+	//comboCounter->message.setColor(sf::Color::Black);
+	isPaused->message.setColor(sf::Color::Black);
+	nextRowIn->message.setColor(sf::Color::Black);
     
 }
 
