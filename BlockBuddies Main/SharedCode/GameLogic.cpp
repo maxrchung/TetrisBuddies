@@ -570,6 +570,7 @@ bool GameLogic::ProcessMessage(sf::Packet toProcess){
 		if (destroyedBlocks.empty()){
 			InsertBottomRow();
 			newRowClock.reset(true);
+			gso.newRowActive = true;
 			gso.rowInsertionPaused = false;
 			return true;
 		}

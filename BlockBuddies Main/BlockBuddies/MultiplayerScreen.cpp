@@ -187,61 +187,58 @@ void MultiplayerScreen::update()
 		if (ClientManager::getInstance().isUpdated)
 		{
 
-
-			if (ClientManager::getInstance().currentGSO.frameNum != p1GSO.frameNum){
-			p1GSO = ClientManager::getInstance().currentGSO;
-			}
-			
-			if (ClientManager::getInstance().secondGSO.frameNum != p2GSO.frameNum){
+			if (ClientManager::getInstance().currentGSO.frameNum != p1GSO.frameNum && ClientManager::getInstance().secondGSO.frameNum != p2GSO.frameNum)
+			{
+				p1GSO = ClientManager::getInstance().currentGSO;
 				p2GSO = ClientManager::getInstance().secondGSO;
-			}
-			
-			ClientManager::getInstance().isUpdated = false;
 
-			if (p1GSO.newRowActive)
-				ch->Up(sf::Keyboard::Key::Up);
-			//if (p2GSO.newRowActive)
-			//	ch2->Up(sf::Keyboard::Key::Up);
-			ch2->setCursorAt(p2GSO.cursorPos.first, p2GSO.cursorPos.second);
+				ClientManager::getInstance().isUpdated = false;
 
-			//This can be further optimized to only update a particular player if both states aren't  updated.
-			updateBlocks();
-			
-			if (!p1GSO.clearingBlocks.empty())
-			{
-				for (int i = 0; i < p1GSO.clearingBlocks.size(); i++)
+				if (p1GSO.newRowActive)
+					ch->Up(sf::Keyboard::Key::Up);
+				//if (p2GSO.newRowActive)
+				//	ch2->Up(sf::Keyboard::Key::Up);
+				ch2->setCursorAt(p2GSO.cursorPos.first, p2GSO.cursorPos.second);
+
+				//This can be further optimized to only update a particular player if both states aren't  updated.
+				updateBlocks();
+
+				if (!p1GSO.clearingBlocks.empty())
 				{
-					AnimationManager::getInstance()->addClear(p1Blocks[p1GSO.clearingBlocks.at(i).first][p1GSO.clearingBlocks.at(i).second]);
+					for (int i = 0; i < p1GSO.clearingBlocks.size(); i++)
+					{
+						AnimationManager::getInstance()->addClear(p1Blocks[p1GSO.clearingBlocks.at(i).first][p1GSO.clearingBlocks.at(i).second]);
+					}
+					AnimationManager::getInstance()->setClearingAdd();
 				}
-				AnimationManager::getInstance()->setClearingAdd();
-			}
 
-			AnimationManager::getInstance()->clearDangerBlocks();
+				AnimationManager::getInstance()->clearDangerBlocks();
 
-			dangerColumns.clear();
-			dangerColumnCounter = 0;
-			for (int row = 0; row < GameStateObject::boardWidth; row++)
-			{
-				if (p1Blocks[GameStateObject::boardHeight - 4][row].getFillColor() != sf::Color::Transparent)
-					dangerMark.push_back(row);
-				else
-					dangerMark.push_back(-1);
-			}
-
-			for (int col = 0; col < GameStateObject::boardHeight; col++)
-			{
+				dangerColumns.clear();
+				dangerColumnCounter = 0;
 				for (int row = 0; row < GameStateObject::boardWidth; row++)
 				{
-					if (dangerMark.at(row) != -1 && p1Blocks[col][row].getFillColor() != sf::Color::Transparent)
+					if (p1Blocks[GameStateObject::boardHeight - 4][row].getFillColor() != sf::Color::Transparent)
+						dangerMark.push_back(row);
+					else
+						dangerMark.push_back(-1);
+				}
+
+				for (int col = 0; col < GameStateObject::boardHeight; col++)
+				{
+					for (int row = 0; row < GameStateObject::boardWidth; row++)
 					{
-						AnimationManager::getInstance()->addDanger(p1Blocks[col][row]);
-						dangerColumns.push_back(std::make_pair(col, row));
+						if (dangerMark.at(row) != -1 && p1Blocks[col][row].getFillColor() != sf::Color::Transparent)
+						{
+							AnimationManager::getInstance()->addDanger(p1Blocks[col][row]);
+							dangerColumns.push_back(std::make_pair(col, row));
+						}
 					}
 				}
-			}
-			dangerMark.clear();
+				dangerMark.clear();
 
-			AnimationManager::getInstance()->setTextureDanger();
+				AnimationManager::getInstance()->setTextureDanger();
+			}
 
 		}
 
