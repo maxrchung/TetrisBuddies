@@ -187,14 +187,21 @@ void MultiplayerScreen::update()
 		if (ClientManager::getInstance().isUpdated)
 		{
 
+
+			if (ClientManager::getInstance().currentGSO.frameNum != p1GSO.frameNum){
 			p1GSO = ClientManager::getInstance().currentGSO;
-			p2GSO = ClientManager::getInstance().secondGSO;
+			}
+			
+			if (ClientManager::getInstance().secondGSO.frameNum != p2GSO.frameNum){
+				p2GSO = ClientManager::getInstance().secondGSO;
+			}
+			
 			ClientManager::getInstance().isUpdated = false;
 
 			if (p1GSO.newRowActive)
 				ch->Up(sf::Keyboard::Key::Up);
-			if (p2GSO.newRowActive)
-				ch2->Up(sf::Keyboard::Key::Up);
+			//if (p2GSO.newRowActive)
+			//	ch2->Up(sf::Keyboard::Key::Up);
 			ch2->setCursorAt(p2GSO.cursorPos.first, p2GSO.cursorPos.second);
 
 			//This can be further optimized to only update a particular player if both states aren't  updated.
