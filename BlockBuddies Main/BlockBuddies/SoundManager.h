@@ -40,6 +40,9 @@ private:
 		addToSongList("Sounds/Slamtris.ogg");
 		addToSongList("Sounds/HardCoreTetris.ogg");
 		addToSongList("Sounds/01 Tetris (Themes B And C).ogg");
+		addToSongList("Sounds/Tetris_Crimea_River_OC_ReMix.ogg");
+		addToSongList("Sounds/Lumin8 - Tetris (Hardcore remix).ogg");
+		addToSongList("Sounds/Tetris_Thirty-Plus_Mix_OC_ReMix.ogg");
 	}                                  // Private constructor
 	~SoundManager();
 	SoundManager(const SoundManager&);                 // Prevent copy-construction

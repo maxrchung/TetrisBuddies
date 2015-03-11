@@ -341,7 +341,8 @@ void NetworkedSinglePlayer::update()
 		AnimationManager::getInstance()->clearDangerBlocks();
 		dangerColumns.clear();
 		dangerMark.clear();
-		SoundManager::getInstance().playMusic("Sounds/Slamstorm.ogg", false);
+		//SoundManager::getInstance().playMusic("Sounds/Slamstorm.ogg", false);
+		SoundManager::getInstance().playMusic("Sounds/Tetris_Linear_Groove_OC_ReMix.ogg");
 		reset = true;
 		if (ClientManager::getInstance().isConnected)
 		{
@@ -350,7 +351,9 @@ void NetworkedSinglePlayer::update()
 			ScreenManager::getInstance()->switchScreen(RESULT);
 		}
 		else
+		{
 			ScreenManager::getInstance()->switchScreen(OFFLINERESULT);
+		}
 		
 	}
 

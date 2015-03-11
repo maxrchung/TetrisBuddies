@@ -104,7 +104,6 @@ void ResultScreen::update()
              (InputManager::getInstance()->enter && game->isSelected))
     {
 		ClientManager::getInstance().requestStartGame();
-		SoundManager::getInstance().playMusic("Sounds/Slamtris.ogg");
         ScreenManager::getInstance()->switchScreen(game->toScreen);
 	}
 	
