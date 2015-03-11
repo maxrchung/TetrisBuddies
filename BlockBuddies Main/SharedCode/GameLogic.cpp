@@ -23,6 +23,7 @@ GameLogic::GameLogic(){
 	blocksToSend = 0;
 	blocksFalling = false;
 	remainingRowInsertionTime = sf::Time::Zero;
+	startJunkFromLeft = true;
 
 	totalTimeElapsedClock.restart();
 }
@@ -444,7 +445,8 @@ bool GameLogic::CheckBlockForMatches(int rowNum, int colNum){
 
 	//^ all that * numChains
 	if (clearedBlocks > 3){
-		blocksToSend = clearedBlocks - 3;
+		blocksToSend = (clearedBlocks - 3) * gso.numChains;
+
 	}
 
 
@@ -742,7 +744,7 @@ void GameLogic::GameTick(){
 		//p << gso;
 		//outgoingMessages.push(p);
 
-		gso.PrintToFile();
+		//gso.PrintToFile();
 		//int junk;
 		//p >> junk;
 		//p >> newGSO;
@@ -840,6 +842,9 @@ return ret;
 
 
 
+//*****NEED TO PUT IN:
+//change the order of insertion based on startJunkFromLeft
+
 //A junk row will fall X number of seconds after it's created.  
 //That being the case, you have the time from when it's created to the time it actually falls to fill it out more.
 bool GameLogic::CreateJunkBlocks(int numBlocks){
@@ -900,10 +905,13 @@ bool GameLogic::CreateJunkBlocks(int numBlocks){
 
 				if (lastRowIsEmpty){ gso.junkRows.pop_back(); }
 				junkTimer.restart();
+				startJunkFromLeft = !startJunkFromLeft;
 						return true;
 					}
 				}
 			}
+
+
 
 			//this is just here so there's some marker for the function not returning correctly
 			return false;

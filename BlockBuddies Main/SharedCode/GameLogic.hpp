@@ -149,6 +149,7 @@ private:
 	bool DropJunk();
 	sf::Clock junkTimer;
 	const sf::Time junkDropTime = sf::milliseconds(2000);
+	bool startJunkFromLeft;
 
 	bool CreateJunkBlocks(int numBlocks);
 
