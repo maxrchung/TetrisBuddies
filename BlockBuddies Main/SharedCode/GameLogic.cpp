@@ -14,7 +14,7 @@ GameLogic::GameLogic(){
 
 
 	//Sets the initial row insertion time
-	totalRowInsertionTime = sf::milliseconds(12000);
+	totalRowInsertionTime = sf::milliseconds(10000);
 	gso.rowInsertionCountdown = totalRowInsertionTime.asMilliseconds();
 
 	blocksMarkedForDeletion.clear();
@@ -65,7 +65,7 @@ void GameLogic::ResetGame()
 {
 	gso = GameStateObject();
 	GameLogic::InitialBoardPopulation();
-	totalRowInsertionTime = sf::milliseconds(12000);
+	totalRowInsertionTime = sf::milliseconds(10000);
 }
 
 bool GameLogic::ReceiveMessage(sf::Packet incomingMessage){
@@ -230,6 +230,8 @@ bool GameLogic::ApplyGravity(){
 
 
 	blocksFalling = false;
+	//clear the blocksJustLanded list
+	blocksJustLanded.clear();
 
 	//for every piece on the board, starting at row 1
 	for (int rowNum = 1; rowNum < gso.boardHeight; rowNum++){
@@ -253,7 +255,10 @@ bool GameLogic::ApplyGravity(){
 				//the current block is set to empty
 				gso.gameBoard[currentBlockRow][colNum] = 0;
 
-
+				//if the block just landed (if it's on row 0, or the thing below where it is now isn't 0), add it to the blocksJustLanded list
+				if ( ((currentBlockRow - 1) == 0) || (gso.gameBoard[ currentBlockRow - 2][colNum] != 0) ){
+					blocksJustLanded.push_back(std::make_pair(currentBlockRow - 1, colNum));
+				}
 			}
 
 
@@ -262,6 +267,10 @@ bool GameLogic::ApplyGravity(){
 			//std::cin.get();
 		}
 	}
+
+
+	if (!blocksFalling && blocksJustLanded.empty()){gso.numChains = 0;}
+
 
 	return blocksFalling;
 }
@@ -416,19 +425,42 @@ bool GameLogic::CheckBlockForMatches(int rowNum, int colNum){
 		int bonusBlocks = clearedBlocks - 3;
 		for (int i = 0; i < bonusBlocks; i++){points += (i * 10);}
 
-		//this shouldn't be here.
-		//if it's here, it updates every time there's a match of 3 or more (in a single direction)
-		gso.numChains++;
-		
+		//update numChains here
+		if (gso.numChains == 0){ gso.numChains++; 
+
+			std::cout << "Number of chains: " << gso.numChains << std::endl;
+		}
+		//check if every block that gets cleared is in blocksJustLanded
+		else {
+			bool chainFound = false;
+			//for every block in BMFD
+			for (auto i : blocksMarkedForDeletion){
+				//if in blocksJustLanded && !chainFound
+				if (BlocksJustLandedContains(i.first, i.second) && !chainFound){
+					gso.numChains++;
+					chainFound = true;
+
+					std::cout << "Number of chains: " << gso.numChains << std::endl;
+				}
+			}
+		}
+
+
+
 		points = points * gso.numChains;
 		gso.score += points;
 
 
+		//blocksToSend = (clearedBlocks - 3) * gso.numChains;
+		if (clearedBlocks == 4){blocksToSend = 1;}
+		else if (clearedBlocks == 5){ blocksToSend = gso.boardWidth / 2; }
+		else if (clearedBlocks == 6){ blocksToSend = gso.boardWidth * .75; }
+		else if (clearedBlocks == 7){ blocksToSend = gso.boardWidth; }
+		else {blocksToSend = gso.boardWidth + clearedBlocks;}
 
-		//if (blocksFalling){gso.numChains++;}
+		blocksToSend = blocksToSend * gso.numChains;
 
 	}
-
 
 
 	//note: in TA, a single 2x chain with 3 blocks each sends one whole row
@@ -444,10 +476,7 @@ bool GameLogic::CheckBlockForMatches(int rowNum, int colNum){
 
 
 	//^ all that * numChains
-	if (clearedBlocks > 3){
-		blocksToSend = (clearedBlocks - 3) * gso.numChains;
 
-	}
 
 
 	return true;
@@ -663,7 +692,6 @@ void GameLogic::GameTick(){
 	if (CheckClearingTimers()) { gameStateChanged = true; }
 
 	if (ApplyGravity()){ gameStateChanged = true; }
-	if (!blocksFalling){ gso.numChains = 0; }
 
 	if (swappingBlocks.empty() && destroyedBlocks.empty() && !newRowClock.isRunning()){
 		//if (!newRowClock.isRunning()){std::cout << "Resuming row insertion counter" << std::endl;}
@@ -774,9 +802,18 @@ bool GameLogic::DestroyedBlockContains(int rowNum, int colNum) const{
 
 
 	for (auto i : destroyedBlocks){
-		if (i.blockNum.first == rowNum && i.blockNum.second == colNum){
-			return true;
-		}
+		if (i.blockNum.first == rowNum && i.blockNum.second == colNum){return true;}
+	}
+
+	return false;
+}
+
+
+bool GameLogic::BlocksJustLandedContains(int rowNum, int colNum) const{
+	if (blocksJustLanded.empty()) { return false; }
+
+	for (auto i : blocksJustLanded){
+		if (i.first == rowNum && i.second == colNum){return true;}
 	}
 
 	return false;
@@ -874,42 +911,84 @@ bool GameLogic::CreateJunkBlocks(int numBlocks){
 		}
 	}
 
-	//find the first zero, insert the value there, then insert the remaining starting there
-	for (int row = 0; row < gso.junkRows.size(); row++){
-		for (int col = 0; col < gso.boardWidth; col++){
+	if (startJunkFromLeft){
+		//find the first zero, insert the value there, then insert the remaining starting there
+		for (int row = 0; row < gso.junkRows.size(); row++){
+			for (int col = 0; col < gso.boardWidth; col++){
 
-			if (gso.junkRows.at(row).at(col) == 0){
+				if (gso.junkRows.at(row).at(col) == 0){
 
-				//put in a random square., then numBlocks--
-				gso.junkRows.at(row).at(col) = (rand() % numColors) + 1;
-				--numBlocks;
+					//put in a random square., then numBlocks--
+					gso.junkRows.at(row).at(col) = (rand() % numColors) + 1;
+					--numBlocks;
 
-				//if col > 2, check for existing matches
-				if (col > 2){
-					while (AllMatch(gso.junkRows.at(row).at(col - 2), gso.junkRows.at(row).at(col - 1), gso.junkRows.at(row).at(col))){
-						gso.junkRows.at(row).at(col) = (rand() % numColors) + 1;
+					//if col > 2, check for existing matches
+					if (col > 2){
+						while (AllMatch(gso.junkRows.at(row).at(col - 2), gso.junkRows.at(row).at(col - 1), gso.junkRows.at(row).at(col))){
+							gso.junkRows.at(row).at(col) = (rand() % numColors) + 1;
+						}
 					}
+				}
+
+				//this should ALWAYS be the way it returns.
+				if (numBlocks == 0){
+					//shrink_to_fit doesn't do jack.
+					//gso.junkRows.shrink_to_fit();
+					bool lastRowIsEmpty = true;
+					for (int i = 0; i < gso.boardWidth; i++){
+						if (gso.junkRows.at(gso.junkRows.size() - 1).at(i) != 0){
+							lastRowIsEmpty = false;
+						}
+					}
+
+					if (lastRowIsEmpty){ gso.junkRows.pop_back(); }
+					junkTimer.restart();
+					startJunkFromLeft = !startJunkFromLeft;
+					return true;
 				}
 			}
+		}
 
-			//this should ALWAYS be the way it returns.
-			if (numBlocks == 0){
-				//shrink_to_fit doesn't do jack.
-				//gso.junkRows.shrink_to_fit();
-				bool lastRowIsEmpty = true;
-				for (int i = 0; i < gso.boardWidth; i++){
-					if (gso.junkRows.at(gso.junkRows.size() - 1).at(i) != 0){
-						lastRowIsEmpty = false;
+	}
+
+	else{
+		//find the first zero, insert the value there, then insert the remaining starting there
+		for (int row = 0; row < gso.junkRows.size(); row++){
+			for (int col = (gso.boardWidth - 1); col > -1; col--){
+
+				if (gso.junkRows.at(row).at(col) == 0){
+
+					//put in a random square., then numBlocks--
+					gso.junkRows.at(row).at(col) = (rand() % numColors) + 1;
+					--numBlocks;
+
+					//if 3 or more blocks, check for existing matches
+					if (col < (gso.boardWidth - 2)){
+						while (AllMatch(gso.junkRows.at(row).at(col + 2), gso.junkRows.at(row).at(col + 1), gso.junkRows.at(row).at(col))){
+							gso.junkRows.at(row).at(col) = (rand() % numColors) + 1;
+						}
 					}
 				}
 
-				if (lastRowIsEmpty){ gso.junkRows.pop_back(); }
-				junkTimer.restart();
-				startJunkFromLeft = !startJunkFromLeft;
-						return true;
+				//this should ALWAYS be the way it returns.
+				if (numBlocks == 0){
+					//shrink_to_fit doesn't do jack.
+					//gso.junkRows.shrink_to_fit();
+					bool lastRowIsEmpty = true;
+					for (int i = 0; i < gso.boardWidth; i++){
+						if (gso.junkRows.at(gso.junkRows.size() - 1).at(i) != 0){
+							lastRowIsEmpty = false;
+						}
 					}
+
+					if (lastRowIsEmpty){ gso.junkRows.pop_back(); }
+					junkTimer.restart();
+					startJunkFromLeft = !startJunkFromLeft;
+					return true;
 				}
 			}
+		}
+	}
 
 
 

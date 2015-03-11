@@ -109,6 +109,11 @@ private:
 	//this is used to keep track of when to increase the number of chains: (in ClearBlocks? Wherever they get points?) if it's true, numChains++.  If it's false, = 0.
 	bool blocksFalling;
 
+	//this always stores the blocks that just landed, used to calculate chains
+	//first = row number, second = column number
+	std::vector<std::pair<int, int>> blocksJustLanded;
+	bool BlocksJustLandedContains(int rowNum, int colNum) const;
+
 	//the number of colors that will be used in the game.
 	//TA values: easy = 4, normal/hard = 5, multiplayer = 6 (gray blocks that make garbage)
 	int numColors;
