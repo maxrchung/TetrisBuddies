@@ -9,11 +9,11 @@
 NetworkedSinglePlayer::NetworkedSinglePlayer()
 	: pressed(false), pressed2(false), reset(false),
 	highScore(new TextBox("Player Score: ",
-	410.0f,
+	480.0f,
 	-380.0f,
 	600.0f)),
 	score(new TextBox("Score goes here",
-	480.0f,
+	550.0f,
 	-380.0f,
 	600.0f)),
 	username(new TextBox("Username: ",
@@ -25,16 +25,31 @@ NetworkedSinglePlayer::NetworkedSinglePlayer()
 	-380.0f,
 	600.0f)),
 	oldHighScore(new TextBox("Score to beat: ",
-	410.0f,
+	480.0f,
 	-350.0f,
 	600.0f)),
 	scoreToBeat(new TextBox("Score to beat goes here",
-	490.0f,
+	560.0f,
 	-350.0f,
+	600.0f)),
+	next(new TextBox("Next",
+	-165.0f,
+	350.0f,
+	600.0f)),
+	row(new TextBox("Row",
+	-165.0f,
+	330.0f,
+	600.0f)),
+	elapsedTime(new TextBox("01:27",
+	-10.0f,
+	-360.0f,
 	600.0f))
 
 {
 	initGame();
+	UIElements.push_back(next);
+	UIElements.push_back(row);
+	UIElements.push_back(elapsedTime);
 	UIElements.push_back(highScore);
 	UIElements.push_back(score);
 	UIElements.push_back(username);
@@ -631,6 +646,9 @@ void NetworkedSinglePlayer::draw()
 	score->message.setColor(sf::Color::Black);
 	username->message.setColor(sf::Color::Black);
 	name->message.setColor(sf::Color::Black);
+	next->message.setColor(sf::Color::Black);
+	row->message.setColor(sf::Color::Black);
+	elapsedTime->message.setColor(sf::Color::Black);
 
 	GraphicsManager::getInstance()->window.draw(miku);
 }

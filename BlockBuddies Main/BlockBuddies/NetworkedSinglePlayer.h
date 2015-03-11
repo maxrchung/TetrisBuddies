@@ -55,6 +55,10 @@ private:
 	TextBox* name;
 	TextBox* oldHighScore;
 	TextBox* scoreToBeat;
+	TextBox* next;
+	TextBox* row;
+	TextBox* elapsedTime;
+
 	sf::Sprite blockShape;
 
 
