@@ -133,6 +133,8 @@ void NetworkedSinglePlayer::initGame()
 	std::cout << "cursor pos " << ch->getMainCursor().getPosition().x << " " << ch->getMainCursor().getPosition().y << std::endl;
 	ch->setCursorAt(0, 0);
 }
+
+
 void NetworkedSinglePlayer::update()
 {
 	//delta timer
@@ -152,6 +154,8 @@ void NetworkedSinglePlayer::update()
 	int Number = (int)gso.score;
 	scoreString = static_cast<std::ostringstream*>(&(std::ostringstream() << Number))->str();
 	score->message.setString(scoreString);
+
+
 	if (reset)
 	{
 		initGame();
@@ -518,8 +522,31 @@ void NetworkedSinglePlayer::updateBlocks()
 		}
 	}
 }
+
+
+
 void NetworkedSinglePlayer::draw()
 {
+	if (!startTimer)
+	{
+		initialTime = std::clock();
+		startTimer = true;
+	}
+	else
+	{
+		elapsed = std::clock();
+		int passed = (elapsed - initialTime) / (double)CLOCKS_PER_SEC;
+		int displayMinutes = passed / 60;
+		int displaySeconds = passed % 60;
+		std::string toDisplay;
+
+		if (displaySeconds <= 9)
+			toDisplay =  std::to_string(displayMinutes) + " : " + "0" + std::to_string(displaySeconds);
+		else
+			toDisplay = std::to_string(displayMinutes) + " : " + std::to_string(displaySeconds);
+		elapsedTime->message.setString(toDisplay);
+	}
+
 	name->message.setString(ClientManager::getInstance().player.username);
 	scoreToBeat->message.setString(std::to_string(ClientManager::getInstance().player.highScore));
 	Screen::draw();

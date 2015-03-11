@@ -44,7 +44,7 @@ MultiplayerScreen::MultiplayerScreen()
  345.0f,
  600.0f)),
  nextRowIn(new TextBox("in xx seconds",
- -290.0f,
+ -275.0f,
  345.0f,
  600.0f))
 
@@ -195,10 +195,6 @@ void MultiplayerScreen::enter()
 	p2Avatar->sprite.setFrameSize(74, 104);
 	p1Avatar->sprite.playAnim("spawn");
 	p2Avatar->sprite.playAnim("spawn");
-
-	currentTime = sf::Time::Zero;
-	timePiece.restart();
-
 }
 void MultiplayerScreen::update()
 {
@@ -771,12 +767,17 @@ void MultiplayerScreen::updateBlocks()
 			}
 		}
 	}
+
+	std::string nextRowInString = "in ";
+
+	nextRowInString += std::to_string(ClientManager::getInstance().currentGSO.rowInsertionCountdown / (double)1000);
+	nextRowInString += " seconds";
+	nextRowIn->message.setString(nextRowInString);
 	
 }
 void MultiplayerScreen::draw()
 {
 
-	currentTime += timePiece.getElapsedTime();
 	//draw the Avatars
 	p1Avatar->draw(GraphicsManager::getInstance()->window);
 	p2Avatar->draw(GraphicsManager::getInstance()->window);
@@ -784,28 +785,30 @@ void MultiplayerScreen::draw()
 	//to weeb or not to weeb that is the question
 	//miku1.draw(GraphicsManager::getInstance()->window);
 	//miku2.draw(GraphicsManager::getInstance()->window);
-	std::string time;
-	float temp = 0;
-	int temp2 = 0;
-	int minutes;
-	temp = currentTime.asSeconds();
-	//Not sure why but I need to do this. 
-	temp = temp / 60;
 
-	//This is now the stored value of seconds 
-	int seconds = temp;
-	seconds = seconds / 60;
+	if (!startTimer)
+	{
+		initialTime = std::clock();
+		startTimer = true;
+	}
+	else
+	{
+		elapsed = std::clock();
+		int passed = (elapsed - initialTime) / (double)CLOCKS_PER_SEC;
+		int displayMinutes = passed / 60;
+		int displaySeconds = passed % 60;
+		std::string toDisplay;
 
-	//Mod it in order to get seconds
-	//Diviide secounds my 60 to get minutes
-	temp2 = seconds % 60;
-	minutes = seconds / 60;
+		if (displaySeconds <= 9)
+		{
+			toDisplay = std::to_string(displayMinutes) + " : " + "0" + std::to_string(displaySeconds);
+		}
+		else
+			toDisplay = std::to_string(displayMinutes) + " : " + std::to_string(displaySeconds);
 
-	time += std::to_string(minutes);
-	time += ":";
-	time += std::to_string(temp2);
+		timer->message.setString(toDisplay);
+	}
 
-	timer->message.setString(time);
 	playerOneName->message.setString(ClientManager::getInstance().player.username);
 	playerTwoName->message.setString(ClientManager::getInstance().opponentsName);
 	if (ClientManager::getInstance().currentGSO.rowInsertionPaused)
@@ -813,10 +816,12 @@ void MultiplayerScreen::draw()
 	else
 		isPaused->message.setString("");
 
-	std::string nextRowInString = "in ";
-	nextRowInString += std::to_string(ClientManager::getInstance().currentGSO.rowInsertionCountdown);
-	nextRowInString += " seconds";
-	nextRowIn->message.setString(nextRowInString);
+	if (ClientManager::getInstance().currentGSO.numClearedBlocks == 0)
+		comboCounter->message.setString("");
+	else if (ClientManager::getInstance().currentGSO.numClearedBlocks >= 3)
+	{
+		std::string toDisplay = std::to_string(ClientManager::getInstance().currentGSO.numClearedBlocks) + "x!";
+	}
 
 	Screen::draw();
 
@@ -1026,7 +1031,7 @@ void MultiplayerScreen::draw()
 	nextRowL2->message.setColor(sf::Color::Black);
 	nextRowRight->message.setColor(sf::Color::Black);
 	nextRowR2->message.setColor(sf::Color::Black);
-	//comboCounter->message.setColor(sf::Color::Black);
+	comboCounter->message.setColor(sf::Color::Black);
 	isPaused->message.setColor(sf::Color::Black);
 	nextRowIn->message.setColor(sf::Color::Black);
     

@@ -23,9 +23,9 @@ public:
 	void reload();
 	void enter();
 private:
-	bool firstRun = true;
-	sf::Clock timePiece;
-	sf::Time currentTime;
+	clock_t initialTime;
+	clock_t elapsed;
+	bool startTimer = false;
 	//Display info
 	TextBox* playerOneName;
 	TextBox* playerTwoName;

@@ -13,6 +13,9 @@
 #include <iostream>
 #include "AnimatedSprite.h"
 #include "Mascot.h"
+#include <cstdio>
+#include <ctime>
+#include <time.h>
 
 class NetworkedSinglePlayer : public Screen
 {
@@ -60,6 +63,10 @@ private:
 	TextBox* row;
 	TextBox* elapsedTime;
 
+	clock_t initialTime;
+	clock_t elapsed;
+	bool startTimer = false;
+	void startTime();
 	sf::Sprite blockShape;
 
 
