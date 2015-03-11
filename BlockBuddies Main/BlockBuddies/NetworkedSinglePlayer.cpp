@@ -57,26 +57,12 @@ NetworkedSinglePlayer::NetworkedSinglePlayer()
 	UIElements.push_back(oldHighScore);
 	UIElements.push_back(scoreToBeat);
 	swapSound.setBuffer(*SoundManager::getInstance().getSound("heya"));
-	
-	sf::Texture* animSpriteTexture = _getTexture("Textures/mikuSprite.png");
-	animSpriteTexture->setSmooth(true);
 
-	miku.setTexture(*animSpriteTexture);
-	miku.addAnim("idle", 0, 0, 20, 20, 10, true);
-	miku.setFrameSize(59, 64);
-	miku.playAnim("idle");
-	centerOrigin(miku);
-	std::function<void()> foo = [&](){ 	miku.setFrameSize(59, 64);
-	miku.playAnim("idle"); };
-	miku.addAnim("scream", 0, 235, 8, 8, 10, false,foo);
-	miku.setPosition(4 * blockSizeX, 4*blockSizeX);
-	miku.setScale(3, 3);
+	miku.miku.setPosition(blockSizeX * 2, blockSizeX * 2);
+	miku.miku.setScale(6, 6);
 }
 
-void NetworkedSinglePlayer::playThis(){
-	miku.setFrameSize(59, 64);
-	miku.playAnim("idle");
-};
+
 NetworkedSinglePlayer::~NetworkedSinglePlayer()
 {
 }
@@ -192,6 +178,7 @@ void NetworkedSinglePlayer::update()
 					AnimationManager::getInstance()->addClear(blocks[gso.clearingBlocks.at(i).first][gso.clearingBlocks.at(i).second]);
 				}
 				AnimationManager::getInstance()->setClearingAdd();
+				miku.cheer();
 			}
 
 			AnimationManager::getInstance()->clearDangerBlocks();
@@ -229,8 +216,6 @@ void NetworkedSinglePlayer::update()
 			{
 				ch->Left(sf::Keyboard::Key::Left);
 				pressed = true; // Cannot hold right to move
-				miku.setFrameSize(85, 66);
-				miku.playAnim("scream");
 			}
 
 		}
@@ -653,7 +638,7 @@ void NetworkedSinglePlayer::draw()
 	row->message.setColor(sf::Color::Black);
 	elapsedTime->message.setColor(sf::Color::Black);
 
-	GraphicsManager::getInstance()->window.draw(miku);
+	miku.draw(GraphicsManager::getInstance()->window);
 }
 
 

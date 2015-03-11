@@ -19,6 +19,7 @@
     <ClInclude Include="..\SharedCode\UserInfo.h" />
     <ClInclude Include="AnimatedSprite.h" />
     <ClInclude Include="AnimationManager.hpp" />
+    <ClInclude Include="Avatar.h" />
     <ClInclude Include="BlockHandler.hpp" />
     <ClInclude Include="BlockMeteor.hpp" />
     <ClInclude Include="BlockShowerManager.hpp" />
@@ -35,6 +36,7 @@
     <ClInclude Include="InputManager.hpp" />
     <ClInclude Include="InstructionScreen.hpp" />
     <ClInclude Include="LoginScreen.hpp" />
+    <ClInclude Include="Mascot.h" />
     <ClInclude Include="MultiplayerResultScreen.hpp" />
     <ClInclude Include="MultiplayerScreen.hpp" />
     <ClInclude Include="NetworkedSinglePlayer.h" />
@@ -65,6 +67,7 @@
     <ClCompile Include="..\SharedCode\UserInfo.cpp" />
     <ClCompile Include="AnimatedSprite.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
+    <ClCompile Include="Avatar.cpp" />
     <ClCompile Include="BlockHandler.cpp" />
     <ClCompile Include="BlockMeteor.cpp" />
     <ClCompile Include="BlockShowerManager.cpp" />
@@ -82,6 +85,7 @@
     <ClCompile Include="InstructionScreen.cpp" />
     <ClCompile Include="LoginScreen.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Mascot.cpp" />
     <ClCompile Include="MultiplayerResultScreen.cpp" />
     <ClCompile Include="MultiplayerScreen.cpp" />
     <ClCompile Include="NetworkedSinglePlayer.cpp" />

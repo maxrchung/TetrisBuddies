@@ -156,6 +156,12 @@
     <ClInclude Include="AnimatedSprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Avatar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mascot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp">
@@ -279,6 +285,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AnimatedSprite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Avatar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mascot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -12,6 +12,7 @@
 #include <tuple>
 #include <iostream>
 #include "AnimatedSprite.h"
+#include "Mascot.h"
 
 class NetworkedSinglePlayer : public Screen
 {
@@ -28,7 +29,7 @@ public:
 private:
 	std::vector <std::pair<int, int>> dangerColumns;
 	std::vector <int> dangerMark;
-	AnimatedSprite miku;
+	Mascot miku;
 	void playThis();
 	CursorHandler *ch;
 	bool pressed, pressed2;

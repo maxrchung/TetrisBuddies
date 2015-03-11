@@ -6,6 +6,7 @@
 #include "LoginScreen.hpp"
 #include "BlockShowerManager.hpp"
 #include "SoundManager.h"
+#include "MultiplayerScreen.hpp"
 QueueScreen::QueueScreen()
 	:backSection(new Section(0.0f,
                              0.0f,
@@ -67,6 +68,8 @@ void QueueScreen::update()
             fade.state = FadeStates::FADING_OUT;
             ScreenManager::getInstance()->switchScreen(Screens::MULTIPLAYER);
 			SoundManager::getInstance().playMusicRandom();
+			//there has got to be a better way to do this >.>
+			((MultiplayerScreen*)ScreenManager::getInstance()->currentScreens.front())->enter();
             BlockShowerManager::getInstance()->fade.state = FadeStates::FADING_OUT;
         }
     }

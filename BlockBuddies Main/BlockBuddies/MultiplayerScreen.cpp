@@ -50,6 +50,17 @@ MultiplayerScreen::MultiplayerScreen()
 
 {
 	initGame();
+	p1Avatar = new Avatar(sf::Vector2f(3 * blockSize + gameScreenWidth, p1Outline.getPosition().y - gameScreenHeight), true);
+	p1Avatar->sprite.scale(4, 4);
+	//same as p1 but scale is flipped
+	p2Avatar = new Avatar(sf::Vector2f(winX - (3 * blockSize) - gameScreenWidth, p1Outline.getPosition().y - gameScreenHeight), false);
+	p2Avatar->sprite.scale(-4, 4);
+	//set mascot below the avatar
+	miku1.miku.setPosition(p1Avatar->sprite.getPosition().x, p1Avatar->sprite.getPosition().y + p1Avatar->sprite.getGlobalBounds().height);
+	miku1.miku.setScale(4, 4);
+	miku2.miku.setPosition(p2Avatar->sprite.getPosition().x, p2Avatar->sprite.getPosition().y + p2Avatar->sprite.getGlobalBounds().height);
+	miku2.miku.setScale(-4, 4);
+
 	swapSound.setBuffer(*SoundManager::getInstance().getSound("heya"));
 	UIElements.push_back(playerOneName);
 	UIElements.push_back(playerTwoName);
@@ -177,6 +188,18 @@ void MultiplayerScreen::initGame()
 		p2Outline.getPosition(), gameScreenHeight, gameScreenWidth, blockSize);
 	
 }
+
+void MultiplayerScreen::enter()
+{
+	p1Avatar->sprite.setFrameSize(74, 104);
+	p2Avatar->sprite.setFrameSize(74, 104);
+	p1Avatar->sprite.playAnim("spawn");
+	p2Avatar->sprite.playAnim("spawn");
+
+	currentTime = sf::Time::Zero;
+	timePiece.restart();
+
+}
 void MultiplayerScreen::update()
 {
 	if (reset)
@@ -184,7 +207,16 @@ void MultiplayerScreen::update()
 		initGame();
 		reset = false;
 	}
+	//delta timer
+	float deltaTime = (clock.getElapsedTime() - lastFrameTime).asSeconds();
+	lastFrameTime = clock.getElapsedTime();
+	if (deltaTime >= .1){ deltaTime = .1; };
 
+	p1Avatar->update(deltaTime);
+	p2Avatar->update(deltaTime);
+
+	miku1.update(deltaTime);
+	miku2.update(deltaTime);
 	//if song runs out play rando song
 	if (SoundManager::getInstance().music.getStatus() != SoundManager::getInstance().music.Playing)
 	{
@@ -218,8 +250,33 @@ void MultiplayerScreen::update()
 					for (int i = 0; i < p1GSO.clearingBlocks.size(); i++)
 					{
 						AnimationManager::getInstance()->addClear(p1Blocks[p1GSO.clearingBlocks.at(i).first][p1GSO.clearingBlocks.at(i).second]);
+						
 					}
 					AnimationManager::getInstance()->setClearingAdd();
+
+					//shoot a haduken when we have cleared blocks
+					p1Avatar->sprite.setFrameSize(114, 104);
+					p1Avatar->sprite.playAnim("haduken");
+					miku1.cheer();
+				}
+				//if we have a chain do a super haduken
+				if (p1GSO.numChains > 2 && p1Avatar->sprite.getCurrentAnim() != "SpHaduken")
+				{
+					p1Avatar->sprite.setFrameSize(175, 104);
+					p1Avatar->sprite.playAnim("SpHaduken");
+				}
+
+				if (!p2GSO.clearingBlocks.empty())
+				{
+					p2Avatar->sprite.setFrameSize(114, 104);
+					p2Avatar->sprite.playAnim("haduken");
+					miku2.cheer();
+				}
+
+				if (p2GSO.numChains > 2 && p2Avatar->sprite.getCurrentAnim() != "SpHaduken")
+				{
+					p2Avatar->sprite.setFrameSize(175, 104);
+					p2Avatar->sprite.playAnim("SpHaduken");
 				}
 
 				AnimationManager::getInstance()->clearDangerBlocks();
@@ -259,6 +316,7 @@ void MultiplayerScreen::update()
 				ch->Left(sf::Keyboard::Key::Left);
 				ClientManager::getInstance().sendCursorUpdate(ch->getCursorX(), ch->getCursorY());
 				pressed = true; // Cannot hold right to move
+
 			}
 
 		}
@@ -305,6 +363,7 @@ void MultiplayerScreen::update()
 
 				AnimationManager::getInstance()->addSwap(p1Blocks[y][x], p1Blocks[y][x - 1]);
 				pressed2 = true;
+
 			}
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) //swaps the main block with the right block
@@ -716,21 +775,20 @@ void MultiplayerScreen::updateBlocks()
 }
 void MultiplayerScreen::draw()
 {
-	if (firstRun)
-	{
-		firstRun = false;
-		currentTime = sf::Time::Zero;
-		timePiece.restart();
-	}
-	else
-		currentTime += timePiece.getElapsedTime();
-	
+
+	currentTime += timePiece.getElapsedTime();
+	//draw the Avatars
+	p1Avatar->draw(GraphicsManager::getInstance()->window);
+	p2Avatar->draw(GraphicsManager::getInstance()->window);
+
+	//to weeb or not to weeb that is the question
+	//miku1.draw(GraphicsManager::getInstance()->window);
+	//miku2.draw(GraphicsManager::getInstance()->window);
 	std::string time;
 	float temp = 0;
 	int temp2 = 0;
 	int minutes;
-	temp = currentTime.asSeconds() ;
-
+	temp = currentTime.asSeconds();
 	//Not sure why but I need to do this. 
 	temp = temp / 60;
 

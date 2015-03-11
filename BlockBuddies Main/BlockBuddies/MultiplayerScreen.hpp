@@ -12,7 +12,8 @@
 #include "SoundManager.h"
 #include "InputManager.hpp"
 #include "TextureManager.hpp"
-
+#include "Avatar.h"
+#include "Mascot.h"
 class MultiplayerScreen : public Screen
 {
 public:
@@ -20,6 +21,7 @@ public:
 	void update();
 	void draw();
 	void reload();
+	void enter();
 private:
 	bool firstRun = true;
 	sf::Clock timePiece;
@@ -63,5 +65,14 @@ private:
 	sf::Sound swapSound;
 	const int SCREENWIDTH = 400;
 	const int SCREENHEIGHT = 500;
+
+	Avatar* p1Avatar;
+	Avatar* p2Avatar;
+
+	Mascot miku1;
+	Mascot miku2;
+
+	sf::Clock clock;
+	sf::Time lastFrameTime;
 };
 #endif//MULTIPLAYERSCREEN_HPP
