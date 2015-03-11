@@ -44,7 +44,7 @@ MultiplayerScreen::MultiplayerScreen()
  345.0f,
  600.0f)),
  nextRowIn(new TextBox("in xx seconds",
- -275.0f,
+ -315.0f,
  345.0f,
  600.0f))
 
@@ -770,7 +770,7 @@ void MultiplayerScreen::updateBlocks()
 
 	std::string nextRowInString = "in ";
 
-	nextRowInString += std::to_string(ClientManager::getInstance().currentGSO.rowInsertionCountdown / (double)1000);
+	nextRowInString += std::to_string(ClientManager::getInstance().currentGSO.rowInsertionCountdown / 1000);
 	nextRowInString += " seconds";
 	nextRowIn->message.setString(nextRowInString);
 	

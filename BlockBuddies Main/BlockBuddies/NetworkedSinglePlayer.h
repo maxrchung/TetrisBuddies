@@ -62,6 +62,8 @@ private:
 	TextBox* next;
 	TextBox* row;
 	TextBox* elapsedTime;
+	TextBox* isPaused;
+	TextBox* nextRowIn;
 
 	clock_t initialTime;
 	clock_t elapsed;

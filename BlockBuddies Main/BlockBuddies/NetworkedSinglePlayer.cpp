@@ -43,6 +43,14 @@ NetworkedSinglePlayer::NetworkedSinglePlayer()
 	elapsedTime(new TextBox("01:27",
 	-10.0f,
 	-360.0f,
+	600.0f)),
+	isPaused(new TextBox("|\|",
+	145.0f,
+	340.0f,
+	600.0f)),
+	nextRowIn(new TextBox("in xx seconds",
+	205.0f,
+	340.0f,
 	600.0f))
 
 {
@@ -56,6 +64,9 @@ NetworkedSinglePlayer::NetworkedSinglePlayer()
 	UIElements.push_back(name);
 	UIElements.push_back(oldHighScore);
 	UIElements.push_back(scoreToBeat);
+	UIElements.push_back(isPaused);
+	UIElements.push_back(nextRowIn);
+
 	swapSound.setBuffer(*SoundManager::getInstance().getSound("heya"));
 
 	miku.miku.setPosition(blockSizeX * 2, blockSizeX * 2);
@@ -347,6 +358,7 @@ void NetworkedSinglePlayer::update()
 	}
 
 	AnimationManager::getInstance()->unpauseAnimation();
+	Screen::update();
 
     if(InputManager::getInstance()->escape)
     {
@@ -354,7 +366,11 @@ void NetworkedSinglePlayer::update()
 		AnimationManager::getInstance()->pauseAnimation();
 	}
 
-    Screen::update();
+	std::string nextRowInString = "in ";
+
+	nextRowInString += std::to_string(ClientManager::getInstance().currentGSO.rowInsertionCountdown / 1000);
+	nextRowInString += " seconds";
+	nextRowIn->message.setString(nextRowInString);
 }
 void NetworkedSinglePlayer::updateBlocks()
 {
@@ -547,6 +563,11 @@ void NetworkedSinglePlayer::draw()
 		elapsedTime->message.setString(toDisplay);
 	}
 
+	if (ClientManager::getInstance().currentGSO.rowInsertionPaused)
+		isPaused->message.setString("|\|");
+	else
+		isPaused->message.setString("");
+
 	name->message.setString(ClientManager::getInstance().player.username);
 	scoreToBeat->message.setString(std::to_string(ClientManager::getInstance().player.highScore));
 	Screen::draw();
@@ -664,6 +685,8 @@ void NetworkedSinglePlayer::draw()
 	next->message.setColor(sf::Color::Black);
 	row->message.setColor(sf::Color::Black);
 	elapsedTime->message.setColor(sf::Color::Black);
+	nextRowIn->message.setColor(sf::Color::Black);
+	isPaused->message.setColor(sf::Color::Black);
 
 	miku.draw(GraphicsManager::getInstance()->window);
 }
