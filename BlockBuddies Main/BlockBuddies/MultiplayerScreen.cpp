@@ -195,6 +195,7 @@ void MultiplayerScreen::enter()
 	p2Avatar->sprite.setFrameSize(74, 104);
 	p1Avatar->sprite.playAnim("spawn");
 	p2Avatar->sprite.playAnim("spawn");
+	initialTime = std::clock();
 }
 void MultiplayerScreen::update()
 {
@@ -786,13 +787,7 @@ void MultiplayerScreen::draw()
 	//miku1.draw(GraphicsManager::getInstance()->window);
 	//miku2.draw(GraphicsManager::getInstance()->window);
 
-	if (!startTimer)
-	{
-		initialTime = std::clock();
-		startTimer = true;
-	}
-	else
-	{
+
 		elapsed = std::clock();
 		int passed = (elapsed - initialTime) / (double)CLOCKS_PER_SEC;
 		int displayMinutes = passed / 60;
@@ -807,7 +802,7 @@ void MultiplayerScreen::draw()
 			toDisplay = std::to_string(displayMinutes) + " : " + std::to_string(displaySeconds);
 
 		timer->message.setString(toDisplay);
-	}
+	
 
 	playerOneName->message.setString(ClientManager::getInstance().player.username);
 	playerTwoName->message.setString(ClientManager::getInstance().opponentsName);

@@ -695,4 +695,5 @@ void NetworkedSinglePlayer::draw()
 void NetworkedSinglePlayer::reload()
 {
     BlockShowerManager::getInstance()->fade.state = FadeStates::FADING_OUT;
+	startTimer = false;
 }
