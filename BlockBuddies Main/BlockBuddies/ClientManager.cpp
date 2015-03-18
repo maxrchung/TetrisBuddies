@@ -37,6 +37,7 @@ bool ClientManager::initConnection(sf::IpAddress IP, int portNumber)
 	}
 	isUpdated = false;
 	gameOver = false;
+	packetCount = 0;
 }
 
 void ClientManager::update()
