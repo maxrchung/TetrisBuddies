@@ -129,6 +129,9 @@ private:
 	sf::Clock totalTimeElapsedClock;
 	sf::Time totalTimeElapsed;
 
+	sf::Clock hearbeatTimer;
+	sf::Time heartbeatThreshold = sf::seconds(1);
+
 	//functions**********************************************
 	
 	

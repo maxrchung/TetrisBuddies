@@ -26,6 +26,7 @@ GameLogic::GameLogic(){
 	startJunkFromLeft = true;
 
 	totalTimeElapsedClock.restart();
+	hearbeatTimer.restart();
 }
 
 void GameLogic::delayStart()
@@ -152,6 +153,7 @@ void GameLogic::InitialBoardPopulation(){
 
 	PopulateTempRow();
 	newRowClock.reset(true);
+	hearbeatTimer.restart();
 }
 
 
@@ -231,7 +233,23 @@ bool GameLogic::ApplyGravity(){
 
 	blocksFalling = false;
 	//clear the blocksJustLanded list
+
+	//for debugging:
+	//if (!blocksJustLanded.empty()){
+	//	std::cout << " Contents of BlocksJustLanded: ";
+	//	for (auto i : blocksJustLanded){
+	//		std::cout << "(" << i.first << "," << i.second << ") ";
+	//	}
+	//	std::cout << std::endl;
+	//}
+
 	blocksJustLanded.clear();
+
+	//bad rpogramming here:
+	bool thisColumnLanded[8];
+	for (int i = 0; i < 8; i++){
+		thisColumnLanded[i] = false;
+	}
 
 	//for every piece on the board, starting at row 1
 	for (int rowNum = 1; rowNum < gso.boardHeight; rowNum++){
@@ -239,7 +257,6 @@ bool GameLogic::ApplyGravity(){
 
 
 			int currentBlockRow = rowNum;
-
 
 			//if the current block exists and has nothing directly below it, and the row below it is in bounds (as in, not trying to insert into row -1)
 			//And if it's not in destroyedBlocks
@@ -256,8 +273,9 @@ bool GameLogic::ApplyGravity(){
 				gso.gameBoard[currentBlockRow][colNum] = 0;
 
 				//if the block just landed (if it's on row 0, or the thing below where it is now isn't 0), add it to the blocksJustLanded list
-				if ( ((currentBlockRow - 1) == 0) || (gso.gameBoard[ currentBlockRow - 2][colNum] != 0) ){
+				if ( ((currentBlockRow - 1) == 0) || (gso.gameBoard[ currentBlockRow - 2][colNum] != 0) && !thisColumnLanded[colNum]){
 					blocksJustLanded.push_back(std::make_pair(currentBlockRow - 1, colNum));
+					thisColumnLanded[colNum] = true;
 				}
 			}
 
@@ -436,7 +454,7 @@ bool GameLogic::CheckBlockForMatches(int rowNum, int colNum){
 			//for every block in BMFD
 			for (auto i : blocksMarkedForDeletion){
 				//if in blocksJustLanded && !chainFound
-				if (BlocksJustLandedContains(i.first, i.second) && !chainFound){
+				if (BlocksJustLandedContains(i.first, i.second)){
 					gso.numChains++;
 					chainFound = true;
 
@@ -651,6 +669,17 @@ void GameLogic::GameTick(){
 	//temporary:
 	//sf::Clock gameTickTimer;
 	//gameTickTimer.restart();
+
+
+	//if this is true, put the game state as a message to the client
+	bool gameStateChanged = false;
+
+
+	if (hearbeatTimer.getElapsedTime() > heartbeatThreshold){
+		gameStateChanged = true;
+		hearbeatTimer.restart();
+	}
+
 	totalTimeElapsed = totalTimeElapsedClock.getElapsedTime();
 	gso.timestamp = totalTimeElapsed.asMilliseconds();
 
@@ -668,8 +697,6 @@ void GameLogic::GameTick(){
 
 	gso.rowInsertionCountdown = remainingRowInsertionTime.asMilliseconds();
 
-	//if this is true, put the game state as a message to the client
-	bool gameStateChanged = false;
 
 	//end temp variables
 
@@ -741,13 +768,13 @@ void GameLogic::GameTick(){
 	//possible packets to send: new GameState, start game, game over
 	//startGame and GameOver are sent by ProcessMessage
 
-	if (blocksToSend > 0){
-	std::cout << "Blocks to send: " << blocksToSend << std::endl;
-	}
+	//if (blocksToSend > 0){
+	//std::cout << "Blocks to send: " << blocksToSend << std::endl;
+	//}
 
-	if (blocksReceived > 0){
-		std::cout << "Blocks received: " << blocksReceived << std::endl;
-	}
+	//if (blocksReceived > 0){
+	//	std::cout << "Blocks received: " << blocksReceived << std::endl;
+	//}
 
 
 	blocksReceived = 0;
