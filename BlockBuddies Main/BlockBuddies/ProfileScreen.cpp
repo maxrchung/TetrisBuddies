@@ -44,7 +44,7 @@ ProfileScreen::ProfileScreen()
 						250.0f,
 						Alignments::LEFT)),
 
-	highscoreTag(new TextBox("High score:",
+	highscoreTag(new TextBox("1P High score:",
 						 -100.0f,
 						 0.0f - 12.5f,
 						 250.0f,
@@ -56,7 +56,7 @@ ProfileScreen::ProfileScreen()
 						 250.0f,
 						 Alignments::LEFT)),
 
-	gamesplayedTag(new TextBox("Games played: ",
+	gamesplayedTag(new TextBox("2P Games played: ",
 						 -100.0f,
 						 50.0f - 12.5f,
 						 250.0f,
@@ -68,7 +68,7 @@ ProfileScreen::ProfileScreen()
 						 250.0f,
 						 Alignments::LEFT)),
 
-	gameswonTag(new TextBox("Games Won: ",
+	gameswonTag(new TextBox("2P Games Won: ",
 						 -100.0f,
 						 100.0f - 12.5f,
 						 250.0f,
@@ -80,7 +80,7 @@ ProfileScreen::ProfileScreen()
 						 250.0f,
 						 Alignments::LEFT)),
 
-	winpercentageTag(new TextBox("Win percentage: ",
+	winpercentageTag(new TextBox("PvP Win percentage: ",
 						 -100.0f,
 						 150.0f - 12.5f,
 						 250.0f,

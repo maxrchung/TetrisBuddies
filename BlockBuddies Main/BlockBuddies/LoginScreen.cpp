@@ -221,7 +221,7 @@ void LoginScreen::update()
 				if (sound.getStatus() != sound.Playing)
 					sound.play();
 
-                ScreenManager::getInstance()->addScreen(Screens::NOTIFICATION, "Bad input credentials. The username password combination may be wrong, or the account may already be logged in.");
+                ScreenManager::getInstance()->addScreen(Screens::NOTIFICATION, "Bad input credentials. The username password combination may be wrong, the account may already be logged in, or you are not connected to the server, check the IP.txt.");
             }
         }
     }

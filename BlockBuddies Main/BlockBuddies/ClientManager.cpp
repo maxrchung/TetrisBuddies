@@ -44,7 +44,7 @@ void ClientManager::update()
 {
     // No point in continuing further if you're not connected
     // with the server
-    if(!isConnected)
+	if (!isConnected)
         return;
 
     if(!receivedPackets.empty())
@@ -277,7 +277,21 @@ bool ClientManager::registerUser(std::string username, std::string password)
     Game::getInstance()->startLoadingThread();
 
     // Block until a packet is in the queue
-    while(receivedPackets.empty()) {}
+    while(receivedPackets.empty()) {
+		//blocking causes infinte loop if received packet never comes
+		// Disconnects if no response from server
+		if (receiveAliveTimer.getElapsedTime().asSeconds() > receiveAliveLimit)
+		{
+			std::cout << "No response from server, disconnecting" << std::endl;
+
+			ScreenManager::getInstance()->switchScreen(Screens::LOGIN);
+			BlockShowerManager::getInstance()->fade.state = FadeStates::FADING_IN;
+			ScreenManager::getInstance()->addScreen(Screens::NOTIFICATION, "The game lost connection with the server. The server may be down or your connection may have dropped. Check to see if server is still up or your IP.txt file contains the servers IP");
+
+			ClientManager::getInstance().closeConnection();
+			return false;
+		}
+	}
 
     Game::getInstance()->stopLoadingThread();
 

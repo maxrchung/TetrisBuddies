@@ -3,12 +3,59 @@
 //opens the database
 bool DatabaseManager::open()
 {
-	if (sqlite3_open(dbname.c_str(), &database) == SQLITE_OK)
+	//Opens an existing database or else throws error
+	if (sqlite3_open_v2(dbname.c_str(), &database,SQLITE_OPEN_READWRITE,NULL) == SQLITE_OK)
 	{
 		std::cout << "database accessed" << std::endl;
 		return true;
 	}
-	return false;
+	else{
+		std::cout << "database does not exist" << std::endl;
+		//create a new database
+		if (sqlite3_open(dbname.c_str(), &database) == SQLITE_OK)
+		{
+			char *zErrMsg = 0; // error message
+			sqlite3_stmt *stmt; //statement
+			sqlite3_stmt *stmt2;
+			const char *pzTest;
+			char *szSQL1; // actual raw sql
+			char *szSQL2; // actual raw sql
+			szSQL1 = "CREATE TABLE user(username varchar(45) not null primary key, password varchar(45) not null, highscore int, gamesplayed int, gameswon int default 0);";
+			szSQL2 = "CREATE TABLE friends (username varchar(45),friend varchar(45),FOREIGN KEY (username) references user(username), foreign key(friend) references user(username), primary key(username,friend));";
+			int rc = sqlite3_prepare_v2(database, szSQL1, strlen(szSQL1), &stmt, &pzTest);
+			if (rc == SQLITE_OK)
+			{
+				//execute statement;
+				int result = sqlite3_step(stmt);
+				sqlite3_finalize(stmt);
+				std::cout << "Made user table" << std::endl;
+			}
+			else
+			{
+				std::cout << "couldn't make table" << std::endl;
+				return false;
+			}
+
+			rc = sqlite3_prepare_v2(database, szSQL2, strlen(szSQL2), &stmt2, &pzTest);
+			if (rc == SQLITE_OK)
+			{
+				//execute statement;
+				int result = sqlite3_step(stmt2);
+				sqlite3_finalize(stmt2);
+				std::cout << "Made friends table" << std::endl;
+			}
+			else
+			{
+				std::cout << "couldn't make table" << std::endl;
+				return false;
+			}
+			return true;
+			close();
+
+		}
+		return false;
+	}
+
 }
 //closes database
 void DatabaseManager::close()
